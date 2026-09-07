@@ -20,4 +20,6 @@ DEFAULTS = {
     'risk_min_buffer': 1000,
     'risk_buffer_fraction': 0.1,
     'continuity_completion': 1.0,  # >1 favours finishing the job underfoot.
+    'planned_feedback': False,  # Issue #7: re-score crops as plantings commit.
+    'fertilize': True,  # Issue #6: emit FERTILIZE when it pays for itself.
 }

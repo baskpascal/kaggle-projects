@@ -1,0 +1,623 @@
+{
+  "expA_planned": {
+    "params": {
+      "planned_feedback": true
+    },
+    "overall": {
+      "score": {
+        "mean": -0.24875,
+        "ci95": [
+          -0.25,
+          -0.24625
+        ]
+      },
+      "money": {
+        "mean": -2842.71,
+        "ci95": [
+          -3537.7828125,
+          -2122.810000000001
+        ]
+      },
+      "margin": {
+        "mean": -5678.8825,
+        "ci95": [
+          -6434.79153125,
+          -4911.0498125
+        ]
+      },
+      "unsold_items": {
+        "mean": 0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "fertilize_per_game": 0.0,
+    "sales": {
+      "baseline": {
+        "MELON": {
+          "per_unit": 192.42499741227616,
+          "units_per_game": 120.7625
+        },
+        "STRAWBERRY": {
+          "per_unit": 239.58830667837447,
+          "units_per_game": 126.69625
+        },
+        "CARROT": {
+          "per_unit": 66.35521885521885,
+          "units_per_game": 17.0775
+        },
+        "WHEAT": {
+          "per_unit": 44.4750374251497,
+          "units_per_game": 33.4
+        },
+        "TOMATO": {
+          "per_unit": 172.97617538968444,
+          "units_per_game": 9.86375
+        }
+      },
+      "candidate": {
+        "MELON": {
+          "per_unit": 192.08045765749208,
+          "units_per_game": 108.815
+        },
+        "STRAWBERRY": {
+          "per_unit": 238.5923217358459,
+          "units_per_game": 119.135
+        },
+        "WHEAT": {
+          "per_unit": 44.06418026884302,
+          "units_per_game": 41.66
+        },
+        "TOMATO": {
+          "per_unit": 182.6829552065154,
+          "units_per_game": 8.595
+        },
+        "CARROT": {
+          "per_unit": 67.82040255629218,
+          "units_per_game": 20.92875
+        }
+      }
+    },
+    "per_opponent": {
+      "starter": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 969.455,
+          "ci95": [
+            237.45175000000003,
+            1715.265374999999
+          ]
+        },
+        "margin": {
+          "mean": 970.91,
+          "ci95": [
+            243.15262500000003,
+            1715.6424999999995
+          ]
+        },
+        "unsold_items": {
+          "mean": 0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "opponents/frozen/crop/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 784.28,
+          "ci95": [
+            -199.320875,
+            1683.5241249999995
+          ]
+        },
+        "margin": {
+          "mean": 655.335,
+          "ci95": [
+            -458.337625,
+            1700.7835
+          ]
+        },
+        "unsold_items": {
+          "mean": 0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "opponents/frozen/animal/main.py": {
+        "score": {
+          "mean": -0.995,
+          "ci95": [
+            -1.0,
+            -0.985
+          ]
+        },
+        "money": {
+          "mean": -15768.49,
+          "ci95": [
+            -17691.467,
+            -13848.433250000002
+          ]
+        },
+        "margin": {
+          "mean": -27366.015,
+          "ci95": [
+            -28434.040500000003,
+            -26344.80525
+          ]
+        },
+        "unsold_items": {
+          "mean": 0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "opponents/public/cok_v10/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 2643.915,
+          "ci95": [
+            1252.222375,
+            4039.687499999998
+          ]
+        },
+        "margin": {
+          "mean": 3024.24,
+          "ci95": [
+            436.72087500000004,
+            5783.207749999998
+          ]
+        },
+        "unsold_items": {
+          "mean": 0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  },
+  "expB_fertilize": {
+    "params": {
+      "fertilize": true
+    },
+    "overall": {
+      "score": {
+        "mean": 0.00125,
+        "ci95": [
+          0.0,
+          0.00375
+        ]
+      },
+      "money": {
+        "mean": 1268.29,
+        "ci95": [
+          941.658125,
+          1610.7970937499997
+        ]
+      },
+      "margin": {
+        "mean": 1559.33125,
+        "ci95": [
+          985.33765625,
+          2112.7871562499995
+        ]
+      },
+      "unsold_items": {
+        "mean": 2.675,
+        "ci95": [
+          2.54875,
+          2.79625
+        ]
+      }
+    },
+    "fertilize_per_game": 15.7,
+    "sales": {
+      "baseline": {
+        "MELON": {
+          "per_unit": 192.42499741227616,
+          "units_per_game": 120.7625
+        },
+        "STRAWBERRY": {
+          "per_unit": 239.58830667837447,
+          "units_per_game": 126.69625
+        },
+        "CARROT": {
+          "per_unit": 66.35521885521885,
+          "units_per_game": 17.0775
+        },
+        "WHEAT": {
+          "per_unit": 44.4750374251497,
+          "units_per_game": 33.4
+        },
+        "TOMATO": {
+          "per_unit": 172.97617538968444,
+          "units_per_game": 9.86375
+        }
+      },
+      "candidate": {
+        "MELON": {
+          "per_unit": 192.3327745527168,
+          "units_per_game": 120.79875
+        },
+        "FERTILIZER": {
+          "per_unit": 89.46382259704153,
+          "units_per_game": 997.22125
+        },
+        "STRAWBERRY": {
+          "per_unit": 236.66985174163244,
+          "units_per_game": 139.4525
+        },
+        "CARROT": {
+          "per_unit": 64.80808291597106,
+          "units_per_game": 17.97
+        },
+        "WHEAT": {
+          "per_unit": 44.077640214797135,
+          "units_per_game": 33.52
+        },
+        "TOMATO": {
+          "per_unit": 184.23030600958583,
+          "units_per_game": 10.17125
+        }
+      }
+    },
+    "per_opponent": {
+      "starter": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 1256.35,
+          "ci95": [
+            715.717125,
+            1816.5399999999995
+          ]
+        },
+        "margin": {
+          "mean": 1256.57,
+          "ci95": [
+            713.55225,
+            1815.8842499999996
+          ]
+        },
+        "unsold_items": {
+          "mean": 3.395,
+          "ci95": [
+            3.18,
+            3.595
+          ]
+        }
+      },
+      "opponents/frozen/crop/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 1030.635,
+          "ci95": [
+            487.63075000000003,
+            1651.829375
+          ]
+        },
+        "margin": {
+          "mean": 1024.01,
+          "ci95": [
+            453.96675,
+            1664.6827499999997
+          ]
+        },
+        "unsold_items": {
+          "mean": 3.43,
+          "ci95": [
+            3.22,
+            3.615
+          ]
+        }
+      },
+      "opponents/frozen/animal/main.py": {
+        "score": {
+          "mean": 0.005,
+          "ci95": [
+            0.0,
+            0.015
+          ]
+        },
+        "money": {
+          "mean": 1522.96,
+          "ci95": [
+            1329.878875,
+            1723.3067499999997
+          ]
+        },
+        "margin": {
+          "mean": 1731.145,
+          "ci95": [
+            1542.578125,
+            1927.22
+          ]
+        },
+        "unsold_items": {
+          "mean": 1.735,
+          "ci95": [
+            1.505,
+            1.9851249999999983
+          ]
+        }
+      },
+      "opponents/public/cok_v10/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 1263.215,
+          "ci95": [
+            314.215625,
+            2179.673499999999
+          ]
+        },
+        "margin": {
+          "mean": 2225.6,
+          "ci95": [
+            203.10475,
+            4155.936
+          ]
+        },
+        "unsold_items": {
+          "mean": 2.14,
+          "ci95": [
+            1.83,
+            2.435
+          ]
+        }
+      }
+    }
+  },
+  "expAB_stack": {
+    "params": {
+      "planned_feedback": true,
+      "fertilize": true
+    },
+    "overall": {
+      "score": {
+        "mean": -0.24625,
+        "ci95": [
+          -0.25,
+          -0.24125
+        ]
+      },
+      "money": {
+        "mean": -1177.24625,
+        "ci95": [
+          -1951.3721249999999,
+          -368.22543750000034
+        ]
+      },
+      "margin": {
+        "mean": -4453.91625,
+        "ci95": [
+          -5211.72903125,
+          -3638.1805625000034
+        ]
+      },
+      "unsold_items": {
+        "mean": 2.16625,
+        "ci95": [
+          2.035,
+          2.29375
+        ]
+      }
+    },
+    "fertilize_per_game": 17.14375,
+    "sales": {
+      "baseline": {
+        "MELON": {
+          "per_unit": 192.42499741227616,
+          "units_per_game": 120.7625
+        },
+        "STRAWBERRY": {
+          "per_unit": 239.58830667837447,
+          "units_per_game": 126.69625
+        },
+        "CARROT": {
+          "per_unit": 66.35521885521885,
+          "units_per_game": 17.0775
+        },
+        "WHEAT": {
+          "per_unit": 44.4750374251497,
+          "units_per_game": 33.4
+        },
+        "TOMATO": {
+          "per_unit": 172.97617538968444,
+          "units_per_game": 9.86375
+        }
+      },
+      "candidate": {
+        "MELON": {
+          "per_unit": 192.42227749565296,
+          "units_per_game": 108.55125
+        },
+        "FERTILIZER": {
+          "per_unit": 89.23619208922757,
+          "units_per_game": 1064.245
+        },
+        "STRAWBERRY": {
+          "per_unit": 236.268995495579,
+          "units_per_game": 134.8675
+        },
+        "WHEAT": {
+          "per_unit": 44.070211667527104,
+          "units_per_game": 36.31875
+        },
+        "CARROT": {
+          "per_unit": 68.78881795078411,
+          "units_per_game": 20.16625
+        },
+        "TOMATO": {
+          "per_unit": 182.94199001152515,
+          "units_per_game": 9.76125
+        }
+      }
+    },
+    "per_opponent": {
+      "starter": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 2451.71,
+          "ci95": [
+            1646.563875,
+            3259.1788749999996
+          ]
+        },
+        "margin": {
+          "mean": 2455.105,
+          "ci95": [
+            1647.4215000000002,
+            3260.993624999999
+          ]
+        },
+        "unsold_items": {
+          "mean": 2.395,
+          "ci95": [
+            2.155,
+            2.635
+          ]
+        }
+      },
+      "opponents/frozen/crop/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 2390.21,
+          "ci95": [
+            1429.112875,
+            3325.986624999998
+          ]
+        },
+        "margin": {
+          "mean": 2253.315,
+          "ci95": [
+            1149.4341250000002,
+            3310.2458749999996
+          ]
+        },
+        "unsold_items": {
+          "mean": 2.35,
+          "ci95": [
+            2.075,
+            2.615
+          ]
+        }
+      },
+      "opponents/frozen/animal/main.py": {
+        "score": {
+          "mean": -0.985,
+          "ci95": [
+            -1.0,
+            -0.965
+          ]
+        },
+        "money": {
+          "mean": -12911.45,
+          "ci95": [
+            -14902.3745,
+            -10842.841875000002
+          ]
+        },
+        "margin": {
+          "mean": -24251.665,
+          "ci95": [
+            -25267.037625,
+            -23226.887
+          ]
+        },
+        "unsold_items": {
+          "mean": 1.29,
+          "ci95": [
+            1.06,
+            1.515
+          ]
+        }
+      },
+      "opponents/public/cok_v10/main.py": {
+        "score": {
+          "mean": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "money": {
+          "mean": 3360.545,
+          "ci95": [
+            1798.8132500000002,
+            4988.782624999998
+          ]
+        },
+        "margin": {
+          "mean": 1727.58,
+          "ci95": [
+            -977.6003750000001,
+            4427.128624999998
+          ]
+        },
+        "unsold_items": {
+          "mean": 2.63,
+          "ci95": [
+            2.315,
+            2.94
+          ]
+        }
+      }
+    }
+  }
+}

@@ -84,7 +84,8 @@ def daily_demand(state, item):
     return rate
 
 
-def crop_scores(state, params, planned=None):
+def crop_context(state, params):
+    """Per-crop inputs that do not depend on what we are about to plant."""
     counts = {c: 0 for c in CROPS}
     for _, _, tile in state.tiles():
         if isinstance(tile, dict) and tile.get('crop') in counts:
@@ -93,22 +94,86 @@ def crop_scores(state, params, planned=None):
     for _, _, tile in state.tiles(opponent=True):
         if isinstance(tile, dict) and tile.get('crop') in opponent:
             opponent[tile['crop']] += 1
+    held = {crop: state.private['shed'].get(crop, 0)
+            + sum(bag.get(crop, 0) for bag in state.private['inventories'])
+            for crop in CROPS}
+    return {'counts': counts, 'opponent': opponent, 'held': held,
+            'inventory': state.obs['market']['inventory'],
+            'demand': {c: (daily_demand(state, c) if params['adaptive'] else 1) for c in CROPS},
+            'days_left': state.days_left,
+            'market_params': state.config.get('marketParams')}
+
+
+def score_crops(context, params, planned=None):
+    """Marginal value per occupied tile-day, given the plantings already committed.
+
+    Split out of crop_scores so the planner can re-score cheaply after each tile
+    it commits, without rescanning both farms every time.
+    """
     scores = {}
     for crop, (seed, first, peak, quantity, occupancy) in CROPS.items():
-        if state.days_left < first + 1:
+        if context['days_left'] < first + 1:
             continue
         if params.get('only_crop') and crop != params['only_crop']:
             continue
-        own = counts[crop] + (planned or {}).get(crop, 0)
-        other = opponent[crop] * params['opponent_weight']
-        demand = daily_demand(state, crop) if params['adaptive'] else 1
-        inv = state.obs['market']['inventory'][crop]
+        own = context['counts'][crop] + (planned or {}).get(crop, 0)
+        other = context['opponent'][crop] * params['opponent_weight']
         # With delayed sales, our unsold harvest is future supply too. Ignoring it
         # makes holding look like new demand and triggers more overproduction.
-        held = state.private['shed'].get(crop, 0) + sum(
-            bag.get(crop, 0) for bag in state.private['inventories'])
-        forecast = inv + held + (own + other) * quantity - demand * min(peak, state.days_left)
-        revenue = sale_value(crop, quantity, forecast, state.config.get('marketParams'))
+        forecast = (context['inventory'][crop] + context['held'][crop]
+                    + (own + other) * quantity
+                    - context['demand'][crop] * min(peak, context['days_left']))
+        revenue = sale_value(crop, quantity, forecast, context['market_params'])
         # Approximate occupied-tile cost includes daily watering, planting, harvest, travel.
         scores[crop] = (revenue - seed) / (occupancy + params['travel_cost'])
     return scores
+
+
+def crop_scores(state, params, planned=None):
+    return score_crops(crop_context(state, params), params, planned)
+
+
+# Official yield rules, mirrored from the interpreter and pinned by tests:
+# one-time crops gain +1 per watered day inside [ceil(max_yield_day/2), max_yield_day],
+# doubled to +2 while fertilized; ongoing crops produce on a fixed schedule and
+# yield 2 instead of 1 when watered and fertilized. FERTILIZE covers day..day+2.
+WINDOW = {'WHEAT': (2, 4, 6), 'CARROT': (2, 3, 4), 'MELON': (6, 12, 6)}
+SCHEDULE = {'TOMATO': (8, 1, 4), 'STRAWBERRY': (10, 2, 4)}
+
+
+def fertilizer_units(state, tile):
+    """Extra harvestable units gained by fertilizing this plant right now."""
+    crop, day = tile['crop'], state.day
+    covered = tile.get('fertilized_until_day', -1)
+    # FERTILIZE raises coverage to day+2; days at or below `covered` already have it.
+    fresh = [d for d in range(day, day + 3) if d > covered and d <= day + state.days_left]
+    if not fresh:
+        return 0
+    held = tile.get('yield_units', 0)
+    if crop in WINDOW:
+        start, last, cap = WINDOW[crop]
+        planted = tile['planted_day']
+        remaining = [d for d in range(day, day + 1 + int(state.days_left))
+                     if start <= d - planted <= last]
+        boosted = [d for d in fresh if start <= d - planted <= last]
+        return min(cap, held + len(remaining) + len(boosted)) - min(cap, held + len(remaining))
+    first, interval, most = SCHEDULE[crop]
+    planted = tile['planted_day']
+    produces = [d for d in fresh
+                if (d - planted - first) >= 0 and (d - planted - first) % interval == 0
+                and (d - planted - first) // interval < most]
+    return min(len(produces), max(0, most - held))
+
+
+def fertilizer_value(state, tile, prices, market_inventory):
+    """Net value of one FERTILIZE: extra produce at forecast prices, less the
+    fertilizer we give up selling. Negative means it is not worth the unit."""
+    units = fertilizer_units(state, tile)
+    if not units:
+        return 0.
+    crop = tile['crop']
+    held = state.private['shed'].get(crop, 0) + sum(
+        bag.get(crop, 0) for bag in state.private['inventories'])
+    gain = sale_value(crop, units, market_inventory[crop] + held,
+                      state.config.get('marketParams'))
+    return gain - prices['FERTILIZER']

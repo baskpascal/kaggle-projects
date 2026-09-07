@@ -1,4 +1,5 @@
-from .economy import ANIMALS, CROPS, crop_scores, price
+from .economy import (ANIMALS, CROPS, crop_context, fertilizer_value, price,
+                      score_crops)
 from .params import DEFAULTS
 from .market import projected_shed, sale_orders
 from .routing import distance, move_towards, nearest_shed, shed_tiles
@@ -15,7 +16,8 @@ def policy(observation, configuration=None, parameters=None):
     inventories = s.private['inventories']
     shed = dict(s.private['shed'])
     seeds = dict(s.private['seeds'])
-    scores = crop_scores(s, p)
+    context = crop_context(s, p)
+    scores = score_crops(context, p)
     best_crop = max(scores, key=scores.get) if scores else None
     animals = [(x, y, t) for x, y, t in tiles if isinstance(t, dict) and 'animal' in t]
     structures = [(x, y, t) for x, y, t in tiles if isinstance(t, dict)
@@ -25,6 +27,7 @@ def policy(observation, configuration=None, parameters=None):
     want_animals = p['animal_target'] if s.days_left > 10 else len(animals)
     jobs = []
     plantable = []
+    fertilize_targets = 0
     for x, y, t in tiles:
         pos = (x, y)
         if t is None:
@@ -53,6 +56,14 @@ def policy(observation, configuration=None, parameters=None):
             elif needs_water and s.turns_left > s.turns_per_day - s.hour:
                 urgent = t['consecutive_unwatered'] >= 1
                 jobs.append((pos, ['WATER'], 65 + 75 * urgent + s.hour * 3, None))
+            if p['fertilize']:
+                # Compete economically like any other job: the extra produce is
+                # priced at the forecast inventory and charged the fertilizer we
+                # give up selling, so a losing application never gets queued.
+                net = fertilizer_value(s, t, prices, observation['market']['inventory'])
+                if net > 0:
+                    fertilize_targets += 1
+                    jobs.append((pos, ['FERTILIZE'], 40 + net * .3, 'FERTILIZER'))
         elif 'animal' in t:
             if not t['fed_today'] and s.days_left > 1:
                 jobs.append((pos, ['FEED'], 160 + 50 * t['consecutive_unfed'], 'WHEAT'))
@@ -69,12 +80,21 @@ def policy(observation, configuration=None, parameters=None):
     # Structure target allocation and crop tasks prefer land near the shed.
     plantable.sort(key=lambda pos: (distance(pos, nearest_shed(pos, s.size)), pos))
     to_build = max(0, want_animals - len(structures))
+    planned = {}
     for pos in plantable:
         if to_build and s.hour < 15:
             jobs.append((pos, ['BUILD_' + structure], 65., None))
             to_build -= 1
-        elif best_crop and scores[best_crop] > 0 and s.hour < p['plant_until_hour']:
-            jobs.append((pos, ['PLANT', best_crop], 20 + min(40, scores[best_crop]), None))
+        elif s.hour < p['plant_until_hour']:
+            # Re-score after every tile we commit: without this the planner rates
+            # the second, third and fourth planting of a crop as if the earlier
+            # ones did not exist. This corrects the marginal forecast; it does not
+            # force variety, so a crop that stays best keeps being chosen.
+            current = score_crops(context, p, planned) if p['planned_feedback'] else scores
+            crop = max(current, key=current.get) if current else None
+            if crop and current[crop] > 0:
+                jobs.append((pos, ['PLANT', crop], 20 + min(40, current[crop]), None))
+                planned[crop] = planned.get(crop, 0) + 1
 
     used = set()
     unit_actions = []
@@ -142,7 +162,9 @@ def policy(observation, configuration=None, parameters=None):
 
     cash = s.me['money']
     reserve_wheat = len(animals) * 2 if s.days_left > 1 else 0
-    orders = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat)
+    keep_fertilizer = fertilize_targets if p['fertilize'] and s.days_left > 1 else 0
+    orders = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat,
+                         keep_fertilizer)
     limit = s.config.get('maxMarketOrdersPerTurn', 10)
     effective_reserve = 0 if risk == 'behind' else p['cash_reserve']
     def buy(order, cost):
@@ -162,10 +184,26 @@ def policy(observation, configuration=None, parameters=None):
             if n >= s.me['hires_today']:
                 buy(['HIRE'], cost)
             a, b = b, a + b
-    if best_crop and risk != 'ahead':
-        needed = max(0, min(12, len(plantable)) - seeds.get(best_crop, 0))
-        if needed:
-            buy(['BUY_SEED', best_crop, needed], needed * CROPS[best_crop][0])
+    if risk != 'ahead':
+        # Buy seed for the mix we actually planned; otherwise the planner commits
+        # to tiles it has no seed for and the PLANT jobs are filtered out again.
+        wanted = planned if p['planned_feedback'] else (
+            {best_crop: min(12, len(plantable))} if best_crop else {})
+        budget = min(12, len(plantable))
+        for crop, count in sorted(wanted.items(), key=lambda kv: -kv[1]):
+            count = min(count, budget)
+            needed = max(0, count - seeds.get(crop, 0))
+            if needed and buy(['BUY_SEED', crop, needed], needed * CROPS[crop][0]):
+                budget -= count
+    if fertilize_targets:
+        stock = s.private['shed'].get('FERTILIZER', 0) + sum(
+            i.get('FERTILIZER', 0) for i in inventories)
+        count = min(fertilize_targets - stock, 4)
+        if count > 0:
+            inv = observation['market']['inventory']['FERTILIZER']
+            cost = sum(price('FERTILIZER', inv - k - 1, s.config.get('marketParams'))
+                       for k in range(count))
+            buy(['BUY_PRODUCT', 'FERTILIZER', count], cost)
     supply_animals = sum(i.get(animal_type, 0) for i in inventories) + s.private['shed'].get(animal_type, 0)
     if len(animals) + supply_animals < want_animals:
         buy(['BUY_ANIMAL', animal_type, 1], animal_cost)

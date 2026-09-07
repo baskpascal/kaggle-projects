@@ -4,10 +4,13 @@ import math
 from .economy import CURVES, daily_demand, price, sale_value
 
 
-def sale_orders(state, params, shed, reserve_wheat=0):
+def sale_orders(state, params, shed, reserve_wheat=0, reserve_fertilizer=0):
     limit = state.config.get('maxMarketOrdersPerTurn', 10)
     overrides = state.config.get('marketParams')
-    available = {item: max(0, amount - (reserve_wheat if item == 'WHEAT' else 0))
+    # Hold back stock a unit is already walking to the shed for. Without this the
+    # fertilizer is sold before the unit arrives and the FERTILIZE no-ops.
+    reserved = {'WHEAT': reserve_wheat, 'FERTILIZER': reserve_fertilizer}
+    available = {item: max(0, amount - reserved.get(item, 0))
                  for item, amount in shed.items() if item in CURVES and amount > 0}
     counts = {}
     for item, amount in available.items():
