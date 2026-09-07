@@ -32,6 +32,14 @@ def summarize(rows, samples=5000):
     runtimes = [t for r in rows for t in r['runtime_ms']]
     n = len(rows)
     per_opponent = {}
+    sales = {}
+    for row in rows:
+        for item, values in row.get('sales', {}).items():
+            total = sales.setdefault(item, {'units': 0, 'revenue': 0})
+            total['units'] += values['units']
+            total['revenue'] += values['revenue']
+    for values in sales.values():
+        values['revenue_per_unit'] = values['revenue'] / values['units'] if values['units'] else None
     for opponent in sorted({r['opponent'] for r in rows}):
         subset = [r for r in rows if r['opponent'] == opponent]
         per_opponent[opponent] = {
@@ -53,6 +61,8 @@ def summarize(rows, samples=5000):
         'no_effect_actions': sum(r['audit'].get('no_effect_actions', 0) for r in rows),
         'unit_actions': sum(r['audit'].get('unit_actions', 0) for r in rows),
         'unsold_items_mean': statistics.mean(r['unsold_items'] for r in rows),
+        'overflow_items': sum(r['audit'].get('overflow_items', 0) for r in rows),
+        'sales': sales,
         'runtime_ms': {name: quantile(runtimes, q) for name, q in
                        [('p50', .5), ('p95', .95), ('p99', .99), ('max', 1.)]},
         'per_opponent': per_opponent,

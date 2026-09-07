@@ -1,0 +1,25 @@
+{
+  "sha256": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+  "parameters": {
+    "max_hands": 8,
+    "cash_reserve": 250,
+    "travel_cost": 3.0,
+    "opponent_weight": 0.8,
+    "adaptive": false,
+    "only_crop": "CARROT",
+    "max_quadrants": 1,
+    "expand_day": 7,
+    "animal_target": 0,
+    "animal_type": "GOOSE",
+    "water_daily": true,
+    "plant_until_hour": 18,
+    "sell_fraction": 1.0
+  },
+  "source_hashes": {
+    "params": "2f2590c3022afbe002f96fd725f5b56613341ddef3b3697e11007a582e005694",
+    "state": "b9e805207cb8bacced314b009f6b85da70d8344dfc09932ecf5e0d577db58435",
+    "economy": "6ca7c909726f62f4d677ce819e441d82ed4fee21762291791c55b134a1deadbc",
+    "routing": "9faddf839eb98e896117fcc2d9d4319494071fcaddbb497ce10d3ee37dff9e60",
+    "planner": "de927ab066d095f785833effeca3d9601bf51250fd4a4e1de31d44e3f1d380fc"
+  }
+}

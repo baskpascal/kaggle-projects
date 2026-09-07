@@ -1,0 +1,253 @@
+{
+  "games_per_agent": 400,
+  "seed_blocks": 100,
+  "paired_deltas": {
+    "score": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "money": {
+      "mean": 905.4175,
+      "ci95": [
+        -104.52831249999997,
+        1936.9882499999999
+      ]
+    },
+    "margin": {
+      "mean": -1677.8,
+      "ci95": [
+        -3290.3225,
+        -133.39118750000034
+      ]
+    },
+    "unsold_items": {
+      "mean": 0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "premium_sales": {
+    "MELON": {
+      "baseline": {
+        "units": 50292,
+        "revenue": 8759287,
+        "revenue_per_unit": 174.16859540284736
+      },
+      "candidate": {
+        "units": 45485,
+        "revenue": 8669211,
+        "revenue_per_unit": 190.59494338793007
+      },
+      "delta_per_unit": 16.426347985082714,
+      "delta_per_unit_ci95": [
+        15.05376091007489,
+        17.692926609297977
+      ]
+    },
+    "WOOL": {
+      "baseline": {
+        "units": 47754,
+        "revenue": 7408018,
+        "revenue_per_unit": 155.12874314193576
+      },
+      "candidate": {
+        "units": 46356,
+        "revenue": 7217153,
+        "revenue_per_unit": 155.68972732763828
+      },
+      "delta_per_unit": 0.5609841857025231,
+      "delta_per_unit_ci95": [
+        -7.294648332027598,
+        8.482089891373302
+      ]
+    },
+    "STRAWBERRY": {
+      "baseline": {
+        "units": 38711,
+        "revenue": 8684009,
+        "revenue_per_unit": 224.32923458448502
+      },
+      "candidate": {
+        "units": 41614,
+        "revenue": 9368309,
+        "revenue_per_unit": 225.1239727014947
+      },
+      "delta_per_unit": 0.7947381170096719,
+      "delta_per_unit_ci95": [
+        -4.52283612240745,
+        5.913691681824202
+      ]
+    }
+  },
+  "baseline": {
+    "games": 400,
+    "seed_blocks": 100,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -12448.6175,
+    "median_margin": 8369.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 2348877,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 41238,
+        "revenue": 3079520,
+        "revenue_per_unit": 74.67675444977932
+      },
+      "MELON": {
+        "units": 50292,
+        "revenue": 8759287,
+        "revenue_per_unit": 174.16859540284736
+      },
+      "WOOL": {
+        "units": 47754,
+        "revenue": 7408018,
+        "revenue_per_unit": 155.12874314193576
+      },
+      "STRAWBERRY": {
+        "units": 38711,
+        "revenue": 8684009,
+        "revenue_per_unit": 224.32923458448502
+      },
+      "WHEAT": {
+        "units": 18284,
+        "revenue": 877874,
+        "revenue_per_unit": 48.01323561583899
+      },
+      "TOMATO": {
+        "units": 3179,
+        "revenue": 553372,
+        "revenue_per_unit": 174.07109153821958
+      },
+      "CARROT": {
+        "units": 8108,
+        "revenue": 609742,
+        "revenue_per_unit": 75.20251603354711
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.28415100132406224,
+      "p95": 0.9909396014336362,
+      "p99": 8.312004840809097,
+      "max": 573.4653339986835
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -95032.77
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 70135.535
+      }
+    }
+  },
+  "candidate": {
+    "games": 400,
+    "seed_blocks": 100,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -14126.4175,
+    "median_margin": 15997.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 2347193,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 40578,
+        "revenue": 3042023,
+        "revenue_per_unit": 74.96729755039676
+      },
+      "MELON": {
+        "units": 45485,
+        "revenue": 8669211,
+        "revenue_per_unit": 190.59494338793007
+      },
+      "WOOL": {
+        "units": 46356,
+        "revenue": 7217153,
+        "revenue_per_unit": 155.68972732763828
+      },
+      "STRAWBERRY": {
+        "units": 41614,
+        "revenue": 9368309,
+        "revenue_per_unit": 225.1239727014947
+      },
+      "WHEAT": {
+        "units": 12007,
+        "revenue": 582435,
+        "revenue_per_unit": 48.50795369367869
+      },
+      "TOMATO": {
+        "units": 2744,
+        "revenue": 714432,
+        "revenue_per_unit": 260.3615160349854
+      },
+      "CARROT": {
+        "units": 7491,
+        "revenue": 690536,
+        "revenue_per_unit": 92.1820851688693
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.28602100064745173,
+      "p95": 0.8711348492397515,
+      "p99": 5.456504520152535,
+      "max": 120.8825590001652
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -98194.065
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 69941.23
+      }
+    }
+  }
+}

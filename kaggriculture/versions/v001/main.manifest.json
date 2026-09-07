@@ -1,0 +1,30 @@
+{
+  "sha256": "ef31ae632865df5374309cee907dbd1109374ef42f7d1a2946b12f3bafbdabbf",
+  "parameters": {
+    "max_hands": 8,
+    "cash_reserve": 250,
+    "travel_cost": 3.0,
+    "opponent_weight": 0.8,
+    "adaptive": true,
+    "only_crop": null,
+    "max_quadrants": 2,
+    "expand_day": 7,
+    "animal_target": 0,
+    "animal_type": "GOOSE",
+    "water_daily": true,
+    "plant_until_hour": 18,
+    "sell_fraction": 1.0,
+    "adaptive_sales": true,
+    "sale_floor_fraction": 0.85,
+    "sale_recovery_fraction": 0.98,
+    "shed_buffer": 20
+  },
+  "source_hashes": {
+    "params": "b401d22adb7a558bd7486943620c28b4594a57f61d3c1dbcc58e2f59e92f451e",
+    "state": "b9e805207cb8bacced314b009f6b85da70d8344dfc09932ecf5e0d577db58435",
+    "economy": "04bc757c857101098f560315424f58555cf7622f199b9aa4e75a0243d194a1cc",
+    "routing": "9faddf839eb98e896117fcc2d9d4319494071fcaddbb497ce10d3ee37dff9e60",
+    "market": "5353227722ccf0883a157e9b73064feafed7cbb9377d99075c6f37355b00a0b4",
+    "planner": "bd190a950ccb1c145fdb6d2a84cdbf2529681785dd5f223826ad1e16d69ddc11"
+  }
+}

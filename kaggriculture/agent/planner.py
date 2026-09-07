@@ -1,5 +1,6 @@
 from .economy import ANIMALS, CROPS, crop_scores, price
 from .params import DEFAULTS
+from .market import projected_shed, sale_orders
 from .routing import distance, move_towards, nearest_shed, shed_tiles
 from .state import State
 
@@ -130,19 +131,9 @@ def policy(observation, configuration=None, parameters=None):
                 planned_crops[action[1]] = planned_crops.get(action[1], 0) + 1
         unit_actions.append(result)
 
-    orders = []
     cash = s.me['money']
     reserve_wheat = len(animals) * 2 if s.days_left > 1 else 0
-    # Sell first: cash raised is available to subsequent orders, not unit actions.
-    for item, amount in s.private['shed'].items():
-        if item not in prices:
-            continue
-        amount -= reserve_wheat if item == 'WHEAT' else 0
-        amount = max(0, amount)
-        if amount:
-            count = amount if s.days_left < 2 else max(1, int(amount * p['sell_fraction']))
-            orders.append(['SELL', item, count])
-            # Deliberately do not spend anticipated sale proceeds in this callback.
+    orders = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat)
     limit = s.config.get('maxMarketOrdersPerTurn', 10)
     def buy(order, cost):
         nonlocal cash

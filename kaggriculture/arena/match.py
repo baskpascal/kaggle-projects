@@ -35,18 +35,42 @@ class Audit:
     def __init__(self, module):
         self.module = module
         self.original = module._apply_unit_action
+        self.original_commit = module._commit_unit
+        self.original_drop = module._drop_inventories_to_shed
         self.counts = [Counter(), Counter()]
+        self.sales = [{}, {}]
+        self.privates = {}
         self.player = -1
+
+    def commit(self, op, item, price, farm, private, market, *args, **kwargs):
+        ok = self.original_commit(op, item, price, farm, private, market, *args, **kwargs)
+        if ok and op == 'SELL':
+            player = self.privates[id(private)]
+            row = self.sales[player].setdefault(item, {'units': 0, 'revenue': 0})
+            row['units'] += 1
+            row['revenue'] += price
+        return ok
+
+    def drop(self, private, capacity):
+        before = sum(private['shed'].values()) + sum(sum(i.values()) for i in private['inventories'])
+        self.original_drop(private, capacity)
+        lost = before - sum(private['shed'].values())
+        self.counts[self.privates[id(private)]]['overflow_items'] += lost
 
     def apply(self, farm, private, idx, action, *args, **kwargs):
         if idx == 0:
             self.player += 1
+            self.privates[id(private)] = self.player
         counters = self.counts[self.player]
         op = action[0] if isinstance(action, list) and action else 'MALFORMED'
         counters['unit_actions'] += 1
         counters['op_' + op] += 1
         before = snapshot(farm, private, idx) if op != 'PASS' else None
+        total = sum(private['shed'].values()) + sum(sum(i.values()) for i in private['inventories'])
         self.original(farm, private, idx, action, *args, **kwargs)
+        if op == 'DROP':
+            after = sum(private['shed'].values()) + sum(sum(i.values()) for i in private['inventories'])
+            counters['overflow_items'] += total - after
         if op != 'PASS' and before == snapshot(farm, private, idx):
             counters['no_effect_actions'] += 1
             counters['no_effect_' + op] += 1
@@ -78,6 +102,8 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
     audit = Audit(module)
     transcript = []
     module._apply_unit_action = audit.apply
+    module._commit_unit = audit.commit
+    module._drop_inventories_to_shed = audit.drop
     try:
         steps = 0
         while not env.done:
@@ -116,6 +142,8 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
         money = [float(f['money']) for f in env.state[0].observation.farms]
     finally:
         module._apply_unit_action = audit.original
+        module._commit_unit = audit.original_commit
+        module._drop_inventories_to_shed = audit.original_drop
     other = 1 - seat
     if failures[seat] or failures[other]:
         score = .5 if failures[seat] and failures[other] else float(not failures[seat])
@@ -131,6 +159,7 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
         'configuration': {**cfg, 'seed': seed}, 'environment': fingerprint(),
         'failures': failures[seat], 'opponent_failures': failures[other],
         'audit': dict(audit.counts[seat]), 'opponent_audit': dict(audit.counts[other]),
+        'sales': audit.sales[seat], 'opponent_sales': audit.sales[other],
         'runtime_ms': timings[seat], 'unsold_items': leftover[seat],
         'wall_seconds': time.perf_counter() - start,
     }

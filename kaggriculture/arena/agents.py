@@ -11,6 +11,8 @@ VARIANTS = {
 
 
 def load_agent(name, seed=0):
+    if name == 'champion':
+        return load_agent(str(ROOT / 'versions/v000/main.py'), seed)
     if name in ('starter', 'pass'):
         from .engine import official
         return official().agents[name]
@@ -30,7 +32,7 @@ def load_agent(name, seed=0):
                 market.append(['BUY_SEED', 'CARROT', 1])
             return {'farmer': rng.choice(choices), 'hands': [], 'market': market[:10]}
         return random_agent
-    if name in VARIANTS or name in ('champion', 'challenger'):
+    if name in VARIANTS or name == 'challenger':
         from agent.planner import policy
         params = VARIANTS.get(name, {})
         def variant(obs, config=None):
@@ -53,6 +55,8 @@ def invoke(function, observation, configuration):
 
 
 def agent_hash(name):
+    if name == 'champion':
+        return agent_hash(str(ROOT / 'versions/v000/main.py'))
     path = Path(name)
     if path.is_file():
         return hashlib.sha256(path.read_bytes()).hexdigest()

@@ -8,7 +8,7 @@ import io
 import gzip
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULES = ['params', 'state', 'economy', 'routing', 'planner']
+MODULES = ['params', 'state', 'economy', 'routing', 'market', 'planner']
 
 
 def build(output, parameters=None):

@@ -1,0 +1,1978 @@
+{
+  "issue3-baseline-dev": {
+    "metadata": {
+      "candidate": "opponents/frozen/baseline/main.py",
+      "candidate_hash": "0cebdb7cad8329de02bf92c0ad11cf2fe84285db69c4549d92c19b86ef8d2bda",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:01:19.439050+00:00",
+      "wall_seconds": 24.69175934499981
+    },
+    "games": 80,
+    "seed_blocks": 10,
+    "win_rate": 0.75,
+    "draw_rate": 0.0,
+    "loss_rate": 0.25,
+    "score_rate": 0.75,
+    "score_ci95": [
+      0.75,
+      0.75
+    ],
+    "mean_margin": -658.8875,
+    "median_margin": 20856.5,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 420843,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 10301,
+        "revenue": 1909903,
+        "revenue_per_unit": 185.40947480827103
+      },
+      "STRAWBERRY": {
+        "units": 10064,
+        "revenue": 2301223,
+        "revenue_per_unit": 228.65888314785374
+      },
+      "CARROT": {
+        "units": 1174,
+        "revenue": 70883,
+        "revenue_per_unit": 60.377342419080065
+      },
+      "WHEAT": {
+        "units": 3112,
+        "revenue": 134349,
+        "revenue_per_unit": 43.17127249357326
+      },
+      "TOMATO": {
+        "units": 413,
+        "revenue": 55733,
+        "revenue_per_unit": 134.94673123486683
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.21990500044921646,
+      "p95": 0.5905895997784679,
+      "p99": 3.605481070171659,
+      "max": 21.008460000302875
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 7626.3
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 42888.9
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 20,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -106247.3
+      },
+      "starter": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 53096.55
+      }
+    }
+  },
+  "issue3-candidate-dev3": {
+    "metadata": {
+      "candidate": "challenger",
+      "candidate_hash": "d46fbc2a789346cd3ea07e249fd31c0fe07d3cbe72644dc3094e41f452b82e61",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:04:21.769768+00:00",
+      "wall_seconds": 24.79449522699906
+    },
+    "games": 80,
+    "seed_blocks": 10,
+    "win_rate": 0.75,
+    "draw_rate": 0.0,
+    "loss_rate": 0.25,
+    "score_rate": 0.75,
+    "score_ci95": [
+      0.75,
+      0.75
+    ],
+    "mean_margin": -240.4,
+    "median_margin": 22664.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 420791,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 9683,
+        "revenue": 1861952,
+        "revenue_per_unit": 192.29081896106578
+      },
+      "STRAWBERRY": {
+        "units": 10450,
+        "revenue": 2496100,
+        "revenue_per_unit": 238.86124401913875
+      },
+      "CARROT": {
+        "units": 1249,
+        "revenue": 78499,
+        "revenue_per_unit": 62.849479583666934
+      },
+      "WHEAT": {
+        "units": 2405,
+        "revenue": 106418,
+        "revenue_per_unit": 44.24864864864865
+      },
+      "TOMATO": {
+        "units": 501,
+        "revenue": 76454,
+        "revenue_per_unit": 152.60279441117765
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.23791049989085877,
+      "p95": 0.6274246486100309,
+      "p99": 3.743342959260185,
+      "max": 15.455135999218328
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 10572.75
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 43759.85
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 20,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -109692.75
+      },
+      "starter": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 54398.55
+      }
+    }
+  },
+  "issue3-baseline-validation": {
+    "metadata": {
+      "candidate": "opponents/frozen/baseline/main.py",
+      "candidate_hash": "0cebdb7cad8329de02bf92c0ad11cf2fe84285db69c4549d92c19b86ef8d2bda",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:12:12.947012+00:00",
+      "wall_seconds": 362.2296759260007
+    },
+    "games": 800,
+    "seed_blocks": 100,
+    "win_rate": 0.74625,
+    "draw_rate": 0.0,
+    "loss_rate": 0.25375,
+    "score_rate": 0.74625,
+    "score_ci95": [
+      0.74125,
+      0.75
+    ],
+    "mean_margin": -1486.9725,
+    "median_margin": 15570.5,
+    "failures": 1,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 4203051,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 102190,
+        "revenue": 18969468,
+        "revenue_per_unit": 185.6293962227224
+      },
+      "STRAWBERRY": {
+        "units": 100375,
+        "revenue": 23257115,
+        "revenue_per_unit": 231.70226650062267
+      },
+      "WHEAT": {
+        "units": 27501,
+        "revenue": 1202778,
+        "revenue_per_unit": 43.73579142576634
+      },
+      "TOMATO": {
+        "units": 6666,
+        "revenue": 869835,
+        "revenue_per_unit": 130.48829882988298
+      },
+      "CARROT": {
+        "units": 11684,
+        "revenue": 790087,
+        "revenue_per_unit": 67.62127695994522
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.2591180000308668,
+      "p95": 0.8918229514165411,
+      "p99": 8.278704489566763,
+      "max": 1101.9080149999354
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 200,
+        "score_rate": 0.99,
+        "score_ci95": [
+          0.975,
+          1.0
+        ],
+        "mean_margin": 6689.39
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 45454.22
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -110259.165
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 0.995,
+        "score_ci95": [
+          0.985,
+          1.0
+        ],
+        "mean_margin": 52167.665
+      }
+    }
+  },
+  "issue3-candidate-validation": {
+    "metadata": {
+      "candidate": "versions/v001/main.py",
+      "candidate_hash": "ef31ae632865df5374309cee907dbd1109374ef42f7d1a2946b12f3bafbdabbf",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:12:13.285780+00:00",
+      "wall_seconds": 363.6474940749995
+    },
+    "games": 800,
+    "seed_blocks": 100,
+    "win_rate": 0.74875,
+    "draw_rate": 0.0,
+    "loss_rate": 0.25125,
+    "score_rate": 0.74875,
+    "score_ci95": [
+      0.74625,
+      0.75
+    ],
+    "mean_margin": 150.30625,
+    "median_margin": 20397.0,
+    "failures": 1,
+    "opponent_failures": 1,
+    "no_effect_actions": 0,
+    "unit_actions": 4195613,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 96235,
+        "revenue": 18540969,
+        "revenue_per_unit": 192.6634696316309
+      },
+      "STRAWBERRY": {
+        "units": 103019,
+        "revenue": 24866741,
+        "revenue_per_unit": 241.38014346868053
+      },
+      "WHEAT": {
+        "units": 25497,
+        "revenue": 1127744,
+        "revenue_per_unit": 44.230458485312
+      },
+      "TOMATO": {
+        "units": 7504,
+        "revenue": 1457260,
+        "revenue_per_unit": 194.19776119402985
+      },
+      "CARROT": {
+        "units": 10872,
+        "revenue": 827342,
+        "revenue_per_unit": 76.09841795437822
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.2844539994839579,
+      "p95": 1.0399287502877996,
+      "p99": 8.827562950318628,
+      "max": 1291.9169340002554
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 10099.745
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 47137.54
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -111186.645
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 0.995,
+        "score_ci95": [
+          0.985,
+          1.0
+        ],
+        "mean_margin": 54550.585
+      }
+    }
+  },
+  "issue3-baseline-validation-rerun": {
+    "metadata": {
+      "candidate": "opponents/frozen/baseline/main.py",
+      "candidate_hash": "0cebdb7cad8329de02bf92c0ad11cf2fe84285db69c4549d92c19b86ef8d2bda",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:12:12.947012+00:00",
+      "wall_seconds": 362.2296759260007,
+      "original_report": "experiments/results/issue3-baseline-validation",
+      "paired_timeout_reruns": [
+        {
+          "seed": 100018,
+          "seat": 1,
+          "opponent": "starter",
+          "original_failures": [],
+          "original_opponent_failures": [],
+          "original_max_ms": 10.951321999527863
+        },
+        {
+          "seed": 100086,
+          "seat": 1,
+          "opponent": "starter",
+          "original_failures": [
+            {
+              "step": 2,
+              "kind": "TimeoutError",
+              "message": "Local callback deadline exceeded"
+            }
+          ],
+          "original_opponent_failures": [],
+          "original_max_ms": 1101.9080149999354
+        },
+        {
+          "seed": 100087,
+          "seat": 1,
+          "opponent": "opponents/frozen/animal/main.py",
+          "original_failures": [],
+          "original_opponent_failures": [],
+          "original_max_ms": 11.322513999402872
+        }
+      ],
+      "retry_workers": 1
+    },
+    "games": 800,
+    "seed_blocks": 100,
+    "win_rate": 0.7475,
+    "draw_rate": 0.0,
+    "loss_rate": 0.2525,
+    "score_rate": 0.7475,
+    "score_ci95": [
+      0.74375,
+      0.75
+    ],
+    "mean_margin": -1415.655,
+    "median_margin": 20643.5,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 4208355,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 102331,
+        "revenue": 18999083,
+        "revenue_per_unit": 185.66302488981833
+      },
+      "STRAWBERRY": {
+        "units": 100501,
+        "revenue": 23293110,
+        "revenue_per_unit": 231.7699326374862
+      },
+      "WHEAT": {
+        "units": 27521,
+        "revenue": 1203686,
+        "revenue_per_unit": 43.737000835725446
+      },
+      "TOMATO": {
+        "units": 6666,
+        "revenue": 869835,
+        "revenue_per_unit": 130.48829882988298
+      },
+      "CARROT": {
+        "units": 11684,
+        "revenue": 790087,
+        "revenue_per_unit": 67.62127695994522
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.25891200039040996,
+      "p95": 0.8878174492565443,
+      "p99": 8.23235002970251,
+      "max": 792.691164999269
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 200,
+        "score_rate": 0.99,
+        "score_ci95": [
+          0.975,
+          1.0
+        ],
+        "mean_margin": 6689.39
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 45454.22
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -110259.165
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 52452.935
+      }
+    }
+  },
+  "issue3-candidate-validation-rerun": {
+    "metadata": {
+      "candidate": "versions/v001/main.py",
+      "candidate_hash": "ef31ae632865df5374309cee907dbd1109374ef42f7d1a2946b12f3bafbdabbf",
+      "opponents": [
+        "starter",
+        "opponents/frozen/crop/main.py",
+        "opponents/frozen/animal/main.py",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/frozen/crop/main.py": "3418e7945435c4b6ea2ad664c5e5314026e6aab131e9f48886a4d780d438811a",
+        "opponents/frozen/animal/main.py": "e85dc29846ac17f9ac7d1c25a5ca2c219a6ea6bf7f1e8aa7a0b656b24071d5f8",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:12:13.285780+00:00",
+      "wall_seconds": 363.6474940749995,
+      "original_report": "experiments/results/issue3-candidate-validation",
+      "paired_timeout_reruns": [
+        {
+          "seed": 100018,
+          "seat": 1,
+          "opponent": "starter",
+          "original_failures": [
+            {
+              "step": 2,
+              "kind": "TimeoutError",
+              "message": "Local callback deadline exceeded"
+            }
+          ],
+          "original_opponent_failures": [],
+          "original_max_ms": 1291.9169340002554
+        },
+        {
+          "seed": 100086,
+          "seat": 1,
+          "opponent": "starter",
+          "original_failures": [],
+          "original_opponent_failures": [],
+          "original_max_ms": 10.740988000179641
+        },
+        {
+          "seed": 100087,
+          "seat": 1,
+          "opponent": "opponents/frozen/animal/main.py",
+          "original_failures": [],
+          "original_opponent_failures": [
+            {
+              "step": 0,
+              "kind": "TimeoutError",
+              "message": "Local callback deadline exceeded"
+            }
+          ],
+          "original_max_ms": 8.943436998379184
+        }
+      ],
+      "retry_workers": 1
+    },
+    "games": 800,
+    "seed_blocks": 100,
+    "win_rate": 0.75,
+    "draw_rate": 0.0,
+    "loss_rate": 0.25,
+    "score_rate": 0.75,
+    "score_ci95": [
+      0.75,
+      0.75
+    ],
+    "mean_margin": 231.62,
+    "median_margin": 23189.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 4206919,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 96484,
+        "revenue": 18589777,
+        "revenue_per_unit": 192.67212180257866
+      },
+      "STRAWBERRY": {
+        "units": 103290,
+        "revenue": 24932366,
+        "revenue_per_unit": 241.38218607803273
+      },
+      "WHEAT": {
+        "units": 25526,
+        "revenue": 1128950,
+        "revenue_per_unit": 44.227454360260126
+      },
+      "TOMATO": {
+        "units": 7529,
+        "revenue": 1459470,
+        "revenue_per_unit": 193.84646035330056
+      },
+      "CARROT": {
+        "units": 10910,
+        "revenue": 832812,
+        "revenue_per_unit": 76.33473877176903
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.2842794992830022,
+      "p95": 1.0367611511355732,
+      "p99": 8.816260199582759,
+      "max": 891.8521290015633
+    },
+    "per_opponent": {
+      "opponents/frozen/animal/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 10149.44
+      },
+      "opponents/frozen/crop/main.py": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 47137.54
+      },
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -111186.645
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 54826.145
+      }
+    }
+  },
+  "issue3-diversified-baseline-dev": {
+    "metadata": {
+      "candidate": "opponents/frozen/baseline/main.py",
+      "candidate_hash": "0cebdb7cad8329de02bf92c0ad11cf2fe84285db69c4549d92c19b86ef8d2bda",
+      "opponents": [
+        "opponents/frozen/diversified/main.py"
+      ],
+      "opponent_hashes": {
+        "opponents/frozen/diversified/main.py": "6ca250a71ce5ed1a38c6953bce5c8e07e9c4303577d847ba76fd7b12ff7bca39"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:08:53.111771+00:00",
+      "wall_seconds": 18.837993043000097
+    },
+    "games": 20,
+    "seed_blocks": 10,
+    "win_rate": 0.45,
+    "draw_rate": 0.0,
+    "loss_rate": 0.55,
+    "score_rate": 0.45,
+    "score_ci95": [
+      0.15,
+      0.75
+    ],
+    "mean_margin": -361.05,
+    "median_margin": -734.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 118658,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 1920,
+        "revenue": 293660,
+        "revenue_per_unit": 152.94791666666666
+      },
+      "WHEAT": {
+        "units": 556,
+        "revenue": 20197,
+        "revenue_per_unit": 36.32553956834533
+      },
+      "CARROT": {
+        "units": 64,
+        "revenue": 3095,
+        "revenue_per_unit": 48.359375
+      },
+      "TOMATO": {
+        "units": 255,
+        "revenue": 19569,
+        "revenue_per_unit": 76.74117647058823
+      },
+      "STRAWBERRY": {
+        "units": 3255,
+        "revenue": 770280,
+        "revenue_per_unit": 236.6451612903226
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.25756000013643643,
+      "p95": 0.8454251501461827,
+      "p99": 6.347172549631059,
+      "max": 16.689443998984643
+    },
+    "per_opponent": {
+      "opponents/frozen/diversified/main.py": {
+        "games": 20,
+        "score_rate": 0.45,
+        "score_ci95": [
+          0.15,
+          0.75
+        ],
+        "mean_margin": -361.05
+      }
+    }
+  },
+  "issue3-diversified-current-dev": {
+    "metadata": {
+      "candidate": "versions/v001/main.py",
+      "candidate_hash": "ef31ae632865df5374309cee907dbd1109374ef42f7d1a2946b12f3bafbdabbf",
+      "opponents": [
+        "opponents/frozen/diversified/main.py"
+      ],
+      "opponent_hashes": {
+        "opponents/frozen/diversified/main.py": "6ca250a71ce5ed1a38c6953bce5c8e07e9c4303577d847ba76fd7b12ff7bca39"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:08:33.904563+00:00",
+      "wall_seconds": 19.443153307000102
+    },
+    "games": 20,
+    "seed_blocks": 10,
+    "win_rate": 0.55,
+    "draw_rate": 0.0,
+    "loss_rate": 0.45,
+    "score_rate": 0.55,
+    "score_ci95": [
+      0.25,
+      0.85
+    ],
+    "mean_margin": -371.55,
+    "median_margin": 2293.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 118817,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "MELON": {
+        "units": 1920,
+        "revenue": 296912,
+        "revenue_per_unit": 154.64166666666668
+      },
+      "WHEAT": {
+        "units": 315,
+        "revenue": 12524,
+        "revenue_per_unit": 39.75873015873016
+      },
+      "TOMATO": {
+        "units": 282,
+        "revenue": 23638,
+        "revenue_per_unit": 83.822695035461
+      },
+      "STRAWBERRY": {
+        "units": 3463,
+        "revenue": 788590,
+        "revenue_per_unit": 227.71874097603234
+      },
+      "CARROT": {
+        "units": 45,
+        "revenue": 2325,
+        "revenue_per_unit": 51.666666666666664
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.28817499878641684,
+      "p95": 1.0369808001087197,
+      "p99": 7.370666179594971,
+      "max": 11.64452300145058
+    },
+    "per_opponent": {
+      "opponents/frozen/diversified/main.py": {
+        "games": 20,
+        "score_rate": 0.55,
+        "score_ci95": [
+          0.25,
+          0.85
+        ],
+        "mean_margin": -371.55
+      }
+    }
+  },
+  "issue3-sheep-baseline-validation": {
+    "metadata": {
+      "candidate": "experiments/searches/sheep-baseline/main.py",
+      "candidate_hash": "5af91ca91534e59030d14a47102eb5e8dfc04c1657b083e44250cdb068fbfed5",
+      "opponents": [
+        "starter",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:19:47.360327+00:00",
+      "wall_seconds": 177.6050529339991
+    },
+    "games": 400,
+    "seed_blocks": 100,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -12448.6175,
+    "median_margin": 8369.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 2348877,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 41238,
+        "revenue": 3079520,
+        "revenue_per_unit": 74.67675444977932
+      },
+      "MELON": {
+        "units": 50292,
+        "revenue": 8759287,
+        "revenue_per_unit": 174.16859540284736
+      },
+      "WOOL": {
+        "units": 47754,
+        "revenue": 7408018,
+        "revenue_per_unit": 155.12874314193576
+      },
+      "STRAWBERRY": {
+        "units": 38711,
+        "revenue": 8684009,
+        "revenue_per_unit": 224.32923458448502
+      },
+      "WHEAT": {
+        "units": 18284,
+        "revenue": 877874,
+        "revenue_per_unit": 48.01323561583899
+      },
+      "TOMATO": {
+        "units": 3179,
+        "revenue": 553372,
+        "revenue_per_unit": 174.07109153821958
+      },
+      "CARROT": {
+        "units": 8108,
+        "revenue": 609742,
+        "revenue_per_unit": 75.20251603354711
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.28415100132406224,
+      "p95": 0.9909396014336362,
+      "p99": 8.312004840809097,
+      "max": 573.4653339986835
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -95032.77
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 70135.535
+      }
+    }
+  },
+  "issue3-sheep-final-validation": {
+    "metadata": {
+      "candidate": "experiments/searches/sheep-final/main.py",
+      "candidate_hash": "0ee6e0e81f46c874a96d578b501f794b4cd9d82e59c60987773d45dbaba537fc",
+      "opponents": [
+        "starter",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "validation",
+      "seeds": [
+        100000,
+        100001,
+        100002,
+        100003,
+        100004,
+        100005,
+        100006,
+        100007,
+        100008,
+        100009,
+        100010,
+        100011,
+        100012,
+        100013,
+        100014,
+        100015,
+        100016,
+        100017,
+        100018,
+        100019,
+        100020,
+        100021,
+        100022,
+        100023,
+        100024,
+        100025,
+        100026,
+        100027,
+        100028,
+        100029,
+        100030,
+        100031,
+        100032,
+        100033,
+        100034,
+        100035,
+        100036,
+        100037,
+        100038,
+        100039,
+        100040,
+        100041,
+        100042,
+        100043,
+        100044,
+        100045,
+        100046,
+        100047,
+        100048,
+        100049,
+        100050,
+        100051,
+        100052,
+        100053,
+        100054,
+        100055,
+        100056,
+        100057,
+        100058,
+        100059,
+        100060,
+        100061,
+        100062,
+        100063,
+        100064,
+        100065,
+        100066,
+        100067,
+        100068,
+        100069,
+        100070,
+        100071,
+        100072,
+        100073,
+        100074,
+        100075,
+        100076,
+        100077,
+        100078,
+        100079,
+        100080,
+        100081,
+        100082,
+        100083,
+        100084,
+        100085,
+        100086,
+        100087,
+        100088,
+        100089,
+        100090,
+        100091,
+        100092,
+        100093,
+        100094,
+        100095,
+        100096,
+        100097,
+        100098,
+        100099
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:16:31.495610+00:00",
+      "wall_seconds": 140.43359058500027
+    },
+    "games": 400,
+    "seed_blocks": 100,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -14126.4175,
+    "median_margin": 15997.0,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 2347193,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 40578,
+        "revenue": 3042023,
+        "revenue_per_unit": 74.96729755039676
+      },
+      "MELON": {
+        "units": 45485,
+        "revenue": 8669211,
+        "revenue_per_unit": 190.59494338793007
+      },
+      "WOOL": {
+        "units": 46356,
+        "revenue": 7217153,
+        "revenue_per_unit": 155.68972732763828
+      },
+      "STRAWBERRY": {
+        "units": 41614,
+        "revenue": 9368309,
+        "revenue_per_unit": 225.1239727014947
+      },
+      "WHEAT": {
+        "units": 12007,
+        "revenue": 582435,
+        "revenue_per_unit": 48.50795369367869
+      },
+      "TOMATO": {
+        "units": 2744,
+        "revenue": 714432,
+        "revenue_per_unit": 260.3615160349854
+      },
+      "CARROT": {
+        "units": 7491,
+        "revenue": 690536,
+        "revenue_per_unit": 92.1820851688693
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.28602100064745173,
+      "p95": 0.8711348492397515,
+      "p99": 5.456504520152535,
+      "max": 120.8825590001652
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 200,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -98194.065
+      },
+      "starter": {
+        "games": 200,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 69941.23
+      }
+    }
+  },
+  "issue3-sheep-baseline-dev": {
+    "metadata": {
+      "candidate": "experiments/searches/sheep-baseline/main.py",
+      "candidate_hash": "5af91ca91534e59030d14a47102eb5e8dfc04c1657b083e44250cdb068fbfed5",
+      "opponents": [
+        "starter",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:07:26.761983+00:00",
+      "wall_seconds": 55.35681467700124
+    },
+    "games": 40,
+    "seed_blocks": 10,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -1050.0,
+    "median_margin": 26580.5,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 234679,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 4160,
+        "revenue": 311613,
+        "revenue_per_unit": 74.90697115384616
+      },
+      "MELON": {
+        "units": 5192,
+        "revenue": 888062,
+        "revenue_per_unit": 171.04429892141758
+      },
+      "WOOL": {
+        "units": 4768,
+        "revenue": 797647,
+        "revenue_per_unit": 167.2917365771812
+      },
+      "CARROT": {
+        "units": 2165,
+        "revenue": 196939,
+        "revenue_per_unit": 90.964896073903
+      },
+      "STRAWBERRY": {
+        "units": 3564,
+        "revenue": 799377,
+        "revenue_per_unit": 224.29208754208753
+      },
+      "WHEAT": {
+        "units": 1801,
+        "revenue": 85162,
+        "revenue_per_unit": 47.2859522487507
+      },
+      "TOMATO": {
+        "units": 70,
+        "revenue": 12267,
+        "revenue_per_unit": 175.24285714285713
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.3145145001326455,
+      "p95": 2.511616800529734,
+      "p99": 10.468490179500805,
+      "max": 33.50443400086078
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 20,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -73174.05
+      },
+      "starter": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 71074.05
+      }
+    }
+  },
+  "issue3-sheep-current-dev": {
+    "metadata": {
+      "candidate": "experiments/searches/sheep-current/main.py",
+      "candidate_hash": "a29da3423b5750bfbf1f6e1063a4b61e86e030786c6a0590c217d008980fa197",
+      "opponents": [
+        "starter",
+        "opponents/public/cok_v10/main.py"
+      ],
+      "opponent_hashes": {
+        "starter": "a53b7f42528959181802297101a03473d1d94d035a227461f15f3ab6270549e7",
+        "opponents/public/cok_v10/main.py": "56831f3c43c9727d90016b7a7a8d4eb51d1a4c08c1120d58f061d9176e8bc109"
+      },
+      "split": "dev",
+      "seeds": [
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009
+      ],
+      "backend": "fast",
+      "created_at": "2026-09-07T19:06:23.773444+00:00",
+      "wall_seconds": 41.02769173699926
+    },
+    "games": 40,
+    "seed_blocks": 10,
+    "win_rate": 0.5,
+    "draw_rate": 0.0,
+    "loss_rate": 0.5,
+    "score_rate": 0.5,
+    "score_ci95": [
+      0.5,
+      0.5
+    ],
+    "mean_margin": -7020.9,
+    "median_margin": 22372.5,
+    "failures": 0,
+    "opponent_failures": 0,
+    "no_effect_actions": 0,
+    "unit_actions": 234536,
+    "unsold_items_mean": 0,
+    "overflow_items": 0,
+    "sales": {
+      "FERTILIZER": {
+        "units": 4085,
+        "revenue": 308504,
+        "revenue_per_unit": 75.52117503059975
+      },
+      "MELON": {
+        "units": 4638,
+        "revenue": 876064,
+        "revenue_per_unit": 188.88831392841743
+      },
+      "WOOL": {
+        "units": 4637,
+        "revenue": 728416,
+        "revenue_per_unit": 157.08777226655164
+      },
+      "STRAWBERRY": {
+        "units": 3741,
+        "revenue": 841622,
+        "revenue_per_unit": 224.9724672547447
+      },
+      "CARROT": {
+        "units": 2021,
+        "revenue": 183100,
+        "revenue_per_unit": 90.59871350816428
+      },
+      "WHEAT": {
+        "units": 1094,
+        "revenue": 52491,
+        "revenue_per_unit": 47.980804387568554
+      },
+      "TOMATO": {
+        "units": 163,
+        "revenue": 40343,
+        "revenue_per_unit": 247.50306748466258
+      }
+    },
+    "runtime_ms": {
+      "p50": 0.3362519992151647,
+      "p95": 1.6435417000138837,
+      "p99": 9.259362429784233,
+      "max": 12.576953999086982
+    },
+    "per_opponent": {
+      "opponents/public/cok_v10/main.py": {
+        "games": 20,
+        "score_rate": 0.0,
+        "score_ci95": [
+          0.0,
+          0.0
+        ],
+        "mean_margin": -83350.15
+      },
+      "starter": {
+        "games": 20,
+        "score_rate": 1.0,
+        "score_ci95": [
+          1.0,
+          1.0
+        ],
+        "mean_margin": 69308.35
+      }
+    }
+  }
+}

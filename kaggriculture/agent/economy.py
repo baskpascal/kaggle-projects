@@ -103,7 +103,11 @@ def crop_scores(state, params, planned=None):
         other = opponent[crop] * params['opponent_weight']
         demand = daily_demand(state, crop) if params['adaptive'] else 1
         inv = state.obs['market']['inventory'][crop]
-        forecast = inv + (own + other) * quantity - demand * min(peak, state.days_left)
+        # With delayed sales, our unsold harvest is future supply too. Ignoring it
+        # makes holding look like new demand and triggers more overproduction.
+        held = state.private['shed'].get(crop, 0) + sum(
+            bag.get(crop, 0) for bag in state.private['inventories'])
+        forecast = inv + held + (own + other) * quantity - demand * min(peak, state.days_left)
         revenue = sale_value(crop, quantity, forecast, state.config.get('marketParams'))
         # Approximate occupied-tile cost includes daily watering, planting, harvest, travel.
         scores[crop] = (revenue - seed) / (occupancy + params['travel_cost'])

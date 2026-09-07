@@ -1,0 +1,16 @@
+{
+  "artifact": "/mnt/d/Projects/kaggle-projects/kaggriculture/versions/v001/main.py",
+  "sha256": "ef31ae632865df5374309cee907dbd1109374ef42f7d1a2946b12f3bafbdabbf",
+  "environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+  },
+  "seed": 314159,
+  "states": 720,
+  "rewards": [
+    48096.0,
+    48096.0
+  ],
+  "status": "PASSED"
+}
