@@ -87,7 +87,32 @@ suficiente para estabilizar a pool:
 ```
 
 O calibrador recusa resultados divergentes, grava jobs/s, CPU, p50 e p95 por hostname e
-recomenda separadamente o worker count de maior vazão observada. Use como capacidade
+recomenda separadamente o worker count de maior vazão observada.
+
+### Medição de 2026-09-09: os dois PCs querem o mesmo perfil
+
+Varredura de `cpus_per_worker` em 1, 2, 3 e 4, com 500 partidas por host
+(`docs/ray-capacity-cpw-sweep.json`):
+
+| host | cpw=1 | cpw=2 | cpw=3 | cpw=4 |
+|------|-------|-------|-------|-------|
+| DESKTOP-V3A6VJ6 (PC A) | 0,726/s | 1,595/s | 2,144/s | **2,832/s** |
+| DESKTOP-DM63QP1 (PC B) | 0,263/s | 0,421/s | 0,583/s | **1,164/s** |
+
+O ótimo é `cpw=4` nas duas máquinas, então **não** existe perfil de capacidade por host a
+implementar: um valor serve aos dois. A hipótese que motivou a medição — de que os 3 CPUs
+que sobram no PC B em `floor(11/4)=2` slots fossem desperdício recuperável com um `cpw`
+menor — está refutada: reduzir `cpw` piora a vazão nos dois PCs.
+
+Duas coisas que a tabela mostra e que continuam em aberto:
+
+- **A curva não chegou ao topo.** As duas máquinas ainda subiam em `cpw=4`, o maior valor
+  medido. A pergunta interessante virou `cpw` acima de 4, não abaixo.
+- **O PC B é ~3x mais lento por partida**, não apenas menor: p50 de 1,18 s contra 0,39 s do
+  PC A em `cpw=1`, com dispersão bem maior. Isso é característica da máquina, não da
+  configuração do Ray.
+
+Use como capacidade
 efetiva o menor número de workers que fica próximo dessa melhor vazão sem pressionar RAM
 nem tornar o computador inutilizável. Persista essa decisão na própria máquina com
 `--num-cpus`; ela substitui a conta automática baseada na reserva:
