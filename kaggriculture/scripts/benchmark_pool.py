@@ -23,7 +23,7 @@ from arena.batch import (batched_runner, host_cpu_times, host_cpu_utilization,
 from arena.parallel import matches, start_method  # noqa: E402
 
 NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty',
-                    'job_id', 'batch_id'}
+                    'job_id', 'batch_id', 'execution_resources'}
 OUTCOME_FIELDS = ('score', 'money', 'opponent_money', 'margin', 'steps',
                   'failures', 'opponent_failures')
 

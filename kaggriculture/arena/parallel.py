@@ -44,6 +44,7 @@ import time
 from .agents import agent_hash
 from .engine import fingerprint
 from .match import run_match
+from .resources import resource_lease
 
 # A full 719-turn game costs seconds, not minutes, in every configuration measured here, so
 # this is about two orders of magnitude of headroom: it exists to end a hang, not to police
@@ -171,68 +172,80 @@ def matches(jobs, workers=4, method=None, timeout=-1, ordered=True):
     limit = MATCH_TIMEOUT if timeout == -1 else timeout
     if limit is not None and limit <= 0:
         raise ValueError('timeout must be positive, or None to disable the barrier')
+    if not jobs:
+        return
     chosen = start_method(method)
     context = multiprocessing.get_context(chosen)
     if chosen == 'forkserver':
         context.set_forkserver_preload(list(PRELOAD))
-    results = context.Queue()
-    running, buffered, started_at, vanished = {}, {}, {}, {}
-    pending, emitted, done = iter(range(len(jobs))), 0, set()
-    try:
-        while len(done) < len(jobs):
-            while len(running) < workers:
-                index = next(pending, None)
-                if index is None:
-                    break
-                process = context.Process(target=_play, args=(index, jobs[index], results),
-                                          daemon=False)
-                process.start()
-                running[index], started_at[index] = process, time.monotonic()
-            try:
-                index, row, error = results.get(timeout=.1)
-                process = running.pop(index, None)
-                if process is not None:
-                    process.join(5)
-                if index not in done:  # A row that lost the race with its own kill.
-                    if error is not None:
-                        raise RuntimeError(f'Match failed in its own process: {error}')
-                    done.add(index)
-                    if ordered:
-                        buffered[index] = row
-                    else:
-                        yield row
-            except queuelib.Empty:
-                pass
-            for index, process in list(running.items()):
-                if limit is not None and time.monotonic() - started_at[index] > limit:
-                    _terminate(process)
-                    running.pop(index)
-                    done.add(index)
-                    row = timeout_row(jobs[index], limit)
-                    if ordered:
-                        buffered[index] = row
-                    else:
-                        yield row
-                elif not process.is_alive():
-                    # Exiting and being read are not simultaneous: a child that has already
-                    # put its row on the queue is dead before the parent drains it. Only a
-                    # child still unreported well after it died has actually crashed.
-                    first_seen = vanished.setdefault(index, time.monotonic())
-                    if time.monotonic() - first_seen > 5:
+    requested_workers = workers
+    useful_workers = min(workers, len(jobs))
+    with resource_lease(useful_workers) as resources:
+        if useful_workers != requested_workers:
+            resources['requested_workers'] = requested_workers
+            resources['adjustment'] = (f'requested {requested_workers} workers, adjusted to '
+                                       f'{useful_workers}: this batch has {len(jobs)} jobs')
+        workers = resources['granted_workers']
+        results = context.Queue()
+        running, buffered, started_at, vanished = {}, {}, {}, {}
+        pending, emitted, done = iter(range(len(jobs))), 0, set()
+        try:
+            while len(done) < len(jobs):
+                while len(running) < workers:
+                    index = next(pending, None)
+                    if index is None:
+                        break
+                    process = context.Process(target=_play, args=(index, jobs[index], results),
+                                              daemon=False)
+                    process.start()
+                    running[index], started_at[index] = process, time.monotonic()
+                try:
+                    index, row, error = results.get(timeout=.1)
+                    process = running.pop(index, None)
+                    if process is not None:
+                        process.join(5)
+                    if index not in done:  # A row that lost the race with its own kill.
+                        if error is not None:
+                            raise RuntimeError(f'Match failed in its own process: {error}')
+                        done.add(index)
+                        row['execution_resources'] = dict(resources)
+                        if ordered:
+                            buffered[index] = row
+                        else:
+                            yield row
+                except queuelib.Empty:
+                    pass
+                for index, process in list(running.items()):
+                    if limit is not None and time.monotonic() - started_at[index] > limit:
+                        _terminate(process)
                         running.pop(index)
-                        raise RuntimeError(f'Match worker died without a result: {jobs[index]}')
+                        done.add(index)
+                        row = timeout_row(jobs[index], limit)
+                        row['execution_resources'] = dict(resources)
+                        if ordered:
+                            buffered[index] = row
+                        else:
+                            yield row
+                    elif not process.is_alive():
+                        # Exiting and being read are not simultaneous: a child that has already
+                        # put its row on the queue is dead before the parent drains it. Only a
+                        # child still unreported well after it died has actually crashed.
+                        first_seen = vanished.setdefault(index, time.monotonic())
+                        if time.monotonic() - first_seen > 5:
+                            running.pop(index)
+                            raise RuntimeError(f'Match worker died without a result: {jobs[index]}')
+                while emitted in buffered:
+                    yield buffered.pop(emitted)
+                    emitted += 1
+            # Ordered mode drains inside the loop as the gap closes, so what is left here is
+            # only the tail that completed after the last job started.
             while emitted in buffered:
                 yield buffered.pop(emitted)
                 emitted += 1
-        # Ordered mode drains inside the loop as the gap closes, so what is left here is
-        # only the tail that completed after the last job started.
-        while emitted in buffered:
-            yield buffered.pop(emitted)
-            emitted += 1
-    finally:
-        for process in running.values():
-            _terminate(process)
-        results.close()
+        finally:
+            for process in running.values():
+                _terminate(process)
+            results.close()
 
 
 def stream(jobs, workers=4, method=None, timeout=-1):

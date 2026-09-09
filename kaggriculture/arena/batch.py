@@ -219,7 +219,7 @@ def validate_batch_result(expected, result):
 
 
 def batched_runner(size=BATCH_SIZE, method=None, timeout=-1, map_batches=None, on_batch=None,
-                   available_slots=None):
+                   available_slots=None, minimum_batch_size=1):
     """A `runner(jobs, workers)` for `arena.jobs.execute`, with batching in the middle.
 
     `map_batches(batches, workers)` yields one envelope per batch, in any order. The default
@@ -234,8 +234,12 @@ def batched_runner(size=BATCH_SIZE, method=None, timeout=-1, map_batches=None, o
     """
     def runner(jobs, workers):
         jobs = list(jobs)
-        chosen_size = (adaptive_batch_size(len(jobs), available_slots or workers)
+        chosen_size = (adaptive_batch_size(len(jobs), available_slots or workers,
+                                           minimum=minimum_batch_size)
                        if size is None else size)
+        if chosen_size < minimum_batch_size:
+            raise ValueError(f'Batch size {chosen_size} leaves a {minimum_batch_size}-worker '
+                             'reservation idle; increase batch size or reduce workers')
         batches = [make_batch(specs, index) for index, specs in
                    enumerate(partition(jobs, chosen_size))]
         transport = map_batches or (lambda parts, count: _local(parts, count, method, timeout))
