@@ -17,10 +17,10 @@ def main():
     parser.add_argument('--candidate', default='versions/v006/main.py')
     parser.add_argument('--opponent', default='opponents/public/thomas_t95/main.py')
     parser.add_argument('--seed', type=int, default=900000)
-    parser.add_argument('--seeds-per-cycle', type=int, default=4)
+    parser.add_argument('--seeds-per-cycle', type=int, default=32)
     parser.add_argument('--cycles', type=int, default=1)
-    parser.add_argument('--cpus-per-simulation', type=int, default=4)
-    parser.add_argument('--simulation-batch-size', type=int, default=4)
+    parser.add_argument('--cpus-per-simulation', type=int, default=1)
+    parser.add_argument('--simulation-batch-size', type=int, default=2)
     parser.add_argument('--trainers', type=int,
                         help='independent trainers; default is one per Ray GPU')
     parser.add_argument('--epochs', type=int, default=20)

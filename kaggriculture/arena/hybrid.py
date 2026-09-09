@@ -265,7 +265,7 @@ def cluster_inventory(ray):
 
 
 class HybridPipeline:
-    def __init__(self, ray, *, cpus_per_simulation=4, trainers=None, timeout=-1):
+    def __init__(self, ray, *, cpus_per_simulation=1, trainers=None, timeout=-1):
         gpu_count = int(ray.cluster_resources().get('GPU', 0))
         trainers = gpu_count if trainers is None else trainers
         if cpus_per_simulation < 1 or trainers < 1:

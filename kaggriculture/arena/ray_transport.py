@@ -39,7 +39,10 @@ REQUIRED_ROOTS = ('agent', 'arena', 'eval', 'experiments', 'opponents', 'scripts
 # opaque RuntimeEnvSetupError. Measuring first turns it into a sentence that names the
 # directory that grew.
 PACKAGE_LIMIT_BYTES = 512 * 1024 * 1024
-DEFAULT_CPUS_PER_WORKER = 4
+# One Ray task per CPU avoids cross-node fragmentation (15//4 + 11//4 used only 20/26
+# CPUs). Batches still amortize scheduling overhead and every match keeps its child-process
+# isolation boundary.
+DEFAULT_CPUS_PER_WORKER = 1
 
 
 def _excluded(relative, excludes):
@@ -209,10 +212,10 @@ class RayBatchMapper:
         return evidence
 
     def run_on_every_node(self, batch, *, timeout=None):
-        """Run the same batch once per node for exact cross-machine comparison."""
+        """Run the same batch once per node, using every CPU each node advertises."""
         return [(node, result) for node, result, _ in
                 self._run_on_every_node(batch, timeout=timeout,
-                                        workers=lambda _node: self.cpus_per_worker)]
+                                        workers=self._node_capacity)]
 
     def local_baseline_on_every_node(self, batch, *, timeout=None, maximum_workers=None):
         """Measure the local pool on every node so the fastest host is the baseline."""

@@ -216,8 +216,9 @@ na primeira tentativa e exige que o mapper reenvie aquele lote uma única vez. A
 recuperação são fixadas por afinidade e repetidas em cada NodeID vivo; retries implícitos
 do Ray continuam desligados.
 
-A prova usa a mesma granularidade padrão de quatro CPUs por tarefa, portanto os 400 jogos
-de cada host exercitam também o pool local usado no transporte real.
+A prova reserva toda a capacidade de cada nó em paralelo, portanto os 400 jogos de cada
+host exercitam os 15 + 11 CPUs. No transporte dinâmico, uma CPU por task evita a
+fragmentação que deixava seis CPUs sem uso com grupos fixos de quatro.
 
 Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 é smoke,
 256 mede o scheduler local, 1024 mede throughput e 8000 representa a busca real.
@@ -229,11 +230,11 @@ Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 
   --output=docs/ray-benchmark.json
 ```
 
-Antes da medição distribuída, o script roda as cargas até 1 024 pela pool local em
-**cada** nó, usando todos os CPUs que esse nó anunciou ao Ray. O menor wall-clock identifica
-o host de base. A carga de 8 000 repete o baseline somente nesse host já provado mais
-rápido; executar novamente 8 000 no host comprovadamente mais lento não acrescenta
-evidência de throughput. Assim não existe a suposição de que o head seja o PC mais rápido. O relatório grava essas
+Antes da medição distribuída, a primeira carga roda pela pool local em **cada** nó, usando
+todos os CPUs anunciados, e identifica o host de base. As cargas seguintes repetem o
+baseline somente nesse host já provado mais rápido; deixar o host rápido ocioso enquanto
+o mais lento repete a mesma calibração não acrescenta evidência. Assim não existe a
+suposição de que o head seja o PC mais rápido. O relatório grava essas
 linhas por hostname, jobs/s, speedup, eficiência paralela, p50 e p95 de partida, cauda de
 lote e utilização de CPU. No workload representativo de 8 000 jobs, o comando falha se o
 cluster não atingir ao menos 1,10× sobre o melhor `forkserver` local; esse limite pode ser
@@ -244,15 +245,16 @@ gates incompatíveis. Checkout sujo também é recusado, e Python, fingerprint d
 hashes dos agentes são comparados novamente por hostname; sem `--verification`, uma série curta é apenas smoke e registra
 `benchmark_valid: false`, enquanto a série representativa nem começa.
 
-Cada tarefa Ray reserva quatro CPUs por padrão e usa quatro filhos isolados de partida.
-Isso evita iniciar um worker Ray pesado por CPU. Os slots são calculados por nó e depois
-somados: hosts com 15 e 11 CPUs expõem corretamente `floor(15/4) + floor(11/4) = 5`
-tarefas, sem inventar um sexto slot que atravessaria máquinas. A fila mantém apenas uma
+Cada tarefa Ray reserva uma CPU por padrão e executa batches de partidas no mesmo worker.
+Assim, hosts com 15 e 11 CPUs expõem 26 slots sem fragmentação. A fila mantém apenas uma
 onda em voo e a repõe conforme as tarefas terminam. O benchmark grava o JSON atomicamente
 após cada carga, preservando as medições concluídas se um nó falhar mais tarde.
 
-Ao trocar hardware ou limites anunciados, recalibre essa granularidade com o cluster já
-quente. O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
+O artefato histórico `ray-granularity.json` comparou grupos de 2 e 4 CPUs e encontrou maior
+throughput com 4, mas essa configuração deixava seis dos 26 CPUs anunciados sem uso e não
+testou grupos de 1. A política atual prioriza saturação completa conforme solicitado. Ao
+trocar hardware ou limites anunciados, recalibre a granularidade com o cluster já quente.
+O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
 exata e escolhe pela vazão distribuída medida:
 
 ```bash

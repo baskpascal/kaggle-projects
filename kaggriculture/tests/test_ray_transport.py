@@ -139,6 +139,21 @@ def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
     assert task.options_seen[0]['scheduling_strategy'] == ('node-a', False)
 
 
+def test_cross_node_proof_reserves_and_uses_each_nodes_full_capacity():
+    ray = FakeRay()
+    mapper = RayBatchMapper(ray)
+    task = RecordingTask()
+    mapper._task = task
+    batch = make_batch([{'candidate': 'pass', 'opponent': 'pass', 'seed': 1,
+                         'seat': 0, 'backend': 'fast'}])
+
+    [(node, result)] = mapper.run_on_every_node(batch)
+
+    assert node['NodeID'] == 'node-a'
+    assert result['workers'] == 4
+    assert task.options_seen[0]['num_cpus'] == 4
+
+
 def test_local_baseline_can_target_one_selected_node():
     ray = FakeRay()
     mapper = RayBatchMapper(ray, cpus_per_worker=1)
