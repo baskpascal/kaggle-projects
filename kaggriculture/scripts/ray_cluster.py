@@ -128,6 +128,28 @@ def available_cpus(leave_free, requested=None):
     return max(1, count - leave_free)
 
 
+def detected_gpus():
+    """Count NVIDIA devices visible inside this Linux/WSL environment."""
+    candidates = [shutil.which('nvidia-smi'), Path('/usr/lib/wsl/lib/nvidia-smi')]
+    executable = next((str(path) for path in candidates if path and Path(path).exists()), None)
+    if not executable:
+        return 0
+    output = command_output([executable, '--query-gpu=index', '--format=csv,noheader'])
+    return len([line for line in output.splitlines() if line.strip()])
+
+
+def available_gpus(requested=None):
+    count = detected_gpus()
+    if requested is None:
+        return count
+    if type(requested) is not int or requested < 0:
+        raise SystemExit('--num-gpus must be a nonnegative integer')
+    if requested > count:
+        raise SystemExit(f'--num-gpus={requested} exceeds the {count} NVIDIA GPUs visible '
+                         'inside this WSL environment')
+    return requested
+
+
 def validate_config(value):
     if not isinstance(value, dict) or value.get('schema_version') != 1:
         raise SystemExit('Ray cluster config has an unsupported schema')
@@ -141,6 +163,9 @@ def validate_config(value):
     requested = value.get('num_cpus')
     if requested is not None and (type(requested) is not int or requested < 1):
         raise SystemExit('Ray cluster config has an invalid explicit CPU capacity')
+    requested_gpus = value.get('num_gpus')
+    if requested_gpus is not None and (type(requested_gpus) is not int or requested_gpus < 0):
+        raise SystemExit('Ray cluster config has an invalid explicit GPU capacity')
     if not isinstance(value.get('node_address'), str) or not value['node_address']:
         raise SystemExit('Ray cluster config has no node address')
     if value['role'] == 'worker' and not value.get('head_host'):
@@ -322,6 +347,10 @@ def configure(role, args):
         # forever with an impossible resource declaration.
         available_cpus(args.leave_cpus_free, args.num_cpus)
         config['num_cpus'] = args.num_cpus
+    requested_gpus = getattr(args, 'num_gpus', None)
+    if requested_gpus is not None:
+        available_gpus(requested_gpus)
+        config['num_gpus'] = requested_gpus
     if role == 'worker':
         host, port = normalize_head(args.head, args.port)
         config.update(head_host=host, port=port)
@@ -341,6 +370,8 @@ def ray_command(config):
     cpus = available_cpus(config.get('leave_cpus_free', 1), config.get('num_cpus'))
     common = [str(RAY), 'start', '--block', f'--node-ip-address={address}',
               f'--num-cpus={cpus}']
+    if config.get('num_gpus') is not None:
+        common.append(f'--num-gpus={available_gpus(config["num_gpus"])}')
     if config['role'] == 'head':
         return common + ['--head', f'--port={config["port"]}',
                          '--include-dashboard=false']
@@ -409,6 +440,7 @@ def status_data(config=None):
     return {'configured': True, 'role': config['role'], 'config': str(CONFIG),
             'advertised_cpus': available_cpus(config.get('leave_cpus_free', 1),
                                               config.get('num_cpus')),
+            'advertised_gpus': available_gpus(config.get('num_gpus')),
             'capacity_policy': ('explicit' if config.get('num_cpus') is not None
                                 else 'available-minus-reserve'),
             'service': service_state(), 'persistence': persistence_state(),
@@ -457,6 +489,8 @@ def parser():
         command.add_argument('--num-cpus', type=int,
                              help='explicit effective Ray slots for this machine; '
                                   'overrides automatic CPUs minus reserve')
+        command.add_argument('--num-gpus', type=int,
+                             help='explicit NVIDIA GPUs to advertise; 0 disables GPUs')
         if name == 'configure-worker':
             command.add_argument('--head', required=True, help='head HOST or HOST:PORT')
     commands.add_parser('ensure')
@@ -475,6 +509,8 @@ def main():
         raise SystemExit('--leave-cpus-free cannot be negative')
     if getattr(args, 'num_cpus', None) is not None and args.num_cpus < 1:
         raise SystemExit('--num-cpus must be positive')
+    if getattr(args, 'num_gpus', None) is not None and args.num_gpus < 0:
+        raise SystemExit('--num-gpus must be nonnegative')
     if args.command == 'configure-head':
         configure('head', args)
     elif args.command == 'configure-worker':

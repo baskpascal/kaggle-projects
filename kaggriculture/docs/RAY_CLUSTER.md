@@ -76,6 +76,21 @@ python3 scripts/ray_cluster.py stop
 
 ## Capacidade efetiva por máquina
 
+CPU e GPU são recursos separados. Simulações sempre pedem `num_gpus=0`; trainers pedem
+`num_gpus=1`, portanto uma partida nunca ocupa a GPU por acidente e um trainer nunca roda
+no head sem CUDA. Para fixar explicitamente a GPU dedicada do worker:
+
+```bash
+# PC A
+python3 scripts/ray_cluster.py configure-head --num-cpus=15 --num-gpus=0
+
+# PC B
+python3 scripts/ray_cluster.py configure-worker \
+  --head IP_OU_MAGIC_DNS_DO_PC_A:6379 --num-cpus=11 --num-gpus=1
+```
+
+O pipeline e o probe CUDA estão documentados em `docs/HYBRID_RAY_PIPELINE.md`.
+
 Por padrão, cada nó anuncia `CPUs disponíveis - --leave-cpus-free`. Isso é um ponto de
 partida seguro, mas dois cores lógicos de máquinas diferentes podem entregar vazões muito
 diferentes. Do head, meça os dois PCs automaticamente nos mesmos jobs com uma carga
@@ -107,6 +122,49 @@ dinamicamente. A máquina rápida libera slots antes e recebe mais lotes; não e
 fixa por hostname. O batch adaptativo mantém pelo menos oito vezes mais lotes que slots do
 cluster, enquanto o transporte mantém apenas uma onda em voo para não pré-atribuir uma
 fila longa ao nó lento. `--batch-size` continua disponível para uma medição controlada.
+
+## Pedir o cluster explicitamente
+
+Distribuir nunca é automático. Sem flag, uma corrida de partidas roda inteira neste host e
+o outro PC fica ocioso mesmo com o cluster de pé — isso é o comportamento correto, não um
+defeito. `--ray-address` diz apenas onde procurar o head; quem exige o cluster é
+`--distributed`:
+
+```bash
+.venv/bin/python -m arena.paired --distributed ...
+.venv/bin/python -m arena.league --distributed ...
+```
+
+`--distributed` recusa qualquer coisa que não sejam pelo menos duas máquinas distintas
+respondendo, com o erro nomeando quem atendeu. Não existe fallback silencioso para local:
+uma corrida que pediu o cluster e não o encontrou falha, porque o número medido em um host
+só não é o número que foi pedido. Os hostnames verificados e os slots de cada um entram em
+`distribution.nodes` do run spec — fora do `run_id`, como toda a distribuição, mas dentro do
+relatório, para que depois se saiba em que máquinas aquele resultado foi produzido.
+
+Nada disso vale para `pytest`: os testes são um processo local e não passam pelo Ray.
+
+## O que viaja para os workers
+
+O `working_dir` do Ray leva o checkout, menos `DEFAULT_EXCLUDES` em `arena/ray_transport.py`.
+`data/` está fora: é o corpus baixado do Kaggle (episódios, leaderboards, dumps de replay),
+6,1 GiB neste checkout, e nenhuma partida abre esse diretório. Enquanto ele viajava, o
+pacote passava do teto de 512 MiB do Ray e **toda** corrida distribuída morria no
+`ray.init`, antes de agendar um lote — o corpus continua no disco do head, onde os scripts
+que o analisam leem normalmente. Com a exclusão o pacote fica em ~28 MiB.
+
+`connect` mede o pacote antes do `ray.init` e imprime o tamanho (`ray working_dir package:
+27.6MiB`). Se passar do teto, o erro nomeia os maiores diretórios incluídos em vez de virar
+um `RuntimeEnvSetupError` opaco. E `REQUIRED_ROOTS` lista o que uma partida remota abre de
+fato — `agent/`, `arena/`, `eval/`, `opponents/`, `versions/`, entre outros: excluir
+qualquer um deles é recusado na hora, porque essa falha só apareceria lá dentro do match.
+
+A regra ao mexer nos excludes: tire do pacote o que a partida não abre. Não mova dataset
+para dentro do pacote para "resolver" o tamanho.
+
+A prova de que isso funciona nos dois PCs está em `ray-package-smoke.json`: pacote de
+6231,99 MiB (falha no `ray.init`) para 27,6 MiB, e lotes reais de partidas executados em
+`DESKTOP-V3A6VJ6` e `DESKTOP-DM63QP1`, oito linhas em cada.
 
 ## Preparação manual equivalente
 
@@ -158,8 +216,9 @@ na primeira tentativa e exige que o mapper reenvie aquele lote uma única vez. A
 recuperação são fixadas por afinidade e repetidas em cada NodeID vivo; retries implícitos
 do Ray continuam desligados.
 
-A prova usa a mesma granularidade padrão de quatro CPUs por tarefa, portanto os 400 jogos
-de cada host exercitam também o pool local usado no transporte real.
+A prova reserva toda a capacidade de cada nó em paralelo, portanto os 400 jogos de cada
+host exercitam os 15 + 11 CPUs. No transporte dinâmico, slots heterogêneos de quatro CPUs
+e um slot de resto por nó evitam a fragmentação que antes deixava seis CPUs sem uso.
 
 Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 é smoke,
 256 mede o scheduler local, 1024 mede throughput e 8000 representa a busca real.
@@ -171,11 +230,11 @@ Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 
   --output=docs/ray-benchmark.json
 ```
 
-Antes da medição distribuída, o script roda as cargas até 1 024 pela pool local em
-**cada** nó, usando todos os CPUs que esse nó anunciou ao Ray. O menor wall-clock identifica
-o host de base. A carga de 8 000 repete o baseline somente nesse host já provado mais
-rápido; executar novamente 8 000 no host comprovadamente mais lento não acrescenta
-evidência de throughput. Assim não existe a suposição de que o head seja o PC mais rápido. O relatório grava essas
+Antes da medição distribuída, a primeira carga roda pela pool local em **cada** nó, usando
+todos os CPUs anunciados, e identifica o host de base. As cargas seguintes repetem o
+baseline somente nesse host já provado mais rápido; deixar o host rápido ocioso enquanto
+o mais lento repete a mesma calibração não acrescenta evidência. Assim não existe a
+suposição de que o head seja o PC mais rápido. O relatório grava essas
 linhas por hostname, jobs/s, speedup, eficiência paralela, p50 e p95 de partida, cauda de
 lote e utilização de CPU. No workload representativo de 8 000 jobs, o comando falha se o
 cluster não atingir ao menos 1,10× sobre o melhor `forkserver` local; esse limite pode ser
@@ -186,15 +245,17 @@ gates incompatíveis. Checkout sujo também é recusado, e Python, fingerprint d
 hashes dos agentes são comparados novamente por hostname; sem `--verification`, uma série curta é apenas smoke e registra
 `benchmark_valid: false`, enquanto a série representativa nem começa.
 
-Cada tarefa Ray reserva quatro CPUs por padrão e usa quatro filhos isolados de partida.
-Isso evita iniciar um worker Ray pesado por CPU. Os slots são calculados por nó e depois
-somados: hosts com 15 e 11 CPUs expõem corretamente `floor(15/4) + floor(11/4) = 5`
-tarefas, sem inventar um sexto slot que atravessaria máquinas. A fila mantém apenas uma
+Cada tarefa Ray reserva quatro CPUs por padrão e executa batches de partidas no mesmo
+worker. Um slot de resto por nó completa a capacidade: `4+4+4+3` no head e `4+4+3` no
+worker, totalizando os 26 CPUs sem fragmentação. A fila mantém apenas uma
 onda em voo e a repõe conforme as tarefas terminam. O benchmark grava o JSON atomicamente
 após cada carga, preservando as medições concluídas se um nó falhar mais tarde.
 
-Ao trocar hardware ou limites anunciados, recalibre essa granularidade com o cluster já
-quente. O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
+O artefato histórico `ray-granularity.json` comparou grupos homogêneos de 2 e 4 CPUs e
+encontrou maior throughput com 4. A política atual preserva esses grupos eficientes e usa
+slots menores apenas para os restos. Ao
+trocar hardware ou limites anunciados, recalibre a granularidade com o cluster já quente.
+O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
 exata e escolhe pela vazão distribuída medida:
 
 ```bash
