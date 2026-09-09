@@ -10,6 +10,29 @@ motor real em `tests/test_rules_timing.py`, `tests/test_rules_farm.py` e
 `tests/test_rules_market.py`. As 20 categorias exigidas estão indexadas como
 `[C1]`…`[C20]`.
 
+## Estado em 2026-09-09, ao trazer este documento para o `master`
+
+Este documento é da Fase 0 e foi escrito contra um `agent/` que mudou desde então.
+Os 64 testes de regra continuam passando contra o mesmo motor 1.32.7, então as
+**regras** (`[C1]`–`[C20]`) seguem válidas. Três ressalvas foram verificadas antes do
+resgate, e valem para quem for usar as seções de armadilha e oportunidade:
+
+- **A5/O2 está fechado.** `agent/market.py:49` e `:91` já leem
+  `state.config.get('shedCapacity', 100)`. A afirmação de que o agente "não modela
+  `shedCapacity`" era verdadeira na Fase 0 e não é mais.
+- **A divergência da janela de rega é menor do que parece.** O bônus do motor só
+  existe para culturas não-ongoing (`kaggriculture.py:437`), e o ramo correspondente
+  do planner já tem `not ongoing`. WHEAT e CARROT coincidem; TOMATO e STRAWBERRY
+  nunca entram no ramo. Sobra **MELON, e um dia** (idade 5 contra 6). A correção da
+  branch de origem está certa, e é pequena.
+- **As seções 3 e 4 miram uma linhagem que não é a que compete.** `agent/planner.py`
+  perde 60–0 para o `versions/v006` (60 jogos, zero falhas dos dois lados, dinheiro
+  final mediano $43.137 contra $166.037), e o `v006` não importa nada de `agent/`:
+  ele replica fita gravada nos passos 0–711 e só decide nos passos 712–718. Corrigir
+  a economia do nosso planner, hoje, melhora um agente que não é o candidato. Estas
+  oportunidades voltam a valer na medida em que a janela de decisão do chassi que
+  compete for alargada.
+
 ---
 
 ## 1. Regra confirmada
