@@ -57,10 +57,10 @@
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
+      "rating": 2457.1,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
       "note": "superseded twice over; the bound is below the cut, so weak"
     }
   },
@@ -87,10 +87,10 @@
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
+      "rating": 2457.1,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
       "note": "superseded by the same author's V29-R1; the bound is below the cut, which is enough to classify the artifact as weak"
     }
   },
@@ -183,10 +183,10 @@
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 2491.9,
-      "observed_at": "2026-09-08",
+      "rating": 1873.8,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source": "author team 'Kaito Fukami' (kaitofukami), rank 1359 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
       "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
     }
   },
@@ -236,10 +236,10 @@
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 940.0,
-      "observed_at": "2026-09-08",
+      "rating": 934.7,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3629 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
       "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
     }
   },
@@ -266,10 +266,10 @@
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 2519.6,
-      "observed_at": "2026-09-08",
+      "rating": 2396.7,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 302 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 599 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
       "note": "superseded by the same author's 95.5% notebook; above the cut, so this bound decides nothing and the opponent stays out of the strong cohort"
     }
   },

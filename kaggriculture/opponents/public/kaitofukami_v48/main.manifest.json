@@ -21,10 +21,10 @@
   "usage": "benchmark opponent only",
   "retrieved_at": "2026-09-07",
   "ladder_rating": {
-    "rating": 2491.9,
-    "observed_at": "2026-09-08",
+    "rating": 1873.8,
+    "observed_at": "2026-09-09",
     "kind": "author_upper_bound",
-    "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+    "source": "author team 'Kaito Fukami' (kaitofukami), rank 1359 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
     "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
   }
 }

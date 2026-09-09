@@ -1,96 +1,117 @@
 {
-  "schema_version": 1,
-  "note": "Dated leaderboard rank for every pinned opponent, and what that rank is evidence of. Split out of opponents/ratings.json on purpose: the rating and the rank are two different observations of the same team, eval/panel.py refuses a snapshot where the two files disagree about `kind`, and a rank typed beside a run is exactly the hand-carry the panel snapshot exists to remove. `kind` follows docs/RATINGS_REFRESH.md: `direct` is our own submission of the byte-identical artifact, `author_current` is the author team while the pinned artifact is their newest publication, and `author_upper_bound` bounds the artifact from above -- it can prove an agent is not top ten and can never prove that it is, so it places nothing in a band. Refresh procedure: docs/PANEL_SNAPSHOT.md.",
-  "source": {
-    "leaderboard": "kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-    "observed_at": "2026-09-08",
-    "teams": 8177,
-    "note": "public leaderboard snapshot; ranks are team ranks, which bound the published artifact from above exactly as the ratings do"
+ "schema_version": 1,
+ "note": "Dated leaderboard rank for every pinned opponent, and what that rank is evidence of. Split out of opponents/ratings.json on purpose: the rating and the rank are two different observations of the same team, eval/panel.py refuses a snapshot where the two files disagree about `kind`, and a rank typed beside a run is exactly the hand-carry the panel snapshot exists to remove. `kind` follows docs/RATINGS_REFRESH.md: `direct` is our own submission of the byte-identical artifact, `author_current` is the author team while the pinned artifact is their newest publication, and `author_upper_bound` bounds the artifact from above -- it can prove an agent is not top ten and can never prove that it is, so it places nothing in a band. Refresh procedure: docs/PANEL_SNAPSHOT.md.",
+ "source": {
+  "leaderboard": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+  "observed_at": "2026-09-09",
+  "teams": 8362,
+  "note": "public leaderboard snapshot; ranks are team ranks, which bound the published artifact from above exactly as the ratings do"
+ },
+ "opponents": {
+  "aberatozer_d5e3": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'track' (ahmedberatozer), rank 115 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 115,
+   "of": 8362
   },
-  "opponents": {
-    "aberatozer_d5e3": {
-      "kind": "author_current",
-      "observed_at": "2026-09-08",
-      "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 125,
-      "of": 8177
-    },
-    "aberatozer_v23": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 125,
-      "of": 8177
-    },
-    "boatlee_v16": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 1063,
-      "of": 8177
-    },
-    "boatlee_v21": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 1063,
-      "of": 8177
-    },
-    "kaitofukami_v48": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 363,
-      "of": 8177
-    },
-    "lynnsakurai_v4": {
-      "kind": "author_current",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Lynxx' (lynnsakurai), rank 216 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 216,
-      "of": 8177
-    },
-    "reyhanksatria_v1": {
-      "kind": "author_current",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Reyhan Ksatria' (reyhanksatria), rank 469 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 469,
-      "of": 8177
-    },
-    "seyamalam_v21": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 3525,
-      "of": 8177
-    },
-    "thomas_t93": {
-      "kind": "author_upper_bound",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 302 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 302,
-      "of": 8177
-    },
-    "thomas_t95": {
-      "kind": "direct",
-      "observed_at": "2026-09-08",
-      "source": "this team's own submission 56089447 of the byte-identical artifact",
-      "rank": null,
-      "of": null
-    },
-    "yamakawanin_king_v4e": {
-      "kind": "author_current",
-      "observed_at": "2026-09-08",
-      "source": "author team '\u9752\u6625\u732a\u5934\u5c11\u5e74\u4e0d\u4f1a\u68a6\u5230kaggle\u91d1\u724c' (yamakawanin), rank 97 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 97,
-      "of": 8177
-    },
-    "yhay_router_0908": {
-      "kind": "author_current",
-      "observed_at": "2026-09-08",
-      "source": "author team 'Yusuke Hayashi' (yhay81), rank 45 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "rank": 45,
-      "of": 8177
-    }
+  "aberatozer_v23": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'track' (ahmedberatozer), rank 115 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 115,
+   "of": 8362
+  },
+  "aurax_reactive_v2": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Farmers Is All You Need' (aurax7 and four teammates), rank 80 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 80,
+   "of": 8362
+  },
+  "boatlee_v16": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 500,
+   "of": 8362
+  },
+  "boatlee_v21": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 500,
+   "of": 8362
+  },
+  "gluzdov_e182": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Auto Fermers' (artemboltaev, dmitriigluzdov), rank 54 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 54,
+   "of": 8362
+  },
+  "kaitofukami_v48": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Kaito Fukami' (kaitofukami), rank 1359 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 1359,
+   "of": 8362
+  },
+  "lynnsakurai_v4": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Lynxx' (lynnsakurai), rank 69 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 69,
+   "of": 8362
+  },
+  "reyhanksatria_v1": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Reyhan Ksatria' (reyhanksatria), rank 1256 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 1256,
+   "of": 8362
+  },
+  "seyamalam_v21": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3629 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 3629,
+   "of": 8362
+  },
+  "thomas_t93": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 599 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 599,
+   "of": 8362
+  },
+  "thomas_t95": {
+   "kind": "direct",
+   "observed_at": "2026-09-08",
+   "source": "this team's own submission 56089447 of the byte-identical artifact",
+   "rank": null,
+   "of": null
+  },
+  "yamakawanin_king_v4e": {
+   "kind": "author_current",
+   "observed_at": "2026-09-08",
+   "source": "author team '\u9752\u6625\u732a\u5934\u5c11\u5e74\u4e0d\u4f1a\u68a6\u5230kaggle\u91d1\u724c' (yamakawanin), rank 97 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "rank": 97,
+   "of": 8177
+  },
+  "yhay_router_0908": {
+   "kind": "author_upper_bound",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 27,
+   "of": 8362
+  },
+  "yhay_router_0909": {
+   "kind": "author_current",
+   "observed_at": "2026-09-09",
+   "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "rank": 27,
+   "of": 8362
   }
+ }
 }

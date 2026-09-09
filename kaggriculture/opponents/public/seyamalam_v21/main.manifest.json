@@ -19,10 +19,10 @@
   "evaluation_opponent": true,
   "usage": "benchmark opponent only",
   "ladder_rating": {
-    "rating": 940.0,
-    "observed_at": "2026-09-08",
+    "rating": 934.7,
+    "observed_at": "2026-09-09",
     "kind": "author_upper_bound",
-    "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+    "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3629 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
     "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
   }
 }
