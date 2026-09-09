@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import os
 from contextlib import contextmanager
+import json
 from pathlib import Path
 import platform
 import socket
@@ -25,7 +26,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 # distributed run fail at `ray.init` before a single batch was scheduled. It is excluded
 # here rather than moved: the corpus belongs on disk, on the head, where the head-side
 # scripts that analyse it can still read it.
-DEFAULT_EXCLUDES = ['/.git/', '/.venv/', '/.tmp/', '/docs/', '/tests/', '/replays/',
+DEFAULT_EXCLUDES = ['/.git/', '/.venv/', '/.venv-ml/', '/.tmp/', '/docs/', '/tests/', '/replays/',
                     '/data/', '/seed_registry.json',
                     '/experiments/results/', '/experiments/searches/', '**/__pycache__/']
 # What a worker genuinely opens while running a match: the agent under test, the engine
@@ -122,7 +123,16 @@ def _remote_batch(batch, workers, timeout):
     with _worker_role():
         if any(spec.get('replay') or spec.get('replay_steps') for spec in batch['specs']):
             raise ValueError('Remote jobs cannot write replay results to worker filesystems')
-        return run_batch(batch, workers=workers, timeout=timeout)
+        import ray
+        context = ray.get_runtime_context()
+        assignment = {'stage': 'cpu-simulation', 'hostname': socket.gethostname(),
+                      'pid': os.getpid(), 'node_id': str(context.get_node_id()),
+                      'num_cpus': workers, 'num_gpus': 0,
+                      'gpu_ids': context.get_accelerator_ids().get('GPU', [])}
+        print('[kaggriculture-resource] ' + json.dumps(assignment, sort_keys=True), flush=True)
+        result = run_batch(batch, workers=workers, timeout=timeout)
+        result['ray_resources'] = assignment
+        return result
 
 
 class RayBatchMapper:
@@ -142,7 +152,7 @@ class RayBatchMapper:
         self.available_slots = sum(self.node_slots.values())
         if self.available_slots < 1:
             raise ValueError(f'No live Ray node can reserve {cpus_per_worker} CPUs')
-        self._task = ray.remote(num_cpus=cpus_per_worker, max_retries=0,
+        self._task = ray.remote(num_cpus=cpus_per_worker, num_gpus=0, max_retries=0,
                                 retry_exceptions=False)(_remote_batch)
         self._probe = ray.remote(num_cpus=0, max_retries=0,
                                  retry_exceptions=False)(_environment)
@@ -160,6 +170,8 @@ class RayBatchMapper:
         except Exception as exc:
             raise OSError(f'Could not reach every Ray node: {exc}') from exc
         return sorted(({'node_id': node['NodeID'], 'hostname': probe['hostname'],
+                        'cpus': node.get('Resources', {}).get('CPU', 0),
+                        'gpus': node.get('Resources', {}).get('GPU', 0),
                         'slots': self.node_slots.get(node['NodeID'], 0)}
                        for node, probe in zip(alive, evidence)),
                       key=lambda entry: entry['hostname'])

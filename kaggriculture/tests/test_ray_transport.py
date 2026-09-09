@@ -106,7 +106,7 @@ def test_mapper_disables_ray_retries_and_counts_cluster_slots():
     mapper = RayBatchMapper(ray, cpus_per_worker=2)
     assert mapper.available_slots == 2
     assert ray.remote_options == [
-        {'num_cpus': 2, 'max_retries': 0, 'retry_exceptions': False},
+        {'num_cpus': 2, 'num_gpus': 0, 'max_retries': 0, 'retry_exceptions': False},
         {'num_cpus': 0, 'max_retries': 0, 'retry_exceptions': False},
     ]
 
@@ -206,7 +206,10 @@ def test_remote_batch_marks_match_children_without_leaking_role(monkeypatch):
 
     monkeypatch.delenv('ARENA_ROLE', raising=False)
     monkeypatch.setattr('arena.ray_transport.run_batch', run_batch)
-    assert _remote_batch(batch, 2, 3) == {'complete': True}
+    result = _remote_batch(batch, 2, 3)
+    assert result['complete'] is True
+    assert result['ray_resources']['num_cpus'] == 2
+    assert result['ray_resources']['num_gpus'] == 0
     assert observed == [('ray-worker', batch, 2, 3)]
     assert 'ARENA_ROLE' not in os.environ
 
@@ -240,8 +243,8 @@ def two_node_mapper(hostnames, *, cpus_per_worker=4):
 def test_describe_nodes_names_every_live_host_with_its_slots():
     mapper = two_node_mapper(['pc-b-wsl', 'desktop-a'])
     assert mapper.describe_nodes() == [
-        {'node_id': 'node-b', 'hostname': 'desktop-a', 'slots': 2},
-        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'slots': 3},
+        {'node_id': 'node-b', 'hostname': 'desktop-a', 'cpus': 11, 'gpus': 0, 'slots': 2},
+        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'cpus': 15, 'gpus': 0, 'slots': 3},
     ]
 
 

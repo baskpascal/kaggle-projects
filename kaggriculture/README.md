@@ -13,6 +13,16 @@ bash scripts/setup.sh
 .venv/bin/python -m pytest -q
 ```
 
+Para o cluster CPU/GPU de dois PCs e o treino incremental, veja
+`docs/HYBRID_RAY_PIPELINE.md`. O smoke é executado no head com:
+
+```bash
+.venv/bin/python -m experiments.hybrid_train --require-all-nodes
+```
+
+O ambiente principal de partidas não contém PyTorch. No nó GPU, `--ml` cria o ambiente
+Linux isolado `~/.local/share/kaggriculture/ml-venv`, carregado somente pelos actors de treino.
+
 Para o harness distribuído opcional, use `bash scripts/setup.sh --distributed`. A
 dependência Ray não faz parte do artefato de submissão. A configuração privada, os gates
 entre máquinas e o benchmark estão em [RAY_CLUSTER.md](docs/RAY_CLUSTER.md).

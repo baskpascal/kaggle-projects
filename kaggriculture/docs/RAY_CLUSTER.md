@@ -76,6 +76,21 @@ python3 scripts/ray_cluster.py stop
 
 ## Capacidade efetiva por máquina
 
+CPU e GPU são recursos separados. Simulações sempre pedem `num_gpus=0`; trainers pedem
+`num_gpus=1`, portanto uma partida nunca ocupa a GPU por acidente e um trainer nunca roda
+no head sem CUDA. Para fixar explicitamente a GPU dedicada do worker:
+
+```bash
+# PC A
+python3 scripts/ray_cluster.py configure-head --num-cpus=15 --num-gpus=0
+
+# PC B
+python3 scripts/ray_cluster.py configure-worker \
+  --head IP_OU_MAGIC_DNS_DO_PC_A:6379 --num-cpus=11 --num-gpus=1
+```
+
+O pipeline e o probe CUDA estão documentados em `docs/HYBRID_RAY_PIPELINE.md`.
+
 Por padrão, cada nó anuncia `CPUs disponíveis - --leave-cpus-free`. Isso é um ponto de
 partida seguro, mas dois cores lógicos de máquinas diferentes podem entregar vazões muito
 diferentes. Do head, meça os dois PCs automaticamente nos mesmos jobs com uma carga
