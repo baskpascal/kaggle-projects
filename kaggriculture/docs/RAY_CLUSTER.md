@@ -58,16 +58,19 @@ python3 scripts/ray_cluster.py stop
 
 Por padrão, cada nó anuncia `CPUs disponíveis - --leave-cpus-free`. Isso é um ponto de
 partida seguro, mas dois cores lógicos de máquinas diferentes podem entregar vazões muito
-diferentes. Meça cada PC localmente com uma carga suficiente para estabilizar a pool:
+diferentes. Do head, meça os dois PCs automaticamente nos mesmos jobs com uma carga
+suficiente para estabilizar a pool:
 
 ```bash
-.venv/bin/python scripts/benchmark_pool.py --games=256 \
-  --workers=1,4,8,MAXIMO_UTIL --output=experiments/results/capacity-HOST.json
+.venv/bin/python scripts/calibrate_ray_capacity.py --jobs=256 \
+  --workers=1,4,8,max --output=experiments/results/ray-capacity.json
 ```
 
-Use como capacidade efetiva o menor número de workers que atinge a melhor vazão sustentada
-sem pressionar RAM nem tornar o computador inutilizável. Persista essa decisão na própria
-máquina com `--num-cpus`; ela substitui a conta automática baseada na reserva:
+O calibrador recusa resultados divergentes, grava jobs/s, CPU, p50 e p95 por hostname e
+recomenda separadamente o worker count de maior vazão observada. Use como capacidade
+efetiva o menor número de workers que fica próximo dessa melhor vazão sem pressionar RAM
+nem tornar o computador inutilizável. Persista essa decisão na própria máquina com
+`--num-cpus`; ela substitui a conta automática baseada na reserva:
 
 ```bash
 # PC A
