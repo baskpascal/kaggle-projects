@@ -1,4 +1,4 @@
-from .economy import (ANIMALS, CROPS, WATER_BONUS_FROM, crop_context,
+from .economy import (ANIMALS, CROPS, WATER_BONUS_FROM, care_priority, crop_context,
                       fertilizer_value, price, score_crops)
 from .params import DEFAULTS
 from .market import projected_shed, sale_orders, schedule_market_orders
@@ -46,15 +46,30 @@ def policy(observation, configuration=None, parameters=None):
             endgame = s.turns_left <= s.turns_per_day
             ripe = age >= first and t.get('yield_units', 0) > 0
             harvest = ripe and (ongoing or age >= peak or endgame)
+            # O4: watering inside the bonus window raises `yield_units` on the spot, so
+            # water-then-harvest beats harvest-now even in the endgame. But the extra
+            # unit is worth far less than the whole harvest, and delaying the HARVEST by
+            # a turn can push the delivery past the end of the season -- measured, not
+            # assumed: with a bare `turns_left > 1` guard, 8 of 30 episodes lost money,
+            # the worst by $220. So the water only happens when there is still room to
+            # water, harvest, carry the crop to a shed and drop it.
+            to_shed = distance(pos, nearest_shed(pos, s.size))
+            last_day_pays = (not ongoing and age >= WATER_BONUS_FROM[crop]
+                             and s.turns_left > to_shed + 3)
             needs_water = not t['watered_today'] and (
                 p['water_daily'] or t['consecutive_unwatered'] >= 1
                 # Bonus window keys off max_yield_day, not the planned harvest day.
                 or (not ongoing and age >= WATER_BONUS_FROM[crop]))
-            if harvest and not ongoing and not endgame and needs_water:
+            # `not endgame` used to send every ripe plant straight to HARVEST on the
+            # last day, throwing away the unit one more watering would have added.
+            water_first = not endgame or (p['last_day_water'] and last_day_pays)
+            if harvest and not ongoing and water_first and needs_water:
                 jobs.append((pos, ['WATER'], 120 + value * .1, None))
             elif harvest:
                 jobs.append((pos, ['HARVEST'], 90 + value * .3, None))
-            elif needs_water and s.turns_left > s.turns_per_day - s.hour:
+            elif needs_water and (s.turns_left > s.turns_per_day - s.hour
+                                  or (p['last_day_water'] and last_day_pays
+                                      and age >= first)):
                 urgent = t['consecutive_unwatered'] >= 1
                 jobs.append((pos, ['WATER'], 65 + 75 * urgent + s.hour * 3, None))
             if p['fertilize']:
@@ -74,7 +89,13 @@ def policy(observation, configuration=None, parameters=None):
             if t.get('fertilizer_available'):
                 jobs.append((pos, ['COLLECT_FERTILIZER'], 30 + prices['FERTILIZER'] * .3, None))
             if t['fed_today'] and not t['cared_today'] and s.days_left > 2:
-                jobs.append((pos, ['CARE'], 45., None))
+                # O3: a flat 45 valued a wool unit and an egg unit the same. `care_priority`
+                # prices the unit the CARE actually banks, and returns None when the cap
+                # or the end of the season means it banks nothing.
+                worth = (care_priority(t, prices, s.day, s.days_left)
+                         if p['care_pricing'] else 45.)
+                if worth is not None:
+                    jobs.append((pos, ['CARE'], worth, None))
         elif t.get('kind') == structure and len(animals) < want_animals:
             jobs.append((pos, ['PLACE', animal_type], 130., animal_type))
 

@@ -10,6 +10,29 @@ motor real em `tests/test_rules_timing.py`, `tests/test_rules_farm.py` e
 `tests/test_rules_market.py`. As 20 categorias exigidas estão indexadas como
 `[C1]`…`[C20]`.
 
+## Estado em 2026-09-09, ao trazer este documento para o `master`
+
+Este documento é da Fase 0 e foi escrito contra um `agent/` que mudou desde então.
+Os 64 testes de regra continuam passando contra o mesmo motor 1.32.7, então as
+**regras** (`[C1]`–`[C20]`) seguem válidas. Três ressalvas foram verificadas antes do
+resgate, e valem para quem for usar as seções de armadilha e oportunidade:
+
+- **A5/O2 está fechado.** `agent/market.py:49` e `:91` já leem
+  `state.config.get('shedCapacity', 100)`. A afirmação de que o agente "não modela
+  `shedCapacity`" era verdadeira na Fase 0 e não é mais.
+- **A divergência da janela de rega é menor do que parece.** O bônus do motor só
+  existe para culturas não-ongoing (`kaggriculture.py:437`), e o ramo correspondente
+  do planner já tem `not ongoing`. WHEAT e CARROT coincidem; TOMATO e STRAWBERRY
+  nunca entram no ramo. Sobra **MELON, e um dia** (idade 5 contra 6). A correção da
+  branch de origem está certa, e é pequena.
+- **As seções 3 e 4 miram uma linhagem que não é a que compete.** `agent/planner.py`
+  perde 60–0 para o `versions/v006` (60 jogos, zero falhas dos dois lados, dinheiro
+  final mediano $43.137 contra $166.037), e o `v006` não importa nada de `agent/`:
+  ele replica fita gravada nos passos 0–711 e só decide nos passos 712–718. Corrigir
+  a economia do nosso planner, hoje, melhora um agente que não é o candidato. Estas
+  oportunidades voltam a valer na medida em que a janela de decisão do chassi que
+  compete for alargada.
+
 ---
 
 ## 1. Regra confirmada
@@ -336,32 +359,94 @@ precisa de um `DIG` antes de ser replantado.
 
 ---
 
+## 2.5 Medição das oportunidades fechadas (2026-09-09)
+
+30 episódios, seeds 4100–4129, oponente ocioso, parâmetros padrão salvo indicação.
+Evidência em `planner-o3-o4-ablation.json`, `planner-o3-sheep-ablation.json` e
+`planner-o4-per-seed.json`.
+
+| variante | mediana | média |
+|---|---|---|
+| nenhuma (`off`) | 58.122,5 | 58.012,9 |
+| só O3 | 58.122,5 | 58.012,9 |
+| só O4 | 58.222,5 | 58.073,9 |
+| ambas | 58.222,5 | 58.073,9 |
+
+**O3 não muda nada com os parâmetros padrão, e isso não é bug: é `animal_target = 0`.**
+O planner padrão não coloca nenhum animal, então nenhum job de CARE chega a ser
+considerado. Com `animal_target=3` e `animal_type='SHEEP'`, a diferença aparece:
+
+| CARE | mediana | média |
+|---|---|---|
+| constante 45 | 85.454,0 | 84.375,4 |
+| precificado | **86.548,5** | **85.100,5** |
+
+Ou seja, +1.094,5 de mediana (+1,3%) — pequeno, mas real e na direção prevista.
+
+**Achado colateral maior que as duas oportunidades juntas:** manter ovelhas
+(`animal_target=3`) rende mediana de 85.454 contra 58.122 do padrão, **+47%**. O padrão
+`animal_target = 0` é provavelmente o parâmetro mais caro do agente hoje. Não foi mudado
+aqui: é tuning, e tuning exige avaliação pareada contra o painel, não 30 episódios contra
+um oponente ocioso.
+
+**O4 é positivo e pequeno, com variância real.** Por seed: 14 vitórias, 7 derrotas, 9
+empates, melhor +479, pior −220, média +64,4. A primeira versão da guarda (`turns_left > 1`)
+dava 13/8/9 e média +61: adiar a colheita empurrava a entrega para fora da temporada em
+alguns episódios. A guarda passou a exigir `turns_left > distância até o celeiro + 3`, o
+que converteu uma derrota em vitória. O pior caso continua −220, então nem toda perda vem
+do tempo de entrega.
+
+---
+
 ## 3. Oportunidade de otimização
 *(dentro do escopo simples/enxuto — NÃO implementado nesta fase)*
 
-**O1 — `DROP` e `SELL` no mesmo turno.** O motor permite (unidades antes do
+**O1 — `DROP` e `SELL` no mesmo turno. FECHADO.** `agent/market.py:88`
+(`projected_shed`) espelha a ordem PICKUP/DROP, então o estoque entregue neste turno já
+entra na lista de `SELL`. Era verdade na Fase 0.
+
+**O1 (texto original)** — O motor permite (unidades antes do
 mercado), mas `agent/planner.py` monta as ordens a partir de
 `s.private['shed']`, ou seja, só do que já estava no shed no início do turno.
 Cada entrega perde um turno de caixa; no último turno da temporada, é a diferença
 entre vender e não vender. Bastaria antecipar os `DROP` planejados ao montar a
 lista de `SELL`.
 
-**O2 — Modelar `shedCapacity`.** Um teto por entrega evitaria descarte silencioso
-(A5) e compras recusadas. Hoje não existe nenhum uso de `shedCapacity` no agente.
+**O2 — Modelar `shedCapacity`. FECHADO.** `agent/market.py:49` e `:91` leem
+`state.config.get('shedCapacity', 100)`; a pressão de estoque e o teto por entrega já
+existem. A afirmação de que "não existe nenhum uso de `shedCapacity` no agente" era
+verdadeira na Fase 0.
 
-**O3 — CARE em animais de intervalo longo.** `SHEEP` (interval 3) com CARE diário
+**O3 — CARE em animais de intervalo longo. FECHADO.** `agent/economy.py:care_priority`
+passou a precificar o CARE pela unidade que ele efetivamente deposita — `45 +
+prices[produto] * .3`, na mesma forma do FERTILIZE — e a devolver `None` quando o
+`max_held` não deixa espaço para o bônus ou quando não sobra dia de produção na
+temporada. Travado contra o motor em `tests/test_planner_care_and_water.py` e ablável
+por `care_pricing`. Texto original abaixo.
+
+**O3 (texto original)** — `SHEEP` (interval 3) com CARE diário
 rendeu **6 unidades** na primeira produção contra **1** sem CARE (medido em
 `test_care_banks_a_bonus_paid_on_the_next_fed_production`). `COW` (interval 2) tem
 efeito parecido. Hoje o planner dá prioridade 45 a `CARE`, abaixo de quase tudo,
 o que faz sentido para `GOOSE` (interval 1, ganho no máximo 2x) mas subestima
 muito os outros dois.
 
-**O4 — Regar no último dia ainda vale.** `WATER` dentro da janela incrementa
+**O4 — Regar no último dia ainda vale. FECHADO.** A guarda
+`s.turns_left > s.turns_per_day - s.hour` cortava o último dia inteiro; agora a rega
+continua enquanto a planta estiver na janela de bônus e restar um turno para colher o que
+a água acabou de somar. Ablável por `last_day_water`. Texto original abaixo.
+
+**O4 (texto original)** — `WATER` dentro da janela incrementa
 `yield_units` na hora, então regar no penúltimo turno e colher no último soma
 unidades reais. `agent/planner.py:51` desliga a rega quando
 `turns_left <= turns_per_day - hour`, o que corta esse ganho.
 
-**O5 — Contratar é praticamente de graça.** 8 hands custam $54 por dia, 12 custam
+**O5 — Contratar é praticamente de graça. EM ABERTO, DE PROPÓSITO.** `max_hands` é um
+parâmetro de tuning, não um bug: mudá-lo sem medição pareada é exatamente o tipo de
+chute que a varredura de capacidade do Ray desmentiu. Fica para um experimento com
+`max_hands` no eixo. Texto original abaixo.
+
+**O5 (texto original)** — 8 hands custam $54 por dia, 12 custam
 $376. `max_hands = 8` é um limite do agente, não do motor. O gargalo verdadeiro é
 `maxMarketOrdersPerTurn = 10` (cada `HIRE` é uma ordem) e a competição por espaço
 na fila com os `SELL`.
