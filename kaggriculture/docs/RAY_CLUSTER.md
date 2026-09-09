@@ -54,6 +54,36 @@ python3 scripts/ray_cluster.py status
 python3 scripts/ray_cluster.py stop
 ```
 
+## Capacidade efetiva por máquina
+
+Por padrão, cada nó anuncia `CPUs disponíveis - --leave-cpus-free`. Isso é um ponto de
+partida seguro, mas dois cores lógicos de máquinas diferentes podem entregar vazões muito
+diferentes. Meça cada PC localmente com uma carga suficiente para estabilizar a pool:
+
+```bash
+.venv/bin/python scripts/benchmark_pool.py --games=256 \
+  --workers=1,4,8,MAXIMO_UTIL --output=experiments/results/capacity-HOST.json
+```
+
+Use como capacidade efetiva o menor número de workers que atinge a melhor vazão sustentada
+sem pressionar RAM nem tornar o computador inutilizável. Persista essa decisão na própria
+máquina com `--num-cpus`; ela substitui a conta automática baseada na reserva:
+
+```bash
+# PC A
+python3 scripts/ray_cluster.py configure-head --num-cpus=14
+
+# PC B (preserve o endereço do head já configurado)
+python3 scripts/ray_cluster.py configure-worker \
+  --head IP_OU_MAGIC_DNS_DO_PC_A:6379 --num-cpus=8
+```
+
+`python3 scripts/ray_cluster.py status` informa `advertised_cpus` e `capacity_policy`.
+Depois da configuração, `ensure` mantém a capacidade escolhida e o Ray agenda os lotes
+dinamicamente. A máquina rápida libera slots antes e recebe mais lotes; não existe divisão
+fixa por hostname. O batch adaptativo mantém pelo menos oito vezes mais lotes que slots do
+cluster, e `--batch-size` continua disponível para uma medição controlada.
+
 ## Preparação manual equivalente
 
 Os dois nós precisam de Python 3.12, do mesmo checkout e do mesmo ambiente:

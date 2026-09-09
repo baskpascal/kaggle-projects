@@ -108,9 +108,16 @@ def normalize_head(value, port):
     return value, port
 
 
-def available_cpus(leave_free):
+def available_cpus(leave_free, requested=None):
     count = len(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') \
         else (os.cpu_count() or 1)
+    if requested is not None:
+        if type(requested) is not int or requested < 1:
+            raise SystemExit('--num-cpus must be a positive integer')
+        if requested > count:
+            raise SystemExit(f'--num-cpus={requested} exceeds the {count} CPUs available '
+                             'to this process')
+        return requested
     return max(1, count - leave_free)
 
 
@@ -124,6 +131,9 @@ def validate_config(value):
         raise SystemExit('Ray cluster config has an invalid port')
     if type(leave) is not int or leave < 0:
         raise SystemExit('Ray cluster config has an invalid CPU reserve')
+    requested = value.get('num_cpus')
+    if requested is not None and (type(requested) is not int or requested < 1):
+        raise SystemExit('Ray cluster config has an invalid explicit CPU capacity')
     if not isinstance(value.get('node_address'), str) or not value['node_address']:
         raise SystemExit('Ray cluster config has no node address')
     if value['role'] == 'worker' and not value.get('head_host'):
@@ -199,6 +209,11 @@ def configure(role, args):
     config = {'schema_version': 1, 'role': role, 'node_address': args.node_address,
               'resolved_node_ip': address, 'port': args.port,
               'leave_cpus_free': args.leave_cpus_free}
+    if args.num_cpus is not None:
+        # Validate against this machine before persisting a service that would restart
+        # forever with an impossible resource declaration.
+        available_cpus(args.leave_cpus_free, args.num_cpus)
+        config['num_cpus'] = args.num_cpus
     if role == 'worker':
         host, port = normalize_head(args.head, args.port)
         config.update(head_host=host, port=port)
@@ -215,7 +230,7 @@ def configure(role, args):
 
 def ray_command(config):
     address = node_ip(config.get('node_address', 'auto'))
-    cpus = available_cpus(config.get('leave_cpus_free', 1))
+    cpus = available_cpus(config.get('leave_cpus_free', 1), config.get('num_cpus'))
     common = [str(RAY), 'start', '--block', f'--node-ip-address={address}',
               f'--num-cpus={cpus}']
     if config['role'] == 'head':
@@ -251,6 +266,10 @@ def status_data(config=None):
     else:
         host = config['head_host']
     return {'configured': True, 'role': config['role'], 'config': str(CONFIG),
+            'advertised_cpus': available_cpus(config.get('leave_cpus_free', 1),
+                                              config.get('num_cpus')),
+            'capacity_policy': ('explicit' if config.get('num_cpus') is not None
+                                else 'available-minus-reserve'),
             'service': service_state(), 'head': f'{host}:{config["port"]}',
             'peer_head': f'{config.get("advertised_head", host)}:{config["port"]}',
             'head_reachable': bool(host and tcp_reachable(host, config['port']))}
@@ -293,6 +312,9 @@ def parser():
                              help='private/Tailscale address; auto refuses WSL NAT')
         command.add_argument('--port', type=int, default=6379)
         command.add_argument('--leave-cpus-free', type=int, default=1)
+        command.add_argument('--num-cpus', type=int,
+                             help='explicit effective Ray slots for this machine; '
+                                  'overrides automatic CPUs minus reserve')
         if name == 'configure-worker':
             command.add_argument('--head', required=True, help='head HOST or HOST:PORT')
     commands.add_parser('ensure')
@@ -309,6 +331,8 @@ def main():
         raise SystemExit('Port must be between 1 and 65535')
     if getattr(args, 'leave_cpus_free', 1) < 0:
         raise SystemExit('--leave-cpus-free cannot be negative')
+    if getattr(args, 'num_cpus', None) is not None and args.num_cpus < 1:
+        raise SystemExit('--num-cpus must be positive')
     if args.command == 'configure-head':
         configure('head', args)
     elif args.command == 'configure-worker':

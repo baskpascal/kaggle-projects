@@ -28,7 +28,7 @@ def test_explicit_address_must_be_private(monkeypatch):
 
 def test_head_and_worker_commands_are_deterministic(monkeypatch):
     monkeypatch.setattr(ray_cluster, 'node_ip', lambda requested: '100.64.0.10')
-    monkeypatch.setattr(ray_cluster, 'available_cpus', lambda leave: 14)
+    monkeypatch.setattr(ray_cluster, 'available_cpus', lambda leave, requested=None: 14)
     head = ray_cluster.ray_command({'role': 'head', 'node_address': 'auto',
                                     'port': 6379, 'leave_cpus_free': 2})
     worker = ray_cluster.ray_command({'role': 'worker', 'node_address': 'auto',
@@ -75,7 +75,8 @@ def test_configure_persists_role_then_enables_service(tmp_path, monkeypatch):
     monkeypatch.setattr(ray_cluster, 'install_service',
                         lambda **options: enabled.append(options))
     monkeypatch.setattr(ray_cluster, 'status_data', lambda value: {'role': value['role']})
-    args = SimpleNamespace(node_address='auto', port=6379, leave_cpus_free=1)
+    args = SimpleNamespace(node_address='auto', port=6379, leave_cpus_free=1,
+                           num_cpus=None)
 
     ray_cluster.configure('head', args)
 
@@ -91,6 +92,31 @@ def test_corrupt_or_incomplete_machine_config_is_refused(tmp_path, monkeypatch):
     monkeypatch.setattr(ray_cluster, 'CONFIG', config)
     with pytest.raises(SystemExit, match='no head host'):
         ray_cluster.read_config()
+
+
+def test_explicit_cpu_capacity_overrides_the_reserve(monkeypatch):
+    monkeypatch.setattr(ray_cluster.os, 'sched_getaffinity', lambda _pid: set(range(16)))
+    assert ray_cluster.available_cpus(2, requested=9) == 9
+    with pytest.raises(SystemExit, match='exceeds'):
+        ray_cluster.available_cpus(1, requested=17)
+
+
+def test_explicit_cpu_capacity_is_persisted_and_advertised(tmp_path, monkeypatch):
+    config = tmp_path / 'ray-cluster.json'
+    monkeypatch.setattr(ray_cluster, 'CONFIG', config)
+    monkeypatch.setattr(ray_cluster, 'node_ip', lambda requested: '100.64.0.10')
+    monkeypatch.setattr(ray_cluster, 'available_cpus',
+                        lambda leave, requested=None: requested or 15)
+    monkeypatch.setattr(ray_cluster, 'install_service', lambda **_options: None)
+    monkeypatch.setattr(ray_cluster, 'status_data', lambda value: value)
+    args = SimpleNamespace(node_address='auto', port=6379, leave_cpus_free=1,
+                           num_cpus=8)
+
+    ray_cluster.configure('head', args)
+
+    saved = ray_cluster.read_config()
+    assert saved['num_cpus'] == 8
+    assert '--num-cpus=8' in ray_cluster.ray_command(saved)
 
 
 @pytest.mark.parametrize(('value', 'expected'), [
