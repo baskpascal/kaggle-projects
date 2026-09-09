@@ -362,29 +362,52 @@ precisa de um `DIG` antes de ser replantado.
 ## 3. Oportunidade de otimização
 *(dentro do escopo simples/enxuto — NÃO implementado nesta fase)*
 
-**O1 — `DROP` e `SELL` no mesmo turno.** O motor permite (unidades antes do
+**O1 — `DROP` e `SELL` no mesmo turno. FECHADO.** `agent/market.py:88`
+(`projected_shed`) espelha a ordem PICKUP/DROP, então o estoque entregue neste turno já
+entra na lista de `SELL`. Era verdade na Fase 0.
+
+**O1 (texto original)** — O motor permite (unidades antes do
 mercado), mas `agent/planner.py` monta as ordens a partir de
 `s.private['shed']`, ou seja, só do que já estava no shed no início do turno.
 Cada entrega perde um turno de caixa; no último turno da temporada, é a diferença
 entre vender e não vender. Bastaria antecipar os `DROP` planejados ao montar a
 lista de `SELL`.
 
-**O2 — Modelar `shedCapacity`.** Um teto por entrega evitaria descarte silencioso
-(A5) e compras recusadas. Hoje não existe nenhum uso de `shedCapacity` no agente.
+**O2 — Modelar `shedCapacity`. FECHADO.** `agent/market.py:49` e `:91` leem
+`state.config.get('shedCapacity', 100)`; a pressão de estoque e o teto por entrega já
+existem. A afirmação de que "não existe nenhum uso de `shedCapacity` no agente" era
+verdadeira na Fase 0.
 
-**O3 — CARE em animais de intervalo longo.** `SHEEP` (interval 3) com CARE diário
+**O3 — CARE em animais de intervalo longo. FECHADO.** `agent/economy.py:care_priority`
+passou a precificar o CARE pela unidade que ele efetivamente deposita — `45 +
+prices[produto] * .3`, na mesma forma do FERTILIZE — e a devolver `None` quando o
+`max_held` não deixa espaço para o bônus ou quando não sobra dia de produção na
+temporada. Travado contra o motor em `tests/test_planner_care_and_water.py` e ablável
+por `care_pricing`. Texto original abaixo.
+
+**O3 (texto original)** — `SHEEP` (interval 3) com CARE diário
 rendeu **6 unidades** na primeira produção contra **1** sem CARE (medido em
 `test_care_banks_a_bonus_paid_on_the_next_fed_production`). `COW` (interval 2) tem
 efeito parecido. Hoje o planner dá prioridade 45 a `CARE`, abaixo de quase tudo,
 o que faz sentido para `GOOSE` (interval 1, ganho no máximo 2x) mas subestima
 muito os outros dois.
 
-**O4 — Regar no último dia ainda vale.** `WATER` dentro da janela incrementa
+**O4 — Regar no último dia ainda vale. FECHADO.** A guarda
+`s.turns_left > s.turns_per_day - s.hour` cortava o último dia inteiro; agora a rega
+continua enquanto a planta estiver na janela de bônus e restar um turno para colher o que
+a água acabou de somar. Ablável por `last_day_water`. Texto original abaixo.
+
+**O4 (texto original)** — `WATER` dentro da janela incrementa
 `yield_units` na hora, então regar no penúltimo turno e colher no último soma
 unidades reais. `agent/planner.py:51` desliga a rega quando
 `turns_left <= turns_per_day - hour`, o que corta esse ganho.
 
-**O5 — Contratar é praticamente de graça.** 8 hands custam $54 por dia, 12 custam
+**O5 — Contratar é praticamente de graça. EM ABERTO, DE PROPÓSITO.** `max_hands` é um
+parâmetro de tuning, não um bug: mudá-lo sem medição pareada é exatamente o tipo de
+chute que a varredura de capacidade do Ray desmentiu. Fica para um experimento com
+`max_hands` no eixo. Texto original abaixo.
+
+**O5 (texto original)** — 8 hands custam $54 por dia, 12 custam
 $376. `max_hands = 8` é um limite do agente, não do motor. O gargalo verdadeiro é
 `maxMarketOrdersPerTurn = 10` (cada `HIRE` é uma ordem) e a competição por espaço
 na fila com os `SELL`.
