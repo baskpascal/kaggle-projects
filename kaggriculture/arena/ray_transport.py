@@ -38,7 +38,11 @@ REQUIRED_ROOTS = ('agent', 'arena', 'eval', 'experiments', 'opponents', 'scripts
 # opaque RuntimeEnvSetupError. Measuring first turns it into a sentence that names the
 # directory that grew.
 PACKAGE_LIMIT_BYTES = 512 * 1024 * 1024
-DEFAULT_CPUS_PER_WORKER = 4
+# Measured, not chosen: 5 is the peak of 4, 5 and 8 on this pair of machines
+# (docs/ray-cluster-width.json). It is the width that covers 25 of the cluster's 26 CPUs
+# -- 3 slots on a 15-CPU host, 2 on an 11-CPU one -- where 4 leaves six CPUs unused and 8
+# collapses each host to a single slot. See docs/RAY_CLUSTER.md.
+DEFAULT_CPUS_PER_WORKER = 5
 
 
 def _excluded(relative, excludes):

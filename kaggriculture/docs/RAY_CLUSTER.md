@@ -200,10 +200,37 @@ muito mais no mesmo host (PC A: 2,832/s com 4 filhos contra 6,826/s com 15), e e
 benchmark é a consequência prática disso. A cauda também pesa: 41,8 s de batch mais lento
 em 295,7 s de corrida, com o PC B segurando o fim.
 
-Ou seja, `cpw=4` é o melhor valor **entre os quatro que foram medidos**, e ainda assim é
-largo demais em número de slots e estreito demais em filhos por slot. A pergunta aberta é
-`cpw` acima de 4; enquanto ela não for respondida, rodar distribuído com `--distributed`
-não é mais rápido do que rodar no PC A.
+### Resposta: `cpus_per_worker=5`
+
+A pergunta acima foi medida (`docs/ray-cluster-width.json`), mesma carga de 2000 jobs, só a
+perna distribuída, reaproveitando as linhas-base solo:
+
+| cpw | slots (A+B) | CPUs ocupados | vazão | eficiência | vs PC A sozinho |
+|-----|-------------|---------------|-------|------------|-----------------|
+| 4 | 3+2 | 20 de 26 | 6,764/s | 74,6% | 0,991x |
+| **5** | **3+2** | **25 de 26** | **7,984/s** | **88,1%** | **1,170x** |
+| 8 | 1+1 | 16 de 26 | 6,470/s | 71,4% | 0,948x |
+
+`cpw=5` é o topo, e `cpw=8` confirma que é topo e não apenas "melhor que 4": estreitar para
+um slot por máquina derruba a vazão de novo. `DEFAULT_CPUS_PER_WORKER` passou a ser 5.
+
+Com isso o cluster entrega **88,1% da soma das duas máquinas** e supera o PC A sozinho em
+1,17x. O objetivo da infraestrutura está cumprido; não há mais afinação de Ray pendente.
+
+A contribuição por host no run de `cpw=5`, agora visível no relatório:
+
+```
+DESKTOP-V3A6VJ6    47 batches   1504 matches   75,2%
+DESKTOP-DM63QP1    16 batches    496 matches   24,8%
+```
+
+Isso bate com as vazões solo (75,3% / 24,7%): o Ray distribui na proporção da capacidade
+real de cada máquina, sem divisão fixa por hostname. Um nó que entrasse no cluster e
+ficasse com share perto de zero apareceria aqui.
+
+O que **não** melhorou é a cauda: 41,2 s de batch mais lento em ~250 s de corrida, o PC B
+segurando o fim, coerente com ele ser ~3x mais lento por partida. Isso é característica da
+máquina, e reduzir a cauda custaria mais engenharia de escalonamento do que vale.
 
 ## Preparação manual equivalente
 
