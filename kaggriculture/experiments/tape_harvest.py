@@ -68,7 +68,9 @@ def harvest(donors, opponents, seeds, output, *, workers=4, min_score=1.,
                                      replay=str(path), telemetry_enabled=False))
                     meta.append((donor, opponent, seed, seat, path))
     library, seen, stats = [], {}, Counter()
-    for (donor, opponent, seed, seat, path), row in zip(meta, matches(jobs, workers)):
+    # Positional pairing, so the ordered mode is requested explicitly rather than relied on.
+    for (donor, opponent, seed, seat, path), row in zip(meta, matches(jobs, workers,
+                                                                     ordered=True)):
         stats['games'] += 1
         if row['failures'] or row['opponent_failures']:
             stats['failed'] += 1

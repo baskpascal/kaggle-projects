@@ -259,7 +259,7 @@ def engine(monkeypatch, played, fail_after=None):
                        configuration={'seed': job['seed']}, score=.5, margin=0, money=100,
                        opponent_money=100, failures=[], opponent_failures=[], unsold_items=0,
                        runtime_ms=[1], audit={}, sales={}, steps=719, wall_seconds=.01)
-    monkeypatch.setattr(league, 'matches', matches)
+    monkeypatch.setattr(league, 'stream', matches)
 
 
 def test_a_resumed_validation_run_consumes_the_seed_registry_exactly_once(tmp_path, monkeypatch, registry):

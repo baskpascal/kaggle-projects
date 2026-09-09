@@ -7,7 +7,7 @@ import time
 from .agents import agent_hash
 from .batch import batched_runner, worker_budget
 from .jobs import JobStore, execute, plan, single_provenance
-from .parallel import matches
+from .parallel import stream
 from .ray_transport import DEFAULT_CPUS_PER_WORKER
 from .seeds import REGISTRY, SPLITS, admit_run, parse_seeds
 from eval.metrics import summarize
@@ -63,7 +63,10 @@ def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=No
             if counter['n'] % 20 == 0:
                 print(f'{counter["n"]}/{len(jobs)} games; {time.perf_counter()-started:.1f}s', flush=True)
 
-        rows = execute(jobs, job_store, split, runner or matches, workers=workers,
+        # `stream`, not `matches`: the durable store exists to survive an interrupted run,
+        # and holding finished games in RAM to keep plan order is exactly what would lose
+        # them. `execute` restores the plan's order once every game is safely recorded.
+        rows = execute(jobs, job_store, split, runner or stream, workers=workers,
                        attempts=attempts, on_row=progress)
     # The store may hold games from an earlier attempt; refusing a mixed set here is
     # what makes a resumed or distributed run as trustworthy as a single-process one.

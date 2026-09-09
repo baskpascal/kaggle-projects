@@ -142,13 +142,24 @@ def start_method(requested=None):
     return 'forkserver' if 'forkserver' in available else 'spawn'
 
 
-def matches(jobs, workers=4, method=None, timeout=-1):
-    """Play every job in its own process, at most `workers` at a time, in job order.
+def matches(jobs, workers=4, method=None, timeout=-1, ordered=True):
+    """Play every job in its own process, at most `workers` at a time.
 
     One process per game is the isolation, and it is also what makes the deadline
-    enforceable: there is nothing to unwind, only a process to kill. Rows come back in the
-    order the jobs were given regardless of the order they finish, because callers pair
-    them with their jobs positionally.
+    enforceable: there is nothing to unwind, only a process to kill.
+
+    `ordered=True` yields rows in job order however they finish, which is the contract the
+    positional callers in `experiments/` rely on: it is a guarantee, not an accident, and
+    `tests/test_parallel.py` pins it.
+
+    `ordered=False` yields each row the moment it lands. That matters because holding a
+    finished game to wait for an earlier one holds it *in RAM*: with the default 300 s
+    deadline, one hung first game can leave every later game of the run unpersisted, and a
+    driver that dies in that window replays work it had already computed. A common row is
+    116-134 KB, so the buffer is expensive as well as fragile. Unordered, the peak of
+    unpersisted results is the in-flight window -- at most `workers` rows -- instead of the
+    whole run. `arena.jobs.execute` correlates by `job_id` and never by position, so it
+    wants this mode; `stream` below is that pairing spelled out.
     """
     if workers < 1:
         raise ValueError('workers must be positive')
@@ -161,10 +172,10 @@ def matches(jobs, workers=4, method=None, timeout=-1):
     if chosen == 'forkserver':
         context.set_forkserver_preload(list(PRELOAD))
     results = context.Queue()
-    running, finished, started_at, vanished = {}, {}, {}, {}
-    pending, emitted = iter(range(len(jobs))), 0
+    running, buffered, started_at, vanished = {}, {}, {}, {}
+    pending, emitted, done = iter(range(len(jobs))), 0, set()
     try:
-        while emitted < len(jobs):
+        while len(done) < len(jobs):
             while len(running) < workers:
                 index = next(pending, None)
                 if index is None:
@@ -178,17 +189,26 @@ def matches(jobs, workers=4, method=None, timeout=-1):
                 process = running.pop(index, None)
                 if process is not None:
                     process.join(5)
-                if index not in finished:  # A row that lost the race with its own kill.
+                if index not in done:  # A row that lost the race with its own kill.
                     if error is not None:
                         raise RuntimeError(f'Match failed in its own process: {error}')
-                    finished[index] = row
+                    done.add(index)
+                    if ordered:
+                        buffered[index] = row
+                    else:
+                        yield row
             except queuelib.Empty:
                 pass
             for index, process in list(running.items()):
                 if limit is not None and time.monotonic() - started_at[index] > limit:
                     _terminate(process)
                     running.pop(index)
-                    finished[index] = timeout_row(jobs[index], limit)
+                    done.add(index)
+                    row = timeout_row(jobs[index], limit)
+                    if ordered:
+                        buffered[index] = row
+                    else:
+                        yield row
                 elif not process.is_alive():
                     # Exiting and being read are not simultaneous: a child that has already
                     # put its row on the queue is dead before the parent drains it. Only a
@@ -197,10 +217,25 @@ def matches(jobs, workers=4, method=None, timeout=-1):
                     if time.monotonic() - first_seen > 5:
                         running.pop(index)
                         raise RuntimeError(f'Match worker died without a result: {jobs[index]}')
-            while emitted in finished:
-                yield finished.pop(emitted)
+            while emitted in buffered:
+                yield buffered.pop(emitted)
                 emitted += 1
+        # Ordered mode drains inside the loop as the gap closes, so what is left here is
+        # only the tail that completed after the last job started.
+        while emitted in buffered:
+            yield buffered.pop(emitted)
+            emitted += 1
     finally:
         for process in running.values():
             _terminate(process)
         results.close()
+
+
+def stream(jobs, workers=4, method=None, timeout=-1):
+    """A `runner(jobs, workers)` that hands every game to its caller the moment it lands.
+
+    This is the shape `arena.jobs.execute` wants: it identifies a result by recomputing
+    `job_id` from the row's own contents, so arrival order carries no meaning for it, and
+    persisting immediately is the whole point of the durable store.
+    """
+    return matches(jobs, workers=workers, method=method, timeout=timeout, ordered=False)

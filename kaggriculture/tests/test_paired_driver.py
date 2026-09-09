@@ -36,7 +36,7 @@ def fake_engine(monkeypatch, registry):
                 configuration={'seed': job['seed']}, score=.5, margin=0,
                 money=100, opponent_money=100, failures=[], opponent_failures=[],
                 unsold_items=0, runtime_ms=[1], audit={}, sales={}, steps=719, wall_seconds=.01)
-    monkeypatch.setattr(league, 'matches', matches)
+    monkeypatch.setattr(league, 'stream', matches)
     return calls
 
 
@@ -126,11 +126,11 @@ def test_prechecks_do_not_consume_seeds(tmp_path, registry, fake_engine, problem
 
 
 def test_partial_run_keeps_validation_burned_and_emits_no_verdict(tmp_path, registry, fake_engine, monkeypatch):
-    original = league.matches
+    original = league.stream
     def interrupted(jobs, workers):
         yield next(iter(original(jobs, workers)))
         raise RuntimeError('worker interrupted')
-    monkeypatch.setattr(league, 'matches', interrupted)
+    monkeypatch.setattr(league, 'stream', interrupted)
     with pytest.raises(RuntimeError, match='interrupted'):
         run(tmp_path, registry)
     assert load_registry(registry)[0]['revision'] == 2

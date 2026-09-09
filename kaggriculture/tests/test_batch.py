@@ -89,15 +89,25 @@ def test_a_transport_that_loses_a_batch_is_refused():
         list(batched_runner(size=2, map_batches=lossy)(jobs(4), 2))
 
 
-def test_transport_results_may_arrive_out_of_order_but_rows_do_not():
+def test_a_batch_that_finishes_second_is_handed_over_first(tmp_path):
+    """Holding batch 2 until batch 1 lands is how a dying driver loses finished work.
+
+    The rows leave the runner in arrival order on purpose; `arena.jobs.execute` records
+    each one by its own `job_id` and puts the plan's order back afterwards, which is what
+    `test_the_report_is_identical_whatever_order_the_games_arrive_in` pins.
+    """
     work = jobs(4)
 
     def reversed_transport(batches, workers):
         yield run_batch(batches[1], workers=workers)
         yield run_batch(batches[0], workers=workers)
 
-    rows = list(batched_runner(size=2, map_batches=reversed_transport)(work, 2))
-    assert [row['seed'] for row in rows] == [job['seed'] for job in work]
+    seen = []
+    runner = batched_runner(size=2, map_batches=reversed_transport, on_batch=seen.append)
+    rows = list(runner(work, 2))
+    assert [row['seed'] for row in rows] == [job['seed'] for job in work[2:] + work[:2]]
+    assert len(seen) == 2, 'every envelope is handed over as it arrives'
+    assert {row['seed'] for row in rows} == {job['seed'] for job in work}
 
 
 def test_a_duplicate_or_substituted_batch_is_refused():
