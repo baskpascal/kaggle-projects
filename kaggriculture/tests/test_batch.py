@@ -50,6 +50,12 @@ def test_adaptive_batches_keep_at_least_eight_waves_per_slot():
         adaptive_batch_size(10, 0)
 
 
+def test_batch_never_reserves_more_workers_than_a_full_batch_can_use():
+    assert adaptive_batch_size(32, 5, minimum=4) == 4
+    with pytest.raises(ValueError, match='leaves a 4-worker reservation idle'):
+        list(batched_runner(size=2, minimum_batch_size=4)(jobs(8), 4))
+
+
 def test_the_worker_budget_leaves_the_host_usable_and_never_returns_zero():
     assert worker_budget(cpus_free=2, cpus=16) == 14
     assert worker_budget(cpus_free=0, cpus=16) == 16
@@ -78,6 +84,8 @@ def test_an_envelope_carries_where_and_how_long():
     assert envelope['hostname']
     assert envelope['job_ids'] == [row['job_id'] for row in envelope['rows']]
     assert all(row['batch_id'] == envelope['batch_id'] for row in envelope['rows'])
+    assert all(row['execution_resources']['granted_workers'] == 2
+               for row in envelope['rows'])
 
 
 def test_a_transport_that_loses_a_batch_is_refused():

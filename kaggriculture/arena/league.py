@@ -76,13 +76,32 @@ def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=No
     # what makes a resumed or distributed run as trustworthy as a single-process one.
     single_provenance(rows)
     summary = summarize(rows)
+    resource_plans = [row['execution_resources'] for row in rows
+                      if row.get('execution_resources')]
+    execution_resources = None
+    if resource_plans:
+        execution_resources = {
+            'requested_workers': max(plan['requested_workers'] for plan in resource_plans),
+            'granted_workers': max(plan['granted_workers'] for plan in resource_plans),
+            'cpu_budget': resource_plans[0]['cpu_budget'],
+            'memory_budget_mb': resource_plans[0]['memory_budget_mb'],
+            'memory_per_worker_mb': resource_plans[0]['memory_per_worker_mb'],
+            'maximum_queue_wait_seconds': max(plan['queue_wait_seconds']
+                                              for plan in resource_plans),
+        }
+    elapsed = time.perf_counter() - started
+    if execution_resources:
+        execution_resources['peak_observed_global_workers'] = max(
+            plan['global_workers_at_grant'] for plan in resource_plans)
     metadata = {'candidate': candidate, 'candidate_hash': provenance['candidate_hash'],
                 'opponents': opponents, 'opponent_hashes': hashes,
                 'split': split, 'seeds': seeds, 'backend': backend, 'registry': registry,
                 'evidence_profile': evidence_profile,
                 'run_id': run_id,
+                'execution_resources': execution_resources,
                 'created_at': datetime.now(timezone.utc).isoformat(),
-                'wall_seconds': time.perf_counter() - started}
+                'wall_seconds': elapsed,
+                'games_per_second': len(rows) / elapsed}
     if output:
         write_report(output, rows, summary, metadata)
     return rows, summary, metadata
@@ -138,9 +157,12 @@ def main():
         mapper = None
     if mapper is not None:
         args.runner = batched_runner(size=batch_size, map_batches=mapper,
-                                     available_slots=mapper.available_slots)
+                                     available_slots=mapper.available_slots,
+                                     minimum_batch_size=cpus_per_worker)
     elif batch_size:
-        args.runner = batched_runner(size=batch_size)
+        args.runner = batched_runner(size=batch_size,
+                                     minimum_batch_size=min(args.workers, len(args.seeds) *
+                                                             len(args.opponents) * 2))
     _, summary, _ = run_league(**vars(args))
     print(json.dumps(summary, indent=2))
 

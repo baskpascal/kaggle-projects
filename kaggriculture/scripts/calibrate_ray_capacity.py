@@ -17,6 +17,7 @@ from arena.ray_transport import connect  # noqa: E402
 
 
 NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty',
+                    'execution_resources',
                     'job_id', 'batch_id'}
 
 

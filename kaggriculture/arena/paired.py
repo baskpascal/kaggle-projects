@@ -202,7 +202,8 @@ def main():
         from .batch import batched_runner
         atexit.register(mapper.ray.shutdown)
         args['runner'] = batched_runner(size=batch_size, map_batches=mapper,
-                                        available_slots=mapper.available_slots)
+                                        available_slots=mapper.available_slots,
+                                        minimum_batch_size=cpus_per_worker)
     # `nodes` is incidental to the run_id by design (see arena/runspec.py), but a report
     # that cannot say which machines produced it is a report nobody can audit later.
     args['distribution'] = {'topology': 'ray' if mapper is not None else 'local',

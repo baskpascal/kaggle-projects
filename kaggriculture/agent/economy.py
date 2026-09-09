@@ -9,6 +9,9 @@ CROPS = {
     'STRAWBERRY': (100, 10, 16, 4, 17),
     'MELON': (80, 10, 10, 6, 11),
 }
+# Engine max_yield_day; watering only adds yield from age (max_yield_day + 1) // 2.
+MAX_YIELD_DAY = {'WHEAT': 4, 'CARROT': 3, 'TOMATO': 8, 'STRAWBERRY': 10, 'MELON': 12}
+WATER_BONUS_FROM = {crop: (last + 1) // 2 for crop, last in MAX_YIELD_DAY.items()}
 ANIMALS = {
     'GOOSE': (300, 'COOP', 'EGG', 4, 1),
     'COW': (400, 'PASTURE', 'MILK', 8, 2),
