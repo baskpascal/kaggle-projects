@@ -1,0 +1,65 @@
+{
+  "version": "v005",
+  "kind": "public_replay_candidate",
+  "sha256": "5ac41db17e15f7f0c46b78725d3f0c694adbb74b66ba65c6e8f54e1afd548171",
+  "builder": "experiments/tape_agent.py",
+  "tape": {
+    "sha256": "b4d064f411cd2a72b3e3d12ff00aea30eab52c9aa2d7a3a281ee88041f43c600",
+    "episode": 106899357,
+    "seed": 665066317,
+    "seat": 1,
+    "team": "mtmr_s1",
+    "recorded_money": 142233.0,
+    "recorded_opponent_money": 138960.0,
+    "engine": "1.32.7",
+    "source_dataset": "kaggle/kaggriculture-episodes-2026-09-08"
+  },
+  "measured": {
+    "current_meta_open_loop": {
+      "source": "kaggle/kaggriculture-episodes-2026-09-08",
+      "episodes": 663,
+      "games": 1326,
+      "behaviours": 229,
+      "score": 0.6941930618401206,
+      "ci95_by_episode": [
+        0.666312495086464,
+        0.7220736285937773
+      ],
+      "v004_score": 0.6444193061840121,
+      "paired_delta": 0.049773755656108594,
+      "paired_delta_ci95_by_episode": [
+        0.03227546914762042,
+        0.06727204216459677
+      ],
+      "failures": 0,
+      "limitation": "Recorded opponents replay observed actions open-loop."
+    },
+    "independent_public_panel": {
+      "seeds": "200100:200125",
+      "games": 200,
+      "score": 0.81,
+      "worst_family": 0.66,
+      "v004_score": 0.83,
+      "v004_worst_family": 0.62,
+      "failures": 0
+    },
+    "direct_vs_v004": {
+      "seeds": "210000:210100",
+      "games": 200,
+      "score": 0.795,
+      "seat0": 0.8,
+      "seat1": 0.79,
+      "mean_margin": 1628.94,
+      "failures": 0
+    }
+  },
+  "decision": "Keep v004 and v005 as complementary finalists: v005 wins the current-meta and direct comparisons; v004 retains a small aggregate lead on the fixed public panel.",
+  "source_reproduction": {
+    "expected_money": [142233.0, 138960.0],
+    "fast_money": [142233.0, 138960.0],
+    "official_money": [142233.0, 138960.0],
+    "exact": true,
+    "failures": 0
+  },
+  "provenance": "The action stream is from the public official Kaggle daily replay dataset. Host rulings cited in docs/LADDER_META.md permit building submissions from public replays."
+}

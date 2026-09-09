@@ -1,5 +1,13 @@
 # The field is a ladder, not a rock-paper-scissors: what that changes
 
+> **Correction (2026-09-09).** The daily-dump extractor used `steps[:-1]`, but Kaggle
+> stores the initial placeholder at `steps[0]` and the actions actually executed at
+> `steps[1:]`. Every daily replay tape measured below was shifted by one turn. Replaying
+> a current episode exposed the error: the shifted tapes produced 43,771 × 91,408, while
+> `steps[1:]` reproduced the published 81,819 × 76,416 exactly on both local backends.
+> Findings based on notebook-embedded tapes and our local games remain valid; claims below
+> about the 1,313 daily-dump tapes and their transfer rate must be regenerated before use.
+
 This supersedes the direction proposed in `docs/TAPE_ROUTING_FINDING.md`. That
 document read a single-tape replayer scoring 0,506 against a top-heavy opponent
 set and concluded that tapes are *matchup-specific*, so the way forward was a

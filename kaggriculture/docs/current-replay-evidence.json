@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-09",
+  "source": {
+    "dataset": "kaggle/kaggriculture-episodes-2026-09-08",
+    "archive_sha256": "e24aa237bbecff0dd63e55b024b9645dbcfde08d822924e0ea865ecb806765da",
+    "archive_bytes": 587628915,
+    "raw_bytes": 21472957263,
+    "episodes": 663,
+    "engine": "1.32.7",
+    "action_stream_slice": "steps[1:]"
+  },
+  "candidate": {
+    "version": "v005",
+    "artifact_sha256": "5ac41db17e15f7f0c46b78725d3f0c694adbb74b66ba65c6e8f54e1afd548171",
+    "tape_sha256": "b4d064f411cd2a72b3e3d12ff00aea30eab52c9aa2d7a3a281ee88041f43c600",
+    "source_episode": 106899357,
+    "source_team": "mtmr_s1"
+  },
+  "current_meta_open_loop": {
+    "games": 1326,
+    "behaviours": 229,
+    "v004_score": 0.6444193061840121,
+    "v005_score": 0.6941930618401206,
+    "paired_delta": 0.049773755656108594,
+    "paired_delta_ci95_by_episode": [
+      0.03227546914762042,
+      0.06727204216459677
+    ],
+    "v004_worst_supported_behaviour": {
+      "digest": "64ea246bd655ace1",
+      "games": 124,
+      "score": 0.16532258064516128
+    },
+    "v005_worst_supported_behaviour": {
+      "digest": "de192a0a198329a5",
+      "games": 26,
+      "score": 0.2692307692307692
+    },
+    "failures": 0,
+    "limitation": "Recorded opponents replay their observed actions open-loop and cannot react differently after the candidate changes the world."
+  },
+  "independent_public_panel": {
+    "seeds": "200100:200125",
+    "games_per_candidate": 200,
+    "v004_score": 0.83,
+    "v005_score": 0.81,
+    "paired_delta": -0.02,
+    "paired_delta_ci95_by_seed": [
+      -0.0944198002326442,
+      0.054419800232644186
+    ],
+    "v004_worst_family": 0.62,
+    "v005_worst_family": 0.66,
+    "failures": 0
+  },
+  "direct_v005_vs_v004": {
+    "seeds": "210000:210100",
+    "games": 200,
+    "score": 0.795,
+    "score_ci95_by_seed": [
+      0.716088160686508,
+      0.873911839313492
+    ],
+    "seat0": 0.8,
+    "seat1": 0.79,
+    "mean_margin": 1628.94,
+    "failures": 0
+  },
+  "preflight": {
+    "status": "PASSED",
+    "seed": 314159,
+    "states": 720,
+    "engine": "1.32.7"
+  },
+  "source_reproduction": {
+    "episode": 106899357,
+    "seed": 665066317,
+    "candidate_seat": 1,
+    "expected_money": [142233.0, 138960.0],
+    "fast_money": [142233.0, 138960.0],
+    "official_money": [142233.0, 138960.0],
+    "exact": true,
+    "failures": 0
+  }
+}

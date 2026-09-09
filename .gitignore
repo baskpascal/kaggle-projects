@@ -6,6 +6,7 @@ __pycache__/
 kaggriculture/experiments/results/
 kaggriculture/experiments/searches/
 kaggriculture/replays/
+kaggriculture/data/
 kaggriculture/submission/dist/
 kaggriculture/.tmp/
 *.egg-info/

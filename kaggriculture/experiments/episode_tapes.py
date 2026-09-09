@@ -19,6 +19,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import zipfile
 
 SCHEMA = 1
 TURNS = 719
@@ -33,7 +34,14 @@ def tape_digest(actions):
 def read_episode(path):
     """Both seats of one episode, or the reason the file cannot be used."""
     try:
-        episode = json.loads(Path(path).read_text())
+        if isinstance(path, tuple):
+            archive, member = path
+            with zipfile.ZipFile(archive) as source:
+                episode = json.loads(source.read(member))
+            source_name = f'{archive}!{member}'
+        else:
+            episode = json.loads(Path(path).read_text())
+            source_name = str(path)
     except Exception as exc:                       # a truncated dump is not evidence
         return {'path': str(path), 'error': f'{type(exc).__name__}: {exc}'[:160]}
     steps = episode.get('steps')
@@ -44,8 +52,10 @@ def read_episode(path):
     rewards = episode.get('rewards') or [None, None]
     seats = []
     for seat in (0, 1):
-        # State k records the action taken from it; the terminal state has none.
-        actions = [steps[k][seat].get('action') for k in range(TURNS)]
+        # Kaggle's step 0 is the initial state with a placeholder action. Entry k + 1
+        # stores the action produced from state k and the state after applying it. The
+        # executable 719-turn stream is therefore steps[1:], not steps[:-1].
+        actions = [steps[k + 1][seat].get('action') for k in range(TURNS)]
         if any(action is None for action in actions):
             return {'path': str(path), 'error': f'seat {seat} is missing actions'}
         seats.append({
@@ -56,7 +66,19 @@ def read_episode(path):
             'engine': episode.get('module_version'),
             'sha256': tape_digest(actions), 'actions': actions,
         })
-    return {'path': str(path), 'seats': seats}
+    return {'path': source_name, 'seats': seats}
+
+
+def episode_paths(source):
+    """Return process-safe references from an extracted directory or Kaggle zip."""
+    source = Path(source)
+    if source.is_dir():
+        return sorted(str(path) for path in source.glob('*.json'))
+    if source.is_file() and zipfile.is_zipfile(source):
+        with zipfile.ZipFile(source) as archive:
+            return [(str(source), name) for name in sorted(archive.namelist())
+                    if name.lower().endswith('.json') and not name.endswith('/')]
+    raise ValueError(f'Expected an episode directory or zip archive: {source}')
 
 
 def collect(source, output, *, workers=8, winners_only=False):
@@ -64,7 +86,7 @@ def collect(source, output, *, workers=8, winners_only=False):
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
-    paths = sorted(str(p) for p in Path(source).glob('*.json'))
+    paths = episode_paths(source)
     if not paths:
         raise ValueError(f'No episodes under {source}')
     library, errors, seen = [], [], {}
@@ -99,7 +121,8 @@ def collect(source, output, *, workers=8, winners_only=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--source', required=True, help='directory of episode JSON files')
+    parser.add_argument('--source', required=True,
+                        help='directory of episode JSON files or an official daily zip')
     parser.add_argument('--output', required=True)
     parser.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 2) // 2))
     parser.add_argument('--winners-only', action='store_true')
