@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from scripts.benchmark_ray import load_verification, write_report
+from scripts.benchmark_ray import load_verification, results_agree, write_report
 
 
 def proof():
@@ -95,3 +95,14 @@ def test_stale_or_incomplete_verification_is_a_hard_failure(tmp_path, mutation, 
     mutation(value)
     with pytest.raises(SystemExit, match=message):
         load(write(tmp_path, value))
+
+
+def test_results_agree_exactly_without_requiring_completion_order():
+    first = {'seed': 1, 'winner': 0, 'our_money': 1.0, 'wall_seconds': 1.0}
+    second = {'seed': 2, 'winner': 1, 'our_money': 0.0, 'wall_seconds': 2.0}
+
+    assert results_agree([first, second], [
+        {**second, 'wall_seconds': 9.0, 'hostname': 'pc-b'},
+        {**first, 'wall_seconds': 8.0, 'hostname': 'pc-a'},
+    ])
+    assert not results_agree([first], [{**first, 'our_money': 1.0000001}])
