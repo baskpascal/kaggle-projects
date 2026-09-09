@@ -1,0 +1,56 @@
+{
+  "id": "ep106802511s1",
+  "family": "recorded::Tarang222",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106802511s1/main.py",
+  "sha256": "5461f508cce0c7f216e50bd4fea472feb66f64aa2aa1a8b6686b47efff2d1831",
+  "tape_sha256": "a70f29e1c4c71d54d0dd99f17eea00374cb2a79fc97d8bd9087e364924697eb4",
+  "opening_sha256": "a2e1d241fb6f1d1db662e1e3cdcbee18e32e369d02ff6c00cecfe0afc611a18f",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106802511,
+    "seed": 1297177958,
+    "seat": 1,
+    "team": "Tarang222",
+    "opponent_team": "SpaTaro",
+    "money": 74537.0,
+    "opponent_money": 59122.0
+  },
+  "reconstruction": {
+    "episode": "106802511",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106802511",
+      "digest": "a70f29e1c4c71d54d0dd99f17eea00374cb2a79fc97d8bd9087e364924697eb4",
+      "verified_at": "2026-09-09T15:40:25.364941+00:00",
+      "expected": [
+        59122.0,
+        74537.0
+      ],
+      "fast": [
+        59122.0,
+        74537.0
+      ],
+      "official": [
+        59122.0,
+        74537.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2872.4,
+    "rank": 10,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2965.2,
+    "rank": 1
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

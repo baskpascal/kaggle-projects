@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-09",
+  "note": "Scores behind docs/TOP_PANEL_2800.md. Per-game rows stay under ignored data/.",
+  "recorded_panel_fresh_seeds": {
+    "opponents": 20,
+    "seeds": "411000:411050",
+    "games_each": 2000,
+    "split": "dev",
+    "limitation": "A recorded tape replayed on a fresh seed meets a different town; this measures transfer, not the agent.",
+    "scores": {
+      "v006": 0.96,
+      "yhay_router_0909": 0.961
+    }
+  },
+  "current_meta_at_recorded_seeds": {
+    "source": "data/kaggle/official/top2800-2026-09-08.zip",
+    "admission": "both teams >= 2800 on the 2026-09-09 snapshot",
+    "episodes": 157,
+    "assignments": 314,
+    "limitation": "Recorded opponents replay open-loop and cannot react after our actions change the world.",
+    "candidates": {
+      "v006": {
+        "score": 0.7929936305732485,
+        "ci95_by_episode": [
+          0.743651047114387,
+          0.8423362140321099
+        ],
+        "seat_score": {
+          "0": 0.7643312101910829,
+          "1": 0.821656050955414
+        },
+        "failures": 0,
+        "per_team": {
+          "SpaTaro": {
+            "rank": 1,
+            "rating": 2965.2,
+            "games": 81,
+            "score": 0.8888888888888888
+          },
+          "Otter Vibe": {
+            "rank": 2,
+            "rating": 2953.7,
+            "games": 44,
+            "score": 0.7272727272727273
+          },
+          "Matthew Huang": {
+            "rank": 3,
+            "rating": 2938.5,
+            "games": 57,
+            "score": 0.8596491228070176
+          },
+          "Mengfei Li": {
+            "rank": 4,
+            "rating": 2935.3,
+            "games": 44,
+            "score": 0.7954545454545454
+          },
+          "binghua": {
+            "rank": 6,
+            "rating": 2885.0,
+            "games": 49,
+            "score": 0.5714285714285714
+          },
+          "let cats farm": {
+            "rank": 7,
+            "rating": 2884.2,
+            "games": 4,
+            "score": 1.0
+          },
+          "Tarang222": {
+            "rank": 10,
+            "rating": 2872.4,
+            "games": 21,
+            "score": 0.7619047619047619
+          },
+          "maco-macoo": {
+            "rank": 20,
+            "rating": 2847.0,
+            "games": 2,
+            "score": 1.0
+          },
+          "mtmr_s1": {
+            "rank": 32,
+            "rating": 2828.3,
+            "games": 10,
+            "score": 0.9
+          },
+          "KouFu": {
+            "rank": 33,
+            "rating": 2827.3,
+            "games": 2,
+            "score": 1.0
+          }
+        }
+      },
+      "yhay_router_0909": {
+        "score": 0.7929936305732485,
+        "ci95_by_episode": [
+          0.743651047114387,
+          0.8423362140321099
+        ],
+        "seat_score": {
+          "0": 0.7579617834394905,
+          "1": 0.8280254777070064
+        },
+        "failures": 0,
+        "per_team": {
+          "SpaTaro": {
+            "rank": 1,
+            "rating": 2965.2,
+            "games": 81,
+            "score": 0.9012345679012346
+          },
+          "Otter Vibe": {
+            "rank": 2,
+            "rating": 2953.7,
+            "games": 44,
+            "score": 0.7272727272727273
+          },
+          "Matthew Huang": {
+            "rank": 3,
+            "rating": 2938.5,
+            "games": 57,
+            "score": 0.8596491228070176
+          },
+          "Mengfei Li": {
+            "rank": 4,
+            "rating": 2935.3,
+            "games": 44,
+            "score": 0.7727272727272727
+          },
+          "binghua": {
+            "rank": 6,
+            "rating": 2885.0,
+            "games": 49,
+            "score": 0.5714285714285714
+          },
+          "let cats farm": {
+            "rank": 7,
+            "rating": 2884.2,
+            "games": 4,
+            "score": 1.0
+          },
+          "Tarang222": {
+            "rank": 10,
+            "rating": 2872.4,
+            "games": 21,
+            "score": 0.7619047619047619
+          },
+          "maco-macoo": {
+            "rank": 20,
+            "rating": 2847.0,
+            "games": 2,
+            "score": 1.0
+          },
+          "mtmr_s1": {
+            "rank": 32,
+            "rating": 2828.3,
+            "games": 10,
+            "score": 0.9
+          },
+          "KouFu": {
+            "rank": 33,
+            "rating": 2827.3,
+            "games": 2,
+            "score": 1.0
+          }
+        }
+      },
+      "v005": {
+        "score": 0.7452229299363057,
+        "ci95_by_episode": [
+          0.6909071721152266,
+          0.7995386877573848
+        ],
+        "seat_score": {
+          "0": 0.7197452229299363,
+          "1": 0.7707006369426752
+        },
+        "failures": 0,
+        "per_team": {
+          "SpaTaro": {
+            "rank": 1,
+            "rating": 2965.2,
+            "games": 81,
+            "score": 0.8888888888888888
+          },
+          "Otter Vibe": {
+            "rank": 2,
+            "rating": 2953.7,
+            "games": 44,
+            "score": 0.7272727272727273
+          },
+          "Matthew Huang": {
+            "rank": 3,
+            "rating": 2938.5,
+            "games": 57,
+            "score": 0.8070175438596491
+          },
+          "Mengfei Li": {
+            "rank": 4,
+            "rating": 2935.3,
+            "games": 44,
+            "score": 0.7727272727272727
+          },
+          "binghua": {
+            "rank": 6,
+            "rating": 2885.0,
+            "games": 49,
+            "score": 0.5102040816326531
+          },
+          "let cats farm": {
+            "rank": 7,
+            "rating": 2884.2,
+            "games": 4,
+            "score": 1.0
+          },
+          "Tarang222": {
+            "rank": 10,
+            "rating": 2872.4,
+            "games": 21,
+            "score": 0.6666666666666666
+          },
+          "maco-macoo": {
+            "rank": 20,
+            "rating": 2847.0,
+            "games": 2,
+            "score": 0.5
+          },
+          "mtmr_s1": {
+            "rank": 32,
+            "rating": 2828.3,
+            "games": 10,
+            "score": 0.4
+          },
+          "KouFu": {
+            "rank": 33,
+            "rating": 2827.3,
+            "games": 2,
+            "score": 1.0
+          }
+        }
+      }
+    },
+    "v006_vs_parent_paired": {
+      "assignments": 314,
+      "v006_only_wins": 1,
+      "parent_only_wins": 1
+    }
+  }
+}

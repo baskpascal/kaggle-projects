@@ -1,0 +1,56 @@
+{
+  "id": "ep106705310s0",
+  "family": "recorded::Matthew Huang",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106705310s0/main.py",
+  "sha256": "b16f4c8056ba7d0522ce024e6b54eb05083caf68221288163dec7e6faeee2f53",
+  "tape_sha256": "7ead0a4b96814b9f8c2951fabc9722231709260af90a1a5e0dbdced42aadd417",
+  "opening_sha256": "921d8dc8903d4e31c74ad93ec5b9e46c0b97d359201fa87eb63c14005b24c7ee",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106705310,
+    "seed": 449735193,
+    "seat": 0,
+    "team": "Matthew Huang",
+    "opponent_team": "SpaTaro",
+    "money": 137835.0,
+    "opponent_money": 109722.0
+  },
+  "reconstruction": {
+    "episode": "106705310",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106705310",
+      "digest": "7ead0a4b96814b9f8c2951fabc9722231709260af90a1a5e0dbdced42aadd417",
+      "verified_at": "2026-09-09T15:40:25.364918+00:00",
+      "expected": [
+        137835.0,
+        109722.0
+      ],
+      "fast": [
+        137835.0,
+        109722.0
+      ],
+      "official": [
+        137835.0,
+        109722.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2938.5,
+    "rank": 3,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2965.2,
+    "rank": 1
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

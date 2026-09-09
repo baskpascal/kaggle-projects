@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-09T15:40:25.608374+00:00",
+  "library": "data/kaggle/official/tapes-latest.json",
+  "archive": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+  "snapshot": {
+    "leaderboard": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "observed_at": "2026-09-09"
+  },
+  "min_rating": 2800.0,
+  "per_team": 4,
+  "tapes_considered": 1289,
+  "admissible": 157,
+  "refused": {
+    "a team in the pairing is below the bar": 966,
+    "the replayed seat did not win that game": 156,
+    "team not on the leaderboard snapshot": 10
+  },
+  "selected": 20,
+  "reproduced_exactly": 20,
+  "admitted": [
+    {
+      "id": "ep106796822s0",
+      "team": "SpaTaro",
+      "rank": 1,
+      "rating": 2965.2,
+      "episode": 106796822,
+      "money": 113431.0,
+      "opponent_money": 89146.0,
+      "path": "opponents/recorded/ep106796822s0/main.py"
+    },
+    {
+      "id": "ep106722334s0",
+      "team": "SpaTaro",
+      "rank": 1,
+      "rating": 2965.2,
+      "episode": 106722334,
+      "money": 144597.0,
+      "opponent_money": 124378.0,
+      "path": "opponents/recorded/ep106722334s0/main.py"
+    },
+    {
+      "id": "ep106728931s0",
+      "team": "SpaTaro",
+      "rank": 1,
+      "rating": 2965.2,
+      "episode": 106728931,
+      "money": 93437.0,
+      "opponent_money": 78779.0,
+      "path": "opponents/recorded/ep106728931s0/main.py"
+    },
+    {
+      "id": "ep106708153s0",
+      "team": "SpaTaro",
+      "rank": 1,
+      "rating": 2965.2,
+      "episode": 106708153,
+      "money": 94428.0,
+      "opponent_money": 80747.0,
+      "path": "opponents/recorded/ep106708153s0/main.py"
+    },
+    {
+      "id": "ep106935582s0",
+      "team": "Otter Vibe",
+      "rank": 2,
+      "rating": 2953.7,
+      "episode": 106935582,
+      "money": 134683.0,
+      "opponent_money": 114641.0,
+      "path": "opponents/recorded/ep106935582s0/main.py"
+    },
+    {
+      "id": "ep106904295s1",
+      "team": "Otter Vibe",
+      "rank": 2,
+      "rating": 2953.7,
+      "episode": 106904295,
+      "money": 100015.0,
+      "opponent_money": 84349.0,
+      "path": "opponents/recorded/ep106904295s1/main.py"
+    },
+    {
+      "id": "ep106900568s1",
+      "team": "Otter Vibe",
+      "rank": 2,
+      "rating": 2953.7,
+      "episode": 106900568,
+      "money": 93558.0,
+      "opponent_money": 78300.0,
+      "path": "opponents/recorded/ep106900568s1/main.py"
+    },
+    {
+      "id": "ep106875176s1",
+      "team": "Otter Vibe",
+      "rank": 2,
+      "rating": 2953.7,
+      "episode": 106875176,
+      "money": 113936.0,
+      "opponent_money": 102435.0,
+      "path": "opponents/recorded/ep106875176s1/main.py"
+    },
+    {
+      "id": "ep106671170s1",
+      "team": "Matthew Huang",
+      "rank": 3,
+      "rating": 2938.5,
+      "episode": 106671170,
+      "money": 140096.0,
+      "opponent_money": 94536.0,
+      "path": "opponents/recorded/ep106671170s1/main.py"
+    },
+    {
+      "id": "ep106880865s0",
+      "team": "Matthew Huang",
+      "rank": 3,
+      "rating": 2938.5,
+      "episode": 106880865,
+      "money": 149220.0,
+      "opponent_money": 115300.0,
+      "path": "opponents/recorded/ep106880865s0/main.py"
+    },
+    {
+      "id": "ep106705310s0",
+      "team": "Matthew Huang",
+      "rank": 3,
+      "rating": 2938.5,
+      "episode": 106705310,
+      "money": 137835.0,
+      "opponent_money": 109722.0,
+      "path": "opponents/recorded/ep106705310s0/main.py"
+    },
+    {
+      "id": "ep106761085s1",
+      "team": "Matthew Huang",
+      "rank": 3,
+      "rating": 2938.5,
+      "episode": 106761085,
+      "money": 121890.0,
+      "opponent_money": 116387.0,
+      "path": "opponents/recorded/ep106761085s1/main.py"
+    },
+    {
+      "id": "ep106633919s1",
+      "team": "Mengfei Li",
+      "rank": 4,
+      "rating": 2935.3,
+      "episode": 106633919,
+      "money": 126305.0,
+      "opponent_money": 103456.0,
+      "path": "opponents/recorded/ep106633919s1/main.py"
+    },
+    {
+      "id": "ep106932688s1",
+      "team": "binghua",
+      "rank": 6,
+      "rating": 2885.0,
+      "episode": 106932688,
+      "money": 140614.0,
+      "opponent_money": 101076.0,
+      "path": "opponents/recorded/ep106932688s1/main.py"
+    },
+    {
+      "id": "ep106760703s1",
+      "team": "binghua",
+      "rank": 6,
+      "rating": 2885.0,
+      "episode": 106760703,
+      "money": 154624.0,
+      "opponent_money": 135800.0,
+      "path": "opponents/recorded/ep106760703s1/main.py"
+    },
+    {
+      "id": "ep106818377s0",
+      "team": "binghua",
+      "rank": 6,
+      "rating": 2885.0,
+      "episode": 106818377,
+      "money": 135332.0,
+      "opponent_money": 122267.0,
+      "path": "opponents/recorded/ep106818377s0/main.py"
+    },
+    {
+      "id": "ep106771306s0",
+      "team": "binghua",
+      "rank": 6,
+      "rating": 2885.0,
+      "episode": 106771306,
+      "money": 104492.0,
+      "opponent_money": 91729.0,
+      "path": "opponents/recorded/ep106771306s0/main.py"
+    },
+    {
+      "id": "ep106776002s0",
+      "team": "let cats farm",
+      "rank": 7,
+      "rating": 2884.2,
+      "episode": 106776002,
+      "money": 116683.0,
+      "opponent_money": 114938.0,
+      "path": "opponents/recorded/ep106776002s0/main.py"
+    },
+    {
+      "id": "ep106802511s1",
+      "team": "Tarang222",
+      "rank": 10,
+      "rating": 2872.4,
+      "episode": 106802511,
+      "money": 74537.0,
+      "opponent_money": 59122.0,
+      "path": "opponents/recorded/ep106802511s1/main.py"
+    },
+    {
+      "id": "ep106897045s1",
+      "team": "mtmr_s1",
+      "rank": 32,
+      "rating": 2828.3,
+      "episode": 106897045,
+      "money": 121746.0,
+      "opponent_money": 103635.0,
+      "path": "opponents/recorded/ep106897045s1/main.py"
+    }
+  ]
+}

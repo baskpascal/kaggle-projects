@@ -1,0 +1,56 @@
+{
+  "id": "ep106776002s0",
+  "family": "recorded::let cats farm",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106776002s0/main.py",
+  "sha256": "794e76f77a8bb5bcd7e055bda408be5c29934ac985e9ddc4411ec98c9fcef82b",
+  "tape_sha256": "04d90edff84de199ed237ae2f2b2e46931ef19dc88af72313e5f79c0feda264d",
+  "opening_sha256": "43e4ac9b48ed7e552dad1d149e702803f6732e5bb9a7acdb55cec319f1e71100",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106776002,
+    "seed": 21087986,
+    "seat": 0,
+    "team": "let cats farm",
+    "opponent_team": "binghua",
+    "money": 116683.0,
+    "opponent_money": 114938.0
+  },
+  "reconstruction": {
+    "episode": "106776002",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106776002",
+      "digest": "04d90edff84de199ed237ae2f2b2e46931ef19dc88af72313e5f79c0feda264d",
+      "verified_at": "2026-09-09T15:40:25.364937+00:00",
+      "expected": [
+        116683.0,
+        114938.0
+      ],
+      "fast": [
+        116683.0,
+        114938.0
+      ],
+      "official": [
+        116683.0,
+        114938.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2884.2,
+    "rank": 7,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2885.0,
+    "rank": 6
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}
