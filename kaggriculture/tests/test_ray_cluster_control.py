@@ -65,6 +65,69 @@ def test_install_service_is_idempotent_and_uses_this_checkout(tmp_path, monkeypa
                           ['systemctl', '--user', 'start', ray_cluster.SERVICE]]
 
 
+def test_changed_controller_restarts_the_service(tmp_path, monkeypatch):
+    root = tmp_path / 'checkout'
+    python, ray = root / '.venv/bin/python', root / '.venv/bin/ray'
+    python.parent.mkdir(parents=True)
+    python.touch()
+    ray.touch()
+    unit = tmp_path / 'config/systemd/user/kaggriculture-ray.service'
+    unit.parent.mkdir(parents=True)
+    unit.write_text('old controller')
+    calls = []
+    monkeypatch.setattr(ray_cluster, 'ROOT', root)
+    monkeypatch.setattr(ray_cluster, 'PYTHON', python)
+    monkeypatch.setattr(ray_cluster, 'RAY', ray)
+    monkeypatch.setattr(ray_cluster, 'UNIT', unit)
+    monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: calls.append(command))
+
+    ray_cluster.install_service()
+
+    assert calls[-1] == ['systemctl', '--user', 'restart', ray_cluster.SERVICE]
+
+
+def test_raylet_health_check_matches_the_local_node_address(tmp_path):
+    other = tmp_path / '100'
+    other.mkdir()
+    other.joinpath('comm').write_text('raylet\n')
+    other.joinpath('cmdline').write_bytes(b'raylet\0--node_ip_address=100.64.0.2\0')
+    local = tmp_path / '101'
+    local.mkdir()
+    local.joinpath('comm').write_text('raylet\n')
+    local.joinpath('cmdline').write_bytes(b'raylet\0--node_ip_address=100.64.0.1\0')
+
+    assert ray_cluster.raylet_alive('100.64.0.1', tmp_path)
+    assert not ray_cluster.raylet_alive('100.64.0.3', tmp_path)
+
+
+def test_supervisor_exits_when_raylet_dies_but_blocking_parent_survives(monkeypatch):
+    class Process:
+        returncode = None
+        terminated = False
+
+        def poll(self):
+            return self.returncode
+
+        def terminate(self):
+            self.terminated = True
+            self.returncode = -15
+
+        def wait(self, timeout):
+            return self.returncode
+
+    process = Process()
+    moments = iter((0, 61))
+    monkeypatch.setattr(ray_cluster, 'node_ip', lambda _requested: '100.64.0.1')
+    monkeypatch.setattr(ray_cluster, 'ray_command', lambda _config: ['ray', 'start'])
+    monkeypatch.setattr(ray_cluster.subprocess, 'Popen', lambda _command: process)
+    monkeypatch.setattr(ray_cluster.time, 'monotonic', lambda: next(moments))
+    monkeypatch.setattr(ray_cluster.time, 'sleep', lambda _seconds: None)
+    monkeypatch.setattr(ray_cluster, 'raylet_alive', lambda _address: False)
+
+    assert ray_cluster.supervise_ray({'node_address': 'auto'}) == 1
+    assert process.terminated
+
+
 def test_configure_persists_role_then_enables_service(tmp_path, monkeypatch):
     config = tmp_path / 'ray-cluster.json'
     enabled = []

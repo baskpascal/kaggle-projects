@@ -47,6 +47,11 @@ o `AGENTS.md` da raiz:
 python3 scripts/ray_cluster.py ensure
 ```
 
+O serviço também supervisiona o `raylet`: se um agent interno do Ray morrer enquanto o
+wrapper `ray start --block` continua vivo, o controlador força a unidade a falhar para que
+`Restart=always` realmente reconecte o nó. O arquivo da unidade inclui o hash do controlador;
+depois de um `git pull`, o primeiro `ensure` detecta a versão nova e reinicia uma única vez.
+
 Diagnóstico e desligamento explícito:
 
 ```bash

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import ipaddress
 import json
 import os
@@ -11,6 +12,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT / '.venv/bin/python'
@@ -174,7 +176,9 @@ def unit_path(value):
 
 
 def service_unit():
-    return f'''[Unit]
+    controller = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    return f'''# ControllerSHA256={controller}
+[Unit]
 Description=Kaggriculture private Ray node
 After=network-online.target
 Wants=network-online.target
@@ -197,11 +201,17 @@ WantedBy=default.target
 def install_service(*, restart=False):
     if not PYTHON.exists() or not RAY.exists():
         run(['bash', str(SETUP), '--distributed'])
+    desired = service_unit()
+    try:
+        changed = UNIT.read_text(encoding='utf-8') != desired
+    except FileNotFoundError:
+        changed = True
     UNIT.parent.mkdir(parents=True, exist_ok=True)
-    UNIT.write_text(service_unit(), encoding='utf-8')
+    if changed:
+        UNIT.write_text(desired, encoding='utf-8')
     run(['systemctl', '--user', 'daemon-reload'])
     run(['systemctl', '--user', 'enable', SERVICE])
-    run(['systemctl', '--user', 'restart' if restart else 'start', SERVICE])
+    run(['systemctl', '--user', 'restart' if restart or changed else 'start', SERVICE])
 
 
 def configure(role, args):
@@ -239,8 +249,41 @@ def ray_command(config):
     return common + [f'--address={config["head_host"]}:{config["port"]}']
 
 
+def raylet_alive(address, proc_root=Path('/proc')):
+    """Return whether this node's raylet is alive without contacting the GCS."""
+    expected = f'--node_ip_address={address}'
+    for process in proc_root.glob('[0-9]*'):
+        try:
+            if process.joinpath('comm').read_text().strip() != 'raylet':
+                continue
+            arguments = process.joinpath('cmdline').read_bytes().split(b'\0')
+        except (FileNotFoundError, PermissionError, ProcessLookupError):
+            continue
+        if expected.encode() in arguments:
+            return True
+    return False
+
+
+def supervise_ray(config, *, startup_grace=60, check_interval=10):
+    """Make a dead raylet visible to systemd even if ``ray start --block`` hangs."""
+    address = node_ip(config.get('node_address', 'auto'))
+    process = subprocess.Popen(ray_command(config))
+    started = time.monotonic()
+    while process.poll() is None:
+        time.sleep(check_interval)
+        if time.monotonic() - started >= startup_grace and not raylet_alive(address):
+            process.terminate()
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=10)
+            return 1
+    return process.returncode
+
+
 def daemon():
-    os.execv(str(RAY), ray_command(read_config()))
+    raise SystemExit(supervise_ray(read_config()))
 
 
 def service_state():
