@@ -147,6 +147,16 @@ spec diferente, que é o buraco que `job_id` sozinho não enxergava. O manifesto
 `BOUND`, `REFUSED` (peça de outro run, nomeada) ou `PARTIALLY BOUND` (peça anterior aos
 specs, nunca assumida como amarrada). Detalhes em [RUN_SPEC.md](docs/RUN_SPEC.md).
 
+## Corpus público externo
+
+Antes de usar qualquer dataset público como evidência, leia
+[EXTERNAL_CORPUS.md](docs/EXTERNAL_CORPUS.md). Resumo: o ladder virou para `1.32.7` em
+2026-08-15 e **41% do corpus público é de balanceamentos anteriores**, então
+`engine_version == 1.32.7` é gate obrigatório. Em particular,
+`destbreso/kaggriculture-benchmark-matchups` é template metodológico e **não** ground truth
+utilizável no motor atual: nenhuma das 421 linhas de `matchups_top.parquet` foi gravada sob
+1.32.7.
+
 ## Painel meta versionado
 
 ```bash
