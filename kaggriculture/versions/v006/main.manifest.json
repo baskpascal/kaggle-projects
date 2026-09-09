@@ -1,0 +1,71 @@
+{
+  "version": "v006",
+  "kind": "public_router_stack",
+  "builder": "experiments/build_stacked_router.py",
+  "bundle_sha256": {
+    "main.py": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+    "policy.py": "e239501d1224ba3d198aef11bc6b1b40637fbac335db7ca07205175d992f9b12",
+    "router_parent.py": "9217ad1c86340f23d096841e92bde9864c9bd80179289e1af87d6d448fbb2da0",
+    "terminal_planner.py": "a9d7a6d29e1fb313852dc0121d43f16544771ed12775afaf3a0480e9ab713dce",
+    "unit_model.py": "c03e8c5cd10466c229ee0a44dece9a3943c10bff135d96a7822ffe75d6922724",
+    "settings.json": "e2756d366c88e627da6711f20ae708613d6a7cf5805410c6af4326dfc7a7417e",
+    "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+    "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE.txt": "9e060e290395ebbbd0c81accb6585708937286533052aeef9893b38c6177f5a0"
+  },
+  "archive_sha256": "297e7a9d1b5be74769d79e6cca2b203f1e98065bb4ba2abe8cc039f50313e56d",
+  "archive_bytes": 182914,
+  "layers": {
+    "parent": "yhay81/shop-router-0909 (opponents/public/yhay_router_0909), thirteen 719-turn tapes and every runtime rule",
+    "routing_table": "refitted locally: 9 of 15 yarn cells replaced, fitted by experiments/fit_shop_table.py on 20,800 paired mirror games over dev seeds 400000:400900",
+    "room_guard": "verbatim from aurax7/kaggriculture-shop-router-reactive-v2, with its single call site",
+    "terminal_rescue": "unmodified dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800 adapter, planner and unit model over callbacks 712-718"
+  },
+  "measured": {
+    "release_gate": {
+      "driver": "arena.paired",
+      "split": "validation",
+      "seeds": "500000:500100",
+      "seed_blocks": 100,
+      "games": 3200,
+      "failures": 0,
+      "absolute_score": 0.92375,
+      "absolute_ci95": [
+        0.898109375,
+        0.9475
+      ],
+      "incumbent": "v004",
+      "incumbent_score": 0.55125,
+      "delta_win_strong": 0.373125,
+      "delta_win_ci95": [
+        0.34625,
+        0.4
+      ],
+      "verdict": "SUBMIT",
+      "run_id": "833fa7c294acfe69e8117a4fdba699917535850f239f9711403a5868045dbb05"
+    },
+    "held_out_dev": {
+      "seeds": "410300:410400",
+      "vs_yhay_router_0909": 0.825,
+      "vs_aurax_reactive_v2": 0.945,
+      "vs_gluzdov_e182": 0.815,
+      "vs_same_stack_without_our_table": {
+        "score": 0.535,
+        "ci95": [
+          0.515,
+          0.557
+        ],
+        "games": 400
+      }
+    }
+  },
+  "preflight": {
+    "status": "PASSED",
+    "seed": 314159,
+    "farmer_action_rate": 0.9054242002781642,
+    "longest_idle_streak": 1,
+    "max_callback_ms": 52.14
+  },
+  "provenance": "Every upstream file is byte-identical to its published notebook; the notebook-declared hashes of the 0909 members reproduce exactly. Licences and NOTICE travel with the bundle; docs/SHOP_ROUTER_STACK.md records the measurements and docs/FINAL_SUBMISSION_POLICY.md the slot policy.",
+  "decision": "Submitted 2026-09-09, displacing submission 56091000 (v003, 1626.2), the older of the two active slots; v004 (2611.7) is preserved until v006's own rating is observed."
+}

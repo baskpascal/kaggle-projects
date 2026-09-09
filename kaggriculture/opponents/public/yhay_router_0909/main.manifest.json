@@ -1,0 +1,36 @@
+{
+  "id": "yhay_router_0909",
+  "version": "0909",
+  "family": "native_solver_tape_router",
+  "kernel": "yhay81/shop-router-0909",
+  "kernel_id": 133670867,
+  "title": "Shop Router 0909",
+  "source_url": "https://www.kaggle.com/code/yhay81/shop-router-0909",
+  "path": "opponents/public/yhay_router_0909/main.py",
+  "sha256": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+  "bundle_sha256": {
+    "main.py": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+    "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+    "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+  "captured_at": "2026-09-09",
+  "engine": {
+    "kaggle_environments": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+  },
+  "lineage": "Thirteen complete 719-turn tapes emitted by the author's own solver, routed on the first two unlocked shops at step 144, with three observation-based repairs: a weed DIG that delays only the blocked worker inside the current day, sales brought forward one turn, and a terminal liquidation that sells the projected shed. Sale timing and shed projection are credited upstream to aurax7's Reactive Router.",
+  "adaptation_notes": "Extracted verbatim from the notebook's own %%writefile cell and its gzip/base64 data payload; the three member hashes reproduce the notebook's declared expected_hashes exactly. No local edits.",
+  "base_selection_candidate": false,
+  "evaluation_opponent": true,
+  "usage": "benchmark opponent only",
+  "retrieved_at": "2026-09-09",
+  "ladder_rating": {
+    "rating": 2838.5,
+    "observed_at": "2026-09-09",
+    "kind": "author_current",
+    "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "shop-router-0909 is the author's newest published kaggriculture notebook; the team rating bounds it from above, see docs/RATINGS_REFRESH.md"
+  },
+  "notebook_blob_sha256": "a36029e34448e823b6b11990ad06a86e255da6b629cbfb30035b542422592dd4"
+}

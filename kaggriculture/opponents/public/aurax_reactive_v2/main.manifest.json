@@ -1,0 +1,35 @@
+{
+  "id": "aurax_reactive_v2",
+  "version": "reactive_v2",
+  "family": "tape_router_room_guard",
+  "kernel": "aurax7/kaggriculture-shop-router-reactive-v2",
+  "kernel_id": 133676289,
+  "title": "Kaggriculture_shop_router_reactive_v2",
+  "source_url": "https://www.kaggle.com/code/aurax7/kaggriculture-shop-router-reactive-v2",
+  "path": "opponents/public/aurax_reactive_v2/main.py",
+  "sha256": "f2b220fc188ef8682debf729ea76f377b8a23a424c05eb375ef287dbc5533281",
+  "bundle_sha256": {
+    "main.py": "f2b220fc188ef8682debf729ea76f377b8a23a424c05eb375ef287dbc5533281",
+    "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+    "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+  "captured_at": "2026-09-09",
+  "engine": {
+    "kaggle_environments": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+  },
+  "lineage": "The shop-router-0909 rules and tapes with one added layer: room_guard sells the surplus above 99 items on the last turn of each day, highest price first, so the end-of-day drop into a 100-slot shed cannot overflow. Docstrings were stripped upstream; the routing table and every other rule are unchanged.",
+  "adaptation_notes": "Extracted verbatim from the notebook's %%writefile cell and data payload; actions.json and LICENSE.txt hash equal to the 0909 originals. No local edits.",
+  "base_selection_candidate": false,
+  "evaluation_opponent": true,
+  "usage": "benchmark opponent only",
+  "retrieved_at": "2026-09-09",
+  "ladder_rating": {
+    "rating": 2755.7,
+    "observed_at": "2026-09-09",
+    "kind": "author_current",
+    "source": "author team 'Farmers Is All You Need' (aurax7 and four teammates), rank 80 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "reactive_v2 is the team's newest published kaggriculture notebook; the team rating bounds it from above"
+  }
+}

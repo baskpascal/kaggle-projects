@@ -1,93 +1,114 @@
 {
-  "schema_version": 2,
-  "note": "Dated ladder ratings for the pinned opponents. This file is the authority; the copy in each bundle manifest and in opponents/manifest.json must agree with it and a test enforces that. `kind` says what the number is evidence of: `direct` is our own submission of the byte-identical artifact, `author_current` is the author team rating while the pinned artifact is their newest published one, and `author_upper_bound` is the author team rating for an artifact they have since superseded. An upper bound below the cut classifies the artifact as weak; at or above the cut it decides nothing and the opponent is unknown. Missing, stale and unknown all fail out of the strong cohort, never into it. Refresh procedure and the measured proxy bias: docs/RATINGS_REFRESH.md.",
-  "ratings": {
-    "aberatozer_d5e3": {
-      "rating": 2618.5,
-      "observed_at": "2026-09-08",
-      "kind": "author_current",
-      "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "newest published kaggriculture notebook by this author"
-    },
-    "aberatozer_v23": {
-      "rating": 2618.5,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "notebook865729c24e, superseded by the same author's notebookd5e3d21fa6 (pinned as aberatozer_d5e3); above the cut, so this bound decides nothing"
-    },
-    "boatlee_v16": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded twice over; the bound is below the cut, so weak"
-    },
-    "boatlee_v21": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's V29-R1; the bound is below the cut, which is enough to classify the artifact as weak"
-    },
-    "kaitofukami_v48": {
-      "rating": 2491.9,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
-    },
-    "lynnsakurai_v4": {
-      "rating": 2572.7,
-      "observed_at": "2026-09-08",
-      "kind": "author_current",
-      "source": "author team 'Lynxx' (lynnsakurai), rank 216 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "newest published kaggriculture notebook by this author"
-    },
-    "reyhanksatria_v1": {
-      "rating": 2427.3,
-      "observed_at": "2026-09-08",
-      "kind": "author_current",
-      "source": "author team 'Reyhan Ksatria' (reyhanksatria), rank 469 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "newest published kaggriculture notebook by this author"
-    },
-    "seyamalam_v21": {
-      "rating": 940.0,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
-    },
-    "thomas_t93": {
-      "rating": 2519.6,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 302 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's 95.5% notebook; above the cut, so this bound decides nothing and the opponent stays out of the strong cohort"
-    },
-    "thomas_t95": {
-      "rating": 2359.8,
-      "observed_at": "2026-09-08",
-      "kind": "direct",
-      "source": "this team's own submission 56089447 of the byte-identical artifact"
-    },
-    "yamakawanin_king_v4e": {
-      "rating": 2648.4,
-      "observed_at": "2026-09-08",
-      "kind": "author_current",
-      "source": "author team '青春猪头少年不会梦到kaggle金牌' (yamakawanin), rank 97 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "newest published kaggriculture notebook by this author"
-    },
-    "yhay_router_0908": {
-      "rating": 2712.5,
-      "observed_at": "2026-09-08",
-      "kind": "author_current",
-      "source": "author team 'Yusuke Hayashi' (yhay81), rank 45 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "shop-router-0908 is the author's newest published kaggriculture notebook; the team rating is an upper bound on it, see docs/RATINGS_REFRESH.md"
-    }
+ "schema_version": 2,
+ "note": "Dated ladder ratings for the pinned opponents. This file is the authority; the copy in each bundle manifest and in opponents/manifest.json must agree with it and a test enforces that. `kind` says what the number is evidence of: `direct` is our own submission of the byte-identical artifact, `author_current` is the author team rating while the pinned artifact is their newest published one, and `author_upper_bound` is the author team rating for an artifact they have since superseded. An upper bound below the cut classifies the artifact as weak; at or above the cut it decides nothing and the opponent is unknown. Missing, stale and unknown all fail out of the strong cohort, never into it. Refresh procedure and the measured proxy bias: docs/RATINGS_REFRESH.md.",
+ "ratings": {
+  "aberatozer_d5e3": {
+   "rating": 2618.5,
+   "observed_at": "2026-09-08",
+   "kind": "author_current",
+   "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "newest published kaggriculture notebook by this author"
   },
-  "unrated": {
-    "cok_v10": "pinned from GitHub (COK-ZhangZiliang); no kaggriculture leaderboard team could be attributed to that account, so not even an upper bound exists",
-    "lonespear_v11": "pinned from GitHub (lonespear); the username does not appear on the public leaderboard, so not even an upper bound exists"
+  "aberatozer_v23": {
+   "rating": 2618.5,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'track' (ahmedberatozer), rank 125 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "notebook865729c24e, superseded by the same author's notebookd5e3d21fa6 (pinned as aberatozer_d5e3); above the cut, so this bound decides nothing"
+  },
+  "boatlee_v16": {
+   "rating": 1997.2,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "superseded twice over; the bound is below the cut, so weak"
+  },
+  "boatlee_v21": {
+   "rating": 1997.2,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "superseded by the same author's V29-R1; the bound is below the cut, which is enough to classify the artifact as weak"
+  },
+  "kaitofukami_v48": {
+   "rating": 2491.9,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
+  },
+  "lynnsakurai_v4": {
+   "rating": 2572.7,
+   "observed_at": "2026-09-08",
+   "kind": "author_current",
+   "source": "author team 'Lynxx' (lynnsakurai), rank 216 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "newest published kaggriculture notebook by this author"
+  },
+  "reyhanksatria_v1": {
+   "rating": 2427.3,
+   "observed_at": "2026-09-08",
+   "kind": "author_current",
+   "source": "author team 'Reyhan Ksatria' (reyhanksatria), rank 469 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "newest published kaggriculture notebook by this author"
+  },
+  "seyamalam_v21": {
+   "rating": 940.0,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
+  },
+  "thomas_t93": {
+   "rating": 2519.6,
+   "observed_at": "2026-09-08",
+   "kind": "author_upper_bound",
+   "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 302 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "superseded by the same author's 95.5% notebook; above the cut, so this bound decides nothing and the opponent stays out of the strong cohort"
+  },
+  "thomas_t95": {
+   "rating": 2359.8,
+   "observed_at": "2026-09-08",
+   "kind": "direct",
+   "source": "this team's own submission 56089447 of the byte-identical artifact"
+  },
+  "yamakawanin_king_v4e": {
+   "rating": 2648.4,
+   "observed_at": "2026-09-08",
+   "kind": "author_current",
+   "source": "author team '\u9752\u6625\u732a\u5934\u5c11\u5e74\u4e0d\u4f1a\u68a6\u5230kaggle\u91d1\u724c' (yamakawanin), rank 97 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+   "note": "newest published kaggriculture notebook by this author"
+  },
+  "yhay_router_0908": {
+   "rating": 2838.5,
+   "observed_at": "2026-09-09",
+   "kind": "author_upper_bound",
+   "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "note": "shop-router-0908 was superseded by the same author's shop-router-0909 (pinned as yhay_router_0909); above the cut, so this bound decides nothing"
+  },
+  "yhay_router_0909": {
+   "rating": 2838.5,
+   "observed_at": "2026-09-09",
+   "kind": "author_current",
+   "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "note": "shop-router-0909 is the author's newest published kaggriculture notebook; the team rating bounds it from above, see docs/RATINGS_REFRESH.md"
+  },
+  "gluzdov_e182": {
+   "rating": 2790.4,
+   "observed_at": "2026-09-09",
+   "kind": "author_current",
+   "source": "author team 'Auto Fermers' (artemboltaev, dmitriigluzdov), rank 54 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "note": "the seven-turn rescue is the team's newest published kaggriculture notebook; the team rating bounds it from above"
+  },
+  "aurax_reactive_v2": {
+   "rating": 2755.7,
+   "observed_at": "2026-09-09",
+   "kind": "author_current",
+   "source": "author team 'Farmers Is All You Need' (aurax7 and four teammates), rank 80 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+   "note": "reactive_v2 is the team's newest published kaggriculture notebook; the team rating bounds it from above"
   }
+ },
+ "unrated": {
+  "cok_v10": "pinned from GitHub (COK-ZhangZiliang); no kaggriculture leaderboard team could be attributed to that account, so not even an upper bound exists",
+  "lonespear_v11": "pinned from GitHub (lonespear); the username does not appear on the public leaderboard, so not even an upper bound exists"
+ }
 }

@@ -27,10 +27,10 @@
   "usage": "benchmark opponent only",
   "retrieved_at": "2026-09-08",
   "ladder_rating": {
-    "rating": 2712.5,
-    "observed_at": "2026-09-08",
-    "kind": "author_current",
-    "source": "author team 'Yusuke Hayashi' (yhay81), rank 45 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-    "note": "shop-router-0908 is the author's newest published kaggriculture notebook; the team rating is an upper bound on it, see docs/RATINGS_REFRESH.md"
+    "rating": 2838.5,
+    "observed_at": "2026-09-09",
+    "kind": "author_upper_bound",
+    "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "shop-router-0908 was superseded by the same author's shop-router-0909 (pinned as yhay_router_0909); above the cut, so this bound decides nothing"
   }
 }

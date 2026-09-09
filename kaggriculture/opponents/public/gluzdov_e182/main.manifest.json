@@ -1,0 +1,41 @@
+{
+  "id": "gluzdov_e182",
+  "version": "e182",
+  "family": "tape_router_terminal_planner",
+  "kernel": "dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800",
+  "kernel_id": 133672772,
+  "title": "Kaggriculture: Seven-Turn Rescue | Best LB 2800+",
+  "source_url": "https://www.kaggle.com/code/dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800",
+  "path": "opponents/public/gluzdov_e182/main.py",
+  "sha256": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+  "bundle_sha256": {
+    "main.py": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+    "policy.py": "e239501d1224ba3d198aef11bc6b1b40637fbac335db7ca07205175d992f9b12",
+    "router_parent.py": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+    "terminal_planner.py": "a9d7a6d29e1fb313852dc0121d43f16544771ed12775afaf3a0480e9ab713dce",
+    "unit_model.py": "c03e8c5cd10466c229ee0a44dece9a3943c10bff135d96a7822ffe75d6922724",
+    "settings.json": "e2756d366c88e627da6711f20ae708613d6a7cf5805410c6af4326dfc7a7417e",
+    "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+    "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE.txt": "6435ca240eea352abffd2cbf19b446b311e372f552a07865cab1b8bb547b1230"
+  },
+  "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+  "captured_at": "2026-09-09",
+  "engine": {
+    "kaggle_environments": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+  },
+  "lineage": "The unmodified shop-router-0909 parent (router_parent.py is byte-identical to its main.py) under a bounded planner that replaces callbacks 712-718: it searches short collect-and-return routes per worker against an extracted copy of the engine's unit semantics and keeps only strictly positive deliveries.",
+  "adaptation_notes": "Extracted verbatim from the notebook's %%writefile cells and its ROUTE_DATA payload, whose SHA-256 the notebook itself asserts and which equals the 0909 actions.json. settings.json holds the notebook's own SETTINGS cell. No local edits.",
+  "base_selection_candidate": false,
+  "evaluation_opponent": true,
+  "usage": "benchmark opponent only",
+  "retrieved_at": "2026-09-09",
+  "ladder_rating": {
+    "rating": 2790.4,
+    "observed_at": "2026-09-09",
+    "kind": "author_current",
+    "source": "author team 'Auto Fermers' (artemboltaev, dmitriigluzdov), rank 54 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the seven-turn rescue is the team's newest published kaggriculture notebook; the team rating bounds it from above"
+  }
+}

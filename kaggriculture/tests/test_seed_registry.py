@@ -36,10 +36,13 @@ def test_the_shipped_registry_is_well_formed():
 
 def test_documented_history_keeps_its_classification():
     # 100100:100125 was reserved validation until the v004 paired comparison spent
-    # it; consuming a reservation reclassifies exactly the seeds used and leaves the
-    # rest of the interval reserved, which is what the last two rows assert.
+    # it, and 100125:100165 until the v006 gate did; consuming a reservation reclassifies
+    # exactly the seeds used and leaves the rest of the interval reserved, which is what
+    # the rows around each boundary assert.
     for seed, split in [(1000, 'dev'), (1099, 'dev'), (100000, 'seen'), (100099, 'seen'),
-                        (100100, 'seen'), (100124, 'seen'), (100125, 'validation'),
+                        (100100, 'seen'), (100124, 'seen'), (100125, 'seen'),
+                        (100164, 'seen'), (100165, 'validation'), (400000, 'dev'),
+                        (419999, 'dev'), (500099, 'seen'), (500100, 'validation'),
                         (314159, 'diagnostic')]:
         assert validate_seeds([seed], split)['split'] == split
 
@@ -59,7 +62,7 @@ def test_the_holdout_is_rejected_for_every_ordinary_split(split):
 
 def test_unregistered_seeds_fail_closed():
     with pytest.raises(ValueError, match='Unregistered seed'):
-        validate_seeds([500000], 'dev')
+        validate_seeds([600000], 'dev')
 
 
 def test_duplicates_and_bad_splits_are_refused():
