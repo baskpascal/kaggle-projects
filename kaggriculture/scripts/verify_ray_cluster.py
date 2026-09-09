@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT))
 
 from arena.batch import make_batch, run_batch  # noqa: E402
 from arena.jobs import git_provenance, plan  # noqa: E402
-from arena.ray_transport import connect  # noqa: E402
+from arena.ray_transport import DEFAULT_CPUS_PER_WORKER, connect  # noqa: E402
 
 NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty'}
 MINIMUM_SEED_PAIRS = 200
@@ -143,7 +143,7 @@ def main():
     parser.add_argument('--seed', type=int, default=200)
     parser.add_argument('--pairs', type=int, default=200,
                         help='seed pairs; each produces one match in each seat on every node')
-    parser.add_argument('--cpus-per-worker', type=int, default=1)
+    parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER)
     parser.add_argument('--deadline', type=float, default=4.)
     parser.add_argument('--deadline-overhead', type=float, default=15.)
     parser.add_argument('--output', required=True)
@@ -185,6 +185,7 @@ def main():
 
     report = {'schema_version': 3, 'nodes': environments, 'hostnames': sorted(hostnames),
               'driver_git': git_provenance(ROOT),
+              'cpus_per_worker': args.cpus_per_worker,
               'jobs_per_node': len(work), 'candidate': args.candidate,
               'opponent': args.opponent, 'seed_start': args.seed,
               'seed_pairs': args.pairs, 'paired_seats': True, 'bit_exact': True,

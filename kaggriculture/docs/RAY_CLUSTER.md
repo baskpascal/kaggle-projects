@@ -143,6 +143,9 @@ na primeira tentativa e exige que o mapper reenvie aquele lote uma única vez. A
 recuperação são fixadas por afinidade e repetidas em cada NodeID vivo; retries implícitos
 do Ray continuam desligados.
 
+A prova usa a mesma granularidade padrão de quatro CPUs por tarefa, portanto os 400 jogos
+de cada host exercitam também o pool local usado no transporte real.
+
 Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 é smoke,
 256 mede o scheduler local, 1024 mede throughput e 8000 representa a busca real.
 
