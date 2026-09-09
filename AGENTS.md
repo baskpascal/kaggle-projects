@@ -2,11 +2,18 @@
 
 ## Cluster Ray do Kaggriculture
 
-Ao iniciar trabalho em `kaggriculture`, execute silenciosamente:
+Ao iniciar trabalho em `kaggriculture`, antes de editar arquivos, atualize o checkout
+somente quando não houver mudanças rastreadas locais e depois garanta o serviço:
 
 ```bash
+git diff --quiet && git diff --cached --quiet && git pull --ff-only
+cd kaggriculture
 python3 scripts/ray_cluster.py ensure
 ```
+
+- Se houver mudança rastreada local, preserve-a e não faça pull automático. Continue com
+  `ensure` usando o checkout atual e informe a divergência uma única vez.
+- Arquivos não rastreados não devem ser apagados nem alterados pelo pull/ensure.
 
 - Se `~/.config/kaggriculture/ray-cluster.json` ainda não existir, continue localmente e
   explique uma única vez que cada PC precisa do comando inicial `configure-head` ou
