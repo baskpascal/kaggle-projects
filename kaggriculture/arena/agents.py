@@ -4,6 +4,7 @@ import inspect
 import random
 import sys
 import types
+import weakref
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,7 @@ INTERPRETER = 'kaggle_environments.envs.kaggriculture.kaggriculture'
 # this check untouched -- that case is caught by the elapsed-time check in `arena.match`
 # and, in the limit, by the process kill in `arena.parallel`.
 WATCHED = ('builtins', 'json', 'random', 'time', 'math', 'copy', 'signal', INTERPRETER)
+_ARITIES = weakref.WeakKeyDictionary()
 
 
 def _watched_modules():
@@ -143,7 +145,8 @@ def load_agent(name, seed=0, strict=True):
     module.__file__ = str(path)
     sys.modules[name] = module
     try:
-        exec(compile(path.read_text(encoding='utf-8'), str(path), 'exec'), module.__dict__)
+        source = path.read_bytes()
+        exec(compile(source, str(path), 'exec'), module.__dict__)
         function = module.__dict__['agent']
     finally:
         for key in set(sys.modules) - before.keys():
@@ -153,12 +156,37 @@ def load_agent(name, seed=0, strict=True):
     if found and strict:
         raise RuntimeError(f'{path} mutated arena-visible state at import: ' + '; '.join(found[:8]))
     load_agent.last_tampering = found
+    function.__arena_sha256__ = hashlib.sha256(source).hexdigest()
+    return function
+
+
+def prepare(function):
+    """Resolve callback arity once, when an agent enters a match."""
+    try:
+        _ARITIES[function] = len(inspect.signature(function).parameters)
+    except TypeError:
+        # Some callable objects cannot be weak-referenced. They still get one lookup per
+        # load through an attribute when their implementation permits it.
+        arity = len(inspect.signature(function).parameters)
+        try:
+            function.__arena_arity__ = arity
+        except (AttributeError, TypeError):
+            return function
     return function
 
 
 def invoke(function, observation, configuration):
-    sig = inspect.signature(function)
-    if len(sig.parameters) >= 2:
+    arity = getattr(function, '__arena_arity__', None)
+    if arity is None:
+        arity = _ARITIES.get(function)
+    if arity is None:
+        prepare(function)
+        arity = getattr(function, '__arena_arity__', None)
+        if arity is None:
+            arity = _ARITIES.get(function)
+    if arity is None:  # rare callable objects that are neither mutable nor weak-referenceable
+        arity = len(inspect.signature(function).parameters)
+    if arity >= 2:
         return function(observation, configuration)
     return function(observation)
 

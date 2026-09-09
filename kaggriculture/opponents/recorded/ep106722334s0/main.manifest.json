@@ -1,0 +1,56 @@
+{
+  "id": "ep106722334s0",
+  "family": "recorded::SpaTaro",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106722334s0/main.py",
+  "sha256": "adef6f027a4121760a5999cc6f0df788c99ff7f8e0178acda30913dbc91d91f2",
+  "tape_sha256": "199400306357f962d5e261a137357e17f852ce9671e81f37fdfc9f8872daae56",
+  "opening_sha256": "90318b8e1b0cde2277051b13790fa98b9a18d53fe2ecebc8e0642804b0d61683",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106722334,
+    "seed": 888113680,
+    "seat": 0,
+    "team": "SpaTaro",
+    "opponent_team": "let cats farm",
+    "money": 144597.0,
+    "opponent_money": 124378.0
+  },
+  "reconstruction": {
+    "episode": "106722334",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106722334",
+      "digest": "199400306357f962d5e261a137357e17f852ce9671e81f37fdfc9f8872daae56",
+      "verified_at": "2026-09-09T15:40:25.364924+00:00",
+      "expected": [
+        144597.0,
+        124378.0
+      ],
+      "fast": [
+        144597.0,
+        124378.0
+      ],
+      "official": [
+        144597.0,
+        124378.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2965.2,
+    "rank": 1,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2884.2,
+    "rank": 7
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

@@ -24,6 +24,8 @@ from arena.parallel import matches, start_method  # noqa: E402
 
 NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty',
                     'job_id', 'batch_id'}
+OUTCOME_FIELDS = ('score', 'money', 'opponent_money', 'margin', 'steps',
+                  'failures', 'opponent_failures')
 
 
 def result_signature(rows):
@@ -67,41 +69,60 @@ def main():
     parser.add_argument('--games', type=int, default=32)
     parser.add_argument('--workers', default='1,2,4,8')
     parser.add_argument('--batch-size', type=int, default=8)
+    parser.add_argument('--profiles', default='score,full',
+                        help='comma-separated evidence profiles to calibrate')
     parser.add_argument('--candidate', default='clock::versions/v004/main.py')
     parser.add_argument('--opponent', default='clock::opponents/public/thomas_t95/main.py')
     parser.add_argument('--seed', type=int, default=1700)
     parser.add_argument('--output')
     args = parser.parse_args()
 
-    jobs = [dict(candidate=args.candidate, opponent=args.opponent, seed=args.seed + index,
-                 seat=index % 2, backend='fast', telemetry_enabled=False)
-            for index in range(args.games)]
+    profiles = [value.strip() for value in args.profiles.split(',') if value.strip()]
+    if not profiles or any(value not in ('score', 'audit', 'full') for value in profiles):
+        parser.error('--profiles must contain score, audit, or full')
     report = {'host': os.uname().nodename if hasattr(os, 'uname') else '',
               'cpus': os.cpu_count(), 'start_method': start_method(),
               'default_workers': worker_budget(), 'games': args.games,
-              'batch_size': args.batch_size, 'rows': []}
-    reference = None
-    for workers in [int(value) for value in args.workers.split(',')]:
-        for label, size in (('direct', None), ('batched', args.batch_size)):
-            rows, elapsed, metrics = run(jobs, workers, size)
-            signature = result_signature(rows)
-            if reference is None:
-                reference = signature
-            elif signature != reference:
-                raise SystemExit('Throughput measured on results that disagree; refusing')
-            entry = {'workers': workers, 'mode': label, 'seconds': elapsed,
+              'batch_size': args.batch_size, 'profiles': profiles, 'rows': []}
+    references = {}
+    outcome_reference = None
+    for profile in profiles:
+        jobs = [dict(candidate=args.candidate, opponent=args.opponent,
+                     seed=args.seed + index, seat=index % 2, backend='fast',
+                     evidence_profile=profile) for index in range(args.games)]
+        for workers in [int(value) for value in args.workers.split(',')]:
+            for label, size in (('direct', None), ('batched', args.batch_size)):
+                rows, elapsed, metrics = run(jobs, workers, size)
+                signature = result_signature(rows)
+                if profile not in references:
+                    references[profile] = signature
+                elif signature != references[profile]:
+                    raise SystemExit('Throughput measured on results that disagree; refusing')
+                outcomes = [{key: row[key] for key in OUTCOME_FIELDS} for row in rows]
+                if outcome_reference is None:
+                    outcome_reference = outcomes
+                elif outcomes != outcome_reference:
+                    raise SystemExit('Evidence profiles changed game outcomes; refusing')
+                entry = {'profile': profile, 'workers': workers, 'mode': label, 'seconds': elapsed,
                      'seconds_per_game': elapsed / len(rows),
-                     'games_per_second': len(rows) / elapsed, **metrics}
-            report['rows'].append(entry)
-            print(f"{label:8s} workers={workers:3d}  {entry['seconds_per_game']:.3f} s/game  "
-                  f"{entry['games_per_second']:.2f} games/s", flush=True)
-    add_scaling(report['rows'])
+                     'games_per_second': len(rows) / elapsed,
+                     'mean_serialized_bytes': statistics.mean(
+                         len(json.dumps(row, separators=(',', ':'))) for row in rows), **metrics}
+                report['rows'].append(entry)
+                print(f"{profile:5s} {label:8s} workers={workers:3d}  "
+                      f"{entry['seconds_per_game']:.3f} s/game  "
+                      f"{entry['games_per_second']:.2f} games/s", flush=True)
+    for profile in profiles:
+        add_scaling([row for row in report['rows'] if row['profile'] == profile])
     report['result_signature_stable'] = True
     report['median_games_per_second'] = statistics.median(r['games_per_second'] for r in report['rows'])
+    report['recommended_by_profile'] = {
+        profile: max((row for row in report['rows'] if row['profile'] == profile),
+                     key=lambda row: row['games_per_second']) for profile in profiles}
     if args.output:
         Path(args.output).write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps({'default_workers': report['default_workers'],
-                      'best': max(report['rows'], key=lambda r: r['games_per_second'])}, indent=2))
+                      'recommended_by_profile': report['recommended_by_profile']}, indent=2))
 
 
 if __name__ == '__main__':

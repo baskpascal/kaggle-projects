@@ -1,0 +1,56 @@
+{
+  "id": "ep106671170s1",
+  "family": "recorded::Matthew Huang",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106671170s1/main.py",
+  "sha256": "888ee03f6f18cb79ba5798569d4a9f44163952934b90d0d2c034a75934ce77e9",
+  "tape_sha256": "936016c0e457aa963ee94848e91c77c1637a556cd7f7556e22d60146ee250443",
+  "opening_sha256": "f2156068c054820937d3c026ad943d7d42c73a6b833c69ec100b83d6f7e785d4",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106671170,
+    "seed": 2020869957,
+    "seat": 1,
+    "team": "Matthew Huang",
+    "opponent_team": "Mengfei Li",
+    "money": 140096.0,
+    "opponent_money": 94536.0
+  },
+  "reconstruction": {
+    "episode": "106671170",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106671170",
+      "digest": "936016c0e457aa963ee94848e91c77c1637a556cd7f7556e22d60146ee250443",
+      "verified_at": "2026-09-09T15:40:25.364915+00:00",
+      "expected": [
+        94536.0,
+        140096.0
+      ],
+      "fast": [
+        94536.0,
+        140096.0
+      ],
+      "official": [
+        94536.0,
+        140096.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2938.5,
+    "rank": 3,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2935.3,
+    "rank": 4
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

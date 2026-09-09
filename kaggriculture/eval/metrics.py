@@ -29,7 +29,9 @@ def blocked_interval(rows, samples=5000, seed=771, field='score'):
 def summarize(rows, samples=5000):
     if not rows:
         raise ValueError('Cannot summarize an empty league')
-    runtimes = [t for r in rows for t in r['runtime_ms']]
+    runtimes = [t for r in rows for t in (r.get('runtime_ms') or [])
+                if isinstance(r.get('runtime_ms'), list)]
+    runtime_summaries = [r['runtime_ms'] for r in rows if isinstance(r.get('runtime_ms'), dict)]
     n = len(rows)
     per_opponent = {}
     sales = {}
@@ -60,13 +62,20 @@ def summarize(rows, samples=5000):
         'opponent_failures': sum(len(r['opponent_failures']) for r in rows),
         'no_effect_actions': sum(r['audit'].get('no_effect_actions', 0) for r in rows),
         'unit_actions': sum(r['audit'].get('unit_actions', 0) for r in rows),
-        'unsold_items_mean': statistics.mean(r['unsold_items'] for r in rows),
+        'unsold_items_mean': (statistics.mean(values) if
+                              (values := [r.get('unsold_items') for r in rows
+                                          if r.get('unsold_items') is not None]) else None),
         'overflow_items': sum(r['audit'].get('overflow_items', 0) for r in rows),
         'sales': sales,
+        'evidence_profiles': sorted({r.get('evidence_profile', 'full') for r in rows}),
         'telemetry_version': max((r.get('telemetry_version') or 0) for r in rows) or None,
         'daily': daily_profile(rows),
-        'runtime_ms': {name: quantile(runtimes, q) for name, q in
-                       [('p50', .5), ('p95', .95), ('p99', .99), ('max', 1.)]},
+        'runtime_ms': ({name: quantile(runtimes, q) for name, q in
+                        [('p50', .5), ('p95', .95), ('p99', .99), ('max', 1.)]}
+                       if runtimes else
+                       {name: quantile([row[name] for row in runtime_summaries], q)
+                        for name, q in [('p50', .5), ('p95', .95),
+                                        ('p99', .99), ('max', 1.)]}),
         'per_opponent': per_opponent,
     }
 
@@ -75,7 +84,7 @@ def reconcile(row):
     """Per-day telemetry must reproduce the audited totals of the same game."""
     daily = row.get('daily')
     if not daily:
-        return ['telemetry missing']
+        return [] if row.get('evidence_profile') in ('score', 'audit') else ['telemetry missing']
     problems = []
     units, revenue = defaultdict(int), defaultdict(float)
     for day in daily:

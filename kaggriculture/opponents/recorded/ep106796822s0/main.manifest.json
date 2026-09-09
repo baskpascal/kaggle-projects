@@ -1,0 +1,56 @@
+{
+  "id": "ep106796822s0",
+  "family": "recorded::SpaTaro",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106796822s0/main.py",
+  "sha256": "bfa133baadf816ce74362729083b1bedae8c3a9826c8476a19fea7f9a8b70b2a",
+  "tape_sha256": "ff74d8ca2f85bfdd9e28b03ff0d24b383b65a4f2765e31ae4eb38b297bf44280",
+  "opening_sha256": "f991e153a9e223cf4cabb9d649d1bf65bfb34af06bab21ed81359bb5a5c4904c",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106796822,
+    "seed": 634292516,
+    "seat": 0,
+    "team": "SpaTaro",
+    "opponent_team": "binghua",
+    "money": 113431.0,
+    "opponent_money": 89146.0
+  },
+  "reconstruction": {
+    "episode": "106796822",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106796822",
+      "digest": "ff74d8ca2f85bfdd9e28b03ff0d24b383b65a4f2765e31ae4eb38b297bf44280",
+      "verified_at": "2026-09-09T15:40:25.364939+00:00",
+      "expected": [
+        113431.0,
+        89146.0
+      ],
+      "fast": [
+        113431.0,
+        89146.0
+      ],
+      "official": [
+        113431.0,
+        89146.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2965.2,
+    "rank": 1,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2885.0,
+    "rank": 6
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

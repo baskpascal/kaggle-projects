@@ -1,5 +1,100 @@
 [
   {
+    "id": "aurax_reactive_v2",
+    "version": "reactive_v2",
+    "family": "tape_router_room_guard",
+    "kernel": "aurax7/kaggriculture-shop-router-reactive-v2",
+    "kernel_id": 133676289,
+    "title": "Kaggriculture_shop_router_reactive_v2",
+    "source_url": "https://www.kaggle.com/code/aurax7/kaggriculture-shop-router-reactive-v2",
+    "path": "opponents/public/aurax_reactive_v2/main.py",
+    "sha256": "f2b220fc188ef8682debf729ea76f377b8a23a424c05eb375ef287dbc5533281",
+    "bundle_sha256": {
+      "main.py": "f2b220fc188ef8682debf729ea76f377b8a23a424c05eb375ef287dbc5533281",
+      "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+    "captured_at": "2026-09-09",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "The shop-router-0909 rules and tapes with one added layer: room_guard sells the surplus above 99 items on the last turn of each day, highest price first, so the end-of-day drop into a 100-slot shed cannot overflow. Docstrings were stripped upstream; the routing table and every other rule are unchanged.",
+    "adaptation_notes": "Extracted verbatim from the notebook's %%writefile cell and data payload; actions.json and LICENSE.txt hash equal to the 0909 originals. No local edits.",
+    "base_selection_candidate": false,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-09",
+    "ladder_rating": {
+      "rating": 2755.7,
+      "observed_at": "2026-09-09",
+      "kind": "author_current",
+      "source": "author team 'Farmers Is All You Need' (aurax7 and four teammates), rank 80 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "reactive_v2 is the team's newest published kaggriculture notebook; the team rating bounds it from above"
+    }
+  },
+  {
+    "id": "boatlee_v16",
+    "version": "V16-RC5",
+    "family": "premium_market_lead",
+    "kernel": "boatlee/v16-rc5-high-score-8c-4s-premium-market-lead",
+    "kernel_id": 130530296,
+    "title": "V16-RC5 | High-Score 8C/4S Premium Market Lead",
+    "source_url": "https://www.kaggle.com/code/boatlee/v16-rc5-high-score-8c-4s-premium-market-lead",
+    "path": "opponents/public/boatlee_v16/main.py",
+    "sha256": "f029fa0cb66a9eb509afbe44e3f59b800332d0419db91607183410e4089c4d19",
+    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
+    "captured_at": "2026-09-08",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "Eight-crop, four-shed premium market lead with an embedded action schedule.",
+    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
+    "base_selection_candidate": false,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-07",
+    "ladder_rating": {
+      "rating": 2457.1,
+      "observed_at": "2026-09-09",
+      "kind": "author_upper_bound",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "superseded twice over; the bound is below the cut, so weak"
+    }
+  },
+  {
+    "id": "boatlee_v21",
+    "version": "V21-R1",
+    "family": "public_state_route_portfolio",
+    "kernel": "boatlee/v21-r1-public-state-route-portfolio",
+    "kernel_id": 131517790,
+    "title": "V21-R1 | Public-State Route Portfolio",
+    "source_url": "https://www.kaggle.com/code/boatlee/v21-r1-public-state-route-portfolio",
+    "path": "opponents/public/boatlee_v21/main.py",
+    "sha256": "c6f96a8521dc9aa369b6f27e5b36b9d481e5c1688f50c8ca215c3bb53f1f9eb8",
+    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
+    "captured_at": "2026-09-08",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "Multiple named route payloads selected from public state at runtime.",
+    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
+    "base_selection_candidate": false,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-07",
+    "ladder_rating": {
+      "rating": 2457.1,
+      "observed_at": "2026-09-09",
+      "kind": "author_upper_bound",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "superseded by the same author's V29-R1; the bound is below the cut, which is enough to classify the artifact as weak"
+    }
+  },
+  {
     "id": "cok_v10",
     "version": "v10",
     "family": "public_adaptive_livestock_routes",
@@ -25,32 +120,74 @@
     "ladder_rating_note": "pinned from GitHub (COK-ZhangZiliang); no kaggriculture leaderboard team could be attributed to that account, so not even an upper bound exists"
   },
   {
-    "id": "seyamalam_v21",
-    "version": "v21",
-    "family": "route_market_recovery",
-    "repository": "https://github.com/Seyamalam/Kaggriculture",
-    "source_url": "https://github.com/Seyamalam/Kaggriculture",
-    "commit": "8b8c421eb10634c756583ce10c75189f50c83a72",
-    "path": "opponents/public/seyamalam_v21/main.py",
-    "sha256": "0cd14b653102d276c4f902fa3b8c6bd81d869b8ab64c422cb881b9d2346ec639",
-    "license": "MIT",
-    "captured_at": "2026-09-07",
+    "id": "gluzdov_e182",
+    "version": "e182",
+    "family": "tape_router_terminal_planner",
+    "kernel": "dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800",
+    "kernel_id": 133672772,
+    "title": "Kaggriculture: Seven-Turn Rescue | Best LB 2800+",
+    "source_url": "https://www.kaggle.com/code/dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800",
+    "path": "opponents/public/gluzdov_e182/main.py",
+    "sha256": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+    "bundle_sha256": {
+      "main.py": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+      "policy.py": "e239501d1224ba3d198aef11bc6b1b40637fbac335db7ca07205175d992f9b12",
+      "router_parent.py": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+      "terminal_planner.py": "a9d7a6d29e1fb313852dc0121d43f16544771ed12775afaf3a0480e9ab713dce",
+      "unit_model.py": "c03e8c5cd10466c229ee0a44dece9a3943c10bff135d96a7822ffe75d6922724",
+      "settings.json": "e2756d366c88e627da6711f20ae708613d6a7cf5805410c6af4326dfc7a7417e",
+      "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "NOTICE.txt": "6435ca240eea352abffd2cbf19b446b311e372f552a07865cab1b8bb547b1230"
+    },
+    "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+    "captured_at": "2026-09-09",
     "engine": {
       "kaggle_environments": "1.32.7",
       "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
     },
-    "lineage": "Public route + market-recovery overlay from the upstream Kaggriculture research repository.",
-    "adaptation_notes": "Imported verbatim from the pinned upstream commit; no local edits or replay reconstruction.",
-    "base_selection_candidate": true,
+    "lineage": "The unmodified shop-router-0909 parent (router_parent.py is byte-identical to its main.py) under a bounded planner that replaces callbacks 712-718: it searches short collect-and-return routes per worker against an extracted copy of the engine's unit semantics and keeps only strictly positive deliveries.",
+    "adaptation_notes": "Extracted verbatim from the notebook's %%writefile cells and its ROUTE_DATA payload, whose SHA-256 the notebook itself asserts and which equals the 0909 actions.json. settings.json holds the notebook's own SETTINGS cell. No local edits.",
+    "base_selection_candidate": false,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-09",
+    "ladder_rating": {
+      "rating": 2790.4,
+      "observed_at": "2026-09-09",
+      "kind": "author_current",
+      "source": "author team 'Auto Fermers' (artemboltaev, dmitriigluzdov), rank 54 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "the seven-turn rescue is the team's newest published kaggriculture notebook; the team rating bounds it from above"
+    }
+  },
+  {
+    "id": "kaitofukami_v48",
+    "version": "v48",
+    "family": "fast_route_early_floor",
+    "kernel": "kaitofukami/40-40-early-floor-39-46-top-10-v48-fast-routes",
+    "kernel_id": null,
+    "title": "40.40 early floor / 39.46 top-10 (v48 fast routes)",
+    "source_url": "https://www.kaggle.com/code/kaitofukami/40-40-early-floor-39-46-top-10-v48-fast-routes",
+    "path": "opponents/public/kaitofukami_v48/main.py",
+    "sha256": "dadee25a9840313218384208c53b2c4752f82c3209cc654632e0b96c65e2664a",
+    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
+    "captured_at": "2026-09-08",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "v44 floor plus two fast-climber continuations, bundled as an embedded package.",
+    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
+    "base_selection_candidate": false,
     "evaluation_opponent": true,
     "usage": "benchmark opponent only",
     "retrieved_at": "2026-09-07",
     "ladder_rating": {
-      "rating": 940.0,
-      "observed_at": "2026-09-08",
+      "rating": 1873.8,
+      "observed_at": "2026-09-09",
       "kind": "author_upper_bound",
-      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3525 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
+      "source": "author team 'Kaito Fukami' (kaitofukami), rank 1359 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
     }
   },
   {
@@ -76,6 +213,65 @@
     "retrieved_at": "2026-09-07",
     "ladder_rating": null,
     "ladder_rating_note": "pinned from GitHub (lonespear); the username does not appear on the public leaderboard, so not even an upper bound exists"
+  },
+  {
+    "id": "seyamalam_v21",
+    "version": "v21",
+    "family": "route_market_recovery",
+    "repository": "https://github.com/Seyamalam/Kaggriculture",
+    "source_url": "https://github.com/Seyamalam/Kaggriculture",
+    "commit": "8b8c421eb10634c756583ce10c75189f50c83a72",
+    "path": "opponents/public/seyamalam_v21/main.py",
+    "sha256": "0cd14b653102d276c4f902fa3b8c6bd81d869b8ab64c422cb881b9d2346ec639",
+    "license": "MIT",
+    "captured_at": "2026-09-07",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "Public route + market-recovery overlay from the upstream Kaggriculture research repository.",
+    "adaptation_notes": "Imported verbatim from the pinned upstream commit; no local edits or replay reconstruction.",
+    "base_selection_candidate": true,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-07",
+    "ladder_rating": {
+      "rating": 934.7,
+      "observed_at": "2026-09-09",
+      "kind": "author_upper_bound",
+      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3629 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "the pinned artifact is the GitHub repository, not a notebook; the author team rating bounds it from above and is below the cut, so weak"
+    }
+  },
+  {
+    "id": "thomas_t93",
+    "version": "v6day",
+    "family": "public_state_schedule_portfolio",
+    "kernel": "thomastschinkel/kaggriculture-93-8-win-rate-public-state-router",
+    "kernel_id": null,
+    "title": "Kaggriculture: 93.8% Win Rate Public-State Router",
+    "source_url": "https://www.kaggle.com/code/thomastschinkel/kaggriculture-93-8-win-rate-public-state-router",
+    "path": "opponents/public/thomas_t93/main.py",
+    "sha256": "b87a27ed614a33329be85f1b662e51cf4078a019fee937afcebbbbf2f51f8522",
+    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
+    "captured_at": "2026-09-08",
+    "engine": {
+      "kaggle_environments": "1.32.7",
+      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+    },
+    "lineage": "Six-day replay portfolio; tapes extracted from public episodes and routed every 144 turns on a public-state vector.",
+    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
+    "base_selection_candidate": false,
+    "evaluation_opponent": true,
+    "usage": "benchmark opponent only",
+    "retrieved_at": "2026-09-07",
+    "ladder_rating": {
+      "rating": 2396.7,
+      "observed_at": "2026-09-09",
+      "kind": "author_upper_bound",
+      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 599 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "superseded by the same author's 95.5% notebook; above the cut, so this bound decides nothing and the opponent stays out of the strong cohort"
+    }
   },
   {
     "id": "thomas_t95",
@@ -107,123 +303,39 @@
     }
   },
   {
-    "id": "thomas_t93",
-    "version": "v6day",
-    "family": "public_state_schedule_portfolio",
-    "kernel": "thomastschinkel/kaggriculture-93-8-win-rate-public-state-router",
-    "kernel_id": null,
-    "title": "Kaggriculture: 93.8% Win Rate Public-State Router",
-    "source_url": "https://www.kaggle.com/code/thomastschinkel/kaggriculture-93-8-win-rate-public-state-router",
-    "path": "opponents/public/thomas_t93/main.py",
-    "sha256": "b87a27ed614a33329be85f1b662e51cf4078a019fee937afcebbbbf2f51f8522",
-    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
-    "captured_at": "2026-09-08",
+    "id": "yhay_router_0909",
+    "version": "0909",
+    "family": "native_solver_tape_router",
+    "kernel": "yhay81/shop-router-0909",
+    "kernel_id": 133670867,
+    "title": "Shop Router 0909",
+    "source_url": "https://www.kaggle.com/code/yhay81/shop-router-0909",
+    "path": "opponents/public/yhay_router_0909/main.py",
+    "sha256": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+    "bundle_sha256": {
+      "main.py": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+      "actions.json": "17d503f2fd20d59f9c0f14024d1e74a8add8bb9b5561d4d908b45deecb5495ef",
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "license": "Apache-2.0 (Kaggle notebook default; the bundle ships the Apache-2.0 text)",
+    "captured_at": "2026-09-09",
     "engine": {
       "kaggle_environments": "1.32.7",
       "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
     },
-    "lineage": "Six-day replay portfolio; tapes extracted from public episodes and routed every 144 turns on a public-state vector.",
-    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
+    "lineage": "Thirteen complete 719-turn tapes emitted by the author's own solver, routed on the first two unlocked shops at step 144, with three observation-based repairs: a weed DIG that delays only the blocked worker inside the current day, sales brought forward one turn, and a terminal liquidation that sells the projected shed. Sale timing and shed projection are credited upstream to aurax7's Reactive Router.",
+    "adaptation_notes": "Extracted verbatim from the notebook's own %%writefile cell and its gzip/base64 data payload; the three member hashes reproduce the notebook's declared expected_hashes exactly. No local edits.",
     "base_selection_candidate": false,
     "evaluation_opponent": true,
     "usage": "benchmark opponent only",
-    "retrieved_at": "2026-09-07",
+    "retrieved_at": "2026-09-09",
     "ladder_rating": {
-      "rating": 2519.6,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 302 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's 95.5% notebook; above the cut, so this bound decides nothing and the opponent stays out of the strong cohort"
-    }
-  },
-  {
-    "id": "kaitofukami_v48",
-    "version": "v48",
-    "family": "fast_route_early_floor",
-    "kernel": "kaitofukami/40-40-early-floor-39-46-top-10-v48-fast-routes",
-    "kernel_id": null,
-    "title": "40.40 early floor / 39.46 top-10 (v48 fast routes)",
-    "source_url": "https://www.kaggle.com/code/kaitofukami/40-40-early-floor-39-46-top-10-v48-fast-routes",
-    "path": "opponents/public/kaitofukami_v48/main.py",
-    "sha256": "dadee25a9840313218384208c53b2c4752f82c3209cc654632e0b96c65e2664a",
-    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
-    "captured_at": "2026-09-08",
-    "engine": {
-      "kaggle_environments": "1.32.7",
-      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+      "rating": 2838.5,
+      "observed_at": "2026-09-09",
+      "kind": "author_current",
+      "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "note": "shop-router-0909 is the author's newest published kaggriculture notebook; the team rating bounds it from above, see docs/RATINGS_REFRESH.md"
     },
-    "lineage": "v44 floor plus two fast-climber continuations, bundled as an embedded package.",
-    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
-    "base_selection_candidate": false,
-    "evaluation_opponent": true,
-    "usage": "benchmark opponent only",
-    "retrieved_at": "2026-09-07",
-    "ladder_rating": {
-      "rating": 2491.9,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'Kaito Fukami' (kaitofukami), rank 363 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's v58 notebook; above the cut, so unknown"
-    }
-  },
-  {
-    "id": "boatlee_v16",
-    "version": "V16-RC5",
-    "family": "premium_market_lead",
-    "kernel": "boatlee/v16-rc5-high-score-8c-4s-premium-market-lead",
-    "kernel_id": 130530296,
-    "title": "V16-RC5 | High-Score 8C/4S Premium Market Lead",
-    "source_url": "https://www.kaggle.com/code/boatlee/v16-rc5-high-score-8c-4s-premium-market-lead",
-    "path": "opponents/public/boatlee_v16/main.py",
-    "sha256": "f029fa0cb66a9eb509afbe44e3f59b800332d0419db91607183410e4089c4d19",
-    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
-    "captured_at": "2026-09-08",
-    "engine": {
-      "kaggle_environments": "1.32.7",
-      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
-    },
-    "lineage": "Eight-crop, four-shed premium market lead with an embedded action schedule.",
-    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
-    "base_selection_candidate": false,
-    "evaluation_opponent": true,
-    "usage": "benchmark opponent only",
-    "retrieved_at": "2026-09-07",
-    "ladder_rating": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded twice over; the bound is below the cut, so weak"
-    }
-  },
-  {
-    "id": "boatlee_v21",
-    "version": "V21-R1",
-    "family": "public_state_route_portfolio",
-    "kernel": "boatlee/v21-r1-public-state-route-portfolio",
-    "kernel_id": 131517790,
-    "title": "V21-R1 | Public-State Route Portfolio",
-    "source_url": "https://www.kaggle.com/code/boatlee/v21-r1-public-state-route-portfolio",
-    "path": "opponents/public/boatlee_v21/main.py",
-    "sha256": "c6f96a8521dc9aa369b6f27e5b36b9d481e5c1688f50c8ca215c3bb53f1f9eb8",
-    "license": "Apache-2.0 (Kaggle notebook default; no separate upstream assertion)",
-    "captured_at": "2026-09-08",
-    "engine": {
-      "kaggle_environments": "1.32.7",
-      "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
-    },
-    "lineage": "Multiple named route payloads selected from public state at runtime.",
-    "adaptation_notes": "Extracted verbatim from the notebook cell that writes main.py; no local edits. See THIRD_PARTY_NOTICES.md.",
-    "base_selection_candidate": false,
-    "evaluation_opponent": true,
-    "usage": "benchmark opponent only",
-    "retrieved_at": "2026-09-07",
-    "ladder_rating": {
-      "rating": 1997.2,
-      "observed_at": "2026-09-08",
-      "kind": "author_upper_bound",
-      "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
-      "note": "superseded by the same author's V29-R1; the bound is below the cut, which is enough to classify the artifact as weak"
-    }
+    "notebook_blob_sha256": "a36029e34448e823b6b11990ad06a86e255da6b629cbfb30035b542422592dd4"
   }
 ]

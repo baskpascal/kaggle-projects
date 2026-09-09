@@ -1,0 +1,56 @@
+{
+  "id": "ep106760703s1",
+  "family": "recorded::binghua",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106760703s1/main.py",
+  "sha256": "0ff15aa0c01a387d3d42c0b5705fed02f693baf962ec37398353bbee26529cc1",
+  "tape_sha256": "1e67d3acbc69c11b3f1f56ceb8479693b0f4ff467536d567b7d255627835f84b",
+  "opening_sha256": "f808b58baa7b1672d4983e72b66158c291c56c12f9b65d663ec475b374997750",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106760703,
+    "seed": 921621174,
+    "seat": 1,
+    "team": "binghua",
+    "opponent_team": "Tarang222",
+    "money": 154624.0,
+    "opponent_money": 135800.0
+  },
+  "reconstruction": {
+    "episode": "106760703",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106760703",
+      "digest": "1e67d3acbc69c11b3f1f56ceb8479693b0f4ff467536d567b7d255627835f84b",
+      "verified_at": "2026-09-09T15:40:25.364929+00:00",
+      "expected": [
+        135800.0,
+        154624.0
+      ],
+      "fast": [
+        135800.0,
+        154624.0
+      ],
+      "official": [
+        135800.0,
+        154624.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2885.0,
+    "rank": 6,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2872.4,
+    "rank": 10
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

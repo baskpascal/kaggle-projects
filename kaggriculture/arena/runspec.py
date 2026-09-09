@@ -43,6 +43,7 @@ from eval.standing import BANDS, LINEAGE_FLOOR, SAFE_TOP20_WIN_RATE
 
 SCHEMA_VERSION = 1
 BACKENDS = ('fast', 'official')
+EVIDENCE_PROFILES = ('score', 'audit', 'full')
 # The sections that say what was measured. Everything here enters the `run_id`.
 MATERIAL = ('schema_version', 'agents', 'opponents', 'panel', 'seeds', 'engine', 'limits',
             'metrics')
@@ -120,6 +121,8 @@ def validate(spec, *, registry_path=REGISTRY):
                          'retry policy changes what a failure means')
 
     metrics = spec.get('metrics') or {}
+    if metrics.get('evidence_profile', 'full') not in EVIDENCE_PROFILES:
+        raise ValueError(f'Evidence profile must be one of {", ".join(EVIDENCE_PROFILES)}')
     blocks = metrics.get('min_blocks')
     if not isinstance(blocks, int) or isinstance(blocks, bool) or blocks < 2:
         raise ValueError('min_blocks must be an integer of at least 2')
@@ -146,7 +149,7 @@ def build(*, baseline, candidate, opponents, seeds, split, registry, backend='fa
           max_rating_age_days=MAX_RATING_AGE_DAYS, lineage_floor=LINEAGE_FLOOR,
           safe_top20=SAFE_TOP20_WIN_RATE, gate='eval.submit_gate.decide',
           deadline_seconds=None, attempts=3, distribution=None, registry_path=REGISTRY,
-          now=None):
+          now=None, evidence_profile='score'):
     """Assemble a spec from what a caller already knows, then validate and address it.
 
     `baseline`, `candidate` and `opponents` are `{name: sha256}`; opponents may carry a
@@ -168,6 +171,7 @@ def build(*, baseline, candidate, opponents, seeds, split, registry, backend='fa
                    'environment': environment if environment is not None else fingerprint()},
         'limits': {'deadline_seconds': deadline_seconds, 'attempts': attempts},
         'metrics': {'min_blocks': min_blocks, 'cut': cut,
+                    'evidence_profile': evidence_profile,
                     'max_rating_age_days': max_rating_age_days,
                     'lineage_floor': lineage_floor, 'safe_top20': safe_top20,
                     'bands': [[name, low, high, threshold]

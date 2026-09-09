@@ -20,8 +20,9 @@ OTHER = 'c' * 64          # the agent holding slot B
 SPARE = 'f' * 64          # a hash that is nobody's: never active, never evaluated
 ENGINE = {'version': '1.32.7', 'interpreter_sha256': 'd' * 64, 'specification_sha256': 'e' * 64}
 NOW = datetime(2026, 9, 8, 12, 0, tzinfo=timezone.utc)
-# seed_registry.json revision 2 reserves exactly this range for validation.
-VALIDATION = range(100125, 100200)
+# seed_registry.json revision 6 reserves exactly this range for validation: 100125:100165
+# and 500000:500100 were spent by the v004 and v006 gates and are `seen` from then on.
+VALIDATION = range(500100, 500200)
 STRONG = ('top_a', 'top_b', 'mid_a')
 RATINGS = {name: dict(rating=2500., kind='direct', observed_at='2026-09-08')
            for name in ('top_a', 'top_b', 'mid_a', 'mid_b', 'low_a', 'low_b')}
@@ -145,7 +146,7 @@ def test_the_recorded_v004_evidence_cannot_be_joined_to_the_v004_artifact():
 
 @pytest.mark.parametrize('seeds,label', [(range(1000, 1075), 'dev'),
                                          (range(100000, 100075), 'seen'),
-                                         (range(500000, 500075), 'unregistered')])
+                                         (range(600000, 600075), 'unregistered')])
 def test_only_reserved_validation_seeds_authorize_an_absolute_standing(seeds, label):
     row = run([finalist(standing=standing_report(seeds=seeds))])['candidates'][0]
     assert row['standing_split'] == (None if label == 'unregistered' else label)
@@ -155,7 +156,7 @@ def test_only_reserved_validation_seeds_authorize_an_absolute_standing(seeds, la
 
 def test_the_split_is_read_from_the_registry_and_not_from_a_field():
     assert split_of(list(VALIDATION)) == 'validation'
-    assert split_of([100124, 100125]) is None   # straddles seen and validation
+    assert split_of([500099, 500100]) is None   # straddles seen and validation
     assert split_of([]) is None
 
 

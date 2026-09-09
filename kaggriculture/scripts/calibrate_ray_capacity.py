@@ -87,8 +87,6 @@ def main():
     atexit.register(mapper.ray.shutdown)
     seeds = range(args.seed, args.seed + (args.jobs + 1) // 2)
     jobs = plan(args.candidate, [args.opponent], seeds, split='diagnostic')[:args.jobs]
-    for job in jobs:
-        job['telemetry_enabled'] = False
     batch = make_batch(jobs)
     environments = mapper.verify_cluster([batch])
 

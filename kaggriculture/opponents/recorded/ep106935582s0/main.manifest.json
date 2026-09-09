@@ -1,0 +1,56 @@
+{
+  "id": "ep106935582s0",
+  "family": "recorded::Otter Vibe",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded/ep106935582s0/main.py",
+  "sha256": "45266c6d59667c9f4166523a6ec63075a05d447e2282408f94edeca57bb1599e",
+  "tape_sha256": "c67574dd14423eeefd9e48b77af0e7b050381d937490d49a8460542c89cb1bbf",
+  "opening_sha256": "eb05dd25e23fdaa89ba8f5150f92c29666aca1a3d3356c0dcfe7c0b62d59ffbb",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106935582,
+    "seed": 53367038,
+    "seat": 0,
+    "team": "Otter Vibe",
+    "opponent_team": "binghua",
+    "money": 134683.0,
+    "opponent_money": 114641.0
+  },
+  "reconstruction": {
+    "episode": "106935582",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106935582",
+      "digest": "c67574dd14423eeefd9e48b77af0e7b050381d937490d49a8460542c89cb1bbf",
+      "verified_at": "2026-09-09T15:40:25.364959+00:00",
+      "expected": [
+        134683.0,
+        114641.0
+      ],
+      "fast": [
+        134683.0,
+        114641.0
+      ],
+      "official": [
+        134683.0,
+        114641.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 2953.7,
+    "rank": 2,
+    "of": 8362,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-09",
+    "source": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2800.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2885.0,
+    "rank": 6
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

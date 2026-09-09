@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-09-09",
+  "candidate": "versions/v006",
+  "note": "Compact, committed copy of the measurements in docs/SHOP_ROUTER_STACK.md. Full rows stay under the ignored experiments/results/ tree.",
+  "routing_search": {
+    "driver": "experiments/shop_route_search.py",
+    "opponent": "opponents/public/yhay_router_0909 (unmodified parent)",
+    "seeds": "400000:400900",
+    "split": "dev",
+    "games": 20800,
+    "worlds_observed": 64,
+    "forced_plan_score_rates": {
+      "0": 0.394375,
+      "1": 0.06125,
+      "2": 0.020625,
+      "3": 0.25375,
+      "4": 0.103125,
+      "5": 0.125625,
+      "6": 0.2075,
+      "7": 0.254375,
+      "8": 0.22875,
+      "9": 0.154375,
+      "10": 0.100625,
+      "11": 0.22,
+      "12": 0.08625
+    },
+    "fitted_table": {
+      "BAKERY|YARN_STORE": 11,
+      "BRUNCH_SPOT|YARN_STORE": 3,
+      "FARMERS_MARKET|YARN_STORE": 3,
+      "ICE_CREAM_SHOP|YARN_STORE": 6,
+      "PET_CAFE|YARN_STORE": 5,
+      "PIZZA_SHOP|YARN_STORE": 3,
+      "SMOOTHIE_SHOP|YARN_STORE": 8,
+      "YARN_STORE|BAKERY": 11,
+      "YARN_STORE|BRUNCH_SPOT": 9,
+      "YARN_STORE|FARMERS_MARKET": 3,
+      "YARN_STORE|ICE_CREAM_SHOP": 3,
+      "YARN_STORE|PET_CAFE": 7,
+      "YARN_STORE|PIZZA_SHOP": 3,
+      "YARN_STORE|SMOOTHIE_SHOP": 11,
+      "YARN_STORE|YARN_STORE": 12
+    },
+    "replaced_cells": {
+      "BAKERY|YARN_STORE": {
+        "incumbent": 3,
+        "chosen": 11,
+        "paired_games": 26,
+        "chosen_score": 0.9230769230769231,
+        "paired_wins": 22,
+        "paired_losses": 0,
+        "p_value": 2.384185791015625e-07
+      },
+      "BRUNCH_SPOT|YARN_STORE": {
+        "incumbent": 4,
+        "chosen": 3,
+        "paired_games": 32,
+        "chosen_score": 1.0,
+        "paired_wins": 32,
+        "paired_losses": 0,
+        "p_value": 2.3283064365386963e-10
+      },
+      "FARMERS_MARKET|YARN_STORE": {
+        "incumbent": 5,
+        "chosen": 3,
+        "paired_games": 38,
+        "chosen_score": 1.0,
+        "paired_wins": 38,
+        "paired_losses": 0,
+        "p_value": 3.637978807091713e-12
+      },
+      "PIZZA_SHOP|YARN_STORE": {
+        "incumbent": 7,
+        "chosen": 3,
+        "paired_games": 38,
+        "chosen_score": 0.6842105263157895,
+        "paired_wins": 26,
+        "paired_losses": 12,
+        "p_value": 0.016776219839812256
+      },
+      "YARN_STORE|BAKERY": {
+        "incumbent": 9,
+        "chosen": 11,
+        "paired_games": 22,
+        "chosen_score": 0.7272727272727273,
+        "paired_wins": 16,
+        "paired_losses": 6,
+        "p_value": 0.026239395141601562
+      },
+      "YARN_STORE|FARMERS_MARKET": {
+        "incumbent": 1,
+        "chosen": 3,
+        "paired_games": 26,
+        "chosen_score": 1.0,
+        "paired_wins": 24,
+        "paired_losses": 0,
+        "p_value": 5.960464477539063e-08
+      },
+      "YARN_STORE|ICE_CREAM_SHOP": {
+        "incumbent": 9,
+        "chosen": 3,
+        "paired_games": 24,
+        "chosen_score": 0.9166666666666666,
+        "paired_wins": 22,
+        "paired_losses": 2,
+        "p_value": 1.7940998077392578e-05
+      },
+      "YARN_STORE|PET_CAFE": {
+        "incumbent": 10,
+        "chosen": 7,
+        "paired_games": 40,
+        "chosen_score": 1.0,
+        "paired_wins": 37,
+        "paired_losses": 0,
+        "p_value": 7.275957614183426e-12
+      },
+      "YARN_STORE|PIZZA_SHOP": {
+        "incumbent": 6,
+        "chosen": 3,
+        "paired_games": 28,
+        "chosen_score": 1.0,
+        "paired_wins": 28,
+        "paired_losses": 0,
+        "p_value": 3.725290298461914e-09
+      }
+    }
+  },
+  "release_gate": {
+    "driver": "arena.paired",
+    "run_id": null,
+    "split": "validation",
+    "seeds": "500000:500100",
+    "seed_blocks": 100,
+    "games_per_leg": 1600,
+    "failures": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "verdict": "SUBMIT",
+    "candidate_absolute": {
+      "score": 0.92375,
+      "ci95": [
+        0.898109375,
+        0.9475
+      ]
+    },
+    "incumbent_absolute": {
+      "agent": "v004",
+      "score": 0.550625
+    },
+    "delta_win_strong": {
+      "games": 1600,
+      "delta_win": 0.373125,
+      "ci95": [
+        0.34625,
+        0.4
+      ],
+      "delta_margin_diagnostic": 2785.414375
+    },
+    "per_opponent": {
+      "aberatozer_d5e3": {
+        "candidate": 0.88,
+        "incumbent": 0.78
+      },
+      "aurax_reactive_v2": {
+        "candidate": 0.96,
+        "incumbent": 0.005
+      },
+      "gluzdov_e182": {
+        "candidate": 0.83,
+        "incumbent": 0.005
+      },
+      "lynnsakurai_v4": {
+        "candidate": 0.98,
+        "incumbent": 0.955
+      },
+      "reyhanksatria_v1": {
+        "candidate": 0.99,
+        "incumbent": 0.98
+      },
+      "thomas_t95": {
+        "candidate": 0.92,
+        "incumbent": 0.785
+      },
+      "yamakawanin_king_v4e": {
+        "candidate": 0.99,
+        "incumbent": 0.89
+      },
+      "yhay_router_0909": {
+        "candidate": 0.84,
+        "incumbent": 0.005
+      }
+    },
+    "leave_one_out": {
+      "aberatozer_d5e3": 0.41214285714285714,
+      "aurax_reactive_v2": 0.29,
+      "gluzdov_e182": 0.30857142857142855,
+      "lynnsakurai_v4": 0.4228571428571429,
+      "reyhanksatria_v1": 0.425,
+      "thomas_t95": 0.40714285714285714,
+      "yamakawanin_king_v4e": 0.41214285714285714,
+      "yhay_router_0909": 0.30714285714285716
+    },
+    "leave_family_out": {
+      "aberatozer_d5e3": 0.41214285714285714,
+      "lynnsakurai_v4": 0.4228571428571429,
+      "native_solver_tape_router": 0.30714285714285716,
+      "public_state_schedule_portfolio": 0.40714285714285714,
+      "reyhanksatria_v1": 0.425,
+      "tape_router_room_guard": 0.29,
+      "tape_router_terminal_planner": 0.30857142857142855,
+      "yamakawanin_king_v4e": 0.41214285714285714
+    },
+    "mirrors": [
+      "aurax_reactive_v2",
+      "gluzdov_e182",
+      "yhay_router_0909"
+    ]
+  },
+  "held_out_dev_stack_comparison": {
+    "seeds": "410300:410400",
+    "games_per_pairing": 200,
+    "terminal_rescue_only": {
+      "yhay_router_0909": 0.975,
+      "aurax_reactive_v2": 0.235,
+      "gluzdov_e182": 0.5
+    },
+    "room_guard_only": {
+      "yhay_router_0909": 0.795,
+      "aurax_reactive_v2": 0.5,
+      "gluzdov_e182": 0.765
+    },
+    "room_guard_and_rescue": {
+      "yhay_router_0909": 0.815,
+      "aurax_reactive_v2": 0.975,
+      "gluzdov_e182": 0.795
+    },
+    "v006": {
+      "yhay_router_0909": 0.825,
+      "aurax_reactive_v2": 0.945,
+      "gluzdov_e182": 0.815
+    },
+    "v006_vs_same_stack_without_our_table": {
+      "score": 0.535,
+      "ci95": [
+        0.515,
+        0.557
+      ],
+      "games": 400,
+      "seeds": "410500:410700"
+    }
+  }
+}

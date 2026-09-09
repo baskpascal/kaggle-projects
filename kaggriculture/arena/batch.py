@@ -28,14 +28,14 @@ import socket
 import time
 from pathlib import Path
 
-from .jobs import git_provenance
+from .jobs import evidence_profile, git_provenance
 from .parallel import matches
 
 # One or two cores left to the machine by default: an evaluation run that makes the host
 # unusable gets interrupted by a human, and an interrupted run is worse than a slower one.
 LEAVE_FREE = 1
 BATCH_SIZE = 32
-TRANSPORT_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend')
+TRANSPORT_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'evidence_profile')
 
 
 def worker_budget(cpus_free=LEAVE_FREE, cpus=None):
@@ -95,7 +95,8 @@ def percentile(values, fraction):
 
 def transport_job_id(spec):
     """Use the durable ID when present, or a deterministic smoke-test identity."""
-    return spec.get('job_id') or _digest({field: spec.get(field) for field in TRANSPORT_FIELDS})
+    normalized = {**spec, 'evidence_profile': evidence_profile(spec)}
+    return spec.get('job_id') or _digest({field: normalized.get(field) for field in TRANSPORT_FIELDS})
 
 
 def make_batch(specs, index=0):
@@ -121,7 +122,9 @@ def adaptive_batch_size(total_jobs, available_slots, *, target_waves=8,
 
 def _check_row(spec, row, job_id, batch_id, hostname, provenance):
     for field in TRANSPORT_FIELDS:
-        if row.get(field) != spec.get(field):
+        expected = evidence_profile(spec) if field == 'evidence_profile' else spec.get(field)
+        actual = evidence_profile(row) if field == 'evidence_profile' else row.get(field)
+        if actual != expected:
             raise ValueError(f'{field} mismatch in batch {batch_id}, job {job_id}')
     for field in ('candidate_hash', 'opponent_hash'):
         expected = spec.get(field)
@@ -134,7 +137,8 @@ def _check_row(spec, row, job_id, batch_id, hostname, provenance):
 
 def _identity(record):
     """The tuple that says which game a spec or a finished row is, without using position."""
-    return tuple(record.get(field) for field in TRANSPORT_FIELDS)
+    return tuple(evidence_profile(record) if field == 'evidence_profile' else record.get(field)
+                 for field in TRANSPORT_FIELDS)
 
 
 def run_batch(batch, workers=4, method=None, timeout=-1):

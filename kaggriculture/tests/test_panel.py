@@ -313,16 +313,19 @@ def test_the_committed_observations_rebuild_the_filed_revision():
 def test_the_real_panel_cannot_support_a_release_standing_yet():
     """The finding issue #45 opens on, kept honest rather than described in prose.
 
-    The best pinned public artifact reaches rank 45, so the two decisive bands are empty
-    and no absolute standing built on this panel authorizes anything. When a top-ten
-    opponent is pinned this test is what changes, and it should change deliberately.
+    Pinning yhay_router_0909 on 2026-09-09 moved its author team to rank 27, so the
+    rank10_30 band is no longer empty - and the panel still authorizes nothing, for the
+    two reasons that survive: top10 has no opponent at all, and the one band that now has
+    an opponent is carried by a single lineage. When a top-ten opponent is pinned, and
+    when a second lineage reaches rank10_30, this test is what changes, and it should
+    change deliberately.
     """
     observations = json.loads(OBSERVATIONS.read_text(encoding='utf-8'))
     snapshot = build(observations, now=NOW)
     assert snapshot['gate']['verdict'] == 'FAIL'
     assert snapshot['coverage']['top10']['opponents'] == []
-    assert snapshot['coverage']['rank10_30']['opponents'] == []
-    assert snapshot['coverage']['rank30_100']['lineage_count'] == 2
+    assert snapshot['coverage']['rank10_30']['lineage_count'] == 1
+    assert snapshot['coverage']['rank30_100']['lineage_count'] == 4
 
 
 def test_every_pinned_bundle_is_either_observed_or_explicitly_absent():

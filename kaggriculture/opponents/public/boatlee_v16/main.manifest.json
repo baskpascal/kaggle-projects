@@ -21,10 +21,10 @@
   "usage": "benchmark opponent only",
   "retrieved_at": "2026-09-07",
   "ladder_rating": {
-    "rating": 1997.2,
-    "observed_at": "2026-09-08",
+    "rating": 2457.1,
+    "observed_at": "2026-09-09",
     "kind": "author_upper_bound",
-    "source": "author team 'boatlee' (boatlee), rank 1063 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+    "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
     "note": "superseded twice over; the bound is below the cut, so weak"
   }
 }

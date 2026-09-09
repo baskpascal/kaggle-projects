@@ -49,7 +49,7 @@ def screen(tapes, opponents, seeds, *, workers=4, agent_dir, output=None):
             for seed in seeds:
                 for seat in (0, 1):
                     jobs.append(dict(candidate=paths[tape['sha256']], opponent=opponent,
-                                     seed=seed, seat=seat, telemetry_enabled=False))
+                                     seed=seed, seat=seat, evidence_profile='score'))
                     meta.append((tape['sha256'], name, seed, seat))
     rows = []
     # `ordered=True` is asked for, not assumed: this pairing is positional, and

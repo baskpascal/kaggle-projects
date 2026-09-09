@@ -6,7 +6,7 @@ import time
 
 from .agents import agent_hash
 from .batch import batched_runner, worker_budget
-from .jobs import JobStore, execute, plan, single_provenance
+from .jobs import EVIDENCE_PROFILES, JobStore, execute, plan, single_provenance
 from .parallel import stream
 from .ray_transport import DEFAULT_CPUS_PER_WORKER
 from .seeds import REGISTRY, SPLITS, admit_run, parse_seeds
@@ -26,9 +26,11 @@ def store_path(output):
 
 def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=None, split='dev',
                paired_with=(), registry_path=REGISTRY, resume=False, attempts=3, store=None,
-               runner=None, run_id=None):
+               runner=None, run_id=None, evidence_profile='score'):
     if len(set(opponents)) != len(opponents) or not opponents or len(set(seeds)) != len(seeds) or not seeds:
         raise ValueError('Require unique, nonempty opponents and seeds')
+    if evidence_profile not in EVIDENCE_PROFILES:
+        raise ValueError(f'Evidence profile must be one of {", ".join(EVIDENCE_PROFILES)}')
     started = time.perf_counter()
     # Declare the whole paired batch, then burn reserved validation seeds before
     # the first callback runs. An interrupted run must not free them again.
@@ -40,13 +42,15 @@ def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=No
     provenance = {'candidate': candidate, 'candidate_hash': agent_hash(candidate),
                   'paired_with': list(paired_with), 'batch_members': members,
                   'opponents': opponents, 'opponent_hashes': hashes, 'backend': backend,
+                  'evidence_profile': evidence_profile,
                   'seeds': list(seeds), 'seats': [0, 1],
                   'requested_at': datetime.now(timezone.utc).isoformat()}
     # Admission is the head's job and happens exactly once per run, before any game.
     # A resume re-declares the same batch, which `admit_run` readmits against the
     # recorded batch id rather than burning the validation seeds a second time.
     registry = admit_run(seeds, split, provenance, path=registry_path)
-    jobs = plan(candidate, opponents, seeds, backend=backend, split=split)
+    jobs = plan(candidate, opponents, seeds, backend=backend, split=split,
+                evidence_profile=evidence_profile)
     target = store if store is not None else store_path(output)
     if target is None:
         target = ':memory:'
@@ -75,6 +79,7 @@ def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=No
     metadata = {'candidate': candidate, 'candidate_hash': provenance['candidate_hash'],
                 'opponents': opponents, 'opponent_hashes': hashes,
                 'split': split, 'seeds': seeds, 'backend': backend, 'registry': registry,
+                'evidence_profile': evidence_profile,
                 'run_id': run_id,
                 'created_at': datetime.now(timezone.utc).isoformat(),
                 'wall_seconds': time.perf_counter() - started}
@@ -96,6 +101,7 @@ def main():
     parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER,
                         help='Ray CPUs and local match children assigned to each batch task')
     parser.add_argument('--backend', choices=['fast', 'official'], default='fast')
+    parser.add_argument('--evidence-profile', choices=['score', 'audit', 'full'], default='score')
     parser.add_argument('--split', choices=list(SPLITS), default='dev')
     parser.add_argument('--paired-with', dest='paired_with', default='',
                         help='other candidates in the same declared validation batch')

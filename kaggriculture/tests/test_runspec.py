@@ -58,6 +58,7 @@ def test_the_same_inputs_give_the_same_run_id():
     {'max_rating_age_days': 7},
     {'deadline_seconds': 30.},
     {'attempts': 5},
+    {'evidence_profile': 'audit'},
     {'gate': 'eval.standing.gate'},
 ])
 def test_any_material_field_moves_the_run_id(change):
@@ -96,6 +97,7 @@ def test_the_lineage_of_an_opponent_is_material():
     ({'attempts': 0}, 'positive integer'),
     ({'deadline_seconds': -1}, 'positive number of seconds'),
     ({'gate': ''}, 'names the gate'),
+    ({'evidence_profile': 'verbose'}, 'Evidence profile'),
 ])
 def test_a_spec_that_cannot_be_run_is_refused_with_the_reason(change, expected):
     with pytest.raises(ValueError, match=expected):
@@ -122,11 +124,11 @@ def test_a_paired_run_needs_no_panel_because_its_population_is_its_opponents():
     panel here would refuse a legitimate paired comparison, whose population is the
     `opponents` list the spec already carries.
     """
-    assert spec(seeds=list(range(100125, 100135)), split='validation')['panel'] is None
+    assert spec(seeds=list(range(500100, 500110)), split='validation')['panel'] is None
 
 
 def test_a_validation_run_with_a_panel_is_accepted():
-    built = spec(seeds=list(range(100125, 100135)), split='validation',
+    built = spec(seeds=list(range(500100, 500110)), split='validation',
                  panel={'revision': 'ee' * 32, 'observed_at': '2026-09-08'})
     assert built['panel']['revision'] == 'ee' * 32
 

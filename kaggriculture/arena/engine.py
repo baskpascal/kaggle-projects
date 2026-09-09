@@ -19,14 +19,15 @@ def official():
     return module
 
 
-def make_environment(seed, configuration=None):
-    official()
+def make_environment(seed, configuration=None, *, verified=False):
+    if not verified:
+        official()
     from kaggle_environments import make
     return make('kaggriculture', configuration={**(configuration or {}), 'seed': seed}, debug=False)
 
 
-def fingerprint():
-    module = official()
+def fingerprint(*, verified_module=None):
+    module = verified_module or official()
     spec = Path(module.__file__).with_suffix('.json')
     return {'version': VERSION, 'interpreter_sha256': INTERPRETER_HASH,
             'specification_sha256': hashlib.sha256(spec.read_bytes()).hexdigest()}

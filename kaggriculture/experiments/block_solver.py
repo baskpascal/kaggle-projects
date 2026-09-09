@@ -152,7 +152,7 @@ def evaluate(actions, directory, opponents, seeds, start, end, workers, provenan
     artifact = build(actions, directory / 'main.py', provenance=provenance)
     snapshots = sorted({start, end})
     jobs = [dict(candidate=str(artifact), opponent=opponent, seed=seed, seat=seat,
-                 telemetry_enabled=False, replay_steps=snapshots,
+                 evidence_profile='full', replay_steps=snapshots,
                  replay=str(directory / f'snapshot-{index}-{seed}-{seat}.json'))
             for index, opponent in enumerate(opponents) for seed in seeds for seat in (0, 1)]
     rows, arrivals, frontiers = [], [], {}
@@ -214,7 +214,7 @@ def probe(actions, directory, opponent, seed, seat, start, end, provenance):
     artifact = build(actions, directory / 'main.py', provenance=provenance)
     replay_path = directory / 'probe.json'
     job = dict(candidate=str(artifact), opponent=opponent, seed=seed, seat=seat,
-               telemetry_enabled=False, replay_steps=list(range(start, end)),
+               evidence_profile='full', replay_steps=list(range(start, end)),
                replay=str(replay_path))
     try:
         row, = matches([job], 1)
