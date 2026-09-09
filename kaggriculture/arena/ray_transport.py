@@ -19,10 +19,81 @@ from .engine import fingerprint
 from .jobs import git_provenance
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+# `data/` is the downloaded Kaggle corpus: episodes, leaderboards and replay dumps that
+# this checkout accumulates and that nothing inside a match ever opens. It reached 6.1 GiB
+# and pushed the runtime_env package past Ray's 512 MiB ceiling, which made every
+# distributed run fail at `ray.init` before a single batch was scheduled. It is excluded
+# here rather than moved: the corpus belongs on disk, on the head, where the head-side
+# scripts that analyse it can still read it.
 DEFAULT_EXCLUDES = ['/.git/', '/.venv/', '/.tmp/', '/docs/', '/tests/', '/replays/',
-                    '/seed_registry.json',
+                    '/data/', '/seed_registry.json',
                     '/experiments/results/', '/experiments/searches/', '**/__pycache__/']
+# What a worker genuinely opens while running a match: the agent under test, the engine
+# and arena around it, the opponent artifacts and the frozen versions a spec can name.
+# An exclude that swallowed any of these would not fail at `ray.init`; it would fail
+# deep inside a remote match, so the packing check below refuses it up front instead.
+REQUIRED_ROOTS = ('agent', 'arena', 'eval', 'experiments', 'opponents', 'scripts',
+                  'submission', 'versions', 'config.yaml', 'pyproject.toml')
+# Ray refuses a working_dir package larger than this, and the refusal arrives as an
+# opaque RuntimeEnvSetupError. Measuring first turns it into a sentence that names the
+# directory that grew.
+PACKAGE_LIMIT_BYTES = 512 * 1024 * 1024
 DEFAULT_CPUS_PER_WORKER = 4
+
+
+def _excluded(relative, excludes):
+    """Match the two exclude shapes this module uses: a rooted path, and `**/name/`."""
+    parts = relative.split('/')
+    for pattern in excludes:
+        name = pattern.strip('/')
+        if pattern.startswith('**/'):
+            if name[3:] in parts:
+                return True
+        elif relative == name or relative.startswith(name + '/'):
+            return True
+    return False
+
+
+def package_size(working_dir=PROJECT_ROOT, excludes=DEFAULT_EXCLUDES):
+    """Bytes Ray would actually ship, walking without descending into what is excluded."""
+    root = Path(working_dir)
+    total = 0
+    stack = [root]
+    while stack:
+        for entry in stack.pop().iterdir():
+            relative = entry.relative_to(root).as_posix()
+            if _excluded(relative, excludes):
+                continue
+            if entry.is_symlink():
+                continue
+            if entry.is_dir():
+                stack.append(entry)
+            elif entry.is_file():
+                total += entry.stat().st_size
+    return total
+
+
+def check_package(working_dir=PROJECT_ROOT, excludes=DEFAULT_EXCLUDES,
+                  required=REQUIRED_ROOTS, limit=PACKAGE_LIMIT_BYTES):
+    """Refuse to ship a package that is too large, or one missing what a match needs."""
+    root = Path(working_dir)
+    for name in required:
+        if not (root / name).exists():
+            continue
+        if _excluded(name, excludes):
+            raise ValueError(f'{name!r} is excluded from the Ray package, but a remote '
+                             f'match opens it; remove it from the exclude list')
+    size = package_size(root, excludes)
+    if size > limit:
+        largest = sorted(((package_size(entry, excludes), entry.name)
+                          for entry in root.iterdir() if entry.is_dir()
+                          and not _excluded(entry.name, excludes)), reverse=True)[:3]
+        biggest = ', '.join(f'{name} {value / 1048576:.0f}MiB' for value, name in largest)
+        raise OSError(f'The Ray working_dir package is {size / 1048576:.1f}MiB, over the '
+                      f'{limit / 1048576:.0f}MiB limit. Largest included: {biggest}. '
+                      f'Exclude what a remote match does not open; do not move a dataset '
+                      f'into the package.')
+    return size
 
 
 @contextmanager
@@ -249,6 +320,10 @@ def connect(address='auto', *, cpus_per_worker=1, attempts=3, timeout=-1,
         address = None if address in (None, 'local') else address
         runtime_env = None
         if working_dir is not None:
+            # Measured before `ray.init`, so an oversized checkout is named here instead
+            # of surfacing as an opaque RuntimeEnvSetupError from inside Ray.
+            size = check_package(working_dir)
+            print(f'ray working_dir package: {size / 1048576:.1f}MiB', flush=True)
             runtime_env = {'working_dir': str(working_dir), 'excludes': DEFAULT_EXCLUDES,
                            'env_vars': {'PYTHONPATH': '.',
                                         'ARENA_HEAD_HOSTNAME': socket.gethostname()}}

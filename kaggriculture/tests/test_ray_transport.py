@@ -264,3 +264,36 @@ def test_require_cluster_returns_the_nodes_it_verified(monkeypatch):
     connected, nodes = ray_transport.require_cluster('auto', cpus_per_worker=4)
     assert connected is mapper
     assert [node['hostname'] for node in nodes] == ['desktop-a', 'pc-b-wsl']
+
+
+def build_tree(root, files):
+    for relative, size in files.items():
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b'x' * size)
+
+
+def test_package_size_skips_excluded_trees_and_counts_the_rest(tmp_path):
+    build_tree(tmp_path, {'arena/engine.py': 100, 'data/kaggle/dump.json': 10_000,
+                          'agent/__pycache__/economy.pyc': 5_000, 'versions/v000/main.py': 40})
+    assert ray_transport.package_size(tmp_path, ['/data/', '**/__pycache__/']) == 140
+
+
+def test_check_package_refuses_to_ship_more_than_ray_accepts(tmp_path):
+    build_tree(tmp_path, {'arena/engine.py': 4_000, 'opponents/public/a/main.py': 2_000})
+    with pytest.raises(OSError, match='over the'):
+        ray_transport.check_package(tmp_path, ['/data/'], required=('arena',), limit=1_000)
+
+
+def test_check_package_refuses_an_exclude_that_hides_what_a_match_opens(tmp_path):
+    build_tree(tmp_path, {'arena/engine.py': 10, 'opponents/public/a/main.py': 10})
+    with pytest.raises(ValueError, match="'opponents' is excluded"):
+        ray_transport.check_package(tmp_path, ['/opponents/'],
+                                    required=('arena', 'opponents'), limit=1_000_000)
+
+
+def test_the_shipped_defaults_keep_every_root_a_remote_match_opens():
+    for name in ray_transport.REQUIRED_ROOTS:
+        assert not ray_transport._excluded(name, ray_transport.DEFAULT_EXCLUDES), name
+    assert ray_transport._excluded('data/kaggle/official/x.json',
+                                   ray_transport.DEFAULT_EXCLUDES)

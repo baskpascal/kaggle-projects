@@ -129,6 +129,28 @@ relatório, para que depois se saiba em que máquinas aquele resultado foi produ
 
 Nada disso vale para `pytest`: os testes são um processo local e não passam pelo Ray.
 
+## O que viaja para os workers
+
+O `working_dir` do Ray leva o checkout, menos `DEFAULT_EXCLUDES` em `arena/ray_transport.py`.
+`data/` está fora: é o corpus baixado do Kaggle (episódios, leaderboards, dumps de replay),
+6,1 GiB neste checkout, e nenhuma partida abre esse diretório. Enquanto ele viajava, o
+pacote passava do teto de 512 MiB do Ray e **toda** corrida distribuída morria no
+`ray.init`, antes de agendar um lote — o corpus continua no disco do head, onde os scripts
+que o analisam leem normalmente. Com a exclusão o pacote fica em ~28 MiB.
+
+`connect` mede o pacote antes do `ray.init` e imprime o tamanho (`ray working_dir package:
+27.6MiB`). Se passar do teto, o erro nomeia os maiores diretórios incluídos em vez de virar
+um `RuntimeEnvSetupError` opaco. E `REQUIRED_ROOTS` lista o que uma partida remota abre de
+fato — `agent/`, `arena/`, `eval/`, `opponents/`, `versions/`, entre outros: excluir
+qualquer um deles é recusado na hora, porque essa falha só apareceria lá dentro do match.
+
+A regra ao mexer nos excludes: tire do pacote o que a partida não abre. Não mova dataset
+para dentro do pacote para "resolver" o tamanho.
+
+A prova de que isso funciona nos dois PCs está em `ray-package-smoke.json`: pacote de
+6231,99 MiB (falha no `ray.init`) para 27,6 MiB, e lotes reais de partidas executados em
+`DESKTOP-V3A6VJ6` e `DESKTOP-DM63QP1`, oito linhas em cada.
+
 ## Preparação manual equivalente
 
 Os dois nós precisam de Python 3.12, do mesmo checkout e do mesmo ambiente:

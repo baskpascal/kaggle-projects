@@ -1,0 +1,18 @@
+{
+  "what": "Two-node smoke after excluding data/ from the Ray working_dir package",
+  "observed_at": "2026-09-09T16:12:00-03:00",
+  "package_bytes_before": 6534266880,
+  "package_bytes_after": 28983740,
+  "package_mib_before": 6231.99,
+  "package_mib_after": 27.6,
+  "failure_before": "ray.exceptions.RuntimeEnvSetupError: Package size (6231.99MiB) exceeds the maximum size of 512.00MiB",
+  "nodes": [
+    {"hostname": "DESKTOP-DM63QP1", "slots": 2},
+    {"hostname": "DESKTOP-V3A6VJ6", "slots": 3}
+  ],
+  "batches_executed_per_host": [
+    {"hostname": "DESKTOP-V3A6VJ6", "rows": 8},
+    {"hostname": "DESKTOP-DM63QP1", "rows": 8}
+  ],
+  "note": "Rows are real matches (versions/v004/main.py vs opponents/public/thomas_t95/main.py, diagnostic seeds 200-203, both seats), executed under node affinity so each hostname is proven to have run the batch itself. A further 8 batches went through the ordinary mapper, whose verify_cluster confirmed both hostnames; that pass does not attribute individual batches to hosts."
+}
