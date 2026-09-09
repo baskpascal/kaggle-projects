@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "jobs": 512,
+  "cpu_groups": [
+    2,
+    4
+  ],
+  "candidate": "versions/v004/main.py",
+  "opponent": "opponents/public/thomas_t95/main.py",
+  "hostnames": [
+    "DESKTOP-DM63QP1",
+    "DESKTOP-V3A6VJ6"
+  ],
+  "git": {
+    "git_commit": "0a9e38cb94d953b87e4ce3fc09684bbdbb936cc3",
+    "git_dirty": 0
+  },
+  "measurements": [
+    {
+      "cpus_per_worker": 2,
+      "cluster_slots": 12,
+      "node_slots": {
+        "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11": 5,
+        "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236": 7
+      },
+      "batch_size": 32,
+      "batches": 16,
+      "seconds": 102.54359122900041,
+      "jobs_per_second": 4.992998527393109,
+      "jobs_by_hostname": {
+        "DESKTOP-DM63QP1": 160,
+        "DESKTOP-V3A6VJ6": 352
+      },
+      "batches_by_hostname": {
+        "DESKTOP-DM63QP1": 5,
+        "DESKTOP-V3A6VJ6": 11
+      }
+    },
+    {
+      "cpus_per_worker": 4,
+      "cluster_slots": 5,
+      "node_slots": {
+        "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11": 2,
+        "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236": 3
+      },
+      "batch_size": 32,
+      "batches": 16,
+      "seconds": 79.56589120799981,
+      "jobs_per_second": 6.434918181982506,
+      "jobs_by_hostname": {
+        "DESKTOP-DM63QP1": 128,
+        "DESKTOP-V3A6VJ6": 384
+      },
+      "batches_by_hostname": {
+        "DESKTOP-DM63QP1": 4,
+        "DESKTOP-V3A6VJ6": 12
+      }
+    }
+  ],
+  "recommendation": {
+    "cpus_per_worker": 4,
+    "cluster_slots": 5,
+    "node_slots": {
+      "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11": 2,
+      "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236": 3
+    },
+    "batch_size": 32,
+    "batches": 16,
+    "seconds": 79.56589120799981,
+    "jobs_per_second": 6.434918181982506,
+    "jobs_by_hostname": {
+      "DESKTOP-DM63QP1": 128,
+      "DESKTOP-V3A6VJ6": 384
+    },
+    "batches_by_hostname": {
+      "DESKTOP-DM63QP1": 4,
+      "DESKTOP-V3A6VJ6": 12
+    }
+  },
+  "result_signature_stable": true
+}

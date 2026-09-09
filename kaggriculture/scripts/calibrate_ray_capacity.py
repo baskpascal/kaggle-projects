@@ -21,10 +21,12 @@ NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git
 
 
 def result_signature(rows):
-    return [json.dumps({key: value for key, value in row.items()
-                        if key not in NONDETERMINISTIC},
-                       sort_keys=True, separators=(',', ':'), allow_nan=False)
-            for row in rows]
+    # Distributed batches arrive in completion order.  Compare the exact result
+    # multiset so scheduler timing cannot look like a semantic disagreement.
+    return sorted(json.dumps({key: value for key, value in row.items()
+                              if key not in NONDETERMINISTIC},
+                             sort_keys=True, separators=(',', ':'), allow_nan=False)
+                  for row in rows)
 
 
 def parse_worker_caps(raw):

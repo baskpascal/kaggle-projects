@@ -47,6 +47,11 @@ def game_result(row):
                       sort_keys=True, separators=(',', ':'), allow_nan=False)
 
 
+def results_agree(left, right):
+    """Compare exact game results without treating completion order as evidence."""
+    return sorted(game_result(row) for row in left) == sorted(game_result(row) for row in right)
+
+
 def load_verification(path, *, candidate, opponent, environments, current_git):
     try:
         raw = Path(path).read_bytes()
@@ -185,7 +190,7 @@ def main():
         distributed = list(runner(jobs, args.cpus_per_worker))
         distributed_seconds = time.monotonic() - started
         fastest_rows = min(local_runs, key=lambda item: item[1]['wall_seconds'])[1]['rows']
-        if [game_result(row) for row in fastest_rows] != [game_result(row) for row in distributed]:
+        if not results_agree(fastest_rows, distributed):
             raise SystemExit(f'Distributed results differ for the {count}-job workload')
 
         ray_metrics = metrics(distributed, distributed_seconds, envelopes)

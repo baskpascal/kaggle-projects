@@ -52,6 +52,7 @@ def test_install_service_is_idempotent_and_uses_this_checkout(tmp_path, monkeypa
     monkeypatch.setattr(ray_cluster, 'RAY', ray)
     monkeypatch.setattr(ray_cluster, 'UNIT', unit)
     monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: calls.append(command))
+    monkeypatch.setattr(ray_cluster, 'persist_across_reboots', lambda: {})
 
     ray_cluster.install_service()
     ray_cluster.install_service()
@@ -80,6 +81,7 @@ def test_changed_controller_restarts_the_service(tmp_path, monkeypatch):
     monkeypatch.setattr(ray_cluster, 'RAY', ray)
     monkeypatch.setattr(ray_cluster, 'UNIT', unit)
     monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: calls.append(command))
+    monkeypatch.setattr(ray_cluster, 'persist_across_reboots', lambda: {})
 
     ray_cluster.install_service()
 
@@ -188,3 +190,69 @@ def test_explicit_cpu_capacity_is_persisted_and_advertised(tmp_path, monkeypatch
 ])
 def test_worker_head_address_accepts_hostname_and_optional_port(value, expected):
     assert ray_cluster.normalize_head(value, 6379) == expected
+
+
+def test_installing_the_service_also_makes_it_survive_a_logout(tmp_path, monkeypatch):
+    root = tmp_path / 'checkout'
+    (root / '.venv/bin').mkdir(parents=True)
+    (root / '.venv/bin/python').touch()
+    (root / '.venv/bin/ray').touch()
+    persisted = []
+    monkeypatch.setattr(ray_cluster, 'ROOT', root)
+    monkeypatch.setattr(ray_cluster, 'PYTHON', root / '.venv/bin/python')
+    monkeypatch.setattr(ray_cluster, 'RAY', root / '.venv/bin/ray')
+    monkeypatch.setattr(ray_cluster, 'UNIT', tmp_path / 'unit/kaggriculture-ray.service')
+    monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: None)
+    monkeypatch.setattr(ray_cluster, 'persist_across_reboots',
+                        lambda: persisted.append(True))
+
+    ray_cluster.install_service()
+
+    assert persisted == [True]
+
+
+def test_linger_reports_the_manual_command_when_polkit_refuses(monkeypatch):
+    monkeypatch.setenv('USER', 'lucas')
+    monkeypatch.setattr(ray_cluster.shutil, 'which', lambda _name: '/usr/bin/loginctl')
+    monkeypatch.setattr(ray_cluster, 'command_output', lambda _command: 'Linger=no')
+    monkeypatch.setattr(ray_cluster, 'run',
+                        lambda command, **kwargs: SimpleNamespace(returncode=1))
+
+    assert ray_cluster.enable_linger() == \
+        'needs one manual command: sudo loginctl enable-linger lucas'
+
+
+def test_linger_already_enabled_is_not_requested_again(monkeypatch):
+    monkeypatch.setenv('USER', 'lucas')
+    monkeypatch.setattr(ray_cluster.shutil, 'which', lambda _name: '/usr/bin/loginctl')
+    monkeypatch.setattr(ray_cluster, 'command_output', lambda _command: 'Linger=yes')
+    monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: pytest.fail(
+        'enable-linger must not run when the user already lingers'))
+
+    assert ray_cluster.enable_linger() == 'enabled'
+
+
+def test_keepalive_launcher_starts_the_distribution_hidden():
+    script = ray_cluster.keepalive_script('Ubuntu', 'lucas')
+
+    assert 'wsl.exe -d Ubuntu -u lucas' in script
+    assert 'exec sleep infinity' in script
+    # The trailing 0 is what keeps a console window from flashing at every logon.
+    assert script.rstrip().endswith(', 0, False')
+
+
+def test_keepalive_is_skipped_outside_wsl(monkeypatch):
+    monkeypatch.setattr(ray_cluster, 'in_wsl', lambda: False)
+    monkeypatch.setattr(ray_cluster, 'run', lambda command, **kwargs: pytest.fail(
+        'no Windows tool may run on a machine that is not WSL'))
+
+    assert ray_cluster.install_wsl_keepalive() == 'not-wsl'
+
+
+def test_localized_windows_output_is_read_instead_of_raising():
+    # schtasks.exe answers in the console OEM codepage; cp850 'ã' is not valid UTF-8.
+    result = ray_cluster.run(['sh', '-c', r'printf "ERRO: n\306o encontrado"'],
+                             check=False, capture=True)
+
+    assert result.returncode == 0
+    assert result.stdout.startswith('ERRO: n') and result.stdout.endswith('encontrado')

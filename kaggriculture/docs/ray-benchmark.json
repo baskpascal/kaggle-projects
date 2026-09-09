@@ -1,0 +1,227 @@
+{
+  "schema_version": 4,
+  "status": "complete",
+  "local_workers_cap": null,
+  "cluster_slots": 5,
+  "node_slots": {
+    "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11": 2,
+    "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236": 3
+  },
+  "cpus_per_worker": 4,
+  "cluster_hostnames": [
+    "DESKTOP-DM63QP1",
+    "DESKTOP-V3A6VJ6"
+  ],
+  "verification": {
+    "path": "/tmp/ray-cluster-verification-0a9e38c.json",
+    "sha256": "fb448ac848e749801af201830b3c996e59fc62f9945a18306840b2ece2cb19d5",
+    "git_commit": "0a9e38cb94d953b87e4ce3fc09684bbdbb936cc3",
+    "hostnames": [
+      "DESKTOP-DM63QP1",
+      "DESKTOP-V3A6VJ6"
+    ],
+    "artifacts": {
+      "opponents/public/thomas_t95/main.py": "8241246765098c50223d897739cb32076b71a303284d2e5e1c5f0fb495bb5a97",
+      "versions/v004/main.py": "133443035c9386bc0879293010d558f659222ea014593646ce908a10217d8c83"
+    },
+    "jobs_per_node": 400
+  },
+  "workloads": [
+    {
+      "jobs": 32,
+      "local_nodes": [
+        {
+          "node_id": "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11",
+          "hostname": "DESKTOP-DM63QP1",
+          "workers": 11,
+          "seconds": 19.51605334499982,
+          "jobs_per_second": 1.639675780461969,
+          "p50_match_seconds": 2.8127287825000167,
+          "p95_match_seconds": 3.0262825369998607,
+          "batch_tail_seconds": 19.51605334499982,
+          "cpu_utilization": 0.5006469979296067
+        },
+        {
+          "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+          "hostname": "DESKTOP-V3A6VJ6",
+          "workers": 15,
+          "seconds": 7.812128088999998,
+          "jobs_per_second": 4.096194997757161,
+          "p50_match_seconds": 1.0479580084993358,
+          "p95_match_seconds": 1.0796061059502335,
+          "batch_tail_seconds": 7.812128088999998,
+          "cpu_utilization": 0.40683254660372825
+        }
+      ],
+      "baseline_strategy": "all-live-nodes",
+      "fastest_local_hostname": "DESKTOP-V3A6VJ6",
+      "fastest_local_workers": 15,
+      "direct": {
+        "seconds": 7.812128088999998,
+        "jobs_per_second": 4.096194997757161,
+        "p50_match_seconds": 1.0479580084993358,
+        "p95_match_seconds": 1.0796061059502335,
+        "batch_tail_seconds": 7.812128088999998,
+        "cpu_utilization": 0.40683254660372825
+      },
+      "ray": {
+        "seconds": 21.901914346999547,
+        "jobs_per_second": 1.4610594988644836,
+        "p50_match_seconds": 0.6421265950002635,
+        "p95_match_seconds": 1.8226349825001305,
+        "batch_tail_seconds": 8.309920354000496,
+        "cpu_utilization": 0.16404851427496078
+      },
+      "speedup": 0.35668699846185914,
+      "parallel_efficiency": 0.2675152488463944,
+      "batch_size": 1,
+      "batches": 32
+    },
+    {
+      "jobs": 256,
+      "local_nodes": [
+        {
+          "node_id": "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11",
+          "hostname": "DESKTOP-DM63QP1",
+          "workers": 11,
+          "seconds": 149.1430595519996,
+          "jobs_per_second": 1.716472766275417,
+          "p50_match_seconds": 3.098505374000524,
+          "p95_match_seconds": 3.3381608790009523,
+          "batch_tail_seconds": 149.1430595519996,
+          "cpu_utilization": 0.5935466346752379
+        },
+        {
+          "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+          "hostname": "DESKTOP-V3A6VJ6",
+          "workers": 15,
+          "seconds": 44.93930242599981,
+          "jobs_per_second": 5.696572625299368,
+          "p50_match_seconds": 1.0099096495000595,
+          "p95_match_seconds": 1.0679263049999008,
+          "batch_tail_seconds": 44.93930242599981,
+          "cpu_utilization": 0.5756448760771324
+        }
+      ],
+      "baseline_strategy": "all-live-nodes",
+      "fastest_local_hostname": "DESKTOP-V3A6VJ6",
+      "fastest_local_workers": 15,
+      "direct": {
+        "seconds": 44.93930242599981,
+        "jobs_per_second": 5.696572625299368,
+        "p50_match_seconds": 1.0099096495000595,
+        "p95_match_seconds": 1.0679263049999008,
+        "batch_tail_seconds": 44.93930242599981,
+        "cpu_utilization": 0.5756448760771324
+      },
+      "ray": {
+        "seconds": 46.927525756999785,
+        "jobs_per_second": 5.45522048883676,
+        "p50_match_seconds": 0.8148447205003322,
+        "p95_match_seconds": 2.4274363164990973,
+        "batch_tail_seconds": 11.495347378000588,
+        "cpu_utilization": 0.3774560110309391
+      },
+      "speedup": 0.9576320443294754,
+      "parallel_efficiency": 0.7182240332471066,
+      "batch_size": 7,
+      "batches": 37
+    },
+    {
+      "jobs": 1024,
+      "local_nodes": [
+        {
+          "node_id": "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11",
+          "hostname": "DESKTOP-DM63QP1",
+          "workers": 11,
+          "seconds": 585.8395030399988,
+          "jobs_per_second": 1.7479190028776284,
+          "p50_match_seconds": 3.0927483670002403,
+          "p95_match_seconds": 3.3149381946989704,
+          "batch_tail_seconds": 585.8395030399988,
+          "cpu_utilization": 0.609675492446869
+        },
+        {
+          "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+          "hostname": "DESKTOP-V3A6VJ6",
+          "workers": 15,
+          "seconds": 169.93470387700017,
+          "jobs_per_second": 6.025843907323237,
+          "p50_match_seconds": 1.0082208089997948,
+          "p95_match_seconds": 1.0594051501002468,
+          "batch_tail_seconds": 169.93470387700017,
+          "cpu_utilization": 0.6224164311091518
+        }
+      ],
+      "baseline_strategy": "all-live-nodes",
+      "fastest_local_hostname": "DESKTOP-V3A6VJ6",
+      "fastest_local_workers": 15,
+      "direct": {
+        "seconds": 169.93470387700017,
+        "jobs_per_second": 6.025843907323237,
+        "p50_match_seconds": 1.0082208089997948,
+        "p95_match_seconds": 1.0594051501002468,
+        "batch_tail_seconds": 169.93470387700017,
+        "cpu_utilization": 0.6224164311091518
+      },
+      "ray": {
+        "seconds": 155.49066047199995,
+        "jobs_per_second": 6.5856045430098185,
+        "p50_match_seconds": 0.8802174930001456,
+        "p95_match_seconds": 2.4649768797497016,
+        "batch_tail_seconds": 37.96506490300089,
+        "cpu_utilization": 0.42971481249369625
+      },
+      "speedup": 1.0928933182298832,
+      "parallel_efficiency": 0.8196699886724125,
+      "batch_size": 26,
+      "batches": 40
+    },
+    {
+      "jobs": 8000,
+      "local_nodes": [
+        {
+          "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+          "hostname": "DESKTOP-V3A6VJ6",
+          "workers": 15,
+          "seconds": 1286.202855652,
+          "jobs_per_second": 6.219858683134903,
+          "p50_match_seconds": 0.9769310554997901,
+          "p95_match_seconds": 1.0623531821494452,
+          "batch_tail_seconds": 1286.202855652,
+          "cpu_utilization": 0.5752558027491268
+        }
+      ],
+      "baseline_strategy": "selected-fastest-from-prior-workloads",
+      "fastest_local_hostname": "DESKTOP-V3A6VJ6",
+      "fastest_local_workers": 15,
+      "direct": {
+        "seconds": 1286.202855652,
+        "jobs_per_second": 6.219858683134903,
+        "p50_match_seconds": 0.9769310554997901,
+        "p95_match_seconds": 1.0623531821494452,
+        "batch_tail_seconds": 1286.202855652,
+        "cpu_utilization": 0.5752558027491268
+      },
+      "ray": {
+        "seconds": 1167.6511875679998,
+        "jobs_per_second": 6.851361164340964,
+        "p50_match_seconds": 0.8812618345000374,
+        "p95_match_seconds": 2.4358898046009925,
+        "batch_tail_seconds": 44.553838616000576,
+        "cpu_utilization": 0.43920248945107526
+      },
+      "speedup": 1.1015300368348198,
+      "parallel_efficiency": 0.8261475276261149,
+      "batch_size": 32,
+      "batches": 250
+    }
+  ],
+  "throughput_gate": {
+    "representative_jobs": 8000,
+    "minimum_speedup": 1.1,
+    "observed_speedup": 1.1015300368348198,
+    "passed": true
+  },
+  "benchmark_valid": true
+}

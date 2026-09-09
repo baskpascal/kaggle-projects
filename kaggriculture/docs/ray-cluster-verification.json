@@ -1,0 +1,88 @@
+{
+  "schema_version": 3,
+  "nodes": [
+    {
+      "hostname": "DESKTOP-DM63QP1",
+      "python": "3.12.3",
+      "environment": {
+        "version": "1.32.7",
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+      },
+      "git": {
+        "git_commit": null,
+        "git_dirty": null
+      },
+      "artifacts": {
+        "opponents/public/thomas_t95/main.py": "8241246765098c50223d897739cb32076b71a303284d2e5e1c5f0fb495bb5a97",
+        "versions/v004/main.py": "133443035c9386bc0879293010d558f659222ea014593646ce908a10217d8c83"
+      }
+    },
+    {
+      "hostname": "DESKTOP-V3A6VJ6",
+      "python": "3.12.3",
+      "environment": {
+        "version": "1.32.7",
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+      },
+      "git": {
+        "git_commit": null,
+        "git_dirty": null
+      },
+      "artifacts": {
+        "opponents/public/thomas_t95/main.py": "8241246765098c50223d897739cb32076b71a303284d2e5e1c5f0fb495bb5a97",
+        "versions/v004/main.py": "133443035c9386bc0879293010d558f659222ea014593646ce908a10217d8c83"
+      }
+    }
+  ],
+  "hostnames": [
+    "DESKTOP-DM63QP1",
+    "DESKTOP-V3A6VJ6"
+  ],
+  "driver_git": {
+    "git_commit": "0a9e38cb94d953b87e4ce3fc09684bbdbb936cc3",
+    "git_dirty": 0
+  },
+  "cpus_per_worker": 4,
+  "jobs_per_node": 400,
+  "candidate": "versions/v004/main.py",
+  "opponent": "opponents/public/thomas_t95/main.py",
+  "seed_start": 200,
+  "seed_pairs": 200,
+  "paired_seats": true,
+  "bit_exact": true,
+  "money_binary64_exact": true,
+  "determinism_nodes": [
+    {
+      "node_id": "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11",
+      "hostname": "DESKTOP-DM63QP1",
+      "jobs": 400,
+      "relevant_result_sha256": "c39d4e6ced90fec68d3c561b942d5ee96542e621224c3943bbc165c1866be53c",
+      "money_binary64_sha256": "ec5b81bd31e391632a92e49288abfa4b4ad9cb75b3086bef3e4200c3a311b2e1"
+    },
+    {
+      "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+      "hostname": "DESKTOP-V3A6VJ6",
+      "jobs": 400,
+      "relevant_result_sha256": "c39d4e6ced90fec68d3c561b942d5ee96542e621224c3943bbc165c1866be53c",
+      "money_binary64_sha256": "ec5b81bd31e391632a92e49288abfa4b4ad9cb75b3086bef3e4200c3a311b2e1"
+    }
+  ],
+  "deadline_seconds": 4.0,
+  "deadline_limit_seconds": 19.0,
+  "deadline_passed_on_every_node": true,
+  "worker_recovery_passed": true,
+  "worker_recovery_nodes": [
+    {
+      "node_id": "97e273cb9c8e7f093de085bdbe28f9ef57e6aa4c6715b1a59e2caf11",
+      "hostname": "DESKTOP-DM63QP1",
+      "attempts": 2
+    },
+    {
+      "node_id": "61b2f1bc29dd6de4da1c411eb083580c562a6d582ddb4bca96d2e236",
+      "hostname": "DESKTOP-V3A6VJ6",
+      "attempts": 2
+    }
+  ]
+}
