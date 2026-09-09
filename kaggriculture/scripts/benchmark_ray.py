@@ -205,6 +205,18 @@ def main():
                 if key not in {'node_id', 'hostname', 'workers'}},
             'ray': ray_metrics, 'speedup': speedup,
             'parallel_efficiency': speedup / capacity_ratio,
+            # The question a two-machine cluster actually has to answer: does it deliver
+            # what the machines deliver separately? `speedup` compares against the fastest
+            # host alone, which flatters a cluster whose second node is slow. This compares
+            # against the sum of the hosts' own rates, and is only meaningful when every
+            # host was measured on its own for this workload.
+            'sum_of_hosts_jobs_per_second': (
+                sum(node['jobs_per_second'] for node in local_nodes)
+                if baseline_strategy == 'all-live-nodes' else None),
+            'cluster_efficiency': (
+                ray_metrics['jobs_per_second']
+                / sum(node['jobs_per_second'] for node in local_nodes)
+                if baseline_strategy == 'all-live-nodes' else None),
             'batch_size': len(envelopes[0]['rows']) if envelopes else None,
             'batches': len(envelopes)})
         write_report(args.output, report)

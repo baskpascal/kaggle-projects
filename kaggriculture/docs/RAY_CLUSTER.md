@@ -176,6 +176,35 @@ A prova de que isso funciona nos dois PCs está em `ray-package-smoke.json`: pac
 6231,99 MiB (falha no `ray.init`) para 27,6 MiB, e lotes reais de partidas executados em
 `DESKTOP-V3A6VJ6` e `DESKTOP-DM63QP1`, oito linhas em cada.
 
+## Medição de 2026-09-09: o cluster ainda não paga o próprio custo
+
+`benchmark_ray.py --jobs=2000 --cpus-per-worker=4` (`docs/ray-cluster-efficiency.json`),
+com os mesmos 2000 jobs medidos isolados em cada host e depois no cluster:
+
+| |vazão|
+|---|---|
+| PC A sozinho (DESKTOP-V3A6VJ6, 15 workers) | 6,826/s |
+| PC B sozinho (DESKTOP-DM63QP1, 11 workers) | 2,236/s |
+| soma dos hosts | 9,062/s |
+| **cluster (5 slots, cpw=4)** | **6,764/s** |
+| eficiência (cluster / soma) | **74,6%** |
+| speedup contra o host mais rápido | **0,991x** |
+
+O número que importa é o último: o cluster ficou **abaixo** do PC A sozinho. Nesta
+configuração, distribuir não acelera nada.
+
+A causa está na largura do worker, não no transporte. Com `cpw=4` o cluster ocupa
+`3*4 = 12` dos 15 CPUs do PC A e `2*4 = 8` dos 11 do PC B — 20 de 26 — e cada task roda
+com apenas 4 filhos locais. A varredura de capacidade já mostrava que largura maior rende
+muito mais no mesmo host (PC A: 2,832/s com 4 filhos contra 6,826/s com 15), e este
+benchmark é a consequência prática disso. A cauda também pesa: 41,8 s de batch mais lento
+em 295,7 s de corrida, com o PC B segurando o fim.
+
+Ou seja, `cpw=4` é o melhor valor **entre os quatro que foram medidos**, e ainda assim é
+largo demais em número de slots e estreito demais em filhos por slot. A pergunta aberta é
+`cpw` acima de 4; enquanto ela não for respondida, rodar distribuído com `--distributed`
+não é mais rápido do que rodar no PC A.
+
 ## Preparação manual equivalente
 
 Os dois nós precisam de Python 3.12, do mesmo checkout e do mesmo ambiente:
