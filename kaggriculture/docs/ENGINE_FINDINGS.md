@@ -359,6 +359,45 @@ precisa de um `DIG` antes de ser replantado.
 
 ---
 
+## 2.5 Medição das oportunidades fechadas (2026-09-09)
+
+30 episódios, seeds 4100–4129, oponente ocioso, parâmetros padrão salvo indicação.
+Evidência em `planner-o3-o4-ablation.json`, `planner-o3-sheep-ablation.json` e
+`planner-o4-per-seed.json`.
+
+| variante | mediana | média |
+|---|---|---|
+| nenhuma (`off`) | 58.122,5 | 58.012,9 |
+| só O3 | 58.122,5 | 58.012,9 |
+| só O4 | 58.222,5 | 58.073,9 |
+| ambas | 58.222,5 | 58.073,9 |
+
+**O3 não muda nada com os parâmetros padrão, e isso não é bug: é `animal_target = 0`.**
+O planner padrão não coloca nenhum animal, então nenhum job de CARE chega a ser
+considerado. Com `animal_target=3` e `animal_type='SHEEP'`, a diferença aparece:
+
+| CARE | mediana | média |
+|---|---|---|
+| constante 45 | 85.454,0 | 84.375,4 |
+| precificado | **86.548,5** | **85.100,5** |
+
+Ou seja, +1.094,5 de mediana (+1,3%) — pequeno, mas real e na direção prevista.
+
+**Achado colateral maior que as duas oportunidades juntas:** manter ovelhas
+(`animal_target=3`) rende mediana de 85.454 contra 58.122 do padrão, **+47%**. O padrão
+`animal_target = 0` é provavelmente o parâmetro mais caro do agente hoje. Não foi mudado
+aqui: é tuning, e tuning exige avaliação pareada contra o painel, não 30 episódios contra
+um oponente ocioso.
+
+**O4 é positivo e pequeno, com variância real.** Por seed: 14 vitórias, 7 derrotas, 9
+empates, melhor +479, pior −220, média +64,4. A primeira versão da guarda (`turns_left > 1`)
+dava 13/8/9 e média +61: adiar a colheita empurrava a entrega para fora da temporada em
+alguns episódios. A guarda passou a exigir `turns_left > distância até o celeiro + 3`, o
+que converteu uma derrota em vitória. O pior caso continua −220, então nem toda perda vem
+do tempo de entrega.
+
+---
+
 ## 3. Oportunidade de otimização
 *(dentro do escopo simples/enxuto — NÃO implementado nesta fase)*
 

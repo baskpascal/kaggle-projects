@@ -46,21 +46,30 @@ def policy(observation, configuration=None, parameters=None):
             endgame = s.turns_left <= s.turns_per_day
             ripe = age >= first and t.get('yield_units', 0) > 0
             harvest = ripe and (ongoing or age >= peak or endgame)
-            # O4: watering inside the bonus window raises `yield_units` on the spot,
-            # so the final day still pays as long as one turn remains to harvest what
-            # the water just added. The old guard cut the whole last day.
+            # O4: watering inside the bonus window raises `yield_units` on the spot, so
+            # water-then-harvest beats harvest-now even in the endgame. But the extra
+            # unit is worth far less than the whole harvest, and delaying the HARVEST by
+            # a turn can push the delivery past the end of the season -- measured, not
+            # assumed: with a bare `turns_left > 1` guard, 8 of 30 episodes lost money,
+            # the worst by $220. So the water only happens when there is still room to
+            # water, harvest, carry the crop to a shed and drop it.
+            to_shed = distance(pos, nearest_shed(pos, s.size))
             last_day_pays = (not ongoing and age >= WATER_BONUS_FROM[crop]
-                             and age >= first and s.turns_left > 1)
+                             and s.turns_left > to_shed + 3)
             needs_water = not t['watered_today'] and (
                 p['water_daily'] or t['consecutive_unwatered'] >= 1
                 # Bonus window keys off max_yield_day, not the planned harvest day.
                 or (not ongoing and age >= WATER_BONUS_FROM[crop]))
-            if harvest and not ongoing and not endgame and needs_water:
+            # `not endgame` used to send every ripe plant straight to HARVEST on the
+            # last day, throwing away the unit one more watering would have added.
+            water_first = not endgame or (p['last_day_water'] and last_day_pays)
+            if harvest and not ongoing and water_first and needs_water:
                 jobs.append((pos, ['WATER'], 120 + value * .1, None))
             elif harvest:
                 jobs.append((pos, ['HARVEST'], 90 + value * .3, None))
             elif needs_water and (s.turns_left > s.turns_per_day - s.hour
-                                  or (p['last_day_water'] and last_day_pays)):
+                                  or (p['last_day_water'] and last_day_pays
+                                      and age >= first)):
                 urgent = t['consecutive_unwatered'] >= 1
                 jobs.append((pos, ['WATER'], 65 + 75 * urgent + s.hour * 3, None))
             if p['fertilize']:
