@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from arena.batch import make_batch
+from arena import ray_transport
 from arena.ray_transport import RayBatchMapper, _remote_batch
 
 
@@ -208,3 +209,58 @@ def test_remote_batch_marks_match_children_without_leaking_role(monkeypatch):
     assert _remote_batch(batch, 2, 3) == {'complete': True}
     assert observed == [('ray-worker', batch, 2, 3)]
     assert 'ARENA_ROLE' not in os.environ
+
+
+class SequenceProbe:
+    """Answer the per-node probe in the order the nodes were submitted."""
+
+    def __init__(self, hostnames):
+        self.hostnames = list(hostnames)
+        self.options_seen = []
+
+    def options(self, **options):
+        self.options_seen.append(options)
+        return self
+
+    def remote(self, _artifacts):
+        return Ref(value={'hostname': self.hostnames[len(self.options_seen) - 1]})
+
+
+def two_node_mapper(hostnames, *, cpus_per_worker=4):
+    ray = FakeRay()
+    ray.nodes = lambda: [
+        {'Alive': True, 'NodeID': 'node-a', 'Resources': {'CPU': 15}},
+        {'Alive': True, 'NodeID': 'node-b', 'Resources': {'CPU': 11}},
+    ]
+    mapper = RayBatchMapper(ray, cpus_per_worker=cpus_per_worker)
+    mapper._probe = SequenceProbe(hostnames)
+    return mapper
+
+
+def test_describe_nodes_names_every_live_host_with_its_slots():
+    mapper = two_node_mapper(['pc-b-wsl', 'desktop-a'])
+    assert mapper.describe_nodes() == [
+        {'node_id': 'node-b', 'hostname': 'desktop-a', 'slots': 2},
+        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'slots': 3},
+    ]
+
+
+def test_describe_nodes_turns_an_unreachable_node_into_a_loud_failure():
+    mapper = two_node_mapper(['only-one'])
+    with pytest.raises(OSError, match='Could not reach every Ray node'):
+        mapper.describe_nodes()
+
+
+def test_require_cluster_refuses_a_single_machine_instead_of_running_locally(monkeypatch):
+    mapper = two_node_mapper(['desktop-a', 'desktop-a'])
+    monkeypatch.setattr(ray_transport, 'connect', lambda address, **options: mapper)
+    with pytest.raises(OSError, match='needs at least 2 machines'):
+        ray_transport.require_cluster('auto', cpus_per_worker=4)
+
+
+def test_require_cluster_returns_the_nodes_it_verified(monkeypatch):
+    mapper = two_node_mapper(['pc-b-wsl', 'desktop-a'])
+    monkeypatch.setattr(ray_transport, 'connect', lambda address, **options: mapper)
+    connected, nodes = ray_transport.require_cluster('auto', cpus_per_worker=4)
+    assert connected is mapper
+    assert [node['hostname'] for node in nodes] == ['desktop-a', 'pc-b-wsl']

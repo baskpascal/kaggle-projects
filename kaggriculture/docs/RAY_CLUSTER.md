@@ -108,6 +108,27 @@ fixa por hostname. O batch adaptativo mantém pelo menos oito vezes mais lotes q
 cluster, enquanto o transporte mantém apenas uma onda em voo para não pré-atribuir uma
 fila longa ao nó lento. `--batch-size` continua disponível para uma medição controlada.
 
+## Pedir o cluster explicitamente
+
+Distribuir nunca é automático. Sem flag, uma corrida de partidas roda inteira neste host e
+o outro PC fica ocioso mesmo com o cluster de pé — isso é o comportamento correto, não um
+defeito. `--ray-address` diz apenas onde procurar o head; quem exige o cluster é
+`--distributed`:
+
+```bash
+.venv/bin/python -m arena.paired --distributed ...
+.venv/bin/python -m arena.league --distributed ...
+```
+
+`--distributed` recusa qualquer coisa que não sejam pelo menos duas máquinas distintas
+respondendo, com o erro nomeando quem atendeu. Não existe fallback silencioso para local:
+uma corrida que pediu o cluster e não o encontrou falha, porque o número medido em um host
+só não é o número que foi pedido. Os hostnames verificados e os slots de cada um entram em
+`distribution.nodes` do run spec — fora do `run_id`, como toda a distribuição, mas dentro do
+relatório, para que depois se saiba em que máquinas aquele resultado foi produzido.
+
+Nada disso vale para `pytest`: os testes são um processo local e não passam pelo Ray.
+
 ## Preparação manual equivalente
 
 Os dois nós precisam de Python 3.12, do mesmo checkout e do mesmo ambiente:

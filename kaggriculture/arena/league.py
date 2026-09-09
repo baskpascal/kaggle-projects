@@ -98,6 +98,8 @@ def main():
     parser.add_argument('--batch-size', type=int,
                         help='jobs per batch; with Ray, omit for adaptive sizing')
     parser.add_argument('--ray-address', help='private Ray head address, usually ray://HOST:10001')
+    parser.add_argument('--distributed', action='store_true',
+                        help='require the private cluster: refuse to run if it is not up')
     parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER,
                         help='Ray CPUs and local match children assigned to each batch task')
     parser.add_argument('--backend', choices=['fast', 'official'], default='fast')
@@ -115,14 +117,26 @@ def main():
     args.paired_with = [n for n in args.paired_with.split(',') if n]
     args.seeds = parse_seeds(args.seeds)
     ray_address = args.__dict__.pop('ray_address')
+    distributed = args.__dict__.pop('distributed')
     batch_size = args.__dict__.pop('batch_size')
     cpus_per_worker = args.__dict__.pop('cpus_per_worker')
     leave_cpus_free = args.__dict__.pop('leave_cpus_free')
     args.workers = args.workers or worker_budget(leave_cpus_free)
-    if ray_address:
+    # `--distributed` is the demand, `--ray-address` only says where to look. Neither is
+    # ever inferred: without one of them this run stays on this host, and with
+    # `--distributed` a missing cluster is an error rather than a quiet local run.
+    if distributed:
+        from .ray_transport import require_cluster
+        mapper, _ = require_cluster(ray_address or 'auto',
+                                    cpus_per_worker=cpus_per_worker,
+                                    attempts=args.attempts)
+    elif ray_address:
         from .ray_transport import connect
         mapper = connect(ray_address, cpus_per_worker=cpus_per_worker,
                          attempts=args.attempts)
+    else:
+        mapper = None
+    if mapper is not None:
         args.runner = batched_runner(size=batch_size, map_batches=mapper,
                                      available_slots=mapper.available_slots)
     elif batch_size:

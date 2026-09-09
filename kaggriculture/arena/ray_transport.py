@@ -77,6 +77,22 @@ class RayBatchMapper:
                                  retry_exceptions=False)(_environment)
         self.nodes = []
 
+    def describe_nodes(self):
+        """Ask every live node who it is, so a run can record where it actually ran."""
+        strategy = self.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
+        alive = [node for node in self.ray.nodes() if node.get('Alive')]
+        try:
+            refs = [self._probe.options(scheduling_strategy=strategy(
+                    node['NodeID'], soft=False)).remote(())
+                    for node in alive]
+            evidence = self.ray.get(refs)
+        except Exception as exc:
+            raise OSError(f'Could not reach every Ray node: {exc}') from exc
+        return sorted(({'node_id': node['NodeID'], 'hostname': probe['hostname'],
+                        'slots': self.node_slots.get(node['NodeID'], 0)}
+                       for node, probe in zip(alive, evidence)),
+                      key=lambda entry: entry['hostname'])
+
     def verify_cluster(self, batches):
         artifacts = sorted({spec[field] for batch in batches for spec in batch['specs']
                             for field in ('candidate', 'opponent')})
@@ -239,3 +255,26 @@ def connect(address='auto', *, cpus_per_worker=1, attempts=3, timeout=-1,
         ray.init(address=address, runtime_env=runtime_env)
     return RayBatchMapper(ray, cpus_per_worker=cpus_per_worker, attempts=attempts,
                           timeout=timeout, strict_commit=strict_commit)
+
+
+def require_cluster(address='auto', *, minimum_hosts=2, **options):
+    """Connect only to a real multi-machine cluster, and fail loudly when it is missing.
+
+    ``connect`` is deliberately permissive: it will happily return a mapper backed by this
+    host alone, which is the same thing as not distributing at all. An operator who asked
+    for the cluster must never silently get a local run instead -- the numbers would be
+    honest but they would not be the run that was requested, and nothing downstream would
+    say so. So this refuses anything that is not at least ``minimum_hosts`` distinct
+    hostnames, and returns the mapper together with the nodes it verified.
+    """
+    if minimum_hosts < 1:
+        raise ValueError('minimum_hosts must be positive')
+    mapper = connect(address, **options)
+    nodes = mapper.describe_nodes()
+    hosts = sorted({node['hostname'] for node in nodes})
+    if len(hosts) < minimum_hosts:
+        raise OSError(
+            f'--distributed needs at least {minimum_hosts} machines in the Ray cluster; '
+            f'only {len(hosts)} answered ({", ".join(hosts) or "none"}). Start the other '
+            f'node (scripts/ray_cluster.py ensure) or drop the flag to run locally.')
+    return mapper, nodes

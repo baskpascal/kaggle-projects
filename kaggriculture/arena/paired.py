@@ -147,6 +147,8 @@ def main():
     parser.add_argument('--split', choices=SPLITS, default='dev')
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--ray-address')
+    parser.add_argument('--distributed', action='store_true',
+                        help='require the private cluster: refuse to run if it is not up')
     parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER)
     parser.add_argument('--batch-size', type=int,
                         help='omit for adaptive sizing over the Ray cluster')
@@ -180,19 +182,35 @@ def main():
     args['mirrors'] = [name for name in args['mirrors'].split(',') if name]
     incumbent_id, displaces = args.pop('incumbent_id'), args.pop('displaces')
     ray_address = args.pop('ray_address')
+    distributed = args.pop('distributed')
     cpus_per_worker = args.pop('cpus_per_worker')
     batch_size = args.pop('batch_size')
-    if ray_address:
-        import atexit
-        from .batch import batched_runner
+    mapper, nodes = None, []
+    # Asking for the cluster and asking where it lives are two different things, and
+    # neither is assumed. `--distributed` refuses to degrade into a local run, so the
+    # topology this spec records is the topology the operator actually demanded.
+    if distributed:
+        from .ray_transport import require_cluster
+        mapper, nodes = require_cluster(ray_address or 'auto',
+                                        cpus_per_worker=cpus_per_worker)
+    elif ray_address:
         from .ray_transport import connect
         mapper = connect(ray_address, cpus_per_worker=cpus_per_worker)
+        nodes = mapper.describe_nodes()
+    if mapper is not None:
+        import atexit
+        from .batch import batched_runner
         atexit.register(mapper.ray.shutdown)
         args['runner'] = batched_runner(size=batch_size, map_batches=mapper,
                                         available_slots=mapper.available_slots)
-    args['distribution'] = {'topology': 'ray' if ray_address else 'local',
+    # `nodes` is incidental to the run_id by design (see arena/runspec.py), but a report
+    # that cannot say which machines produced it is a report nobody can audit later.
+    args['distribution'] = {'topology': 'ray' if mapper is not None else 'local',
+                            'required_cluster': bool(distributed),
                             'workers': args['workers'], 'cpus_per_worker': cpus_per_worker,
-                            'batch_size': batch_size}
+                            'batch_size': batch_size,
+                            'nodes': [{'hostname': node['hostname'],
+                                       'slots': node['slots']} for node in nodes]}
     # The hash is not taken from the operator: it is the baseline this run will freeze,
     # so a declaration naming the wrong agent is caught by check_spec, not by trust.
     args['incumbent'] = (None if not incumbent_id else
