@@ -23,7 +23,7 @@ SPLIT = 'dev'
 
 def row_for(job, **over):
     return {**{field: job[field] for field in
-               ('candidate', 'opponent', 'seed', 'seat', 'backend')},
+               ('candidate', 'opponent', 'seed', 'seat', 'backend', 'evidence_profile')},
             'candidate_hash': job['candidate_hash'], 'opponent_hash': job['opponent_hash'],
             'score': .5, 'money': 100., 'opponent_money': 100., 'margin': 0.,
             'environment': {}, 'configuration': {'seed': job['seed']}, 'steps': 719,

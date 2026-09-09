@@ -117,10 +117,11 @@ def run_xliq(tournament_decision, seeds, output, *, workers=4, backend='fast',
     output.mkdir(parents=True)
     try:
         baseline, _, base_meta = run_league(base, opponents, seeds, workers, backend,
-                                            output / 'baseline', 'dev')
+                                            output / 'baseline', 'dev', evidence_profile='full')
         treatment = 'xliq::' + base
         challenger, _, challenger_meta = run_league(treatment, opponents, seeds, workers, backend,
-                                                     output / 'challenger', 'dev')
+                                                     output / 'challenger', 'dev',
+                                                     evidence_profile='full')
         comparison = compare(baseline, challenger)
         opponent_families = {entry['agent_spec']: entry['family']
                              for entry in protocol['opponents']}

@@ -6,7 +6,7 @@ finished game is persisted as it arrives, and `pending()` is the difference betw
 plan and what the store already holds.
 
 The identity of a job is `job_id`: a SHA-256 over candidate, opponent, seed, seat,
-backend, split **and the two agent hashes** -- not their paths. The hash is a better
+backend, split, evidence profile **and the two agent hashes** -- not their paths. The hash is a better
 identity than a path or a commit because it notices an edited, uncommitted file that a
 commit check waves through, and because it travels on every result row, so the
 aggregator can *refuse* a mixed set instead of trusting a check made before execution.
@@ -43,8 +43,18 @@ TRANSIENT = ('disk i/o error', 'database is locked', 'database table is locked',
 def _transient(exc):
     return any(text in str(exc).lower() for text in TRANSIENT)
 
-JOB_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'split')
+JOB_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'split', 'evidence_profile')
 IDENTITY_FIELDS = (*JOB_FIELDS, 'candidate_hash', 'opponent_hash')
+EVIDENCE_PROFILES = ('score', 'audit', 'full')
+
+
+def evidence_profile(spec):
+    """Normalize rows written before profiles existed and the legacy telemetry flag."""
+    if spec.get('evidence_profile') is not None:
+        return spec['evidence_profile']
+    if spec.get('telemetry_enabled') is not None:
+        return 'full' if spec['telemetry_enabled'] else 'audit'
+    return 'full'
 
 # A worker that died, a pool that broke, a process that never started: the game did not
 # happen, so playing it is not repeating it. Everything else -- an agent exception, a
@@ -86,14 +96,17 @@ def digest(value):
 
 
 def job_id(spec):
-    missing = [field for field in IDENTITY_FIELDS if spec.get(field) is None]
+    normalized = {**spec, 'evidence_profile': evidence_profile(spec)}
+    missing = [field for field in IDENTITY_FIELDS if normalized.get(field) is None]
     if missing:
         raise ValueError(f'Job identity needs {", ".join(missing)}')
-    return digest({field: spec[field] for field in IDENTITY_FIELDS})
+    return digest({field: normalized[field] for field in IDENTITY_FIELDS})
 
 
-def plan(candidate, opponents, seeds, *, backend='fast', split='dev'):
+def plan(candidate, opponents, seeds, *, backend='fast', split='dev', evidence_profile='score'):
     """The exact job list for a run, hashed once rather than once per game."""
+    if evidence_profile not in EVIDENCE_PROFILES:
+        raise ValueError(f'Evidence profile must be one of {", ".join(EVIDENCE_PROFILES)}')
     hashes = {name: agent_hash(name) for name in (candidate, *opponents)}
     jobs = []
     for seed in seeds:
@@ -101,6 +114,7 @@ def plan(candidate, opponents, seeds, *, backend='fast', split='dev'):
             for seat in (0, 1):
                 spec = {'candidate': candidate, 'opponent': opponent, 'seed': seed,
                         'seat': seat, 'backend': backend, 'split': split,
+                        'evidence_profile': evidence_profile,
                         'candidate_hash': hashes[candidate],
                         'opponent_hash': hashes[opponent]}
                 jobs.append({**spec, 'job_id': job_id(spec)})

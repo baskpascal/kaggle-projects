@@ -8,9 +8,35 @@ import signal
 import time
 from types import SimpleNamespace
 
-from .agents import agent_hash, invoke, load_agent
+from .agents import agent_hash, invoke, load_agent, prepare
 from .engine import fingerprint, make_environment, official
 from .telemetry import EconomicTelemetry
+
+EVIDENCE_PROFILES = ('score', 'audit', 'full')
+
+
+def _profile(evidence_profile, telemetry_enabled):
+    if evidence_profile is not None and evidence_profile not in EVIDENCE_PROFILES:
+        raise ValueError(f'Unknown evidence profile {evidence_profile!r}')
+    if telemetry_enabled is not None:
+        legacy = 'full' if telemetry_enabled else 'audit'
+        if evidence_profile is not None and evidence_profile != legacy:
+            raise ValueError('telemetry_enabled conflicts with evidence_profile')
+        return legacy
+    return evidence_profile or 'full'
+
+
+def _runtime_summary(samples):
+    ordered = sorted(samples)
+    def percentile(fraction):
+        if not ordered:
+            return 0.
+        position = (len(ordered) - 1) * fraction
+        low, high = int(position), min(len(ordered) - 1, int(position) + 1)
+        weight = position - low
+        return ordered[low] * (1 - weight) + ordered[high] * weight
+    return {name: percentile(fraction) for name, fraction in
+            [('p50', .5), ('p95', .95), ('p99', .99), ('max', 1.)]}
 
 
 @contextmanager
@@ -118,7 +144,15 @@ def observations(state):
 
 
 def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=None, replay=None,
-              telemetry_enabled=True, replay_steps=None):
+              telemetry_enabled=None, replay_steps=None, evidence_profile=None):
+    requested_profile = evidence_profile
+    evidence_profile = _profile(evidence_profile, telemetry_enabled)
+    # Before profiles existed, replay callers routinely disabled daily telemetry. Preserve
+    # those jobs as full replay capture; new callers must ask for ``full`` explicitly.
+    if replay and requested_profile is None and telemetry_enabled is False:
+        evidence_profile = 'full'
+    if replay and evidence_profile != 'full':
+        raise ValueError('Replay capture requires the full evidence profile')
     if replay_steps is not None:
         replay_steps = list(replay_steps)
         if (not replay or not replay_steps or len(set(replay_steps)) != len(replay_steps)
@@ -126,7 +160,7 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
             raise ValueError('Snapshot steps require a replay path and unique nonnegative integers')
     start = time.perf_counter()
     module = official()
-    reference = make_environment(seed, configuration)
+    reference = make_environment(seed, configuration, verified=True)
     env = reference if backend == 'official' else SimpleNamespace(
         configuration=copy.deepcopy(reference.configuration), info=copy.deepcopy(reference.info), done=False,
         state=copy.deepcopy(reference.state))
@@ -136,16 +170,19 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
     names = [candidate, opponent] if seat == 0 else [opponent, candidate]
     # A bundle that mutates arena-visible state at import is refused here, so a
     # corrupted game never becomes evidence. Audit patching happens afterwards.
-    functions = [load_agent(name, seed * 2 + i) for i, name in enumerate(names)]
+    functions = [prepare(load_agent(name, seed * 2 + i)) for i, name in enumerate(names)]
+    hashes = [getattr(function, '__arena_sha256__', None) or agent_hash(name)
+              for function, name in zip(functions, names)]
     timings, failures = [[], []], [[], []]
-    audit = Audit(module)
+    audit = Audit(module) if evidence_profile in ('audit', 'full') else None
     transcript = []
     if replay_steps is not None and 0 in replay_steps:
         transcript.append({'step': 0, 'actions': [], 'observations': observations(env.state)})
-    module._apply_unit_action = audit.apply
-    module._commit_unit = audit.commit
-    module._drop_inventories_to_shed = audit.drop
-    telemetry = EconomicTelemetry(module) if telemetry_enabled else None
+    if audit:
+        module._apply_unit_action = audit.apply
+        module._commit_unit = audit.commit
+        module._drop_inventories_to_shed = audit.drop
+    telemetry = EconomicTelemetry(module) if evidence_profile == 'full' else None
     if telemetry:
         telemetry.turns_per_day = cfg['turnsPerDay']
         telemetry.shed_capacity = cfg['shedCapacity']
@@ -181,7 +218,8 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
                 actions.append(action)
             if any(failures):
                 break
-            audit.player = -1
+            if audit:
+                audit.player = -1
             before_audit = [c.copy() for c in audit.counts] if telemetry else None
             if backend == 'official':
                 reference.step(actions)
@@ -202,9 +240,10 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
     finally:
         if telemetry:
             telemetry.restore()
-        module._apply_unit_action = audit.original
-        module._commit_unit = audit.original_commit
-        module._drop_inventories_to_shed = audit.original_drop
+        if audit:
+            module._apply_unit_action = audit.original
+            module._commit_unit = audit.original_commit
+            module._drop_inventories_to_shed = audit.original_drop
     other = 1 - seat
     if failures[seat] or failures[other]:
         score = .5 if failures[seat] and failures[other] else float(not failures[seat])
@@ -213,18 +252,24 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
     leftover = [sum(p.observation.private['shed'].values()) +
                 sum(sum(inv.values()) for inv in p.observation.private['inventories']) for p in env.state]
     result = {
-        'candidate': candidate, 'opponent': opponent, 'candidate_hash': agent_hash(candidate),
-        'opponent_hash': agent_hash(opponent), 'seed': seed, 'seat': seat,
+        'candidate': candidate, 'opponent': opponent, 'candidate_hash': hashes[seat],
+        'opponent_hash': hashes[other], 'seed': seed, 'seat': seat,
         'score': score, 'money': money[seat], 'opponent_money': money[other],
         'margin': money[seat] - money[other], 'steps': steps, 'backend': backend,
-        'configuration': {**cfg, 'seed': seed}, 'environment': fingerprint(),
+        'configuration': {**cfg, 'seed': seed},
+        'environment': fingerprint(verified_module=module),
+        'evidence_profile': evidence_profile,
         'failures': failures[seat], 'opponent_failures': failures[other],
-        'audit': dict(audit.counts[seat]), 'opponent_audit': dict(audit.counts[other]),
-        'sales': audit.sales[seat], 'opponent_sales': audit.sales[other],
+        'audit': dict(audit.counts[seat]) if audit else {},
+        'opponent_audit': dict(audit.counts[other]) if audit else {},
+        'sales': audit.sales[seat] if audit else {},
+        'opponent_sales': audit.sales[other] if audit else {},
         'telemetry_version': 1 if telemetry else None,
         'daily': telemetry.output(seat) if telemetry else None,
         'opponent_daily': telemetry.output(other) if telemetry else None,
-        'runtime_ms': timings[seat], 'unsold_items': leftover[seat],
+        'runtime_ms': (timings[seat] if evidence_profile == 'full' else
+                       _runtime_summary(timings[seat]) if evidence_profile == 'audit' else None),
+        'unsold_items': leftover[seat] if audit else None,
         'wall_seconds': time.perf_counter() - start,
     }
     if replay:
@@ -244,11 +289,13 @@ def main():
     parser.add_argument('--seed', type=int, default=123)
     parser.add_argument('--seat', type=int, choices=[0, 1], default=0)
     parser.add_argument('--backend', choices=['fast', 'official'], default='fast')
+    parser.add_argument('--evidence-profile', choices=EVIDENCE_PROFILES, default='full')
     parser.add_argument('--replay')
     args = parser.parse_args()
     result = run_match(**vars(args))
     samples = result.pop('runtime_ms')
-    result['runtime_max_ms'] = max(samples, default=0)
+    result['runtime_max_ms'] = (samples.get('max', 0) if isinstance(samples, dict)
+                                else max(samples or [], default=0))
     print(json.dumps(result, indent=2))
 
 

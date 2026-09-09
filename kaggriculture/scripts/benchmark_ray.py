@@ -111,6 +111,7 @@ def main():
     parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER)
     parser.add_argument('--batch-size', type=int,
                         help='omit to keep at least eight waves queued per cluster slot')
+    parser.add_argument('--evidence-profile', choices=['score', 'audit', 'full'], default='score')
     parser.add_argument('--minimum-representative-speedup', type=float, default=1.10,
                         help='required speedup for the 8000-job workload (default: 1.10)')
     parser.add_argument('--verification',
@@ -133,14 +134,14 @@ def main():
               'cluster_slots': mapper.available_slots,
               'node_slots': mapper.node_slots,
               'cpus_per_worker': args.cpus_per_worker,
+              'evidence_profile': args.evidence_profile,
               'cluster_hostnames': None, 'verification': None, 'workloads': []}
     write_report(args.output, report)
     baseline_node_id = None
     for count in counts:
         seeds = range(args.seed, args.seed + (count + 1) // 2)
-        jobs = plan(args.candidate, [args.opponent], seeds, split='diagnostic')[:count]
-        for job in jobs:
-            job['telemetry_enabled'] = False
+        jobs = plan(args.candidate, [args.opponent], seeds, split='diagnostic',
+                    evidence_profile=args.evidence_profile)[:count]
 
         whole = make_batch(jobs)
         environments = mapper.verify_cluster([whole])

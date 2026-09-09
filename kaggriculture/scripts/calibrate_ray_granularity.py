@@ -58,8 +58,6 @@ def main():
 
     seeds = range(args.seed, args.seed + (args.jobs + 1) // 2)
     jobs = plan(args.candidate, [args.opponent], seeds, split='diagnostic')[:args.jobs]
-    for job in jobs:
-        job['telemetry_enabled'] = False
 
     rows, reference, hostnames, mapper = [], None, None, None
     for cpus in groups:

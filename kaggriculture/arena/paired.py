@@ -36,7 +36,7 @@ def run_pair(baseline, candidate, opponents, seeds, output, *, workers=4, backen
              split='dev', min_blocks=100, strong_only=False, ratings=None, families=None,
              mirrors=(), cut=STRONG_CUT, max_age_days=MAX_RATING_AGE_DAYS,
              registry_path=REGISTRY, incumbent=None, runner=None, panel=None,
-             deadline_seconds=None, attempts=3, distribution=None):
+             deadline_seconds=None, attempts=3, distribution=None, evidence_profile='score'):
     started = time.perf_counter()
     seeds, opponents = list(seeds), list(opponents)
     if (workers < 1 or backend not in ('fast', 'official') or min_blocks < 2
@@ -70,7 +70,8 @@ def run_pair(baseline, candidate, opponents, seeds, output, *, workers=4, backen
         seeds=seeds, split=split, registry=registry_before, backend=backend,
         environment=environment, panel=panel, min_blocks=min_blocks, cut=cut,
         max_rating_age_days=max_age_days, deadline_seconds=deadline_seconds,
-        attempts=attempts, distribution=distribution, registry_path=registry_path)
+        attempts=attempts, distribution=distribution, registry_path=registry_path,
+        evidence_profile=evidence_profile)
     target = Path(output)
     target.mkdir(parents=True, exist_ok=False)
     plan = dict(baseline=baseline, candidate=candidate, opponents=opponents, seeds=seeds,
@@ -78,7 +79,7 @@ def run_pair(baseline, candidate, opponents, seeds, output, *, workers=4, backen
                 ratings=ratings, ratings_sha256=digest(ratings), families=families,
                 as_of=today.isoformat(), cut=cut, max_rating_age_days=max_age_days,
                 registry_before=registry_before, strong_only=strong_only,
-                run_id=spec['run_id'])
+                run_id=spec['run_id'], evidence_profile=evidence_profile)
     (target / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
     (target / 'spec.json').write_text(json.dumps(spec, indent=2) + '\n')
     results, timings = [], {}
@@ -90,7 +91,8 @@ def run_pair(baseline, candidate, opponents, seeds, output, *, workers=4, backen
             rows, _, _ = run_league(agent, opponents, seeds, workers=workers, backend=backend,
                                    output=target / label, split=split, paired_with=(other,),
                                    registry_path=registry_path, runner=runner,
-                                   attempts=attempts, run_id=spec['run_id'])
+                                   attempts=attempts, run_id=spec['run_id'],
+                                   evidence_profile=evidence_profile)
             timings[label] = time.perf_counter() - leg_started
             if len(rows) != len(seeds) * len(opponents) * 2:
                 raise ValueError('Incomplete comparison leg')
@@ -149,6 +151,8 @@ def main():
     parser.add_argument('--batch-size', type=int,
                         help='omit for adaptive sizing over the Ray cluster')
     parser.add_argument('--backend', choices=('fast', 'official'), default='fast')
+    parser.add_argument('--evidence-profile', choices=('score', 'audit', 'full'),
+                        default='score')
     parser.add_argument('--min-blocks', type=int, default=100, help='lower only for development or smoke runs')
     parser.add_argument('--strong-only', action='store_true')
     parser.add_argument('--cut', type=float, default=STRONG_CUT)

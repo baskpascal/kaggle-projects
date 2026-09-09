@@ -57,7 +57,7 @@ MATCH_TIMEOUT = float(os.environ.get('ARENA_MATCH_TIMEOUT', 300.))
 PRELOAD = ('arena.match', 'arena.engine', 'arena.agents', 'arena.telemetry',
            'kaggle_environments')
 MATCH_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'configuration',
-                'replay', 'telemetry_enabled', 'replay_steps')
+                'replay', 'telemetry_enabled', 'replay_steps', 'evidence_profile')
 
 
 def _match_kwargs(job):
@@ -112,6 +112,9 @@ def timeout_row(job, seconds):
     """
     failure = [{'step': None, 'kind': 'MatchTimeout',
                 'message': f'Killed after {seconds:g}s; the game did not finish'}]
+    profile = job.get('evidence_profile')
+    if profile is None:
+        profile = ('full' if job.get('telemetry_enabled', True) else 'audit')
     return {
         'candidate': job['candidate'], 'opponent': job['opponent'],
         'candidate_hash': agent_hash(job['candidate']),
@@ -120,6 +123,7 @@ def timeout_row(job, seconds):
         'money': 0., 'opponent_money': 0., 'margin': 0., 'steps': 0,
         'backend': job.get('backend', 'fast'), 'configuration': None,
         'environment': fingerprint(), 'failures': failure, 'opponent_failures': list(failure),
+        'evidence_profile': profile,
         'audit': {}, 'opponent_audit': {}, 'sales': {}, 'opponent_sales': {},
         'telemetry_version': None, 'daily': None, 'opponent_daily': None,
         'runtime_ms': [], 'unsold_items': 0, 'wall_seconds': seconds, 'timed_out': True,

@@ -156,8 +156,6 @@ def main():
     atexit.register(mapper.ray.shutdown)
     work = plan(args.candidate, [args.opponent],
                 range(args.seed, args.seed + args.pairs), split='diagnostic')
-    for job in work:
-        job['telemetry_enabled'] = False
     assert_paired_coverage(work, args.pairs)
     batch = make_batch(work)
     environments = mapper.verify_cluster([batch])
@@ -169,7 +167,6 @@ def main():
 
     hang = plan('arena/probes/hang_agent.py', ['pass'], [args.seed - 1],
                 split='diagnostic')[0]
-    hang['telemetry_enabled'] = False
     hang_results = mapper.run_on_every_node(make_batch([hang]), timeout=args.deadline)
     deadline_limit = args.deadline + args.deadline_overhead
     for node, result in hang_results:

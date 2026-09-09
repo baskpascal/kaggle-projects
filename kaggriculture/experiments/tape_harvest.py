@@ -65,7 +65,7 @@ def harvest(donors, opponents, seeds, output, *, workers=4, min_score=1.,
                 for seat in (0, 1):
                     path = scratch / f'{Path(donor).stem}-{Path(opponent).stem}-{seed}-{seat}.json'
                     jobs.append(dict(candidate=donor, opponent=opponent, seed=seed, seat=seat,
-                                     replay=str(path), telemetry_enabled=False))
+                                     replay=str(path), evidence_profile='full'))
                     meta.append((donor, opponent, seed, seat, path))
     library, seen, stats = [], {}, Counter()
     # Positional pairing, so the ordered mode is requested explicitly rather than relied on.
