@@ -43,12 +43,13 @@ def metrics(rows, seconds, batches=(), *, cpu_utilization=None):
 def game_result(row):
     return json.dumps({key: value for key, value in row.items()
                        if key not in {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit',
-                                      'git_dirty', 'job_id', 'batch_id'}},
+                                      'git_dirty', 'job_id', 'batch_id',
+                                      'execution_resources'}},
                       sort_keys=True, separators=(',', ':'), allow_nan=False)
 
 
 def results_agree(left, right):
-    """Compare exact game results without treating completion order as evidence."""
+    """Compare exact game results, excluding timing and resource-allocation telemetry."""
     return sorted(game_result(row) for row in left) == sorted(game_result(row) for row in right)
 
 
