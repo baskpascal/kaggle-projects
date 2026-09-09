@@ -23,10 +23,15 @@ CONFIG = Path(os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config')) / \
 UNIT = Path(os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config')) / \
     'systemd/user/kaggriculture-ray.service'
 SERVICE = 'kaggriculture-ray.service'
+TASK = 'KaggricultureWslKeepAlive'
+SCHTASKS = Path('/mnt/c/Windows/System32/schtasks.exe')
 
 
 def run(command, *, check=True, capture=False, timeout=None):
+    # Windows tools answer in the console OEM codepage, not UTF-8, so never let a
+    # localized message from schtasks.exe or cmd.exe raise instead of being read.
     return subprocess.run(command, check=check, text=True, timeout=timeout,
+                          errors='replace',
                           stdout=subprocess.PIPE if capture else None,
                           stderr=subprocess.PIPE if capture else None)
 
@@ -198,6 +203,98 @@ WantedBy=default.target
 '''
 
 
+def in_wsl():
+    return 'microsoft' in os.uname().release.lower()
+
+
+def enable_linger():
+    """Without lingering, the ``systemd --user`` manager, and the Ray node with it, is
+    killed when the last login session of this user ends: in WSL, the last closed
+    terminal.  Polkit normally lets a user enable its own lingering; when it does not,
+    name the single command that needs a password instead of failing the whole ensure."""
+    user = os.environ.get('USER') or os.environ.get('LOGNAME') or ''
+    if not user or not shutil.which('loginctl'):
+        return 'unavailable'
+    if command_output(['loginctl', 'show-user', user, '-p', 'Linger']) == 'Linger=yes':
+        return 'enabled'
+    if run(['loginctl', 'enable-linger', user], check=False, capture=True).returncode == 0:
+        return 'enabled'
+    return f'needs one manual command: sudo loginctl enable-linger {user}'
+
+
+def windows_local_appdata():
+    value = command_output(['cmd.exe', '/c', 'echo %LOCALAPPDATA%']).strip()
+    if ':' not in value or value.startswith('%'):
+        return None
+    drive, _, rest = value.partition(':')
+    return Path('/mnt', drive.lower(), *rest.replace('\\', '/').strip('/').split('/'))
+
+
+def keepalive_script(distro, user):
+    """schtasks running wsl.exe directly flashes a console window at every logon, so the
+    task runs this launcher instead, which starts the same command hidden."""
+    inner = f'wsl.exe -d {distro} -u {user} --exec /bin/sh -c "exec sleep infinity"'
+    return ('Set shell = CreateObject("WScript.Shell")\r\n'
+            f'shell.Run "{inner}", 0, False\r\n')
+
+
+def install_wsl_keepalive():
+    """Keep the WSL VM itself alive from Windows logon onwards.  Lingering only helps
+    while the distribution is running, and nothing on Windows starts it after a reboot,
+    so without this task both PCs stay disconnected until someone opens a terminal."""
+    if not in_wsl():
+        return 'not-wsl'
+    distro = os.environ.get('WSL_DISTRO_NAME')
+    user = os.environ.get('USER') or os.environ.get('LOGNAME')
+    appdata = windows_local_appdata()
+    if not (distro and user and appdata and SCHTASKS.exists()):
+        return 'unavailable'
+    launcher = appdata / 'kaggriculture-wsl-keepalive.vbs'
+    desired = keepalive_script(distro, user)
+    try:
+        changed = launcher.read_text(encoding='utf-8') != desired
+    except (OSError, UnicodeDecodeError):
+        changed = True
+    if changed:
+        launcher.parent.mkdir(parents=True, exist_ok=True)
+        launcher.write_text(desired, encoding='utf-8', newline='')
+    windows_launcher = command_output(['wslpath', '-w', str(launcher)]).strip()
+    if not windows_launcher:
+        return 'unavailable'
+    registered = run([str(SCHTASKS), '/query', '/tn', TASK],
+                     check=False, capture=True).returncode == 0
+    if registered and not changed:
+        return 'installed'
+    created = run([str(SCHTASKS), '/create', '/tn', TASK, '/sc', 'onlogon',
+                   '/rl', 'limited', '/f', '/tr',
+                   f'wscript.exe "{windows_launcher}"'], check=False, capture=True)
+    if created.returncode != 0:
+        return 'refused-by-windows'
+    if not registered:
+        run([str(SCHTASKS), '/run', '/tn', TASK], check=False, capture=True)
+    return 'installed'
+
+
+def persist_across_reboots():
+    """The two halves of staying connected without anybody pressing a button."""
+    return {'linger': enable_linger(), 'windows_logon_task': install_wsl_keepalive()}
+
+
+def persistence_state():
+    """Report the same two halves without changing anything, for ``status``."""
+    user = os.environ.get('USER') or os.environ.get('LOGNAME') or ''
+    lingering = command_output(['loginctl', 'show-user', user, '-p', 'Linger'])
+    if not in_wsl():
+        task = 'not-wsl'
+    elif not SCHTASKS.exists():
+        task = 'unavailable'
+    else:
+        task = ('installed' if run([str(SCHTASKS), '/query', '/tn', TASK], check=False,
+                                   capture=True).returncode == 0 else 'missing')
+    return {'linger': 'enabled' if lingering == 'Linger=yes' else 'disabled',
+            'windows_logon_task': task}
+
+
 def install_service(*, restart=False):
     if not PYTHON.exists() or not RAY.exists():
         run(['bash', str(SETUP), '--distributed'])
@@ -212,6 +309,7 @@ def install_service(*, restart=False):
     run(['systemctl', '--user', 'daemon-reload'])
     run(['systemctl', '--user', 'enable', SERVICE])
     run(['systemctl', '--user', 'restart' if restart or changed else 'start', SERVICE])
+    persist_across_reboots()
 
 
 def configure(role, args):
@@ -313,7 +411,8 @@ def status_data(config=None):
                                               config.get('num_cpus')),
             'capacity_policy': ('explicit' if config.get('num_cpus') is not None
                                 else 'available-minus-reserve'),
-            'service': service_state(), 'head': f'{host}:{config["port"]}',
+            'service': service_state(), 'persistence': persistence_state(),
+            'head': f'{host}:{config["port"]}',
             'peer_head': f'{config.get("advertised_head", host)}:{config["port"]}',
             'head_reachable': bool(host and tcp_reachable(host, config['port']))}
 
