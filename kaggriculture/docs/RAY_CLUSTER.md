@@ -153,9 +153,11 @@ Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 
   --output=docs/ray-benchmark.json
 ```
 
-Antes da medição distribuída, o script roda o lote inteiro pela pool local em **cada** nó,
-usando todos os CPUs que esse nó anunciou ao Ray. O menor wall-clock vira a linha de base;
-assim não existe a suposição de que o head seja o PC mais rápido. O relatório grava essas
+Antes da medição distribuída, o script roda as cargas até 1 024 pela pool local em
+**cada** nó, usando todos os CPUs que esse nó anunciou ao Ray. O menor wall-clock identifica
+o host de base. A carga de 8 000 repete o baseline somente nesse host já provado mais
+rápido; executar novamente 8 000 no host comprovadamente mais lento não acrescenta
+evidência de throughput. Assim não existe a suposição de que o head seja o PC mais rápido. O relatório grava essas
 linhas por hostname, jobs/s, speedup, eficiência paralela, p50 e p95 de partida, cauda de
 lote e utilização de CPU. No workload representativo de 8 000 jobs, o comando falha se o
 cluster não atingir ao menos 1,10× sobre o melhor `forkserver` local; esse limite pode ser
@@ -165,6 +167,22 @@ o arquivo de verificação por SHA-256 e recusa schema, commit, hostnames, agent
 gates incompatíveis. Checkout sujo também é recusado, e Python, fingerprint do motor e
 hashes dos agentes são comparados novamente por hostname; sem `--verification`, uma série curta é apenas smoke e registra
 `benchmark_valid: false`, enquanto a série representativa nem começa.
+
+Cada tarefa Ray reserva quatro CPUs por padrão e usa quatro filhos isolados de partida.
+Isso evita iniciar um worker Ray pesado por CPU. Os slots são calculados por nó e depois
+somados: hosts com 15 e 11 CPUs expõem corretamente `floor(15/4) + floor(11/4) = 5`
+tarefas, sem inventar um sexto slot que atravessaria máquinas. A fila mantém apenas uma
+onda em voo e a repõe conforme as tarefas terminam. O benchmark grava o JSON atomicamente
+após cada carga, preservando as medições concluídas se um nó falhar mais tarde.
+
+Ao trocar hardware ou limites anunciados, recalibre essa granularidade com o cluster já
+quente. O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
+exata e escolhe pela vazão distribuída medida:
+
+```bash
+.venv/bin/python scripts/calibrate_ray_granularity.py --cpu-groups=2,4 \
+  --output=docs/ray-granularity.json
+```
 
 Referências operacionais: [segurança do Ray](https://docs.ray.io/en/latest/ray-security/index.html),
 [tolerância a falhas de tasks](https://docs.ray.io/en/latest/ray-core/fault_tolerance/tasks.html)

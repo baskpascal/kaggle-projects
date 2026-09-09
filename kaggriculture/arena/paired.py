@@ -9,6 +9,7 @@ import time
 from .agents import VARIANTS, agent_hash
 from .engine import fingerprint
 from .league import run_league
+from .ray_transport import DEFAULT_CPUS_PER_WORKER
 from . import runspec
 from .seeds import REGISTRY, SPLITS, parse_seeds, validate_seeds
 from eval.comparison import build_comparison, digest, load_families
@@ -144,7 +145,7 @@ def main():
     parser.add_argument('--split', choices=SPLITS, default='dev')
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--ray-address')
-    parser.add_argument('--cpus-per-worker', type=int, default=1)
+    parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER)
     parser.add_argument('--batch-size', type=int,
                         help='omit for adaptive sizing over the Ray cluster')
     parser.add_argument('--backend', choices=('fast', 'official'), default='fast')

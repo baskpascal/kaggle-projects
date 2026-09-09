@@ -110,6 +110,17 @@ def test_mapper_disables_ray_retries_and_counts_cluster_slots():
     ]
 
 
+def test_mapper_counts_schedulable_slots_per_node_without_cross_node_fragmentation():
+    ray = FakeRay()
+    ray.nodes = lambda: [
+        {'Alive': True, 'NodeID': 'node-a', 'Resources': {'CPU': 15}},
+        {'Alive': True, 'NodeID': 'node-b', 'Resources': {'CPU': 11}},
+    ]
+    mapper = RayBatchMapper(ray, cpus_per_worker=4)
+    assert mapper.node_slots == {'node-a': 3, 'node-b': 2}
+    assert mapper.available_slots == 5
+
+
 def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
     ray = FakeRay()
     mapper = RayBatchMapper(ray, cpus_per_worker=1)
@@ -124,6 +135,21 @@ def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
     assert workers == result['workers'] == 4
     assert result['timeout'] == 9
     assert task.options_seen[0]['num_cpus'] == 4
+    assert task.options_seen[0]['scheduling_strategy'] == ('node-a', False)
+
+
+def test_local_baseline_can_target_one_selected_node():
+    ray = FakeRay()
+    mapper = RayBatchMapper(ray, cpus_per_worker=1)
+    task = RecordingTask()
+    mapper._task = task
+    batch = make_batch([{'candidate': 'pass', 'opponent': 'pass', 'seed': 1,
+                         'seat': 0, 'backend': 'fast'}])
+
+    node, result, workers = mapper.local_baseline_on_node(batch, 'node-a')
+
+    assert node['NodeID'] == 'node-a'
+    assert result['workers'] == workers == 4
     assert task.options_seen[0]['scheduling_strategy'] == ('node-a', False)
 
 

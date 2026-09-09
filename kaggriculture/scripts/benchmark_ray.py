@@ -12,7 +12,16 @@ sys.path.insert(0, str(ROOT))
 
 from arena.batch import batched_runner, make_batch, percentile  # noqa: E402
 from arena.jobs import git_provenance, plan  # noqa: E402
-from arena.ray_transport import connect  # noqa: E402
+from arena.ray_transport import DEFAULT_CPUS_PER_WORKER, connect  # noqa: E402
+
+
+def write_report(path, report):
+    """Checkpoint atomically so a late cluster failure preserves earlier evidence."""
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(target.name + '.tmp')
+    temporary.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+    temporary.replace(target)
 
 
 def metrics(rows, seconds, batches=(), *, cpu_utilization=None):
@@ -99,7 +108,7 @@ def main():
     parser.add_argument('--seed', type=int, default=1700)
     parser.add_argument('--local-workers', type=int,
                         help='optional per-node cap; default uses every CPU each node advertises')
-    parser.add_argument('--cpus-per-worker', type=int, default=1)
+    parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER)
     parser.add_argument('--batch-size', type=int,
                         help='omit to keep at least eight waves queued per cluster slot')
     parser.add_argument('--minimum-representative-speedup', type=float, default=1.10,
@@ -119,10 +128,14 @@ def main():
 
     mapper = connect(args.address, cpus_per_worker=args.cpus_per_worker)
     atexit.register(mapper.ray.shutdown)
-    report = {'schema_version': 3, 'local_workers_cap': args.local_workers,
+    report = {'schema_version': 4, 'status': 'running',
+              'local_workers_cap': args.local_workers,
               'cluster_slots': mapper.available_slots,
+              'node_slots': mapper.node_slots,
               'cpus_per_worker': args.cpus_per_worker,
               'cluster_hostnames': None, 'verification': None, 'workloads': []}
+    write_report(args.output, report)
+    baseline_node_id = None
     for count in counts:
         seeds = range(args.seed, args.seed + (count + 1) // 2)
         jobs = plan(args.candidate, [args.opponent], seeds, split='diagnostic')[:count]
@@ -144,14 +157,24 @@ def main():
                     environments=environments, current_git=git_provenance(ROOT))
         elif hostnames != report['cluster_hostnames']:
             raise SystemExit('Ray cluster membership changed during the benchmark')
-        local_runs = mapper.local_baseline_on_every_node(
-            whole, maximum_workers=args.local_workers)
+        # The smaller workloads establish the fastest host. Repeating all 8000 jobs on
+        # every slower host adds no evidence and dominated the previous benchmark time.
+        if count == 8000 and baseline_node_id is not None:
+            local_runs = [mapper.local_baseline_on_node(
+                whole, baseline_node_id, maximum_workers=args.local_workers)]
+            baseline_strategy = 'selected-fastest-from-prior-workloads'
+        else:
+            local_runs = mapper.local_baseline_on_every_node(
+                whole, maximum_workers=args.local_workers)
+            baseline_strategy = 'all-live-nodes'
         local_nodes = []
         for node, envelope, workers in local_runs:
             local_nodes.append({'node_id': node['NodeID'],
                                 'hostname': envelope['hostname'], 'workers': workers,
                                 **metrics(envelope['rows'], envelope['wall_seconds'], [envelope])})
         fastest = min(local_nodes, key=lambda item: item['seconds'])
+        if count != 8000:
+            baseline_node_id = fastest['node_id']
 
         envelopes = []
         runner = batched_runner(size=args.batch_size, map_batches=mapper,
@@ -169,6 +192,7 @@ def main():
         capacity_ratio = ((mapper.available_slots * args.cpus_per_worker) /
                           fastest['workers'])
         report['workloads'].append({'jobs': count, 'local_nodes': local_nodes,
+            'baseline_strategy': baseline_strategy,
             'fastest_local_hostname': fastest['hostname'],
             'fastest_local_workers': fastest['workers'], 'direct': {
                 key: value for key, value in fastest.items()
@@ -177,6 +201,7 @@ def main():
             'parallel_efficiency': speedup / capacity_ratio,
             'batch_size': len(envelopes[0]['rows']) if envelopes else None,
             'batches': len(envelopes)})
+        write_report(args.output, report)
         print(json.dumps(report['workloads'][-1], indent=2), flush=True)
     representative = next((row for row in report['workloads'] if row['jobs'] == 8000), None)
     report['throughput_gate'] = {
@@ -189,7 +214,8 @@ def main():
     report['benchmark_valid'] = (report['verification'] is not None and
                                  (representative is None or
                                   report['throughput_gate']['passed'] is True))
-    Path(args.output).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+    report['status'] = 'complete'
+    write_report(args.output, report)
     if representative is not None and not report['throughput_gate']['passed']:
         raise SystemExit('Distributed 8000-job throughput did not beat the fastest local '
                          f'node by {args.minimum_representative_speedup:.2f}x')

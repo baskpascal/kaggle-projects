@@ -8,6 +8,7 @@ from .agents import agent_hash
 from .batch import batched_runner, worker_budget
 from .jobs import JobStore, execute, plan, single_provenance
 from .parallel import matches
+from .ray_transport import DEFAULT_CPUS_PER_WORKER
 from .seeds import REGISTRY, SPLITS, admit_run, parse_seeds
 from eval.metrics import summarize
 from eval.reports import write_report
@@ -89,7 +90,7 @@ def main():
     parser.add_argument('--batch-size', type=int,
                         help='jobs per batch; with Ray, omit for adaptive sizing')
     parser.add_argument('--ray-address', help='private Ray head address, usually ray://HOST:10001')
-    parser.add_argument('--cpus-per-worker', type=int, default=1,
+    parser.add_argument('--cpus-per-worker', type=int, default=DEFAULT_CPUS_PER_WORKER,
                         help='Ray CPUs and local match children assigned to each batch task')
     parser.add_argument('--backend', choices=['fast', 'official'], default='fast')
     parser.add_argument('--split', choices=list(SPLITS), default='dev')

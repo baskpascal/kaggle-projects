@@ -89,7 +89,9 @@ de exceções da aplicação, verifica todos os nós por afinidade e refaz somen
 por falha de infraestrutura. Workers não recebem o registro de seeds, não podem chamar
 `admit_run`, não podem abrir o SQLite autoritativo e recusam jobs com destino de replay;
 somente o `BatchResult` completo cruza a fronteira de transporte. `arena.league` expõe
-`--ray-address`, `--cpus-per-worker` e batch adaptativo. Ray está no extra `distributed` e
+`--ray-address`, `--cpus-per-worker` e batch adaptativo. Cada tarefa Ray reserva quatro
+CPUs por padrão e as usa em quatro filhos isolados de partida; o scheduler soma apenas os
+grupos completos que cabem em cada máquina. Ray está no extra `distributed` e
 não entra no artefato submetido.
 
 Um cluster local de um nó já executou o caminho completo, com dois jobs distintos no store,

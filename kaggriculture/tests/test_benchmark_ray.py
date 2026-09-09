@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from scripts.benchmark_ray import load_verification
+from scripts.benchmark_ray import load_verification, write_report
 
 
 def proof():
@@ -65,6 +65,15 @@ def test_benchmark_accepts_integer_clean_flags_from_git_provenance(tmp_path):
         current_git={'git_commit': 'abc123', 'git_dirty': 0},
     )
     assert evidence['git_commit'] == 'abc123'
+
+
+def test_benchmark_checkpoint_replaces_the_previous_report_atomically(tmp_path):
+    path = tmp_path / 'nested' / 'benchmark.json'
+    write_report(path, {'status': 'running', 'workloads': [32]})
+    write_report(path, {'status': 'complete', 'workloads': [32, 256]})
+    assert json.loads(path.read_text()) == {
+        'status': 'complete', 'workloads': [32, 256]}
+    assert not path.with_name(path.name + '.tmp').exists()
 
 
 @pytest.mark.parametrize('mutation, message', [

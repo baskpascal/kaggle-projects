@@ -22,6 +22,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_EXCLUDES = ['/.git/', '/.venv/', '/.tmp/', '/docs/', '/tests/', '/replays/',
                     '/seed_registry.json',
                     '/experiments/results/', '/experiments/searches/', '**/__pycache__/']
+DEFAULT_CPUS_PER_WORKER = 4
 
 
 @contextmanager
@@ -63,8 +64,13 @@ class RayBatchMapper:
         self.attempts = attempts
         self.timeout = timeout
         self.strict_commit = strict_commit
-        cpus = int(ray.cluster_resources().get('CPU', 0))
-        self.available_slots = max(1, cpus // cpus_per_worker)
+        self.node_slots = {
+            node['NodeID']: self._node_capacity(node) // cpus_per_worker
+            for node in ray.nodes() if node.get('Alive')
+        }
+        self.available_slots = sum(self.node_slots.values())
+        if self.available_slots < 1:
+            raise ValueError(f'No live Ray node can reserve {cpus_per_worker} CPUs')
         self._task = ray.remote(num_cpus=cpus_per_worker, max_retries=0,
                                 retry_exceptions=False)(_remote_batch)
         self._probe = ray.remote(num_cpus=0, max_retries=0,
@@ -120,13 +126,32 @@ class RayBatchMapper:
 
         return self._run_on_every_node(batch, timeout=timeout, workers=workers)
 
+    def local_baseline_on_node(self, batch, node_id, *, timeout=None,
+                               maximum_workers=None):
+        """Measure one previously selected baseline host without repeating every host."""
+        if maximum_workers is not None and maximum_workers < 1:
+            raise ValueError('maximum_workers must be positive')
+        matches = [node for node in self.ray.nodes()
+                   if node.get('Alive') and node['NodeID'] == node_id]
+        if not matches:
+            raise OSError(f'Ray baseline node is no longer alive: {node_id}')
+
+        def workers(node):
+            capacity = self._node_capacity(node)
+            return capacity if maximum_workers is None else min(capacity, maximum_workers)
+
+        return self._run_on_nodes(batch, matches, timeout=timeout, workers=workers)[0]
+
     @staticmethod
     def _node_capacity(node):
         return int(node.get('Resources', {}).get('CPU', 0))
 
     def _run_on_every_node(self, batch, *, timeout, workers):
-        strategy = self.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
         nodes = [node for node in self.ray.nodes() if node.get('Alive')]
+        return self._run_on_nodes(batch, nodes, timeout=timeout, workers=workers)
+
+    def _run_on_nodes(self, batch, nodes, *, timeout, workers):
+        strategy = self.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
         limit = self.timeout if timeout is None else timeout
         refs = []
         for node in nodes:
