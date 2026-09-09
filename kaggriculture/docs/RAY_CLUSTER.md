@@ -40,7 +40,22 @@ python3 scripts/ray_cluster.py configure-worker --head IP_OU_MAGIC_DNS_DO_PC_A:6
 ```
 
 Depois disso não há botão: `Restart=always` reconecta o worker quando o head ou a rede
-voltam. Ao abrir o repositório, agentes de IA executam o comando idempotente abaixo conforme
+voltam.
+
+`Restart=always` só cobre o processo. Duas camadas acima dele derrubam o nó sem que nada
+apareça como falha, e `configure-*`/`ensure` cuidam das duas automaticamente:
+
+- **Sessão de login.** Sem `linger`, o gerenciador `systemd --user` — e o nó Ray junto com
+  ele — morre quando a última sessão do usuário termina, ou seja, quando o último terminal
+  WSL é fechado. O controlador executa `loginctl enable-linger`, que normalmente não pede
+  senha; se o polkit recusar, o JSON diz exatamente qual comando com `sudo` falta.
+- **A VM do WSL.** Nada no Windows liga a distribuição depois de um reboot. O controlador
+  registra a tarefa agendada `KaggricultureWslKeepAlive`, que no logon executa um lançador
+  `.vbs` oculto em `%LOCALAPPDATA%` segurando `sleep infinity` dentro do WSL. O `.vbs`
+  existe porque `schtasks` chamando `wsl.exe` direto piscaria um console a cada logon.
+
+`python3 scripts/ray_cluster.py status` relata as duas em `persistence` sem alterar nada;
+`ensure` é quem aplica. Rode `ensure` uma vez em cada PC após atualizar o checkout. Ao abrir o repositório, agentes de IA executam o comando idempotente abaixo conforme
 o `AGENTS.md` da raiz:
 
 ```bash

@@ -20,6 +20,10 @@ python3 scripts/ray_cluster.py ensure
   `configure-worker`. Não escolha papéis automaticamente: isso pode criar dois heads.
 - Se estiver configurado, `ensure` é idempotente: ele instala/atualiza e inicia o serviço
   de usuário. Não peça confirmação para essa ação reversível.
+- `ensure` também garante a persistência entre reboots: `loginctl enable-linger` e a tarefa
+  de logon `KaggricultureWslKeepAlive` no Windows. Se `status` mostrar `persistence.linger`
+  diferente de `enabled` ou `windows_logon_task` diferente de `installed`, rode `ensure`
+  nessa máquina e, só se o JSON pedir, informe ao usuário o único comando com `sudo`.
 - O serviço deve reconectar quando o outro PC voltar. Ausência temporária do peer não é
   motivo para reconfigurar, trocar IP ou iniciar outro head.
 - Use apenas LAN privada, WSL mirrored ou Tailscale dentro do WSL. Nunca exponha Ray na
