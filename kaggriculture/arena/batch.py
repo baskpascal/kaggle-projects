@@ -132,23 +132,47 @@ def _check_row(spec, row, job_id, batch_id, hostname, provenance):
             'git_dirty': provenance.get('git_dirty')}
 
 
+def _identity(record):
+    """The tuple that says which game a spec or a finished row is, without using position."""
+    return tuple(record.get(field) for field in TRANSPORT_FIELDS)
+
+
 def run_batch(batch, workers=4, method=None, timeout=-1):
-    """Play one batch here, in job order. This is the body a Ray task would wrap."""
+    """Play one batch here. This is the body a Ray task would wrap.
+
+    Games are played unordered and correlated by their own contents, so a slow game does
+    not hold the ones behind it inside the worker; the envelope is then materialised in job
+    order, because that order is what `validate_batch_result` checks and what keeps a
+    report's digest independent of how the games happened to finish.
+    """
     batch = batch if isinstance(batch, dict) else make_batch(batch)
     specs, job_ids, batch_id = batch['specs'], batch['job_ids'], batch['batch_id']
     if len(specs) != len(job_ids):
         raise ValueError(f'Batch {batch_id} has inconsistent specs and job IDs')
     started, cpu_started = time.monotonic(), host_cpu_times()
-    rows = list(matches(specs, workers=workers, method=method, timeout=timeout))
+    by_identity = {}
+    for spec, identity in zip(specs, job_ids):
+        key = _identity(spec)
+        if key in by_identity:
+            raise ValueError(f'Batch {batch_id} names the same game twice: {key}')
+        by_identity[key] = (spec, identity)
     hostname = socket.gethostname()
     provenance = git_provenance()
     source = batch.get('source_git', {})
     provenance = {key: (provenance.get(key) if provenance.get(key) is not None
                         else source.get(key)) for key in ('git_commit', 'git_dirty')}
-    if len(rows) != len(specs):
-        raise OSError(f'Batch {batch_id} returned {len(rows)} of {len(specs)} jobs')
-    rows = [_check_row(spec, row, identity, batch_id, hostname, provenance)
-            for spec, row, identity in zip(specs, rows, job_ids)]
+    checked = {}
+    for row in matches(specs, workers=workers, method=method, timeout=timeout, ordered=False):
+        found = by_identity.get(_identity(row))
+        if found is None:
+            raise ValueError(f'Batch {batch_id} played a game it never asked for: {_identity(row)}')
+        spec, identity = found
+        if identity in checked:
+            raise ValueError(f'Batch {batch_id} produced job {identity} twice')
+        checked[identity] = _check_row(spec, row, identity, batch_id, hostname, provenance)
+    if len(checked) != len(specs):
+        raise OSError(f'Batch {batch_id} returned {len(checked)} of {len(specs)} jobs')
+    rows = [checked[identity] for identity in job_ids]
     elapsed, cpu_finished = time.monotonic() - started, host_cpu_times()
     match_seconds = [row['wall_seconds'] for row in rows if row.get('wall_seconds') is not None]
     return {'batch_id': batch_id, 'job_ids': job_ids, 'rows': rows,
@@ -195,8 +219,14 @@ def batched_runner(size=BATCH_SIZE, method=None, timeout=-1, map_batches=None, o
     """A `runner(jobs, workers)` for `arena.jobs.execute`, with batching in the middle.
 
     `map_batches(batches, workers)` yields one envelope per batch, in any order. The default
-    runs them here; a Ray transport replaces exactly this function and nothing else. Results
-    are buffered only until the next batch in job order is available.
+    runs them here; a Ray transport replaces exactly this function and nothing else.
+
+    An envelope is passed on the moment it arrives, never held for an earlier batch. Holding
+    it would mean that a cluster which finishes batch 2 first keeps batch 2 in the driver's
+    memory until batch 1 lands, so a driver that dies in between loses work that was already
+    computed and pays for it again on `--resume`. `arena.jobs.execute` records each row by
+    its own `job_id` as it arrives and materialises the report in plan order afterwards, so
+    nothing downstream needs arrival order to mean anything.
     """
     def runner(jobs, workers):
         jobs = list(jobs)
@@ -206,7 +236,7 @@ def batched_runner(size=BATCH_SIZE, method=None, timeout=-1, map_batches=None, o
                    enumerate(partition(jobs, chosen_size))]
         transport = map_batches or (lambda parts, count: _local(parts, count, method, timeout))
         expected = {batch['batch_id']: batch for batch in batches}
-        ready, emitted, received = {}, 0, set()
+        received = set()
         for envelope in transport(batches, workers):
             batch_id = envelope.get('batch_id') if isinstance(envelope, dict) else None
             if batch_id not in expected:
@@ -214,14 +244,11 @@ def batched_runner(size=BATCH_SIZE, method=None, timeout=-1, map_batches=None, o
             if batch_id in received:
                 raise ValueError(f'Transport returned duplicate batch: {batch_id}')
             received.add(batch_id)
-            ready[batch_id] = validate_batch_result(expected[batch_id], envelope)
-            while emitted < len(batches) and batches[emitted]['batch_id'] in ready:
-                complete = ready.pop(batches[emitted]['batch_id'])
-                if on_batch:
-                    on_batch(complete)
-                yield from complete['rows']
-                emitted += 1
-        if emitted != len(batches):
+            complete = validate_batch_result(expected[batch_id], envelope)
+            if on_batch:
+                on_batch(complete)
+            yield from complete['rows']
+        if len(received) != len(batches):
             missing = [batch['batch_id'] for batch in batches if batch['batch_id'] not in received]
             raise OSError(f'Transport omitted {len(missing)} batch(es): {", ".join(missing)}')
     return runner

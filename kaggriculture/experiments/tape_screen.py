@@ -52,7 +52,9 @@ def screen(tapes, opponents, seeds, *, workers=4, agent_dir, output=None):
                                      seed=seed, seat=seat, telemetry_enabled=False))
                     meta.append((tape['sha256'], name, seed, seat))
     rows = []
-    for (sha, name, seed, seat), row in zip(meta, matches(jobs, workers)):
+    # `ordered=True` is asked for, not assumed: this pairing is positional, and
+    # `arena.parallel.matches` also has a streaming mode that makes no order promise.
+    for (sha, name, seed, seat), row in zip(meta, matches(jobs, workers, ordered=True)):
         rows.append({'tape': sha, 'opponent': name, 'seed': seed, 'seat': seat,
                      'score': row['score'], 'money': row['money'],
                      'opponent_money': row['opponent_money'], 'margin': row['margin'],

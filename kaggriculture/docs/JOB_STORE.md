@@ -74,6 +74,42 @@ testado nos dois sentidos — uma execução de validação interrompida deixa a
 registro em 2, e o `--resume` re-declara o mesmo lote, que o `admit_run` readmite pelo
 `batch_id` gravado em vez de queimar as seeds outra vez.
 
+## Persistir na ordem de conclusão — issue #56
+
+O store durável só protege o que **chegou** nele, e por um tempo ele não recebia o que já
+estava pronto. Os dois níveis do executor recolocavam os resultados na ordem do plano antes
+de entregá-los:
+
+- `arena.parallel.matches` segurava linhas até o índice seguinte aparecer;
+- `arena.batch.batched_runner` segurava envelopes até o próximo lote da ordem chegar.
+
+Com o deadline padrão de 300 s, **uma única partida pendurada deixava todas as posteriores
+na RAM do driver** até ela morrer. Uma linha comum ocupa 116–134 KB, então o buffer era caro
+além de frágil: um driver que caísse nessa janela perdia trabalho já computado e o pagava de
+novo no `--resume`.
+
+Agora os dois níveis entregam por conclusão. `matches(..., ordered=False)` — exposto como
+`arena.parallel.stream`, que é o runner padrão de `run_league` — devolve cada linha no
+instante em que ela cai, e `batched_runner` repassa cada envelope assim que ele chega. O
+pico de trabalho computado e não persistido passa a ser a janela em voo, não o run inteiro.
+
+Nada disso vale para a evidência. `execute()` grava cada linha por `job_id` — identidade
+recomputada do conteúdo da própria linha, nunca por posição — e devolve o conjunto por
+`JobStore.rows_in_order(jobs)`, que remonta **a ordem do plano**. Um relatório e seus
+digests não podem se mexer porque um nó estava lento; se mexessem, `plan_sha256`, os
+digests de linha da comparação e a identidade de um `RunSpec` passariam a ser afirmações
+sobre o cluster em vez de sobre as partidas.
+
+Dentro de um envelope a ordem continua sendo a do plano, que é o que
+`validate_batch_result` confere. O `run_batch` joga em modo streaming e correlaciona cada
+linha com o seu spec pelo **conteúdo** (`candidate`, `opponent`, `seed`, `seat`, `backend`),
+recusando um lote que nomeie a mesma partida duas vezes — sem isso, correlacionar sem
+posição seria ambíguo.
+
+`ordered=True` continua existindo e continua sendo um contrato, não um acaso: os pareamentos
+posicionais de `experiments/` pedem esse modo explicitamente e `tests/test_parallel.py` o
+fixa.
+
 ## Onde o store fica
 
 Ao lado do relatório, não dentro dele: `<output>.jobs.sqlite3`. O `write_report` cria o

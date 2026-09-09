@@ -17,7 +17,8 @@ def test_legacy_library_order_and_coin_values_do_not_select_a_tape():
 
 def test_harvest_neither_filters_nor_ranks_by_margin(tmp_path, monkeypatch):
     margins = [9000, -100]
-    def matches(jobs, workers):
+    def matches(jobs, workers, ordered=True):
+        assert ordered, 'harvest pairs jobs with rows positionally'
         for job, margin in zip(jobs, margins):
             actions = stream('NORTH' if job['seat'] == 0 else 'SOUTH')
             from pathlib import Path

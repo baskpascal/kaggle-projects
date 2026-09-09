@@ -263,12 +263,35 @@ class JobStore:
         return [job for job in jobs if job['job_id'] not in done]
 
     def rows(self, job_ids=None):
-        """Finished games as the match rows they were, ordered by when they landed."""
+        """Finished games as the match rows they were, ordered by when they landed.
+
+        Arrival order is a fact about the run, not about the evidence, so a caller that
+        needs a reproducible order asks for one: `rows_in_order` materialises a plan.
+        """
         wanted = None if job_ids is None else set(job_ids)
         with self._session() as connection:
             cursor = connection.execute('SELECT job_id, row FROM jobs ORDER BY rowid')
             return [json.loads(record['row']) for record in cursor
                     if wanted is None or record['job_id'] in wanted]
+
+    def rows_in_order(self, jobs):
+        """The plan's games, in the plan's order, whatever order they were played in.
+
+        Games are persisted as they land so that a driver that dies keeps them, which means
+        the store's own order is the order the cluster happened to finish. A report and its
+        digest must not move because a node was slow, so the canonical order is the plan's
+        and it is reimposed here rather than assumed upstream.
+        """
+        wanted = [job['job_id'] for job in jobs]
+        by_id = {}
+        for row in self.rows(set(wanted)):
+            identity = row.get('job_id')
+            if identity is not None:
+                by_id[identity] = row
+        missing = [identity for identity in wanted if identity not in by_id]
+        if missing:
+            raise OSError(f'{len(missing)} planned game(s) are absent from the store')
+        return [by_id[identity] for identity in wanted]
 
 
 def single_provenance(rows):
@@ -300,6 +323,12 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
     executor in `arena/parallel.py`. After an infrastructure fault the remaining work is
     recomputed from the store, so nothing already finished is replayed and nothing lost
     mid-stream is skipped.
+
+    Each row is recorded the moment the runner yields it, and every runner in the project
+    now yields on completion rather than in plan order, so the peak of computed-but-unsaved
+    work is the in-flight window instead of everything behind the slowest game. The rows
+    handed back are re-materialised in the plan's order, so a report and its digest do not
+    depend on which node finished first.
     """
     if attempts < 1:
         raise ValueError('attempts must be positive')
@@ -307,7 +336,7 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
     for attempt in range(attempts):
         remaining = store.pending(jobs)
         if not remaining:
-            return store.rows({job['job_id'] for job in jobs})
+            return store.rows_in_order(jobs)
         # The worker needs the expected hashes and IDs so a remote batch can prove which
         # artifacts and jobs it actually executed. ``arena.parallel`` strips this transport
         # metadata before calling ``run_match``.
@@ -334,5 +363,5 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
         except INFRASTRUCTURE as exc:
             last = exc
             continue
-        return store.rows({job['job_id'] for job in jobs})
+        return store.rows_in_order(jobs)
     raise RuntimeError(f'Infrastructure faults exhausted {attempts} attempts: {last}')
