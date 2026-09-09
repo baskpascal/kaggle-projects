@@ -39,10 +39,9 @@ REQUIRED_ROOTS = ('agent', 'arena', 'eval', 'experiments', 'opponents', 'scripts
 # opaque RuntimeEnvSetupError. Measuring first turns it into a sentence that names the
 # directory that grew.
 PACKAGE_LIMIT_BYTES = 512 * 1024 * 1024
-# One Ray task per CPU avoids cross-node fragmentation (15//4 + 11//4 used only 20/26
-# CPUs). Batches still amortize scheduling overhead and every match keeps its child-process
-# isolation boundary.
-DEFAULT_CPUS_PER_WORKER = 1
+# Four-process batches amortize Ray overhead. A smaller remainder slot is added per node,
+# so 15 and 11 advertised CPUs become 4+4+4+3 and 4+4+3 rather than wasting six CPUs.
+DEFAULT_CPUS_PER_WORKER = 4
 
 
 def _excluded(relative, excludes):
@@ -148,11 +147,23 @@ class RayBatchMapper:
         self.attempts = attempts
         self.timeout = timeout
         self.strict_commit = strict_commit
+        self.worker_slots = []
+        for node in ray.nodes():
+            if not node.get('Alive'):
+                continue
+            capacity = self._node_capacity(node)
+            groups, remainder = divmod(capacity, cpus_per_worker)
+            self.worker_slots.extend(
+                {'node_id': node['NodeID'], 'cpus': cpus_per_worker}
+                for _ in range(groups))
+            if remainder:
+                self.worker_slots.append({'node_id': node['NodeID'], 'cpus': remainder})
         self.node_slots = {
-            node['NodeID']: self._node_capacity(node) // cpus_per_worker
+            node['NodeID']: sum(slot['node_id'] == node['NodeID']
+                               for slot in self.worker_slots)
             for node in ray.nodes() if node.get('Alive')
         }
-        self.available_slots = sum(self.node_slots.values())
+        self.available_slots = len(self.worker_slots)
         if self.available_slots < 1:
             raise ValueError(f'No live Ray node can reserve {cpus_per_worker} CPUs')
         self._task = ray.remote(num_cpus=cpus_per_worker, num_gpus=0, max_retries=0,
@@ -277,8 +288,11 @@ class RayBatchMapper:
                 raise OSError(f'Ray node {node.get("NodeID")} failed its probe: {exc}') from exc
         return results
 
-    def _submit(self, batch):
-        return self._task.remote(self._with_source(batch), self.cpus_per_worker, self.timeout)
+    def _submit(self, batch, slot):
+        strategy = self.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
+        task = self._task.options(num_cpus=slot['cpus'], scheduling_strategy=strategy(
+            slot['node_id'], soft=False))
+        return task.remote(self._with_source(batch), slot['cpus'], self.timeout)
 
     @staticmethod
     def _with_source(batch):
@@ -288,15 +302,16 @@ class RayBatchMapper:
         batches = list(batches)
         self.verify_cluster(batches)
         queued = iter(batches)
-        pending = {}
+        pending, idle_slots = {}, list(self.worker_slots)
 
         def fill_window():
-            while len(pending) < self.available_slots:
+            while idle_slots:
                 try:
                     batch = next(queued)
                 except StopIteration:
                     return
-                pending[self._submit(batch)] = (batch, 1)
+                slot = idle_slots.pop()
+                pending[self._submit(batch, slot)] = (batch, 1, slot)
 
         # Submitting the entire run lets Ray grant leases to a slow node far ahead of
         # completion. A one-wave window keeps scheduling dynamic: whichever node frees a
@@ -305,21 +320,22 @@ class RayBatchMapper:
         while pending:
             ready, _ = self.ray.wait(list(pending), num_returns=1)
             ref = ready[0]
-            batch, attempt = pending.pop(ref)
+            batch, attempt, slot = pending.pop(ref)
             try:
                 result = self.ray.get(ref)
             except self.ray.exceptions.RayTaskError as exc:
                 cause = exc.as_instanceof_cause()
                 if isinstance(cause, OSError) and attempt < self.attempts:
-                    pending[self._submit(batch)] = (batch, attempt + 1)
+                    pending[self._submit(batch, slot)] = (batch, attempt + 1, slot)
                     continue
                 raise cause from exc
             except self.ray.exceptions.RayError as exc:
                 if attempt < self.attempts:
-                    pending[self._submit(batch)] = (batch, attempt + 1)
+                    pending[self._submit(batch, slot)] = (batch, attempt + 1, slot)
                     continue
                 raise OSError(f'Ray infrastructure failed batch {batch["batch_id"]} '
                               f'after {attempt} attempts: {exc}') from exc
+            idle_slots.append(slot)
             fill_window()
             yield result
 

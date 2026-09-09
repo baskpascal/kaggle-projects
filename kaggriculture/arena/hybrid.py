@@ -265,7 +265,7 @@ def cluster_inventory(ray):
 
 
 class HybridPipeline:
-    def __init__(self, ray, *, cpus_per_simulation=1, trainers=None, timeout=-1):
+    def __init__(self, ray, *, cpus_per_simulation=4, trainers=None, timeout=-1):
         gpu_count = int(ray.cluster_resources().get('GPU', 0))
         trainers = gpu_count if trainers is None else trainers
         if cpus_per_simulation < 1 or trainers < 1:
@@ -289,15 +289,38 @@ class HybridPipeline:
         if require_all_nodes and len(batches) < len(nodes):
             raise ValueError(f'require_all_nodes needs at least {len(nodes)} simulation batches')
         strategy = self.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
-        pending, batch_metrics = [], []
-        for index, batch in enumerate(batches):
-            task = self.simulate
-            if require_all_nodes and index < len(nodes):
-                task = task.options(scheduling_strategy=strategy(nodes[index]['NodeID'], soft=False))
-            pending.append(task.remote(batch, self.cpus, self.timeout))
+        slots = []
+        for node in nodes:
+            capacity = int(node['Resources']['CPU'])
+            groups, remainder = divmod(capacity, self.cpus)
+            slots.extend({'node_id': node['NodeID'], 'cpus': self.cpus}
+                         for _ in range(groups))
+            if remainder:
+                slots.append({'node_id': node['NodeID'], 'cpus': remainder})
+        queued, pending, idle_slots, batch_metrics = iter(batches), {}, list(slots), []
+
+        def submit(batch, slot):
+            task = self.simulate.options(num_cpus=slot['cpus'], scheduling_strategy=strategy(
+                slot['node_id'], soft=False))
+            pending[task.remote(batch, slot['cpus'], self.timeout)] = slot
+
+        # A smoke pins one batch per node. A full run fills every heterogeneous slot and
+        # refills whichever node finishes first.
+        if require_all_nodes:
+            for node in nodes:
+                slot = next(slot for slot in idle_slots if slot['node_id'] == node['NodeID'])
+                idle_slots.remove(slot)
+                submit(next(queued), slot)
+        while idle_slots:
+            try:
+                batch = next(queued)
+            except StopIteration:
+                break
+            submit(batch, idle_slots.pop())
         stage_resources, by_host = [], {}
         while pending:
-            ready, pending = self.ray.wait(pending, num_returns=1)
+            ready, _ = self.ray.wait(list(pending), num_returns=1)
+            slot = pending.pop(ready[0])
             envelope = self.ray.get(ready[0])
             by_host[envelope['hostname']] = by_host.get(envelope['hostname'], 0) + envelope['games']
             stage_resources.append(envelope['ray_resources'])
@@ -308,6 +331,10 @@ class HybridPipeline:
             samples = self.ray.get(self.featurize.remote(envelope['rows']))
             stage_resources.append(samples['resources'])
             buffer.append(samples['features'], samples['targets'], samples['origins'])
+            try:
+                submit(next(queued), slot)
+            except StopIteration:
+                pass
         train_x, train_y, eval_x, eval_y = buffer.split(eval_fraction)
         train_ref_x, train_ref_y = self.ray.put(train_x), self.ray.put(train_y)
         models = self.ray.get([trainer.train.remote(train_ref_x, train_ref_y, epochs,

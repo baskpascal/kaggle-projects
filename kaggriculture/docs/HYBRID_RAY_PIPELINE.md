@@ -23,7 +23,7 @@ prova que CUDA funciona.
 seeds + agentes
       |
       v
-Ray tasks CPU (num_cpus=1, num_gpus=0) nos dois PCs
+Ray tasks CPU (num_cpus=3 ou 4, num_gpus=0) nos dois PCs
   partidas isoladas -> rows -> features CPU
       |
       v
@@ -83,15 +83,15 @@ Execute no PC A:
   --candidate=versions/v006/main.py \
   --opponent=opponents/public/thomas_t95/main.py \
   --cycles=1 --seeds-per-cycle=32 \
-  --cpus-per-simulation=1 --simulation-batch-size=2 \
+  --cpus-per-simulation=4 --simulation-batch-size=2 \
   --epochs=20 --require-all-nodes \
   --buffer=experiments/results/hybrid-replay.npz \
   --output=experiments/results/hybrid-training.json
 ```
 
 `--require-all-nodes` fixa o primeiro batch em cada nó e serve para smoke. Com pelo menos
-26 batches, uma CPU por task permite ocupar os 15 + 11 slots sem a fragmentação das antigas
-tasks de quatro CPUs. Em corridas maiores, retire a flag: a fila dinâmica deixa o Ray
+7 batches, slots heterogêneos `4+4+4+3` e `4+4+3` ocupam os 15 + 11 CPUs sem perder a
+eficiência dos grupos de quatro. Em corridas maiores, retire a flag: a fila dinâmica deixa o Ray
 entregar mais batches ao nó que libera CPU primeiro. O buffer é reaberto e ampliado em nova execução; gravação atômica impede um
 processo interrompido de deixar um arquivo parcial.
 

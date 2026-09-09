@@ -79,6 +79,9 @@ class SequenceTask:
         self.calls += 1
         return next(self.refs)
 
+    def options(self, **_options):
+        return self
+
 
 class RecordingTask:
     def __init__(self):
@@ -100,6 +103,9 @@ class CountingTask:
         self.calls += 1
         return Ref(value={'call': self.calls})
 
+    def options(self, **_options):
+        return self
+
 
 def test_mapper_disables_ray_retries_and_counts_cluster_slots():
     ray = FakeRay()
@@ -118,8 +124,9 @@ def test_mapper_counts_schedulable_slots_per_node_without_cross_node_fragmentati
         {'Alive': True, 'NodeID': 'node-b', 'Resources': {'CPU': 11}},
     ]
     mapper = RayBatchMapper(ray, cpus_per_worker=4)
-    assert mapper.node_slots == {'node-a': 3, 'node-b': 2}
-    assert mapper.available_slots == 5
+    assert mapper.node_slots == {'node-a': 4, 'node-b': 3}
+    assert mapper.available_slots == 7
+    assert sorted(slot['cpus'] for slot in mapper.worker_slots) == [3, 3, 4, 4, 4, 4, 4]
 
 
 def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
@@ -258,8 +265,8 @@ def two_node_mapper(hostnames, *, cpus_per_worker=4):
 def test_describe_nodes_names_every_live_host_with_its_slots():
     mapper = two_node_mapper(['pc-b-wsl', 'desktop-a'])
     assert mapper.describe_nodes() == [
-        {'node_id': 'node-b', 'hostname': 'desktop-a', 'cpus': 11, 'gpus': 0, 'slots': 2},
-        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'cpus': 15, 'gpus': 0, 'slots': 3},
+        {'node_id': 'node-b', 'hostname': 'desktop-a', 'cpus': 11, 'gpus': 0, 'slots': 3},
+        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'cpus': 15, 'gpus': 0, 'slots': 4},
     ]
 
 
