@@ -1,5 +1,5 @@
-from .economy import (ANIMALS, CROPS, crop_context, fertilizer_value, price,
-                      score_crops)
+from .economy import (ANIMALS, CROPS, WATER_BONUS_FROM, crop_context,
+                      fertilizer_value, price, score_crops)
 from .params import DEFAULTS
 from .market import projected_shed, sale_orders, schedule_market_orders
 from .routing import distance, move_towards, nearest_shed, shed_tiles
@@ -48,7 +48,8 @@ def policy(observation, configuration=None, parameters=None):
             harvest = ripe and (ongoing or age >= peak or endgame)
             needs_water = not t['watered_today'] and (
                 p['water_daily'] or t['consecutive_unwatered'] >= 1
-                or (not ongoing and age >= (peak + 1) // 2))
+                # Bonus window keys off max_yield_day, not the planned harvest day.
+                or (not ongoing and age >= WATER_BONUS_FROM[crop]))
             if harvest and not ongoing and not endgame and needs_water:
                 jobs.append((pos, ['WATER'], 120 + value * .1, None))
             elif harvest:
