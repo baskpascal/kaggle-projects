@@ -66,7 +66,8 @@ def main():
             atexit.register(mapper.ray.shutdown)
         envelopes = []
         runner = batched_runner(map_batches=mapper, on_batch=envelopes.append,
-                                available_slots=mapper.available_slots)
+                                available_slots=mapper.available_slots,
+                                minimum_batch_size=cpus)
         started = time.monotonic()
         results = list(runner(jobs, cpus))
         seconds = time.monotonic() - started

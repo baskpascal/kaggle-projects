@@ -189,7 +189,8 @@ def main():
         mapper = connect(ray_address, cpus_per_worker=cpus_per_worker)
         atexit.register(mapper.ray.shutdown)
         args['runner'] = batched_runner(size=batch_size, map_batches=mapper,
-                                        available_slots=mapper.available_slots)
+                                        available_slots=mapper.available_slots,
+                                        minimum_batch_size=cpus_per_worker)
     args['distribution'] = {'topology': 'ray' if ray_address else 'local',
                             'workers': args['workers'], 'cpus_per_worker': cpus_per_worker,
                             'batch_size': batch_size}
