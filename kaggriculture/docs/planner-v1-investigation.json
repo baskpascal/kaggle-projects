@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-09",
+  "note": "Evidence behind docs/PLANNER_V1_INVESTIGATION.md.",
+  "provenance": {
+    "leaderboard": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "dump": "kaggriculture-episodes-2026-09-08.zip",
+    "dump_sha256": "e24aa237bbecff0dd63e55b024b9645dbcfde08d822924e0ea865ecb806765da",
+    "elite_subset": "data/kaggle/official/top2800-2026-09-08.zip",
+    "episodes": 157,
+    "engine": "1.32.7"
+  },
+  "standing": {
+    "team": "Uncle Scooge",
+    "rank": 402,
+    "of": 8407,
+    "v006": 2554.3,
+    "v004": 2536.9,
+    "top10_cut": 2915.6,
+    "top30_cut": 2855.5
+  },
+  "tiers": {
+    "A": ">=2900",
+    "B": "2800-2900",
+    "C": "2700-2800"
+  },
+  "tier_streams": {
+    "A": 435,
+    "C": 72,
+    "B": 212
+  },
+  "tier_a_teams": {
+    "Mengfei Li": {
+      "streams": 106,
+      "rank": 6,
+      "rating": 2932.4,
+      "money_p50": 95498.0,
+      "win_rate_recorded": 0.5188679245283019,
+      "hire_p50": 259.0,
+      "land_buys_mean": 2,
+      "first_land_turn_p50": 150.0,
+      "fertilize_p50": 168.0,
+      "sell_turns_p50": 137.0,
+      "animals_per_game": {
+        "COW": 9.22,
+        "SHEEP": 6.18,
+        "GOOSE": 1.5
+      },
+      "plant_per_game": {
+        "WHEAT": 102.8,
+        "CARROT": 38.2,
+        "STRAWBERRY": 35.0,
+        "MELON": 13.2,
+        "TOMATO": 12.5
+      },
+      "build_per_game": {
+        "BUILD_PASTURE": 15.5,
+        "BUILD_COOP": 2.5
+      }
+    },
+    "Otter Vibe": {
+      "streams": 63,
+      "rank": 3,
+      "rating": 2974.2,
+      "money_p50": 107388.0,
+      "win_rate_recorded": 0.7301587301587301,
+      "hire_p50": 279,
+      "land_buys_mean": 2,
+      "first_land_turn_p50": 120,
+      "fertilize_p50": 183,
+      "sell_turns_p50": 89,
+      "animals_per_game": {
+        "COW": 8.25,
+        "SHEEP": 6.4,
+        "GOOSE": 5.25
+      },
+      "plant_per_game": {
+        "WHEAT": 100.3,
+        "CARROT": 32.8,
+        "STRAWBERRY": 27.5,
+        "TOMATO": 18.8,
+        "MELON": 15.3
+      },
+      "build_per_game": {
+        "BUILD_PASTURE": 14.65,
+        "BUILD_COOP": 5.25
+      }
+    },
+    "SpaTaro": {
+      "streams": 168,
+      "rank": 2,
+      "rating": 2979.6,
+      "money_p50": 95675.0,
+      "win_rate_recorded": 0.5535714285714286,
+      "hire_p50": 280.0,
+      "land_buys_mean": 5.011904761904762,
+      "first_land_turn_p50": 49.0,
+      "fertilize_p50": 110.0,
+      "sell_turns_p50": 234.0,
+      "animals_per_game": {
+        "COW": 10.65,
+        "SHEEP": 10.32,
+        "GOOSE": 0.12
+      },
+      "plant_per_game": {
+        "WHEAT": 170.6,
+        "CARROT": 63.0,
+        "STRAWBERRY": 26.1,
+        "MELON": 12.0,
+        "TOMATO": 0.0
+      },
+      "build_per_game": {
+        "BUILD_PASTURE": 17.88,
+        "BUILD_COOP": 0.14
+      }
+    },
+    "binghua": {
+      "streams": 98,
+      "rank": 12,
+      "rating": 2901.9,
+      "money_p50": 99434.0,
+      "win_rate_recorded": 0.5714285714285714,
+      "hire_p50": 317.0,
+      "land_buys_mean": 2,
+      "first_land_turn_p50": 87.0,
+      "fertilize_p50": 178.5,
+      "sell_turns_p50": 168.0,
+      "animals_per_game": {
+        "COW": 7.81,
+        "SHEEP": 6.99,
+        "GOOSE": 1.81
+      },
+      "plant_per_game": {
+        "WHEAT": 136.0,
+        "CARROT": 42.0,
+        "STRAWBERRY": 32.8,
+        "MELON": 12.6,
+        "TOMATO": 7.6
+      },
+      "build_per_game": {
+        "BUILD_PASTURE": 14.63,
+        "BUILD_COOP": 1.83
+      }
+    }
+  },
+  "executor_on_elite_worlds": {
+    "source": "experiments.current_meta_benchmark",
+    "candidate": "agent/ built by submission.build with DEFAULTS",
+    "games": 314,
+    "score": 0.0064,
+    "ci95_by_episode": [
+      0.0,
+      0.015
+    ],
+    "money_p50": 41948,
+    "elite_opponent_money_p50": 136944,
+    "gold_delta_p50": -98396,
+    "failures": 0
+  },
+  "static_plan_sweep": {
+    "games_each": 60,
+    "source": "first 60 seat assignments of the elite subset",
+    "variants": {
+      "base": {
+        "params": {},
+        "money_p50": 40476,
+        "score": 0.0
+      },
+      "cows": {
+        "params": {
+          "animal_target": 8,
+          "animal_type": "COW"
+        },
+        "money_p50": 55484,
+        "score": 0.05
+      },
+      "land": {
+        "params": {
+          "max_quadrants": 4,
+          "expand_day": 2
+        },
+        "money_p50": 40886,
+        "score": 0.0
+      },
+      "hands": {
+        "params": {
+          "max_hands": 12
+        },
+        "money_p50": 37630,
+        "score": 0.0
+      },
+      "elite_combo": {
+        "params": {
+          "animal_target": 10,
+          "animal_type": "COW",
+          "max_quadrants": 4,
+          "expand_day": 2,
+          "max_hands": 12
+        },
+        "money_p50": 28244,
+        "score": 0.017
+      }
+    }
+  },
+  "engine_arithmetic": {
+    "animal_yield": "1 unit per interval, +1 on a fed production day after CARE, plus 1 FERTILIZER per animal per day",
+    "intervals": {
+      "GOOSE": 1,
+      "COW": 2,
+      "SHEEP": 3
+    },
+    "revenue_per_tile_day_at_base": {
+      "WHEAT": 25,
+      "CARROT": 26,
+      "GOOSE": 200,
+      "SHEEP": 234,
+      "COW": 260
+    },
+    "shop_daily_consumption": {
+      "YARN_STORE": {
+        "WOOL": 12
+      },
+      "PET_CAFE": {
+        "CARROT": 12
+      },
+      "single_product_multiplier": 2,
+      "other_shops_per_listed_product": 6,
+      "town_centre": 1
+    },
+    "market_depth_T": {
+      "STRAWBERRY": 100,
+      "WOOL": 105,
+      "MILK": 122,
+      "TOMATO": 200,
+      "FERTILIZER": 200,
+      "MELON": 300,
+      "EGG": 332,
+      "WHEAT": 400,
+      "CARROT": 450
+    },
+    "saturation": {
+      "one_yarn_store": "18 sheep",
+      "one_milk_shop": "6 cows",
+      "one_egg_shop": "3 geese"
+    }
+  },
+  "external": {
+    "busyaprime/what-actually-wins-on-the-kaggriculture-ladder": "winners and losers differ only in selling; daily median falling since 2026-08-10; no agent shared between the 08-15 and 09-01 tier lists",
+    "zhincez/ten-ppo-runs-one-fake-win-zero-real-ones": "10 PPO configs, none beat the anchor; one policy farm actions + another policy market orders earns 0 coins where the pair earns ~108k"
+  }
+}
