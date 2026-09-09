@@ -24,4 +24,8 @@ DEFAULTS = {
     'fertilize': True,  # Issue #6: emit FERTILIZE when it pays for itself.
     # Issue #26: reserve list positions only for planner-accepted essentials.
     'market_slot_reservation': True,
+    # ENGINE_FINDINGS O3/O4, kept as switches so the lift can be ablated the way
+    # `sell_fraction` and `fertilize` are. Both default on.
+    'care_pricing': True,   # price CARE by the unit it banks, not a flat 45
+    'last_day_water': True,  # water on the final day while a turn remains to harvest
 }

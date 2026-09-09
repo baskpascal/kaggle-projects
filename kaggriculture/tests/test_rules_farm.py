@@ -379,3 +379,26 @@ def test_weed_spawn_is_seeded_and_reproducible():
         act(a)
         act(b)
     assert observations(a.state)[0]['farms'] == observations(b.state)[0]['farms']
+
+
+def test_animal_max_held_matches_the_engine():
+    """The agent's max_held table is the engine's, or a banked CARE is discarded."""
+    from agent.economy import ANIMAL_MAX_HELD
+    module = official()
+    assert ANIMAL_MAX_HELD == {name: a['max_held'] for name, a in module.ANIMALS.items()}
+
+
+def test_next_production_day_tracks_the_engine_yield_schedule():
+    """`next_production_day` must land on the days the engine actually produces."""
+    from agent.economy import next_production_day
+    module = official()
+    for name, a in module.ANIMALS.items():
+        tile = {'animal': name, 'placed_day': 3}
+        produces = {day for day in range(3, 40)
+                    if (day - 3 - a['first_yield_day']) >= 0
+                    and (day - 3 - a['first_yield_day']) % a['interval'] == 0}
+        for today in range(3, 30):
+            nxt = next_production_day(tile, today)
+            assert nxt > today, (name, today, nxt)
+            assert nxt in produces, (name, today, nxt)
+            assert not [d for d in produces if today < d < nxt], (name, today, nxt)
