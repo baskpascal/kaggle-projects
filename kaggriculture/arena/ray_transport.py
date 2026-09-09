@@ -160,13 +160,27 @@ class RayBatchMapper:
     def __call__(self, batches, _workers):
         batches = list(batches)
         self.verify_cluster(batches)
-        pending = {self._submit(batch): (batch, 1) for batch in batches}
+        queued = iter(batches)
+        pending = {}
+
+        def fill_window():
+            while len(pending) < self.available_slots:
+                try:
+                    batch = next(queued)
+                except StopIteration:
+                    return
+                pending[self._submit(batch)] = (batch, 1)
+
+        # Submitting the entire run lets Ray grant leases to a slow node far ahead of
+        # completion. A one-wave window keeps scheduling dynamic: whichever node frees a
+        # slot first becomes eligible for the next batch.
+        fill_window()
         while pending:
             ready, _ = self.ray.wait(list(pending), num_returns=1)
             ref = ready[0]
             batch, attempt = pending.pop(ref)
             try:
-                yield self.ray.get(ref)
+                result = self.ray.get(ref)
             except self.ray.exceptions.RayTaskError as exc:
                 cause = exc.as_instanceof_cause()
                 if isinstance(cause, OSError) and attempt < self.attempts:
@@ -179,6 +193,8 @@ class RayBatchMapper:
                     continue
                 raise OSError(f'Ray infrastructure failed batch {batch["batch_id"]} '
                               f'after {attempt} attempts: {exc}') from exc
+            fill_window()
+            yield result
 
 
 def connect(address='auto', *, cpus_per_worker=1, attempts=3, timeout=-1,

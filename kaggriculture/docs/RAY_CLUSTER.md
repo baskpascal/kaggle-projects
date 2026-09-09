@@ -85,7 +85,8 @@ python3 scripts/ray_cluster.py configure-worker \
 Depois da configuração, `ensure` mantém a capacidade escolhida e o Ray agenda os lotes
 dinamicamente. A máquina rápida libera slots antes e recebe mais lotes; não existe divisão
 fixa por hostname. O batch adaptativo mantém pelo menos oito vezes mais lotes que slots do
-cluster, e `--batch-size` continua disponível para uma medição controlada.
+cluster, enquanto o transporte mantém apenas uma onda em voo para não pré-atribuir uma
+fila longa ao nó lento. `--batch-size` continua disponível para uma medição controlada.
 
 ## Preparação manual equivalente
 

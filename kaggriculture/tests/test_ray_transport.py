@@ -45,6 +45,7 @@ class FakeRay:
 
     def __init__(self):
         self.remote_options = []
+        self.wait_sizes = []
 
     def cluster_resources(self):
         return {'CPU': 4}
@@ -64,6 +65,7 @@ class FakeRay:
         return value.value
 
     def wait(self, refs, num_returns=1):
+        self.wait_sizes.append(len(refs))
         return refs[:num_returns], refs[num_returns:]
 
 
@@ -87,6 +89,15 @@ class RecordingTask:
 
     def remote(self, batch, workers, timeout):
         return Ref(value={'workers': workers, 'timeout': timeout, 'batch': batch})
+
+
+class CountingTask:
+    def __init__(self):
+        self.calls = 0
+
+    def remote(self, *_args):
+        self.calls += 1
+        return Ref(value={'call': self.calls})
 
 
 def test_mapper_disables_ray_retries_and_counts_cluster_slots():
@@ -132,6 +143,20 @@ def test_mapper_retries_a_system_failure_but_not_application_failure(monkeypatch
     with pytest.raises(ValueError, match='bad batch'):
         list(mapper([batch], 1))
     assert mapper._task.calls == 1
+
+
+def test_mapper_keeps_only_one_cluster_wave_in_flight(monkeypatch):
+    ray = FakeRay()
+    mapper = RayBatchMapper(ray)
+    monkeypatch.setattr(mapper, 'verify_cluster', lambda batches: [])
+    mapper._task = CountingTask()
+    batches = [make_batch([{'candidate': 'pass', 'opponent': 'pass', 'seed': seed,
+                            'seat': 0, 'backend': 'fast'}]) for seed in range(10)]
+
+    assert len(list(mapper(batches, 1))) == 10
+    assert mapper._task.calls == 10
+    assert ray.wait_sizes[0] == mapper.available_slots
+    assert max(ray.wait_sizes) == mapper.available_slots
 
 
 def test_remote_jobs_cannot_leave_replay_results_on_worker_filesystems(monkeypatch):
