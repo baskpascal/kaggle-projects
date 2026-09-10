@@ -2,6 +2,9 @@ DEFAULTS = {
     'max_hands': 8,
     'cash_reserve': 250,
     'travel_cost': 3.0,
+    'diagnostics': False,
+    'reposition_idle': False,
+    'demand_horizon': 0,  # 0 = historical `peak`-day window
     'opponent_weight': 0.8,
     'adaptive': True,
     'only_crop': None,

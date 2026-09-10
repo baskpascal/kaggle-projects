@@ -1,0 +1,63 @@
+# Kaggriculture research journal
+
+## 2026-09-10 — the contention asymmetry
+
+Reality: SpaTaro leads at 3101.2, top-ten cut 2954.6, we sit at 2525.5, rank 489.
+
+### The measurement that reframes the campaign
+
+Terminal cash, seed 1000, same engine, read from the observation:
+
+| pairing | ours | theirs |
+|---|---:|---:|
+| own planner vs own planner | **87,104** | 87,104 |
+| v006 vs v006 | **74,619** | 74,619 |
+| own planner vs v006 | **35,199** | **102,139** |
+
+**Our owned planner's mirror economy is larger than v006's** (87,104 against 74,619). It is
+not economically weaker. What happens when the two meet is a swing of roughly 52,000 driven
+entirely by contention for the town's shared demand: v006 gains +27,520 over its mirror while
+we lose −51,905 against ours.
+
+MEASURED FACT. The interpretation that follows — that v006 is competitively dominant rather
+than economically strong, and our planner competitively fragile rather than economically weak
+— is consistent with every earlier failure in this campaign, because every knob tried so far
+adjusts the size or efficiency of our own economy and none of them touches contention.
+
+### Eight interventions, four layers, all rejected
+
+Paired, 20 dev worlds, both seats, zero failures. Against the same base unless noted.
+
+| layer | intervention | result |
+|---|---|---|
+| macro genome | `animal_cap` 22→12 / 22→6 | 0.300 / 0.450 |
+| macro genome | `plant_until_hour` 18→20/22/23 | 0.550 / 0.625 / 0.650; **0.560 [0.480, 0.635]** at 200 games |
+| crop economics | `demand_horizon` 10 / 20 | 0.350 / 0.200 |
+| crop economics | `demand_horizon` 10 + `max_hands` 12 | 0.150 |
+| executor | `reposition_idle` | 0.575; PASS 21.2%→15.9%, margin vs v006 −81,266→−74,753 |
+| sale policy | `sale_floor_fraction` 0.5 / 0.0 | 0.000 vs v006; margin −73,763 / −72,728 |
+| forecast | `opponent_weight` 0.0 | 0.000 vs v006; margin −79,368 |
+| forecast | `opponent_weight` 2.5 / 5.0 | 0.000 vs v006; margin −80,202 / −85,183 |
+
+The best of these recovers 8,500 of an 81,000 deficit and converts none of it into a win.
+
+### Executor idleness, instrumented and sized
+
+With `diagnostics` on, over 719 turns: 38.32 jobs generated per turn for 8.56 units — work is
+4.5× units, there is no shortage. Idle units 1.74 per turn, and the cause is
+**jobs_unreachable_or_gated 987 of 1,254 events (79%)**, `no_job_generated` 243, and
+`all_jobs_taken` only 24. Units have work and cannot reach it before the day ends.
+`reposition_idle` fixes exactly that — PASS falls 5.3 points — and is worth almost nothing.
+Executor idleness is therefore real, understood, and not the constraint.
+
+### Intraday sale timing is not the differentiator
+
+Median first sale of the day is hour 1 for both agents. Order counts differ (414 against 240)
+but orders are requests, not executions, and may not be used for magnitude.
+
+### Next
+
+The contention swing is the only mechanism measured at the right order of magnitude
+(~52,000). Nothing in the current parameter surface expresses it. The next architectural
+level is a policy that reasons about the opponent's claim on daily demand rather than about
+its own forecast.

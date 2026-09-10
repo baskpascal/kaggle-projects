@@ -6,6 +6,11 @@ from .market import projected_shed, sale_orders, schedule_market_orders
 from .routing import distance, move_towards, nearest_shed, shed_tiles
 from .state import State
 
+# Optional, off by default: the planner records why units had nothing to do, so the
+# question "what profitable work was available but not executed" can be answered from
+# state rather than by counting PASS. Written only when `diagnostics` is enabled.
+DIAGNOSTIC = {}
+
 
 def policy(observation, configuration=None, parameters=None):
     p = {**DEFAULTS, **(parameters or {})}
@@ -144,6 +149,14 @@ def policy(observation, configuration=None, parameters=None):
                 jobs.append((pos, ['PLANT', crop], 20 + min(40, current[crop]), None))
                 planned[crop] = planned.get(crop, 0) + 1
 
+    if p.get('diagnostics'):
+        DIAGNOSTIC['turns'] = DIAGNOSTIC.get('turns', 0) + 1
+        DIAGNOSTIC['jobs_generated'] = DIAGNOSTIC.get('jobs_generated', 0) + len(jobs)
+        DIAGNOSTIC['units'] = DIAGNOSTIC.get('units', 0) + len(s.positions)
+        DIAGNOSTIC['plantable_tiles'] = DIAGNOSTIC.get('plantable_tiles', 0) + len(plantable)
+        for _, action, _, _ in jobs:
+            k = 'job_' + str(action[0])
+            DIAGNOSTIC[k] = DIAGNOSTIC.get(k, 0) + 1
     used = set()
     unit_actions = []
     planned_crops = {}
@@ -186,6 +199,24 @@ def policy(observation, configuration=None, parameters=None):
                 score *= p['continuity_completion']
             ranked.append((score, -j, j))
         if not ranked:
+            if p.get('diagnostics'):
+                DIAGNOSTIC['idle_units'] = DIAGNOSTIC.get('idle_units', 0) + 1
+                key = ('no_job_generated' if not jobs else
+                       'all_jobs_taken' if len(used) >= len(jobs) else
+                       'jobs_unreachable_or_gated')
+                DIAGNOSTIC[key] = DIAGNOSTIC.get(key, 0) + 1
+            # 79% of idleness is a unit that has work available and cannot reach any of
+            # it before the day ends, so standing still guarantees the same refusal
+            # tomorrow. Walking toward the nearest unclaimed job converts a dead slot
+            # into position, which is what makes that job reachable next morning.
+            if p['reposition_idle'] and not (total_inv and home_distance == 0):
+                remaining = [jobs[j] for j in range(len(jobs)) if j not in used]
+                if remaining:
+                    target = min(remaining, key=lambda job: (distance(position, job[0]),
+                                                             job[0]))[0]
+                    if distance(position, target):
+                        unit_actions.append(move_towards(position, target))
+                        continue
             unit_actions.append(['DROP'] if total_inv and home_distance == 0 else ['PASS'])
             continue
         _, _, chosen = max(ranked)

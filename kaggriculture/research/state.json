@@ -1,0 +1,27 @@
+{
+  "updated": "2026-09-10",
+  "champion": {
+    "artifact": "versions/v006/main.py",
+    "sha256_prefix": "495bfa4825c9e586",
+    "ladder": 2525.5,
+    "rank": 489
+  },
+  "leader": {
+    "team": "SpaTaro",
+    "rating": 3101.2,
+    "top10_cut": 2954.6
+  },
+  "key_finding": "mirror economies: own planner 87104 > v006 74619; head-to-head 35199 vs 102139. ~52k swing is contention, not economy size.",
+  "layers_exhausted": [
+    "macro genome",
+    "crop economics",
+    "executor idleness",
+    "sale floor",
+    "opponent forecast weight"
+  ],
+  "next_action": "build an opponent-aware demand-claim policy: estimate the opponent's daily draw on each product from its observable standing assets, and allocate our production and sales to the residual demand rather than to our own forecast. Falsify first with static arithmetic on daily_demand vs both farms' standing yield.",
+  "instruments": {
+    "primary": "paired win probability vs v006 on the cluster",
+    "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
+  }
+}

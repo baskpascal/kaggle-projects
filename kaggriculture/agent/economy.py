@@ -262,9 +262,17 @@ def score_crops(context, params, planned=None):
         other = context['opponent'][crop] * params['opponent_weight']
         # With delayed sales, our unsold harvest is future supply too. Ignoring it
         # makes holding look like new demand and triggers more overproduction.
+        # Supply and demand were credited over different horizons: every standing
+        # tile contributes its whole harvest, while the town was credited with only
+        # `peak` days of appetite. Over a season a tile is replanted many times and
+        # the town buys every day, so the short horizon makes a full farm look
+        # saturated and stops planting long before the marginal crop stops paying.
+        # `demand_horizon` of 0 keeps the historical window exactly.
+        horizon = (min(peak, context['days_left']) if not params.get('demand_horizon')
+                   else min(params['demand_horizon'], context['days_left']))
         forecast = (context['inventory'][crop] + context['held'][crop]
                     + (own + other) * quantity
-                    - context['demand'][crop] * min(peak, context['days_left']))
+                    - context['demand'][crop] * horizon)
         revenue = sale_value(crop, quantity, forecast, context['market_params'])
         # Approximate occupied-tile cost includes daily watering, planting, harvest, travel.
         scores[crop] = (revenue - seed) / (occupancy + params['travel_cost'])
