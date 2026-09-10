@@ -6,6 +6,8 @@ be trusted to be the reason a run survived.
 """
 import json
 import sqlite3
+import threading
+import time
 
 import pytest
 
@@ -62,6 +64,22 @@ def test_identity_covers_the_agent_hashes_not_the_paths():
         job_id({**base, 'candidate_hash': None})
 
 
+def test_identity_invalidates_configuration_engine_and_snapshot_contract():
+    base = spec_of(row())
+    assert job_id({**base, 'configuration': {'actTimeout': 1}}) != job_id(base)
+    assert job_id({**base, 'engine_identity': {'version': 'other'}}) != job_id(base)
+    assert job_id({**base, 'replay_steps': [72]}) != job_id(base)
+    assert job_id({**base, 'replay_steps': [72], 'replay_schema': 'other'}) != \
+        job_id({**base, 'replay_steps': [72]})
+
+
+def test_byte_identical_agents_share_cache_across_worktree_paths():
+    base = spec_of(row())
+    moved = {**base, 'candidate': '/another/worktree/us.py',
+             'opponent': '/another/worktree/a.py'}
+    assert job_id(moved) == job_id(base)
+
+
 def test_the_same_game_recorded_twice_is_stored_once(tmp_path):
     with store(tmp_path) as jobs:
         first = jobs.record(row(), 'dev')
@@ -104,6 +122,34 @@ def test_a_second_process_picks_up_exactly_what_the_first_left(tmp_path):
         pending = second.pending(jobs)
         assert len(pending) == 20
         assert {j['job_id'] for j in pending}.isdisjoint({j['job_id'] for j in half})
+
+
+def test_concurrent_worktrees_claim_each_game_only_once(tmp_path):
+    work = specs(('a', 'b'), range(8))
+    played, lock = [], threading.Lock()
+
+    def runner(payload, workers):
+        for job in payload:
+            time.sleep(.002)
+            with lock:
+                played.append(job['job_id'])
+            yield emit(job)
+
+    errors = []
+    def drive():
+        try:
+            with store(tmp_path, 'shared.sqlite3') as book:
+                execute(work, book, 'dev', runner)
+        except Exception as exc:  # surfaced in the assertion below
+            errors.append(exc)
+
+    threads = [threading.Thread(target=drive) for _ in range(2)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(10)
+    assert not errors
+    assert len(played) == len(work) == len(set(played))
 
 
 def test_only_infrastructure_faults_are_retried(tmp_path):

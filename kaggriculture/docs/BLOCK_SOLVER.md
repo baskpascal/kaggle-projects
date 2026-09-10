@@ -5,6 +5,13 @@ estado de chegada pela continuação fixa até o fim da partida. O objetivo de b
 é o menor placar médio por oponente, seguido do placar médio geral. Empates valem
 0,5; dinheiro não desempata. Uma variante neutra mantém o titular.
 
+A busca aceita `--resume`. Cada partida concluída entra imediatamente no cache SQLite
+content-addressed compartilhado da máquina, e o histórico é atualizado a cada proposta.
+A chave cobre hashes dos artefatos, seed/assento/backend, configuração, fingerprint do
+engine, perfil de evidência e contrato dos snapshots; caminhos ficam fora, permitindo
+reuso entre worktrees. Claims atômicos evitam execução duplicada concorrente.
+`--ray-address auto` transporta snapshots esparsos inline no cluster privado.
+
 A ferramenta já funciona, mas **nenhum ganho competitivo foi demonstrado**.
 A #39 deve continuar aberta até existir uma biblioteca melhor e uma decisão de
 roteamento medida sobre ela.
@@ -22,7 +29,7 @@ python -m experiments.block_solver \
   --output experiments/searches/block-solver-terminal-03
 ```
 
-O diretório precisa ser novo. A fonte aceita uma lista de fitas ou um envelope
+O diretório precisa ser novo, salvo ao continuar com `--resume`. A fonte aceita uma lista de fitas ou um envelope
 `{"tapes": [...]}`. O início precisa coincidir com uma fronteira de três dias,
 com duração de três ou seis dias. O bloco final é truncado no turno 719.
 

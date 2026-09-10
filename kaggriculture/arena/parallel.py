@@ -58,7 +58,8 @@ MATCH_TIMEOUT = float(os.environ.get('ARENA_MATCH_TIMEOUT', 300.))
 PRELOAD = ('arena.match', 'arena.engine', 'arena.agents', 'arena.telemetry',
            'kaggle_environments')
 MATCH_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'configuration',
-                'replay', 'telemetry_enabled', 'replay_steps', 'evidence_profile')
+                'replay', 'telemetry_enabled', 'replay_steps', 'evidence_profile',
+                'replay_inline')
 
 
 def _match_kwargs(job):

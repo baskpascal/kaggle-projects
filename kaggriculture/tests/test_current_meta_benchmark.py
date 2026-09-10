@@ -4,8 +4,9 @@ import zipfile
 
 import pytest
 
-from experiments.current_meta_benchmark import (behaviour_digest, file_digest, score_interval,
-                                                require_engine, source_rows, summarize)
+from experiments.current_meta_benchmark import (benchmark, behaviour_digest, file_digest,
+                                                score_interval, require_engine, source_identity,
+                                                source_rows, summarize)
 
 
 def test_behaviour_digest_uses_only_the_opening():
@@ -65,6 +66,50 @@ def test_file_digest_streams_the_source(tmp_path):
     path = tmp_path / 'source.bin'
     path.write_bytes(b'current meta')
     assert file_digest(path) == hashlib.sha256(b'current meta').hexdigest()
+
+
+def test_directory_identity_is_ordered_and_content_addressed(tmp_path):
+    source = tmp_path / 'episodes'
+    source.mkdir()
+    (source / 'b.json').write_bytes(b'b')
+    (source / 'a.json').write_bytes(b'a')
+    first = source_identity(source)
+    assert [row['path'] for row in first['manifest']] == ['a.json', 'b.json']
+    assert source_identity(source) == first
+    (source / 'a.json').write_bytes(b'changed')
+    assert source_identity(source)['sha256'] != first['sha256']
+
+
+def test_directory_benchmark_resumes_from_shared_cache(tmp_path, monkeypatch):
+    actions = {'farmer': ['PASS'], 'hands': [], 'market': []}
+    episode = {'info': {'EpisodeId': 7, 'seed': 9, 'TeamNames': ['left', 'right']},
+        'rewards': [11., 12.], 'statuses': ['DONE', 'DONE'], 'module_version': '1.32.7',
+        'steps': [[{'action': actions}, {'action': actions}]] * 720}
+    source = tmp_path / 'episodes'
+    source.mkdir()
+    (source / '7.json').write_text(json.dumps(episode))
+    candidate = tmp_path / 'candidate.py'
+    candidate.write_text('def agent(obs): return {}\n')
+    played = []
+
+    def runner(jobs, workers):
+        for job in jobs:
+            played.append(job['job_id'])
+            yield {**job, 'configuration': {'seed': job['seed']},
+                   'environment': {'version': '1.32.7'}, 'score': .5, 'money': 1.,
+                   'opponent_money': 1., 'margin': 0., 'failures': [],
+                   'opponent_failures': [], 'wall_seconds': .01}
+    monkeypatch.setattr('experiments.current_meta_benchmark._runner',
+                        lambda address: (runner, {'kind': 'test'}))
+    cache = tmp_path / 'shared.sqlite3'
+    output = tmp_path / 'report.json'
+    first = benchmark(candidate, source, output, tmp_path / 'agents', workers=1,
+                      required_engine='1.32.7', cache=cache)
+    second = benchmark(candidate, source, output, tmp_path / 'agents', workers=1,
+                       required_engine='1.32.7', cache=cache, resume=True)
+    assert len(played) == 2
+    assert first['cache']['misses'] == 2 and second['cache']['hits'] == 2
+    assert first['source_identity']['kind'] == 'directory'
 
 
 def test_engine_mismatch_is_a_hard_failure():
