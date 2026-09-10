@@ -253,3 +253,35 @@ The blocker is opening liquidity, not allocation. Before any further paired game
 first eight days' cash trajectory against the seed cost of the reserved tiles, and find what
 the opening actually spends its three hundred coins on. Gate unchanged: at least 150 units of
 the target crop delivered before t360.
+
+## Adaptive Option Selector v0
+
+One macro decision at turn 336, three continuations per world, fitness is win probability
+because the final tournament is Bradley-Terry over wins — a win by one coin and a win by
+thirty thousand count the same.
+
+Against v006, 40 seeds × both seats = 80 worlds, zero failures:
+
+    continue     0.000
+    cow_heavy    0.000
+    crop_heavy   0.000
+    ORACLE       0.000
+
+The oracle is the ceiling of any selector — it picks the best of the three knowing the
+outcome in advance — and it is zero. There is nothing for a state-conditioned rule to choose
+between: no combination of state and option produces a single win against v006 from our own
+planner's base.
+
+Measuring the oracle alongside the fixed baselines is what makes this cheap and safe. Without
+it the reading would have been "adaptive ties fixed", and the next step would have been fitting
+a value model to a signal that does not exist.
+
+**The result does not say option-level adaptation fails.** It says adaptation is not the
+bottleneck: a selector only has value when at least one option wins in at least some worlds,
+and our owned base is 81,000 behind. The architecture question it settles is which body the
+selector belongs on — not the owned planner.
+
+Caveat on the design: `continue`, `cow_heavy` and `crop_heavy` are parameter variations, not
+genuinely distinct economic regimes. A zero oracle against v006 is conclusive regardless, since
+none of them wins. In the self-play control, a small oracle-minus-fixed gap would mean these
+options are weak rather than that options do not work.
