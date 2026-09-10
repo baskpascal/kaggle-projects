@@ -424,3 +424,48 @@ Decision: **reject at Phase 2**. Do not fit a selector and do not integrate a ch
 layer. State conditioning cannot recover a reward signal absent from every tested Option.
 Full summary and hashes: `docs/STATE_OPTION_COUNTERFACTUAL.md` and
 `docs/state-option-counterfactual-20260910.json`.
+
+## 2026-09-10 — o ladder real: a execução está limpa e a perda é estreita
+
+Primeira medição fora do painel local. `experiments/ladder_ground_truth.py` lê os episódios
+que a submissão `v006` (56125200) realmente jogou no Kaggle. 204 episódios atribuíveis,
+2026-09-09T14:36Z a 2026-09-10T18:32Z, sem gastar nenhuma view de episódio — o `ListEpisodes`
+é gratuito e já traz reward dos dois lados, seat, adversário e o par
+`initialScore`/`updatedScore` de cada partida. Detalhes em `docs/LADDER_GROUND_TRUTH.md`.
+
+A queda que os snapshots de leaderboard mostravam é do próprio `v006`, e é convergência, não
+falta dela: cold start em 600, pico de **2644,4** no episódio 117, e **2513,3** agora, 131,1
+abaixo do pico e ainda caindo.
+
+**Execução está limpa.** 204 de 204 episódios em `COMPLETED`, zero rewards ausentes, e o corte
+por seat dá 0,593 contra 0,594 em 108 e 96 episódios. Não há assimetria de seat, o que refuta
+para este agente a preocupação de que `obs["step"]` ausente no seat 1 faria repetir a lógica do
+turno 0.
+
+**A perda é estratégica e é estreita:**
+
+    oponente < 2400    n= 36   win 0,917   soma dos deltas +1.802,0
+    oponente 2400-2600 n=101   win 0,614   soma dos deltas   +138,5
+    oponente 2600-2800 n= 67   win 0,388   soma dos deltas    -27,2
+    oponente > 2800    n=  0
+
+Nunca enfrentamos ninguém acima de 2800; o corte do top-10 (2946,6) é uma faixa que não
+alcançamos, não um adversário que perdemos. Todo o rating acumulado veio da faixa abaixo de
+2400, atravessada uma vez na subida. Interpolando as duas faixas centrais, **estimativa** de
+equilíbrio em torno de 2600 — extrapolação, não medição.
+
+O número mais surpreendente é a escala. Vitória mediana **+794**, derrota mediana **−1.109**,
+sobre rewards de 90.000 a 120.000: menos de 1%. O painel local mede o mesmo agente contra
+margens de ±81.000. Isso não prova que o painel é espelho, e a hipótese fica na forma fraca —
+`H1: local_eval is conditionally biased relative to live ladder` — mas estabelece o suficiente
+para decidir prioridade: **uma função objetivo calibrada em 80.000 não resolve diferenças de
+800.**
+
+### Próximo
+
+Ligar o tier 2 (`GetEpisode`, com credencial, sob o `ViewLedger` de 3.600 views/24h já
+implementado) para obter seed, engine version, statuses por agente e o stream de ações; e então
+reproduzir cada episódio real localmente com mesma seed, seat e adversário, comparando
+`predicted_local_outcome` contra `actual_ladder_outcome`. Até esse resultado existir, nenhuma
+CPU vai para busca, GA, option selector ou RL: não sabemos qual objetivo correlaciona com o
+ladder.
