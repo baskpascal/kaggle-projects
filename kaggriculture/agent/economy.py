@@ -20,6 +20,10 @@ ANIMALS = {
 # Engine max_held: yield_units, plus any banked care bonus, is clipped to this at
 # production. Without it a CARE can be queued for a bonus the engine will discard.
 ANIMAL_MAX_HELD = {'GOOSE': 4, 'COW': 6, 'SHEEP': 6}
+# With daily FEED+CARE after the initial delay: one ordinary unit plus one banked-care
+# unit on every production day. These rates turn town demand into sustainable herd size.
+ANIMAL_DAILY_YIELD = {'GOOSE': 2., 'COW': 1., 'SHEEP': 2 / 3}
+ANIMAL_FLOOR = {'GOOSE': 1, 'COW': 6, 'SHEEP': 6}
 
 
 def care_priority(tile, prices, day, days_left):
@@ -57,6 +61,61 @@ def next_production_day(tile, day):
         return start
     elapsed = day - start
     return day + (interval - elapsed % interval)
+
+
+def livestock_targets(state, params):
+    """Allocate a mixed herd against known demand and remaining market depth.
+
+    The floor is below the typical elite herd and can sell its lifetime output into the
+    untouched market even before a matching shop appears. New shops then raise only the
+    target for products the town actually consumes. Existing animals are never planned
+    away because the engine has no operation that can sell one.
+    """
+    counts = {name: 0 for name in ANIMALS}
+    for _, _, tile in state.tiles():
+        if isinstance(tile, dict) and tile.get('animal') in counts:
+            counts[tile['animal']] += 1
+    if not params.get('economic_planner'):
+        target = dict(counts)
+        name = params['animal_type']
+        target[name] = max(target[name], int(params['animal_target']))
+        return target
+
+    desired = dict(counts)
+    for name, (_, _, product, first, _) in ANIMALS.items():
+        # Buying after this point cannot produce, be harvested and reach the shed in time.
+        if state.days_left <= first + 2:
+            continue
+        demand_target = math.ceil(daily_demand(state, product) /
+                                  ANIMAL_DAILY_YIELD[name])
+        desired[name] = max(desired[name], ANIMAL_FLOOR[name], demand_target)
+
+    configured_cap = int(params.get('animal_cap', 22))
+    if state.day < int(params.get('animal_ramp_day', 0)):
+        configured_cap = min(configured_cap, int(params.get('animal_bootstrap_cap', 5)))
+    cap = max(sum(counts.values()), configured_cap)
+    if sum(desired.values()) <= cap:
+        return desired
+
+    prices = state.obs['market']['prices']
+    wheat, fertilizer = prices['WHEAT'], prices['FERTILIZER']
+    slots = []
+    for name, target in desired.items():
+        product = ANIMALS[name][2]
+        value = prices[product] * ANIMAL_DAILY_YIELD[name] + fertilizer - wheat
+        demand = daily_demand(state, product)
+        for index in range(target):
+            # Preserve the live herd first, then the diversified floor. Only optional
+            # expansion competes on marginal product value.
+            # When the bootstrap cap is below the full floor, keep at least one of each
+            # production chain before allocating the remaining slots by economics.
+            tier = (3 if index < counts[name] else
+                    2 if index == 0 else
+                    1 if index < ANIMAL_FLOOR[name] else 0)
+            demand_bonus = prices[product] if index * ANIMAL_DAILY_YIELD[name] < demand else 0
+            slots.append((tier, value + demand_bonus, name, index))
+    chosen = sorted(slots, reverse=True)[:cap]
+    return {name: sum(slot[2] == name for slot in chosen) for name in ANIMALS}
 # base, T, scarcity shape/target, glut shape/target
 CURVES = {
     'WHEAT': (25, 400, 'sqrt', .8, 'log', .2),
@@ -113,6 +172,46 @@ def sale_value(item, count, inventory, overrides=None):
         if quote > 1:
             inventory += 1
     return total
+
+
+def purchase_cost(item, count, inventory, overrides=None):
+    """Exact sequential BUY_PRODUCT cost; each filled unit removes inventory first."""
+    return sum(price(item, inventory - offset - 1, overrides)
+               for offset in range(max(0, int(count))))
+
+
+def arbitrage_opportunities(state, room, budget, params):
+    """Rank observable buy-now/sell-after-demand round trips by expected return.
+
+    No future shop or opponent action is guessed. The only inventory movement forecast is
+    consumption from shops already unlocked and the town centre. This makes a rejected
+    opportunity harmless and bounds accepted exposure by both cash and shed capacity.
+    """
+    if not params.get('market_arbitrage') or room <= 0 or budget <= 0:
+        return []
+    horizon = max(1, int(params.get('arbitrage_horizon_days', 3)))
+    unit_cap = min(room, max(0, int(params.get('arbitrage_max_units', 40))))
+    minimum_roi = float(params.get('arbitrage_min_roi', .08))
+    overrides = state.config.get('marketParams')
+    opportunities = []
+    for item in CURVES:
+        inventory = state.obs['market']['inventory'][item]
+        demand = daily_demand(state, item) * min(horizon, max(0, state.days_left - 1))
+        best = None
+        for count in range(1, unit_cap + 1):
+            cost = purchase_cost(item, count, inventory, overrides)
+            if cost > budget:
+                break
+            future_inventory = inventory - count - demand
+            proceeds = sale_value(item, count, future_inventory, overrides)
+            profit = proceeds - cost
+            roi = profit / cost if cost else 0
+            if roi >= minimum_roi and (best is None or profit > best['profit']):
+                best = {'item': item, 'count': count, 'cost': cost,
+                        'profit': profit, 'roi': roi}
+        if best:
+            opportunities.append(best)
+    return sorted(opportunities, key=lambda row: (-row['roi'], -row['profit'], row['item']))
 
 
 def daily_demand(state, item):

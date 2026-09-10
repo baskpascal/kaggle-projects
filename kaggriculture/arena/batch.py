@@ -24,6 +24,7 @@ not depend on it either way.
 import hashlib
 import json
 import os
+import sys
 import socket
 import time
 from pathlib import Path
@@ -81,6 +82,25 @@ def host_cpu_utilization(start, finish):
     if start is None or finish is None or finish[0] <= start[0]:
         return None
     return 1 - (finish[1] - start[1]) / (finish[0] - start[0])
+
+
+def peak_child_rss_kib():
+    """High-water RSS of this process's reaped children, in KiB, or None off Linux.
+
+    Matches run in disposable child processes, so their memory never shows up in the
+    worker's own RSS. `RUSAGE_CHILDREN.ru_maxrss` is the largest resident size any reaped
+    child reached -- a high-water mark for the worker process, monotonic across the batches
+    it has already run, not a per-batch figure. Read it that way: it answers "did a wider
+    worker ever come close to this machine's RAM", which is the capacity question, and not
+    "how much did this batch use".
+    """
+    if sys.platform != 'linux':
+        return None
+    try:
+        import resource
+        return resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+    except (ImportError, AttributeError, OSError, ValueError):
+        return None
 
 
 def percentile(values, fraction):
@@ -185,8 +205,36 @@ def run_batch(batch, workers=4, method=None, timeout=-1):
             'git_dirty': provenance.get('git_dirty'),
             'wall_seconds': elapsed, 'games': len(rows),
             'cpu_utilization': host_cpu_utilization(cpu_started, cpu_finished),
+            'peak_child_rss_kib': peak_child_rss_kib(),
             'p50_match_seconds': percentile(match_seconds, .5),
             'p95_match_seconds': percentile(match_seconds, .95)}
+
+
+def host_contribution(rows):
+    """How much of a finished run each machine actually carried.
+
+    Every row already names the host that played it (`_check_row` stamps `hostname` from
+    the worker that produced the envelope), so this needs no new field in the transport --
+    only the rollup, which is what makes a lopsided cluster visible. A node that joined and
+    then received almost nothing looks exactly like a healthy node until these numbers are
+    written down.
+
+    Incidental by construction: it describes how the work was spread, never what was
+    measured, so it stays out of `run_id` the same way `distribution` does.
+    """
+    hosts = {}
+    for row in rows:
+        hostname = row.get('hostname')
+        entry = hosts.setdefault(hostname, {'hostname': hostname, 'matches': 0,
+                                            'batches': set()})
+        entry['matches'] += 1
+        if row.get('batch_id') is not None:
+            entry['batches'].add(row['batch_id'])
+    total = sum(entry['matches'] for entry in hosts.values())
+    return [{'hostname': entry['hostname'], 'batches': len(entry['batches']),
+             'matches': entry['matches'],
+             'share': (entry['matches'] / total) if total else 0.}
+            for entry in sorted(hosts.values(), key=lambda item: (item['hostname'] or ''))]
 
 
 def _local(batches, workers, method, timeout):

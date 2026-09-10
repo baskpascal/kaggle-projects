@@ -1,0 +1,11 @@
+{
+  "version": "v007",
+  "kind": "exact_public_notebook_agent",
+  "source": "ahmedberatozer/notebook5d4a0f4e5c",
+  "source_main_sha256": "3a72da1f2b3b31386366988408503f01581c285529137317c785ea4863b341ab",
+  "main_sha256": "3a72da1f2b3b31386366988408503f01581c285529137317c785ea4863b341ab",
+  "archive_sha256": "94d717cb33f643828dee4b5627f3ca9d7dad4aa8538c691879145f39e29030a8",
+  "license": "Apache-2.0 (embedded verbatim in main.py)",
+  "importer": "experiments/import_notebook_agent.py",
+  "decision": "candidate only; Kaggle submission requires the local 2950 gate"
+}

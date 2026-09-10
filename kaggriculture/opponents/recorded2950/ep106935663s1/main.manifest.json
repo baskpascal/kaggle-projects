@@ -1,0 +1,56 @@
+{
+  "id": "ep106935663s1",
+  "family": "recorded::SpaTaro",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded2950/ep106935663s1/main.py",
+  "sha256": "58872267ae50d7432db24bbd573ecc0b420ae9799c90a08e3a50a9d339d2e15f",
+  "tape_sha256": "fe97c9c6ebfcf042dc5069537167880198871a1dfc858c16160d7724efd93304",
+  "opening_sha256": "43f604472b446d92e482f90665c8a2d4291908cbaa2f7a6fc66335efb4807e78",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106935663,
+    "seed": 1172617852,
+    "seat": 1,
+    "team": "SpaTaro",
+    "opponent_team": "Mengfei Li",
+    "money": 94679.0,
+    "opponent_money": 88857.0
+  },
+  "reconstruction": {
+    "episode": "106935663",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106935663",
+      "digest": "fe97c9c6ebfcf042dc5069537167880198871a1dfc858c16160d7724efd93304",
+      "verified_at": "2026-09-10T00:50:47.994432+00:00",
+      "expected": [
+        88857.0,
+        94679.0
+      ],
+      "fast": [
+        88857.0,
+        94679.0
+      ],
+      "official": [
+        88857.0,
+        94679.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 3010.1,
+    "rank": 2,
+    "of": 8436,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-10T00:03:08Z",
+    "source": "kaggriculture-publicleaderboard-2026-09-10T00:03:08.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2950.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2953.0,
+    "rank": 5
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

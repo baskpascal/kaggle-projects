@@ -7,6 +7,7 @@ from pathlib import Path
 import time
 
 from .agents import VARIANTS, agent_hash
+from .batch import host_contribution
 from .engine import fingerprint
 from .league import run_league
 from .ray_transport import DEFAULT_CPUS_PER_WORKER
@@ -108,7 +109,12 @@ def run_pair(baseline, candidate, opponents, seeds, output, *, workers=4, backen
                                       today=today, cut=cut, max_age_days=max_age_days, split=split)
         comparison['execution'] = dict(wall_seconds=time.perf_counter() - started,
                                        leg_wall_seconds=timings, split=split,
-                                       strong_only=strong_only, plan_sha256=digest(plan))
+                                       strong_only=strong_only, plan_sha256=digest(plan),
+                                       # Reported, never hashed: a run started locally and
+                                       # resumed on the cluster is still the same run, but
+                                       # the report can now say who did the work.
+                                       hosts=host_contribution([row for leg in results
+                                                                for row in leg]))
         # Stamped on the result, not only kept beside it: this is what lets the manifest,
         # and `eval/dossier.py` above it, refuse a comparison from another experiment
         # instead of reading it as if it belonged.

@@ -93,6 +93,22 @@ def main():
 
     rows = []
     reference = None
+
+    def write(status):
+        # Written after every measurement, not only at the end. A sweep costs tens of
+        # minutes per cap; losing all of it because the driver died on the last one is a
+        # cost this file has already paid once.
+        report = {'schema_version': 1, 'status': status, 'jobs': args.jobs,
+                  'worker_caps': args.workers,
+                  'candidate': args.candidate, 'opponent': args.opponent,
+                  'hostnames': sorted({row['hostname'] for row in rows}),
+                  'environments': environments, 'measurements': rows,
+                  'recommendations': recommendations(rows) if rows else [],
+                  'result_signature_stable': True}
+        Path(args.output).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+        return report
+
+    write('running')
     for cap in caps:
         runs = mapper.local_baseline_on_every_node(batch, maximum_workers=cap)
         for node, envelope, workers in runs:
@@ -104,14 +120,9 @@ def main():
             row = summarize(envelope, node_id=node['NodeID'], workers=workers)
             rows.append(row)
             print(json.dumps(row), flush=True)
+            write('running')
 
-    report = {'schema_version': 1, 'jobs': args.jobs, 'worker_caps': args.workers,
-              'candidate': args.candidate, 'opponent': args.opponent,
-              'hostnames': sorted({row['hostname'] for row in rows}),
-              'environments': environments, 'measurements': rows,
-              'recommendations': recommendations(rows),
-              'result_signature_stable': True}
-    Path(args.output).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+    report = write('complete')
     print(json.dumps({'recommendations': report['recommendations']}, indent=2))
     mapper.ray.shutdown()
 

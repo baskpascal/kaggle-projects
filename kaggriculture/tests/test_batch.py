@@ -192,3 +192,44 @@ def test_a_batched_run_reaches_the_store_like_any_other(tmp_path):
 def _refuse_to_run(jobs, workers):
     raise AssertionError('a resumed run must not replay a finished job')
     yield  # pragma: no cover - generator marker
+
+
+def test_host_contribution_rolls_up_batches_and_matches_per_machine():
+    from arena.batch import host_contribution
+    rows = ([{'hostname': 'DESKTOP-A', 'batch_id': 'b1'}] * 3 +
+            [{'hostname': 'DESKTOP-A', 'batch_id': 'b2'}] * 2 +
+            [{'hostname': 'DESKTOP-B', 'batch_id': 'b3'}] * 5)
+    assert host_contribution(rows) == [
+        {'hostname': 'DESKTOP-A', 'batches': 2, 'matches': 5, 'share': .5},
+        {'hostname': 'DESKTOP-B', 'batches': 1, 'matches': 5, 'share': .5},
+    ]
+
+
+def test_host_contribution_makes_a_barely_used_node_visible():
+    from arena.batch import host_contribution
+    rows = ([{'hostname': 'DESKTOP-A', 'batch_id': f'b{i}'} for i in range(99)] +
+            [{'hostname': 'DESKTOP-B', 'batch_id': 'z'}])
+    idle = [host for host in host_contribution(rows) if host['share'] < .05]
+    assert [host['hostname'] for host in idle] == ['DESKTOP-B']
+
+
+def test_host_contribution_is_empty_without_rows():
+    from arena.batch import host_contribution
+    assert host_contribution([]) == []
+
+
+@pytest.mark.parametrize('platform', ['win32', 'darwin'])
+def test_child_memory_telemetry_is_optional_off_linux(monkeypatch, platform):
+    import builtins
+    import arena.batch as batch
+
+    original_import = builtins.__import__
+
+    def without_resource(name, *args, **kwargs):
+        if name == 'resource':
+            raise ImportError('resource is unavailable')
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, '__import__', without_resource)
+    monkeypatch.setattr(batch.sys, 'platform', platform)
+    assert batch.peak_child_rss_kib() is None

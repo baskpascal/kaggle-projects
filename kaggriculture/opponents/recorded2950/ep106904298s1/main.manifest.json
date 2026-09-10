@@ -1,0 +1,56 @@
+{
+  "id": "ep106904298s1",
+  "family": "recorded::SpaTaro",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded2950/ep106904298s1/main.py",
+  "sha256": "65113f53ccf8c79c91fbe6dd63d4d78f1672ce91f63796be8b81e966b2d7fa7a",
+  "tape_sha256": "015919f097aab6928c16dd081ecca7e5aa116709dddec08cc4bc34ecb5523d25",
+  "opening_sha256": "7965838a6ba559e77593544129bad9e2e4ecc01894f7ece379ff29b209467a15",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 106904298,
+    "seed": 1567607002,
+    "seat": 1,
+    "team": "SpaTaro",
+    "opponent_team": "Otter Vibe",
+    "money": 140493.0,
+    "opponent_money": 134175.0
+  },
+  "reconstruction": {
+    "episode": "106904298",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-08.zip",
+    "reproduction": {
+      "episode": "106904298",
+      "digest": "015919f097aab6928c16dd081ecca7e5aa116709dddec08cc4bc34ecb5523d25",
+      "verified_at": "2026-09-10T00:50:47.994429+00:00",
+      "expected": [
+        134175.0,
+        140493.0
+      ],
+      "fast": [
+        134175.0,
+        140493.0
+      ],
+      "official": [
+        134175.0,
+        140493.0
+      ]
+    }
+  },
+  "observed_rating": {
+    "rating": 3010.1,
+    "rank": 2,
+    "of": 8436,
+    "kind": "episode_team_bound",
+    "observed_at": "2026-09-10T00:03:08Z",
+    "source": "kaggriculture-publicleaderboard-2026-09-10T00:03:08.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2950.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 3026.3,
+    "rank": 1
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

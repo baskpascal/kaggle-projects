@@ -5,7 +5,7 @@ from pathlib import Path
 import time
 
 from .agents import agent_hash
-from .batch import batched_runner, worker_budget
+from .batch import batched_runner, host_contribution, worker_budget
 from .jobs import EVIDENCE_PROFILES, JobStore, execute, plan, single_provenance
 from .parallel import stream
 from .ray_transport import DEFAULT_CPUS_PER_WORKER
@@ -100,6 +100,8 @@ def run_league(candidate, opponents, seeds, workers=4, backend='fast', output=No
                 'run_id': run_id,
                 'execution_resources': execution_resources,
                 'created_at': datetime.now(timezone.utc).isoformat(),
+                # Which machines carried this run, and how much of it each one took.
+                'hosts': host_contribution(rows),
                 'wall_seconds': elapsed,
                 'games_per_second': len(rows) / elapsed}
     if output:

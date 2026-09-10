@@ -1,0 +1,58 @@
+[
+  {
+    "cpus_per_worker": 5,
+    "slots": 5,
+    "node_slots": {
+      "71e8435f6fa962718b76580c90d59ba912f09cf69ce3b821d41b7b42": 3,
+      "8b5f8f20bbcc4c16b2953a5663246bd1575e6598891205b2d73a38cd": 2
+    },
+    "seconds": 250.4899685249984,
+    "jobs_per_second": 7.984351675945074,
+    "cluster_efficiency": 0.8810805204088584,
+    "speedup_vs_pc_a": 1.1696969932530141,
+    "batch_tail_seconds": 41.182612052994955,
+    "batches": 63,
+    "hosts": [
+      {
+        "hostname": "DESKTOP-DM63QP1",
+        "batches": 16,
+        "matches": 496,
+        "share": 0.248
+      },
+      {
+        "hostname": "DESKTOP-V3A6VJ6",
+        "batches": 47,
+        "matches": 1504,
+        "share": 0.752
+      }
+    ]
+  },
+  {
+    "cpus_per_worker": 8,
+    "slots": 2,
+    "node_slots": {
+      "71e8435f6fa962718b76580c90d59ba912f09cf69ce3b821d41b7b42": 1,
+      "8b5f8f20bbcc4c16b2953a5663246bd1575e6598891205b2d73a38cd": 1
+    },
+    "seconds": 309.13443867299793,
+    "jobs_per_second": 6.469677104192192,
+    "cluster_efficiency": 0.7139347941063995,
+    "speedup_vs_pc_a": 0.947799165571666,
+    "batch_tail_seconds": 17.522759924999264,
+    "batches": 63,
+    "hosts": [
+      {
+        "hostname": "DESKTOP-DM63QP1",
+        "batches": 19,
+        "matches": 608,
+        "share": 0.304
+      },
+      {
+        "hostname": "DESKTOP-V3A6VJ6",
+        "batches": 44,
+        "matches": 1392,
+        "share": 0.696
+      }
+    ]
+  }
+]

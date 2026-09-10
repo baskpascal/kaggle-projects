@@ -102,7 +102,32 @@ suficiente para estabilizar a pool:
 ```
 
 O calibrador recusa resultados divergentes, grava jobs/s, CPU, p50 e p95 por hostname e
-recomenda separadamente o worker count de maior vazão observada. Use como capacidade
+recomenda separadamente o worker count de maior vazão observada.
+
+### Medição de 2026-09-09: os dois PCs querem o mesmo perfil
+
+Varredura de `cpus_per_worker` em 1, 2, 3 e 4, com 500 partidas por host
+(`docs/ray-capacity-cpw-sweep.json`):
+
+| host | cpw=1 | cpw=2 | cpw=3 | cpw=4 |
+|------|-------|-------|-------|-------|
+| DESKTOP-V3A6VJ6 (PC A) | 0,726/s | 1,595/s | 2,144/s | **2,832/s** |
+| DESKTOP-DM63QP1 (PC B) | 0,263/s | 0,421/s | 0,583/s | **1,164/s** |
+
+O ótimo é `cpw=4` nas duas máquinas, então **não** existe perfil de capacidade por host a
+implementar: um valor serve aos dois. A hipótese que motivou a medição — de que os 3 CPUs
+que sobram no PC B em `floor(11/4)=2` slots fossem desperdício recuperável com um `cpw`
+menor — está refutada: reduzir `cpw` piora a vazão nos dois PCs.
+
+Duas coisas que a tabela mostra e que continuam em aberto:
+
+- **A curva não chegou ao topo.** As duas máquinas ainda subiam em `cpw=4`, o maior valor
+  medido. A pergunta interessante virou `cpw` acima de 4, não abaixo.
+- **O PC B é ~3x mais lento por partida**, não apenas menor: p50 de 1,18 s contra 0,39 s do
+  PC A em `cpw=1`, com dispersão bem maior. Isso é característica da máquina, não da
+  configuração do Ray.
+
+Use como capacidade
 efetiva o menor número de workers que fica próximo dessa melhor vazão sem pressionar RAM
 nem tornar o computador inutilizável. Persista essa decisão na própria máquina com
 `--num-cpus`; ela substitui a conta automática baseada na reserva:
@@ -165,6 +190,65 @@ para dentro do pacote para "resolver" o tamanho.
 A prova de que isso funciona nos dois PCs está em `ray-package-smoke.json`: pacote de
 6231,99 MiB (falha no `ray.init`) para 27,6 MiB, e lotes reais de partidas executados em
 `DESKTOP-V3A6VJ6` e `DESKTOP-DM63QP1`, oito linhas em cada.
+
+## Histórico de 2026-09-09: medições antes dos slots de resto
+
+`benchmark_ray.py --jobs=2000 --cpus-per-worker=4` (`docs/ray-cluster-efficiency.json`),
+com os mesmos 2000 jobs medidos isolados em cada host e depois no cluster:
+
+| |vazão|
+|---|---|
+| PC A sozinho (DESKTOP-V3A6VJ6, 15 workers) | 6,826/s |
+| PC B sozinho (DESKTOP-DM63QP1, 11 workers) | 2,236/s |
+| soma dos hosts | 9,062/s |
+| **cluster (5 slots, cpw=4)** | **6,764/s** |
+| eficiência (cluster / soma) | **74,6%** |
+| speedup contra o host mais rápido | **0,991x** |
+
+O número que importa é o último: o cluster ficou **abaixo** do PC A sozinho. Nesta
+configuração, distribuir não acelera nada.
+
+A causa está na largura do worker, não no transporte. Com `cpw=4` o cluster ocupa
+`3*4 = 12` dos 15 CPUs do PC A e `2*4 = 8` dos 11 do PC B — 20 de 26 — e cada task roda
+com apenas 4 filhos locais. A varredura de capacidade já mostrava que largura maior rende
+muito mais no mesmo host (PC A: 2,832/s com 4 filhos contra 6,826/s com 15), e este
+benchmark é a consequência prática disso. A cauda também pesa: 41,8 s de batch mais lento
+em 295,7 s de corrida, com o PC B segurando o fim.
+
+### Resposta: `cpus_per_worker=5`
+
+A pergunta acima foi medida (`docs/ray-cluster-width.json`), mesma carga de 2000 jobs, só a
+perna distribuída, reaproveitando as linhas-base solo:
+
+| cpw | slots (A+B) | CPUs ocupados | vazão | eficiência | vs PC A sozinho |
+|-----|-------------|---------------|-------|------------|-----------------|
+| 4 | 3+2 | 20 de 26 | 6,764/s | 74,6% | 0,991x |
+| **5** | **3+2** | **25 de 26** | **7,984/s** | **88,1%** | **1,170x** |
+| 8 | 1+1 | 16 de 26 | 6,470/s | 71,4% | 0,948x |
+
+Na implementação medida, `cpw=5` teve a maior vazão entre 4, 5 e 8. Esses resultados
+usavam apenas slots inteiros. A implementação atual mantém
+`DEFAULT_CPUS_PER_WORKER=4` e adiciona slots de resto por nó (PR #67), ocupando os
+26 CPUs. A comparação histórica não mede esse novo escalonamento e não justifica
+substituir seu padrão sem outro benchmark.
+
+Nessa medição histórica, o cluster entregou **88,1% da soma das duas máquinas** e
+superou o PC A sozinho em 1,17x. Isso não substitui os gates da implementação atual.
+
+A contribuição por host no run de `cpw=5`, agora visível no relatório:
+
+```
+DESKTOP-V3A6VJ6    47 batches   1504 matches   75,2%
+DESKTOP-DM63QP1    16 batches    496 matches   24,8%
+```
+
+Isso bate com as vazões solo (75,3% / 24,7%): o Ray distribui na proporção da capacidade
+real de cada máquina, sem divisão fixa por hostname. Um nó que entrasse no cluster e
+ficasse com share perto de zero apareceria aqui.
+
+O que **não** melhorou é a cauda: 41,2 s de batch mais lento em ~250 s de corrida, o PC B
+segurando o fim, coerente com ele ser ~3x mais lento por partida. Isso é característica da
+máquina, e reduzir a cauda custaria mais engenharia de escalonamento do que vale.
 
 ## Preparação manual equivalente
 

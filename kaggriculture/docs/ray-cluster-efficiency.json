@@ -1,0 +1,78 @@
+{
+  "schema_version": 4,
+  "status": "complete",
+  "local_workers_cap": null,
+  "cluster_slots": 5,
+  "node_slots": {
+    "71e8435f6fa962718b76580c90d59ba912f09cf69ce3b821d41b7b42": 3,
+    "8b5f8f20bbcc4c16b2953a5663246bd1575e6598891205b2d73a38cd": 2
+  },
+  "cpus_per_worker": 4,
+  "evidence_profile": "score",
+  "cluster_hostnames": [
+    "DESKTOP-DM63QP1",
+    "DESKTOP-V3A6VJ6"
+  ],
+  "verification": null,
+  "workloads": [
+    {
+      "jobs": 2000,
+      "local_nodes": [
+        {
+          "node_id": "71e8435f6fa962718b76580c90d59ba912f09cf69ce3b821d41b7b42",
+          "hostname": "DESKTOP-V3A6VJ6",
+          "workers": 15,
+          "seconds": 292.98662698099724,
+          "jobs_per_second": 6.8262501282344115,
+          "p50_match_seconds": 0.6828116695014614,
+          "p95_match_seconds": 0.7417211246498483,
+          "batch_tail_seconds": 292.98662698099724,
+          "cpu_utilization": 0.5044882991765485
+        },
+        {
+          "node_id": "8b5f8f20bbcc4c16b2953a5663246bd1575e6598891205b2d73a38cd",
+          "hostname": "DESKTOP-DM63QP1",
+          "workers": 11,
+          "seconds": 894.6384088249979,
+          "jobs_per_second": 2.2355400576046853,
+          "p50_match_seconds": 1.8938840249993518,
+          "p95_match_seconds": 2.1385679923010685,
+          "batch_tail_seconds": 894.6384088249979,
+          "cpu_utilization": 0.5388503022132004
+        }
+      ],
+      "baseline_strategy": "all-live-nodes",
+      "fastest_local_hostname": "DESKTOP-V3A6VJ6",
+      "fastest_local_workers": 15,
+      "direct": {
+        "seconds": 292.98662698099724,
+        "jobs_per_second": 6.8262501282344115,
+        "p50_match_seconds": 0.6828116695014614,
+        "p95_match_seconds": 0.7417211246498483,
+        "batch_tail_seconds": 292.98662698099724,
+        "cpu_utilization": 0.5044882991765485
+      },
+      "ray": {
+        "seconds": 295.7028230229989,
+        "jobs_per_second": 6.763547197668943,
+        "p50_match_seconds": 0.6128987890006101,
+        "p95_match_seconds": 1.6297929456484779,
+        "batch_tail_seconds": 41.84559288499804,
+        "cpu_utilization": 0.3843189712309801
+      },
+      "speedup": 0.9908144399359,
+      "parallel_efficiency": 0.743110829951925,
+      "sum_of_hosts_jobs_per_second": 9.061790185839097,
+      "cluster_efficiency": 0.7463809091760225,
+      "batch_size": 32,
+      "batches": 63
+    }
+  ],
+  "throughput_gate": {
+    "representative_jobs": 8000,
+    "minimum_speedup": 1.1,
+    "observed_speedup": null,
+    "passed": null
+  },
+  "benchmark_valid": false
+}

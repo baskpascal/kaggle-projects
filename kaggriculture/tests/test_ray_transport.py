@@ -1,4 +1,5 @@
 import os
+import sys
 from types import SimpleNamespace
 
 import pytest
@@ -227,11 +228,14 @@ def test_remote_batch_marks_match_children_without_leaking_role(monkeypatch):
         return {'complete': True}
 
     monkeypatch.delenv('ARENA_ROLE', raising=False)
+    monkeypatch.setitem(sys.modules, 'ray', None)
     monkeypatch.setattr('arena.ray_transport.run_batch', run_batch)
     result = _remote_batch(batch, 2, 3)
     assert result['complete'] is True
     assert result['ray_resources']['num_cpus'] == 2
     assert result['ray_resources']['num_gpus'] == 0
+    assert result['ray_resources']['node_id'] is None
+    assert result['ray_resources']['gpu_ids'] == []
     assert observed == [('ray-worker', batch, 2, 3)]
     assert 'ARENA_ROLE' not in os.environ
 

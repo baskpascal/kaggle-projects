@@ -5,6 +5,7 @@ __pycache__/
 .firecrawl/
 kaggriculture/experiments/results/
 kaggriculture/experiments/searches/
+kaggriculture/experiments/generated/
 kaggriculture/replays/
 kaggriculture/data/
 kaggriculture/submission/dist/
