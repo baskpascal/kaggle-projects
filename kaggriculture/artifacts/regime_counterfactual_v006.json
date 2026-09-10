@@ -1,0 +1,3129 @@
+{
+ "submission_id": 56125200,
+ "sheep_plan": 3,
+ "coop_plan": 0,
+ "observed": {
+  "yarn_sheep": {
+   "worlds": 13,
+   "win_rate": 0.7692307692307693
+  },
+  "no_yarn_coop": {
+   "worlds": 54,
+   "win_rate": 0.2962962962962963
+  }
+ },
+ "summary": {
+  "A_no_yarn_forced_sheep": {
+   "cell": "A_no_yarn_forced_sheep",
+   "worlds": 54,
+   "wins": 10,
+   "losses": 44,
+   "ties": 0,
+   "win_rate": 0.18518518518518517,
+   "ladder_win_rate": 0.2962962962962963,
+   "gained": 6,
+   "regressed": 12,
+   "net_worlds": -6,
+   "gained_episodes": [
+    107237149,
+    107300432,
+    107331618,
+    107362837,
+    107434948,
+    107487575
+   ],
+   "regressed_episodes": [
+    107215798,
+    107224372,
+    107236643,
+    107245194,
+    107256885,
+    107265677,
+    107276709,
+    107286038,
+    107300005,
+    107300317,
+    107321720,
+    107461389
+   ],
+   "branch_executed": {
+    "sheep": 53,
+    "coop": 1
+   },
+   "failures": 0,
+   "paired_margin_delta_median": -9286.0,
+   "paired_margin_delta_mean": -8336.314814814816,
+   "terminal_cash_median": 84840.0,
+   "stock_entering_liquidation_median": 17.0,
+   "stock_entering_liquidation_max": 17,
+   "day15_sheep_median": 11.0,
+   "day15_cow_median": 6.0,
+   "day15_goose_median": 0.0,
+   "day15_pasture_median": 18.0,
+   "day15_coop_median": 0.0,
+   "day15_wool_median": 3.0
+  },
+  "B_yarn_forced_coop": {
+   "cell": "B_yarn_forced_coop",
+   "worlds": 13,
+   "wins": 1,
+   "losses": 12,
+   "ties": 0,
+   "win_rate": 0.07692307692307693,
+   "ladder_win_rate": 0.7692307692307693,
+   "gained": 1,
+   "regressed": 10,
+   "net_worlds": -9,
+   "gained_episodes": [
+    107317275
+   ],
+   "regressed_episodes": [
+    107202174,
+    107209005,
+    107212797,
+    107241135,
+    107247617,
+    107257685,
+    107269372,
+    107304644,
+    107343976,
+    107501410
+   ],
+   "branch_executed": {
+    "coop": 13
+   },
+   "failures": 0,
+   "paired_margin_delta_median": -17564.0,
+   "paired_margin_delta_mean": -12898.923076923076,
+   "terminal_cash_median": 88733.0,
+   "stock_entering_liquidation_median": 9,
+   "stock_entering_liquidation_max": 9,
+   "day15_sheep_median": 6,
+   "day15_cow_median": 8,
+   "day15_goose_median": 3,
+   "day15_pasture_median": 14,
+   "day15_coop_median": 4,
+   "day15_wool_median": 0
+  }
+ },
+ "cells": {
+  "A_no_yarn_forced_sheep": [
+   {
+    "episode_id": 107206062,
+    "seat": 1,
+    "seed": 1571107777,
+    "opponent_team": "team_fn",
+    "score": 0.0,
+    "our_money": 89530.0,
+    "opponent_money": 98593.0,
+    "margin": -9063.0,
+    "ladder_margin": -93,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23802.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 89253.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107215798,
+    "seat": 1,
+    "seed": 1385626469,
+    "opponent_team": "r13721",
+    "score": 0.0,
+    "our_money": 75662.0,
+    "opponent_money": 77338.0,
+    "margin": -1676.0,
+    "ladder_margin": 155,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18610.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 74348.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107216665,
+    "seat": 1,
+    "seed": 953007975,
+    "opponent_team": "takusemba",
+    "score": 1.0,
+    "our_money": 92853.0,
+    "opponent_money": 91273.0,
+    "margin": 1580.0,
+    "ladder_margin": 111,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22135.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 91209.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107221914,
+    "seat": 1,
+    "seed": 469846560,
+    "opponent_team": "kaggricodex",
+    "score": 1.0,
+    "our_money": 61354.0,
+    "opponent_money": 59808.0,
+    "margin": 1546.0,
+    "ladder_margin": 5115,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 15844.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 41,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 59356.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107224372,
+    "seat": 1,
+    "seed": 1405977927,
+    "opponent_team": "Khoi Tuan Nguyen",
+    "score": 0.0,
+    "our_money": 74881.0,
+    "opponent_money": 85377.0,
+    "margin": -10496.0,
+    "ladder_margin": 225,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 21168.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 74619.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107227111,
+    "seat": 1,
+    "seed": 2083362473,
+    "opponent_team": "Addison Howard (ineligible)",
+    "score": 0.0,
+    "our_money": 87111.0,
+    "opponent_money": 102807.0,
+    "margin": -15696.0,
+    "ladder_margin": -2,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22823.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 86833.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107227290,
+    "seat": 0,
+    "seed": 131438660,
+    "opponent_team": "\uc778\uacf5\uc800\ub2a5\uc5f0\uad6c\uc18c( Artificial Idiocy Lab )",
+    "score": 0.0,
+    "our_money": 79472.0,
+    "opponent_money": 85496.0,
+    "margin": -6024.0,
+    "ladder_margin": -1119,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 16996.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 79205.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107232882,
+    "seat": 0,
+    "seed": 836894050,
+    "opponent_team": "BOB",
+    "score": 0.0,
+    "our_money": 119839.0,
+    "opponent_money": 125022.0,
+    "margin": -5183.0,
+    "ladder_margin": -2,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 24002.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 117748.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107236643,
+    "seat": 1,
+    "seed": 1124737117,
+    "opponent_team": "Reyhan Ksatria",
+    "score": 0.0,
+    "our_money": 79720.0,
+    "opponent_money": 87872.0,
+    "margin": -8152.0,
+    "ladder_margin": 5,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 15741.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 78291.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107237149,
+    "seat": 1,
+    "seed": 2107359370,
+    "opponent_team": "LuanHengYu",
+    "score": 1.0,
+    "our_money": 81248.0,
+    "opponent_money": 75733.0,
+    "margin": 5515.0,
+    "ladder_margin": -1099,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18786.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 78281.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107245194,
+    "seat": 0,
+    "seed": 980849566,
+    "opponent_team": "yasu",
+    "score": 0.0,
+    "our_money": 79040.0,
+    "opponent_money": 89248.0,
+    "margin": -10208.0,
+    "ladder_margin": 25,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 17467.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 78826.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107251525,
+    "seat": 1,
+    "seed": 284130496,
+    "opponent_team": "David Wang",
+    "score": 0.0,
+    "our_money": 91614.0,
+    "opponent_money": 112399.0,
+    "margin": -20785.0,
+    "ladder_margin": -350,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22823.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 40,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 78,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 91404.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107256885,
+    "seat": 0,
+    "seed": 1069944086,
+    "opponent_team": "qr farm",
+    "score": 0.0,
+    "our_money": 119356.0,
+    "opponent_money": 121290.0,
+    "margin": -1934.0,
+    "ladder_margin": 55,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23877.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 118025.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107265374,
+    "seat": 0,
+    "seed": 1545938919,
+    "opponent_team": "S\u014dsuke Aizen",
+    "score": 1.0,
+    "our_money": 76326.0,
+    "opponent_money": 75379.0,
+    "margin": 947.0,
+    "ladder_margin": 5,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 17461.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 74239.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107265677,
+    "seat": 0,
+    "seed": 544992615,
+    "opponent_team": "Auto Fermers",
+    "score": 0.0,
+    "our_money": 139846.0,
+    "opponent_money": 146148.0,
+    "margin": -6302.0,
+    "ladder_margin": 138,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 24572.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 137758.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107268633,
+    "seat": 0,
+    "seed": 1047627518,
+    "opponent_team": "cm391",
+    "score": 0.0,
+    "our_money": 68054.0,
+    "opponent_money": 87113.0,
+    "margin": -19059.0,
+    "ladder_margin": -739,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22200.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 67834.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107276709,
+    "seat": 0,
+    "seed": 74132645,
+    "opponent_team": "jiawei li",
+    "score": 0.0,
+    "our_money": 84893.0,
+    "opponent_money": 96819.0,
+    "margin": -11926.0,
+    "ladder_margin": 189,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19824.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 84674.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107276773,
+    "seat": 0,
+    "seed": 735555888,
+    "opponent_team": "marching_zzz",
+    "score": 0.0,
+    "our_money": 78423.0,
+    "opponent_money": 89240.0,
+    "margin": -10817.0,
+    "ladder_margin": -2764,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22295.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 77074.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107286038,
+    "seat": 1,
+    "seed": 387818588,
+    "opponent_team": "tryagain123",
+    "score": 0.0,
+    "our_money": 103638.0,
+    "opponent_money": 116173.0,
+    "margin": -12535.0,
+    "ladder_margin": 40,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18042.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 103358.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107286690,
+    "seat": 0,
+    "seed": 1586795065,
+    "opponent_team": "Max Manushin",
+    "score": 0.0,
+    "our_money": 91824.0,
+    "opponent_money": 101492.0,
+    "margin": -9668.0,
+    "ladder_margin": -1009,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19877.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 91577.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107288778,
+    "seat": 0,
+    "seed": 650461715,
+    "opponent_team": "Cherie01",
+    "score": 0.0,
+    "our_money": 82017.0,
+    "opponent_money": 92712.0,
+    "margin": -10695.0,
+    "ladder_margin": -143,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 20927.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 81793.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107292952,
+    "seat": 0,
+    "seed": 1959700211,
+    "opponent_team": "Exposed",
+    "score": 0.0,
+    "our_money": 63676.0,
+    "opponent_money": 73842.0,
+    "margin": -10166.0,
+    "ladder_margin": -1079,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19250.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 63386.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107293200,
+    "seat": 1,
+    "seed": 84177387,
+    "opponent_team": "JianYuan Deng",
+    "score": 1.0,
+    "our_money": 101070.0,
+    "opponent_money": 100264.0,
+    "margin": 806.0,
+    "ladder_margin": 168,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 17888.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 100665.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107296145,
+    "seat": 1,
+    "seed": 1812674211,
+    "opponent_team": "mtmr_s1",
+    "score": 0.0,
+    "our_money": 122151.0,
+    "opponent_money": 143644.0,
+    "margin": -21493.0,
+    "ladder_margin": -1754,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23510.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 121944.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107300005,
+    "seat": 0,
+    "seed": 1606096643,
+    "opponent_team": "takusemba",
+    "score": 0.0,
+    "our_money": 113219.0,
+    "opponent_money": 127736.0,
+    "margin": -14517.0,
+    "ladder_margin": 5,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 21168.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 112966.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107300317,
+    "seat": 1,
+    "seed": 1938575887,
+    "opponent_team": "Hamachi",
+    "score": 0.0,
+    "our_money": 96255.0,
+    "opponent_money": 110572.0,
+    "margin": -14317.0,
+    "ladder_margin": 321,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22823.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 95974.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107300432,
+    "seat": 0,
+    "seed": 1483989872,
+    "opponent_team": "Laplacenvmv",
+    "score": 1.0,
+    "our_money": 72781.0,
+    "opponent_money": 72009.0,
+    "margin": 772.0,
+    "ladder_margin": -1381,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18224.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 72553.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107311070,
+    "seat": 1,
+    "seed": 1566340719,
+    "opponent_team": "David Estevez",
+    "score": 0.0,
+    "our_money": 88864.0,
+    "opponent_money": 110738.0,
+    "margin": -21874.0,
+    "ladder_margin": -1174,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23092.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 88688.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107312954,
+    "seat": 0,
+    "seed": 488477211,
+    "opponent_team": "Civitasmass",
+    "score": 0.0,
+    "our_money": 112428.0,
+    "opponent_money": 129973.0,
+    "margin": -17545.0,
+    "ladder_margin": -823,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 24835.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 112263.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107321720,
+    "seat": 1,
+    "seed": 1759228464,
+    "opponent_team": "DL",
+    "score": 0.0,
+    "our_money": 82451.0,
+    "opponent_money": 93996.0,
+    "margin": -11545.0,
+    "ladder_margin": 21,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 15695.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 82248.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107331618,
+    "seat": 1,
+    "seed": 931728289,
+    "opponent_team": "MartinZiserman",
+    "score": 1.0,
+    "our_money": 100881.0,
+    "opponent_money": 84753.0,
+    "margin": 16128.0,
+    "ladder_margin": -2547,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18084.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 97820.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107336595,
+    "seat": 1,
+    "seed": 644489379,
+    "opponent_team": "Cherie01",
+    "score": 0.0,
+    "our_money": 52907.0,
+    "opponent_money": 62511.0,
+    "margin": -9604.0,
+    "ladder_margin": -95,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 17467.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 52653.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107337347,
+    "seat": 0,
+    "seed": 1010403022,
+    "opponent_team": "yt0914",
+    "score": 0.0,
+    "our_money": 84787.0,
+    "opponent_money": 105271.0,
+    "margin": -20484.0,
+    "ladder_margin": -212,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22232.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 40,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 78,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 84499.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107344051,
+    "seat": 1,
+    "seed": 1441823051,
+    "opponent_team": "\ud83e\ude8fHarvest Moon",
+    "score": 0.0,
+    "our_money": 51098.0,
+    "opponent_money": 108875.0,
+    "margin": -57777.0,
+    "ladder_margin": -35313,
+    "ladder_outcome": 0.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 13975.0,
+     "sheep": 5,
+     "cow": 2,
+     "goose": 0,
+     "pasture": 16,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 90,
+      "FERTILIZER": 9,
+      "COW": 1
+     },
+     "stock_units": 100,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 50864.0,
+     "sheep": 5,
+     "cow": 2,
+     "goose": 0,
+     "pasture": 15,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "COW": 1
+     },
+     "stock_units": 6,
+     "wool": 0
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107353675,
+    "seat": 0,
+    "seed": 667145808,
+    "opponent_team": "JianYuan Deng",
+    "score": 0.0,
+    "our_money": 60527.0,
+    "opponent_money": 72141.0,
+    "margin": -11614.0,
+    "ladder_margin": -1932,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19851.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 60265.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107354819,
+    "seat": 0,
+    "seed": 1689787722,
+    "opponent_team": "Maman Salto",
+    "score": 0.0,
+    "our_money": 115009.0,
+    "opponent_money": 123547.0,
+    "margin": -8538.0,
+    "ladder_margin": -1798,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23355.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 112798.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107357808,
+    "seat": 1,
+    "seed": 191948376,
+    "opponent_team": "Apa",
+    "score": 0.0,
+    "our_money": 41988.0,
+    "opponent_money": 51213.0,
+    "margin": -9225.0,
+    "ladder_margin": -986,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 17561.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 41588.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107360713,
+    "seat": 0,
+    "seed": 20065191,
+    "opponent_team": "peikopon",
+    "score": 0.0,
+    "our_money": 65279.0,
+    "opponent_money": 86562.0,
+    "margin": -21283.0,
+    "ladder_margin": -4260,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22200.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 65036.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107362837,
+    "seat": 0,
+    "seed": 1240155896,
+    "opponent_team": "KharinTymofii",
+    "score": 1.0,
+    "our_money": 101778.0,
+    "opponent_money": 98939.0,
+    "margin": 2839.0,
+    "ladder_margin": -2,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23802.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 100117.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107364303,
+    "seat": 1,
+    "seed": 2072650685,
+    "opponent_team": "D Chakraborty",
+    "score": 0.0,
+    "our_money": 94236.0,
+    "opponent_money": 104121.0,
+    "margin": -9885.0,
+    "ladder_margin": -2443,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 15721.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 93227.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107368380,
+    "seat": 0,
+    "seed": 409254613,
+    "opponent_team": "Smiley Flour",
+    "score": 0.0,
+    "our_money": 70989.0,
+    "opponent_money": 83494.0,
+    "margin": -12505.0,
+    "ladder_margin": -6640,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 20926.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 70748.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107384148,
+    "seat": 1,
+    "seed": 567100550,
+    "opponent_team": "Jane Street Farmers",
+    "score": 0.0,
+    "our_money": 69904.0,
+    "opponent_money": 80016.0,
+    "margin": -10112.0,
+    "ladder_margin": -758,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19251.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 69611.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107387179,
+    "seat": 1,
+    "seed": 1338241205,
+    "opponent_team": "QQ Farming",
+    "score": 0.0,
+    "our_money": 57860.0,
+    "opponent_money": 70300.0,
+    "margin": -12440.0,
+    "ladder_margin": -1857,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 21745.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 57449.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107395918,
+    "seat": 0,
+    "seed": 234556209,
+    "opponent_team": "tq1d",
+    "score": 0.0,
+    "our_money": 118681.0,
+    "opponent_money": 139621.0,
+    "margin": -20940.0,
+    "ladder_margin": -868,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23522.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 118472.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107399653,
+    "seat": 0,
+    "seed": 348786930,
+    "opponent_team": "\u897f\u677e\u5927\u7950",
+    "score": 0.0,
+    "our_money": 64441.0,
+    "opponent_money": 74288.0,
+    "margin": -9847.0,
+    "ladder_margin": -629,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19924.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 64004.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107410474,
+    "seat": 1,
+    "seed": 1226846962,
+    "opponent_team": "Matthew Huang",
+    "score": 0.0,
+    "our_money": 54825.0,
+    "opponent_money": 73192.0,
+    "margin": -18367.0,
+    "ladder_margin": -4751,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22414.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 54589.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107415047,
+    "seat": 0,
+    "seed": 1109508917,
+    "opponent_team": "JYShane",
+    "score": 0.0,
+    "our_money": 81623.0,
+    "opponent_money": 91910.0,
+    "margin": -10287.0,
+    "ladder_margin": -1762,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 19302.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 81372.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107420868,
+    "seat": 1,
+    "seed": 846209129,
+    "opponent_team": "yuya",
+    "score": 0.0,
+    "our_money": 124399.0,
+    "opponent_money": 142669.0,
+    "margin": -18270.0,
+    "ladder_margin": -1140,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23571.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 123156.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107434948,
+    "seat": 1,
+    "seed": 1314595474,
+    "opponent_team": "peikopon",
+    "score": 1.0,
+    "our_money": 134494.0,
+    "opponent_money": 126098.0,
+    "margin": 8396.0,
+    "ladder_margin": -5602,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 23880.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 131813.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107450447,
+    "seat": 0,
+    "seed": 1470423183,
+    "opponent_team": "Dubnium",
+    "score": 0.0,
+    "our_money": 141171.0,
+    "opponent_money": 153513.0,
+    "margin": -12342.0,
+    "ladder_margin": -4,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 24628.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 139933.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107461389,
+    "seat": 1,
+    "seed": 1448777022,
+    "opponent_team": "Colt",
+    "score": 0.0,
+    "our_money": 85174.0,
+    "opponent_money": 94968.0,
+    "margin": -9794.0,
+    "ladder_margin": 167,
+    "ladder_outcome": 1.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 21088.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 84903.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107467056,
+    "seat": 0,
+    "seed": 996703877,
+    "opponent_team": "Taimo",
+    "score": 0.0,
+    "our_money": 107171.0,
+    "opponent_money": 126821.0,
+    "margin": -19650.0,
+    "ladder_margin": -5361,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 22491.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 106861.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107487575,
+    "seat": 0,
+    "seed": 796750628,
+    "opponent_team": "JM",
+    "score": 1.0,
+    "our_money": 109621.0,
+    "opponent_money": 92608.0,
+    "margin": 17013.0,
+    "ladder_margin": -643,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18053.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 23
+     },
+     "stock_units": 80,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 106578.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107492678,
+    "seat": 1,
+    "seed": 1920321098,
+    "opponent_team": "Vibe Farmer",
+    "score": 0.0,
+    "our_money": 54566.0,
+    "opponent_money": 66345.0,
+    "margin": -11779.0,
+    "ladder_margin": -4327,
+    "ladder_outcome": 0.0,
+    "branch_executed": "sheep",
+    "state_360": {
+     "cash": 18069.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 18,
+     "coop": 0,
+     "stock": {
+      "WHEAT": 42,
+      "MILK": 12,
+      "WOOL": 3,
+      "FERTILIZER": 22
+     },
+     "stock_units": 79,
+     "wool": 3
+    },
+    "state_718": {
+     "cash": 54269.0,
+     "sheep": 11,
+     "cow": 6,
+     "goose": 0,
+     "pasture": 17,
+     "coop": 1,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 12
+     },
+     "stock_units": 17,
+     "wool": 12
+    },
+    "failures": []
+   }
+  ],
+  "B_yarn_forced_coop": [
+   {
+    "episode_id": 107202174,
+    "seat": 0,
+    "seed": 264834535,
+    "opponent_team": "Vu Tran Hoang",
+    "score": 0.0,
+    "our_money": 101063.0,
+    "opponent_money": 105540.0,
+    "margin": -4477.0,
+    "ladder_margin": 745,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 21596.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 100831.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107209005,
+    "seat": 1,
+    "seed": 686449549,
+    "opponent_team": "lihaha.36",
+    "score": 0.0,
+    "our_money": 69703.0,
+    "opponent_money": 96467.0,
+    "margin": -26764.0,
+    "ladder_margin": 3,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 21922.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 68492.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107212797,
+    "seat": 1,
+    "seed": 2057191267,
+    "opponent_team": "Ibar-Aki",
+    "score": 0.0,
+    "our_money": 139105.0,
+    "opponent_money": 151154.0,
+    "margin": -12049.0,
+    "ladder_margin": 15,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 27812.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 137985.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107241135,
+    "seat": 1,
+    "seed": 232546011,
+    "opponent_team": "faye",
+    "score": 0.0,
+    "our_money": 97327.0,
+    "opponent_money": 110908.0,
+    "margin": -13581.0,
+    "ladder_margin": 3983,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 22113.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 96199.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107247617,
+    "seat": 1,
+    "seed": 508042871,
+    "opponent_team": "kyohei2106",
+    "score": 0.0,
+    "our_money": 84506.0,
+    "opponent_money": 102110.0,
+    "margin": -17604.0,
+    "ladder_margin": 679,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 21956.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 83290.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107257685,
+    "seat": 0,
+    "seed": 1014198744,
+    "opponent_team": "GURU Prasaatha S",
+    "score": 0.0,
+    "our_money": 88733.0,
+    "opponent_money": 103605.0,
+    "margin": -14872.0,
+    "ladder_margin": 18,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 25756.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 87614.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107261982,
+    "seat": 0,
+    "seed": 270411052,
+    "opponent_team": "Alexey Kuznetsov",
+    "score": 0.0,
+    "our_money": 74705.0,
+    "opponent_money": 79319.0,
+    "margin": -4614.0,
+    "ladder_margin": -5,
+    "ladder_outcome": 0.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 22102.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 74358.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107269372,
+    "seat": 1,
+    "seed": 1304220720,
+    "opponent_team": "DevashishSoni123",
+    "score": 0.0,
+    "our_money": 89876.0,
+    "opponent_money": 107869.0,
+    "margin": -17993.0,
+    "ladder_margin": 5,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 27341.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 88744.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107304644,
+    "seat": 0,
+    "seed": 245231434,
+    "opponent_team": "Inzilb\u00eath",
+    "score": 0.0,
+    "our_money": 86331.0,
+    "opponent_money": 100754.0,
+    "margin": -14423.0,
+    "ladder_margin": 4622,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 21749.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 85133.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107317275,
+    "seat": 1,
+    "seed": 293638966,
+    "opponent_team": "nouvya",
+    "score": 1.0,
+    "our_money": 131438.0,
+    "opponent_money": 125199.0,
+    "margin": 6239.0,
+    "ladder_margin": -21,
+    "ladder_outcome": 0.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 28580.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 131239.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107343976,
+    "seat": 0,
+    "seed": 1262198909,
+    "opponent_team": "NineThree",
+    "score": 0.0,
+    "our_money": 124056.0,
+    "opponent_money": 124452.0,
+    "margin": -396.0,
+    "ladder_margin": 192,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 27970.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 123807.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107360543,
+    "seat": 1,
+    "seed": 1564949172,
+    "opponent_team": "Charles Backman on LinkedIn",
+    "score": 0.0,
+    "our_money": 78436.0,
+    "opponent_money": 99633.0,
+    "margin": -21197.0,
+    "ladder_margin": -2510,
+    "ladder_outcome": 0.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 22147.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 77284.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   },
+   {
+    "episode_id": 107501410,
+    "seat": 0,
+    "seed": 609460856,
+    "opponent_team": "Deepseek\u7684\u6069\u60c5\u8fd8\u4e0d\u5b8c",
+    "score": 0.0,
+    "our_money": 78826.0,
+    "opponent_money": 79770.0,
+    "margin": -944.0,
+    "ladder_margin": 17285,
+    "ladder_outcome": 1.0,
+    "branch_executed": "coop",
+    "state_360": {
+     "cash": 27110.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 34,
+      "EGG": 4,
+      "MILK": 9,
+      "FERTILIZER": 17
+     },
+     "stock_units": 64,
+     "wool": 0
+    },
+    "state_718": {
+     "cash": 77605.0,
+     "sheep": 6,
+     "cow": 8,
+     "goose": 3,
+     "pasture": 14,
+     "coop": 4,
+     "stock": {
+      "WHEAT": 2,
+      "CARROT": 3,
+      "WOOL": 4
+     },
+     "stock_units": 9,
+     "wool": 4
+    },
+    "failures": []
+   }
+  ]
+ }
+}

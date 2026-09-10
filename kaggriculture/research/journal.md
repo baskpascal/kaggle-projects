@@ -546,3 +546,50 @@ Virar 12 dos 23 leva o cohort a 38/67 = 0,567.
 A pergunta é o que acontece nos 23 mundos de derrota larga e não acontece nos 40 apertados.
 Os episódios estão nomeados no relatório, e `elite_events.py` e `planner_milestones.py` já leem
 esse formato de replay.
+
+## 2026-09-10 — o 2x2 causal: CASE 3, e a chave de roteamento está errada
+
+`experiments/regime_counterfactual.py` trocou exatamente uma linha do `router_parent.py` — a
+que atribui `state.plan` no turno 144 — e rodou as duas células que faltavam, nos mesmos
+mundos, seeds, assentos e streams gravados. Detalhes em `docs/REGIME_COUNTERFACTUAL.md`.
+
+| contexto \ regime | ovelha/pasto | coop |
+|---|---:|---:|
+| YARN cedo (n=13) | 0,769 observado | **0,077** forçado |
+| sem YARN (n=54) | **0,185** forçado | 0,296 observado |
+
+**CASE 3.** Célula A: 10/44, net −6 mundos, Δ margem −9.286. Célula B: 1/12, net −9,
+Δ margem −17.564. Ramo verificado por transição de estado: 53/54 ovelha e 13/13 coop, zero
+falhas. Ressalva: o adversário é tape fixo, então a direção é confiável e a magnitude não.
+
+**Mecanismo.** Preço da lã no d15: mediana 1 e colapso em 37/54 sem a loja; mediana 241 e zero
+colapsos com ela. A `YARN_STORE` é o escoadouro. Isso corrige o relatório anterior, que tratou
+o glut de lã como regime ubíquo de 55% dos mundos — os 37 de 67 são exatamente os mundos sem
+loja.
+
+**Biblioteca de regimes.** `regime_library.py` varreu 1.325 episódios públicos, 2.650 assentos,
+zero falhas, e ficou com os 1.264 de times ≥2900. Das oito lojas, **só a `YARN_STORE` muda o
+build da elite** (ovelha 11 contra 5, ganso 0 contra 3, regime dominante `sheep_led`); as
+outras sete deixam o rebanho idêntico. Não existem 2–3 regimes independentes para rotear, e
+portanto a condição declarada para reabrir roteamento aprendido ou RL não foi atingida.
+
+**O achado que move o alvo.** Entre os fortes sem YARN cedo, `sheep_led` ganha 0,671 (n=76)
+contra 0,556 do cow e 0,579 do mixed — enquanto o nosso forçado deu 0,185. A diferença é que
+naqueles 76 assentos a lã estava sã em **76 de 76**. A elite não é melhor com ovelhas; ela
+nunca compromete com ovelha sem comprador para a lã.
+
+Separando a célula A pelo mercado: lã sã (n=17) dá 0,471 contra 0,294 do `v006`, net **+3**;
+lã colapsada (n=37) dá 0,054 contra 0,297, net **−9**. A regra atual tem sensibilidade 1,000
+para o colapso e especificidade 0,433 — ela nunca erra para o lado perigoso, mas nega ovelha a
+17 mundos que a sustentariam. Trocar a chave por "lã vendável" daria **29/67 = 0,433** contra
+0,388, +3 mundos.
+
+**E o obstáculo.** O preço da lã é idêntico nos dois destinos até o dia 9 (206, 212, 215, 217,
+190, 187) e só separa no dia 11. `bal_acc` 0,500 em todos os dias até lá. O `v006` compromete o
+regime no dia 6, **cinco dias antes de a variável que decide o regime existir**.
+
+### Próximo
+
+Adiar o compromisso: manter a `YARN_STORE` como prior no dia 6 e reavaliar quando a demanda por
+lã se revelar, medindo no mesmo cohort. Teto medido: +3 mundos (0,388 → 0,433), com a ressalva
+de que os 17 mundos foram identificados dentro do próprio cohort.
