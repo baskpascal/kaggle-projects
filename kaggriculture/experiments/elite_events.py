@@ -148,6 +148,45 @@ def strategic_events(steps, seat, configuration, *, hire_burst=3, large_sale_uni
     return events
 
 
+def executed_milestones(steps, seat):
+    """Macro milestones read from state transitions, never from issued orders.
+
+    A market order is a request. The engine refuses it when the cash is short or the asset
+    is capped, and a refused BUY_LAND looks exactly like a bought one in the action stream.
+    Counting requests made a team that attempts expansion seven times and succeeds twice
+    look adaptive, and made its first expansion look like turn 2 instead of 151. Quadrants,
+    animals on tiles and structures are the ledger the engine actually keeps.
+    """
+    milestones, previous = {}, None
+    for turn, frame in enumerate(steps):
+        farm = frame[seat]['observation']['farms'][seat]
+        tiles = [tile for row in farm['tiles'] for tile in row]
+        current = {
+            'quadrants': len(farm.get('unlocked_quadrants') or []),
+            'hands': len(farm.get('hands') or []),
+        }
+        for name in ANIMAL_KINDS:
+            current['animal_' + name] = sum(
+                isinstance(tile, dict) and tile.get('animal') == name for tile in tiles)
+        for kind in STRUCTURES:
+            current['structure_' + kind] = sum(
+                isinstance(tile, dict) and tile.get('kind') == kind for tile in tiles)
+        if previous is not None:
+            if current['quadrants'] > previous['quadrants']:
+                index = current['quadrants'] - 1
+                milestones.setdefault('land%d' % index, turn)
+            for name in ANIMAL_KINDS:
+                key = 'animal_' + name
+                if current[key] > 0 and previous[key] == 0:
+                    milestones.setdefault('first_' + name, turn)
+            for kind in STRUCTURES:
+                key = 'structure_' + kind
+                if current[key] > previous[key]:
+                    milestones.setdefault('build_' + kind, turn)
+        previous = current
+    return milestones
+
+
 def planner_intent(observation, configuration, parameters=None):
     """What our planner emits at exactly this recorded state, and nothing else."""
     action = policy(observation, configuration, parameters)
