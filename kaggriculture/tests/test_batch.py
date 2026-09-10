@@ -216,3 +216,20 @@ def test_host_contribution_makes_a_barely_used_node_visible():
 def test_host_contribution_is_empty_without_rows():
     from arena.batch import host_contribution
     assert host_contribution([]) == []
+
+
+@pytest.mark.parametrize('platform', ['win32', 'darwin'])
+def test_child_memory_telemetry_is_optional_off_linux(monkeypatch, platform):
+    import builtins
+    import arena.batch as batch
+
+    original_import = builtins.__import__
+
+    def without_resource(name, *args, **kwargs):
+        if name == 'resource':
+            raise ImportError('resource is unavailable')
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, '__import__', without_resource)
+    monkeypatch.setattr(batch.sys, 'platform', platform)
+    assert batch.peak_child_rss_kib() is None

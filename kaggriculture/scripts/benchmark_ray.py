@@ -43,12 +43,13 @@ def metrics(rows, seconds, batches=(), *, cpu_utilization=None):
 def game_result(row):
     return json.dumps({key: value for key, value in row.items()
                        if key not in {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit',
-                                      'git_dirty', 'job_id', 'batch_id'}},
+                                      'git_dirty', 'job_id', 'batch_id',
+                                      'execution_resources'}},
                       sort_keys=True, separators=(',', ':'), allow_nan=False)
 
 
 def results_agree(left, right):
-    """Compare exact game results without treating completion order as evidence."""
+    """Compare exact game results, excluding timing and resource-allocation telemetry."""
     return sorted(game_result(row) for row in left) == sorted(game_result(row) for row in right)
 
 
@@ -163,9 +164,10 @@ def main():
                     environments=environments, current_git=git_provenance(ROOT))
         elif hostnames != report['cluster_hostnames']:
             raise SystemExit('Ray cluster membership changed during the benchmark')
-        # The smaller workloads establish the fastest host. Repeating all 8000 jobs on
-        # every slower host adds no evidence and dominated the previous benchmark time.
-        if count == 8000 and baseline_node_id is not None:
+        # The first workload establishes the fastest host. Repeating every later workload
+        # on the known slower host adds no evidence and leaves the faster CPUs idle in its
+        # long tail.
+        if baseline_node_id is not None:
             local_runs = [mapper.local_baseline_on_node(
                 whole, baseline_node_id, maximum_workers=args.local_workers)]
             baseline_strategy = 'selected-fastest-from-prior-workloads'

@@ -79,6 +79,9 @@ class SequenceTask:
         self.calls += 1
         return next(self.refs)
 
+    def options(self, **_options):
+        return self
+
 
 class RecordingTask:
     def __init__(self):
@@ -100,13 +103,16 @@ class CountingTask:
         self.calls += 1
         return Ref(value={'call': self.calls})
 
+    def options(self, **_options):
+        return self
+
 
 def test_mapper_disables_ray_retries_and_counts_cluster_slots():
     ray = FakeRay()
     mapper = RayBatchMapper(ray, cpus_per_worker=2)
     assert mapper.available_slots == 2
     assert ray.remote_options == [
-        {'num_cpus': 2, 'max_retries': 0, 'retry_exceptions': False},
+        {'num_cpus': 2, 'num_gpus': 0, 'max_retries': 0, 'retry_exceptions': False},
         {'num_cpus': 0, 'max_retries': 0, 'retry_exceptions': False},
     ]
 
@@ -118,8 +124,9 @@ def test_mapper_counts_schedulable_slots_per_node_without_cross_node_fragmentati
         {'Alive': True, 'NodeID': 'node-b', 'Resources': {'CPU': 11}},
     ]
     mapper = RayBatchMapper(ray, cpus_per_worker=4)
-    assert mapper.node_slots == {'node-a': 3, 'node-b': 2}
-    assert mapper.available_slots == 5
+    assert mapper.node_slots == {'node-a': 4, 'node-b': 3}
+    assert mapper.available_slots == 7
+    assert sorted(slot['cpus'] for slot in mapper.worker_slots) == [3, 3, 4, 4, 4, 4, 4]
 
 
 def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
@@ -137,6 +144,21 @@ def test_local_baseline_reserves_and_uses_each_nodes_full_capacity():
     assert result['timeout'] == 9
     assert task.options_seen[0]['num_cpus'] == 4
     assert task.options_seen[0]['scheduling_strategy'] == ('node-a', False)
+
+
+def test_cross_node_proof_reserves_and_uses_each_nodes_full_capacity():
+    ray = FakeRay()
+    mapper = RayBatchMapper(ray)
+    task = RecordingTask()
+    mapper._task = task
+    batch = make_batch([{'candidate': 'pass', 'opponent': 'pass', 'seed': 1,
+                         'seat': 0, 'backend': 'fast'}])
+
+    [(node, result)] = mapper.run_on_every_node(batch)
+
+    assert node['NodeID'] == 'node-a'
+    assert result['workers'] == 4
+    assert task.options_seen[0]['num_cpus'] == 4
 
 
 def test_local_baseline_can_target_one_selected_node():
@@ -206,7 +228,10 @@ def test_remote_batch_marks_match_children_without_leaking_role(monkeypatch):
 
     monkeypatch.delenv('ARENA_ROLE', raising=False)
     monkeypatch.setattr('arena.ray_transport.run_batch', run_batch)
-    assert _remote_batch(batch, 2, 3) == {'complete': True}
+    result = _remote_batch(batch, 2, 3)
+    assert result['complete'] is True
+    assert result['ray_resources']['num_cpus'] == 2
+    assert result['ray_resources']['num_gpus'] == 0
     assert observed == [('ray-worker', batch, 2, 3)]
     assert 'ARENA_ROLE' not in os.environ
 
@@ -240,8 +265,8 @@ def two_node_mapper(hostnames, *, cpus_per_worker=4):
 def test_describe_nodes_names_every_live_host_with_its_slots():
     mapper = two_node_mapper(['pc-b-wsl', 'desktop-a'])
     assert mapper.describe_nodes() == [
-        {'node_id': 'node-b', 'hostname': 'desktop-a', 'slots': 2},
-        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'slots': 3},
+        {'node_id': 'node-b', 'hostname': 'desktop-a', 'cpus': 11, 'gpus': 0, 'slots': 3},
+        {'node_id': 'node-a', 'hostname': 'pc-b-wsl', 'cpus': 15, 'gpus': 0, 'slots': 4},
     ]
 
 

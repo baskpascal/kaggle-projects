@@ -24,7 +24,7 @@ not depend on it either way.
 import hashlib
 import json
 import os
-import resource
+import sys
 import socket
 import time
 from pathlib import Path
@@ -94,9 +94,12 @@ def peak_child_rss_kib():
     worker ever come close to this machine's RAM", which is the capacity question, and not
     "how much did this batch use".
     """
+    if sys.platform != 'linux':
+        return None
     try:
+        import resource
         return resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
-    except (AttributeError, OSError, ValueError):
+    except (ImportError, AttributeError, OSError, ValueError):
         return None
 
 
