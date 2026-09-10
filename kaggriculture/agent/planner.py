@@ -256,12 +256,19 @@ def policy(observation, configuration=None, parameters=None):
     animal_order_slots = sum(count > 0 for count in purchase_need.values())
     hire_order_cap = max(0, limit - animal_order_slots)
     desired_hands = min(p['max_hands'], hire_order_cap, max(0, (busy + 2) // 3))
+    # Reserving the market slot is not the same as reserving the money. Hires are bought
+    # before the herd, so a full opening crew can spend exactly the capital the animal
+    # chain needs and postpone it by days. The guard is a condition on capital, not a
+    # turn number: hire only while the herd this turn would still be affordable after.
+    herd_cost = sum(ANIMALS[name][0] * min(2, count)
+                    for name, count in purchase_need.items() if count)
+    hire_reserve = herd_cost if p['hire_capital_guard'] else None
     if s.hour < 4 and s.turns_left > 12:
         a, b = 1, 1
         for n in range(desired_hands):
             cost = a * s.config.get('farmHandCostMult', 1)
             if n >= s.me['hires_today']:
-                buy(['HIRE'], cost, essential=True)
+                buy(['HIRE'], cost, essential=True, required_reserve=hire_reserve)
             a, b = b, a + b
     # Existing livestock survives before the herd expands. Buying feed ahead of animal
     # inventory also prevents a new placement from turning the next morning into a rescue.
