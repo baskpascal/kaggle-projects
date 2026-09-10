@@ -3,6 +3,7 @@ import json
 
 import pytest
 
+from arena.match import run_match
 from experiments.tape_splice import (BLOCK, boundaries, fingerprint, join_distance,
                                      splice, states_at)
 
@@ -97,6 +98,15 @@ def test_states_at_reads_a_lab_replay(tmp_path):
     states = states_at(path, 0, [72, 144, 999])
     assert sorted(states) == [72, 144], 'a cut the replay does not reach is skipped'
     assert states[144]['money'] == 144.0
+
+
+def test_inline_sparse_snapshots_do_not_require_a_replay_file():
+    result = run_match('pass', 'starter', 12, seat=1, replay_inline=True,
+                       replay_steps=[0, 72, 144, 719])
+
+    assert [turn['step'] for turn in result['replay_turns']] == [0, 72, 144, 719]
+    for turn in result['replay_turns']:
+        assert turn['observations'][1]['step'] == turn['step']
 
 
 def test_zero_distance_is_the_only_claim_the_tool_makes():
