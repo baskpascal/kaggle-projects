@@ -20,7 +20,7 @@
     "opponent forecast weight",
     "herd floor / land reserve holds"
   ],
-  "next_action": "the attack fails on timing, not tiles: with attack_tiles=2 we deliver 4 strawberries against the ~200 required, because strawberry needs ten days to first harvest and our opening builds pasture. Force the attack reservation from turn 0 through about day 8, ahead of BUILD_. Gate: measure delivered units before t360 and require >=150 before running any paired game.",
+  "next_action": "opening liquidity blocks the attack: zero crops stand at t96 even with the reservation outranking BUILD_, because the first days hold 300-700 coins and six melon seeds cost 480. Trace what the opening spends its cash on, day 0-8, before any further paired game. Gate unchanged: >=150 units of the target crop delivered before t360. Note: attack_tiles had a seed bug (PLANT jobs refused for want of seed because the order was built from best_crop); fixed, and with it v006 falls from 102,139 to 93,338 on seed 1000 while our own money falls to 32,587.",
   "instruments": {
     "primary": "paired win probability vs v006 on the cluster",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"

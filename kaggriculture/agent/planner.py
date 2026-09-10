@@ -158,7 +158,11 @@ def policy(observation, configuration=None, parameters=None):
             attack_crop = max(leverage, key=leverage.get)
     attack_budget = p['attack_tiles'] if attack_crop else 0
     for pos in plantable:
-        if attack_budget and s.hour < p['plant_until_hour'] and not build_kinds:
+        # Before `attack_until_day` the reservation outranks construction: the target crop
+        # needs ten days from planting to first harvest, so a tile committed after about day
+        # eight never reaches the market, and the opening is otherwise spent on pasture.
+        early = s.day < p['attack_until_day']
+        if attack_budget and s.hour < p['plant_until_hour'] and (early or not build_kinds):
             jobs.append((pos, ['PLANT', attack_crop], 60., None))
             planned[attack_crop] = planned.get(attack_crop, 0) + 1
             attack_budget -= 1
@@ -351,6 +355,12 @@ def policy(observation, configuration=None, parameters=None):
         # to tiles it has no seed for and the PLANT jobs are filtered out again.
         wanted = planned if p['planned_feedback'] else (
             {best_crop: min(12, len(plantable))} if best_crop else {})
+        # The attack allocation commits tiles to a crop our own scorer did not choose, so
+        # without this its PLANT jobs are generated and then refused for want of seed.
+        if attack_crop:
+            wanted = dict(wanted)
+            wanted[attack_crop] = max(wanted.get(attack_crop, 0),
+                                      min(p['attack_tiles'], len(plantable)))
         budget = min(12, len(plantable))
         for crop, count in sorted(wanted.items(), key=lambda kv: -kv[1]):
             count = min(count, budget)

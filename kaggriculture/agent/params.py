@@ -8,6 +8,7 @@ DEFAULTS = {
     'attack_tiles': 0,
     'neutral_inventory': 10000,
     'attack_headroom': 400,
+    'attack_until_day': 0,
     'reposition_idle': False,
     'demand_horizon': 0,  # 0 = historical `peak`-day window
     'opponent_weight': 0.8,

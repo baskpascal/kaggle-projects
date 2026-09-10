@@ -229,3 +229,27 @@ from day 0 through about day 8, ahead of pasture construction, which is what cur
 the opening. Falsify cheaply first — with the reservation forced from turn 0, measure delivered
 units before v006's selling window opens at t360, and require at least 150 before running a
 single paired game.
+
+### Attack implementation: a seed bug, and the opening is still the wall
+
+`attack_tiles` generated its PLANT jobs and every one was refused: the assignment loop drops a
+PLANT whose seed is not in the private store, and the seed order is built from `best_crop`,
+which is our own scorer's choice and never the attack crop. Found by tracing a replay where
+twenty tiles were free, an attack crop was correctly selected (wheat and melon both had
+headroom under neutral), and all units still passed. Fixed by adding the attack crop to the
+seed order. No paired game was spent on the broken version.
+
+With the fix, seed 1000, `attack_tiles` 6 and `attack_until_day` 8: crops finally appear —
+12 melon standing at t192 — and **v006 finishes at 93,338 against its 102,139 in the base
+run**. The mechanism moves the opponent. Our own money is 32,587, so the trade is still bad.
+
+Zero crops stand at t96 even with the reservation outranking construction, and the reason is
+cash: the first days hold three to seven hundred coins while six melon seeds cost 480. The
+attack lands at the end of its window rather than the start.
+
+### Next
+
+The blocker is opening liquidity, not allocation. Before any further paired game, measure the
+first eight days' cash trajectory against the seed cost of the reserved tiles, and find what
+the opening actually spends its three hundred coins on. Gate unchanged: at least 150 units of
+the target crop delivered before t360.
