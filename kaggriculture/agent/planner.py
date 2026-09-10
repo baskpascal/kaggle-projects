@@ -209,7 +209,11 @@ def policy(observation, configuration=None, parameters=None):
         unit_actions.append(result)
 
     cash = s.me['money']
-    reserve_wheat = len(animals) * 2 if s.days_left > 1 else 0
+    # Two days of feed per animal is bought every turn the store dips below it, and the
+    # telemetry says most of those units are still sitting there seventy-two turns later.
+    # `feed_days_of_cover` makes the buffer a parameter so an ablation can ask whether the
+    # second day is paying for itself; 2 is the historical behaviour.
+    reserve_wheat = (len(animals) * p['feed_days_of_cover'] if s.days_left > 1 else 0)
     keep_fertilizer = fertilize_targets if p['fertilize'] and s.days_left > 1 else 0
     limit = s.config.get('maxMarketOrdersPerTurn', 10)
     sales = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat,
@@ -278,12 +282,24 @@ def policy(observation, configuration=None, parameters=None):
     # inventory also prevents a new placement from turning the next morning into a rescue.
     wheat_total = s.private['shed'].get('WHEAT', 0) + sum(
         i.get('WHEAT', 0) for i in inventories)
+    # Seed is ordered after feed, so a turn that tops the feed buffer up can leave a
+    # plantable tile without seed until the next one. `seed_priority` reserves the cost of
+    # the realisable seed deficit - capacity we could plant now, minus seed already held -
+    # against the feed order. It is a deficit, not a target: no deficit, no reserve.
+    seed_deficit_cost = 0.
+    if p['seed_priority'] and risk != 'ahead':
+        held_seed = sum(seeds.values())
+        deficit = max(0, min(len(plantable), 12) - held_seed)
+        if deficit and best_crop:
+            seed_deficit_cost = deficit * CROPS[best_crop][0]
     if wheat_total < reserve_wheat:
         count = reserve_wheat - wheat_total
         inv = observation['market']['inventory']['WHEAT']
         cost = sum(price('WHEAT', inv - k - 1, s.config.get('marketParams'))
                    for k in range(count))
-        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True)
+        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True,
+            required_reserve=max(held_reserve, seed_deficit_cost)
+            if seed_deficit_cost else None)
 
     # Land is the binding production asset once the starting quadrant fills. Preserve
     # its price across turns and schedule it ahead of herd expansion and seed orders.

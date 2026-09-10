@@ -45,6 +45,8 @@ DEFAULTS = {
     # reserve while never emitting BUY_LAND; `land_reserve_holds` off buys the quadrant
     # without making every other order clear its price first. Both default to the
     # behaviour `land_reservation` has always had.
+    'feed_days_of_cover': 2,
+    'seed_priority': False,
     'land_purchase': True,
     'land_reserve_holds': True,
     # Reactive inventory arbitrage. Disabled for all historical artifacts; candidates
