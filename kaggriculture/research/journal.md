@@ -99,3 +99,42 @@ capture the 19-a-day, 206-coin demand — while v006 has 2,253 by turn 150 and 2
 Money-first reverse engineering of the trap: find the first turn our cash trajectory diverges
 from v006's in the same world and attribute the spend by category from executed state. Do not
 test another parameter until that first controllable cause is identified.
+
+### The first controllable cause, and why "improving our economy" cannot work
+
+Cash trajectories in the same world (seed 1000) diverge sharply between t240 and t264: v006
+goes from 2,111 to 15,755 in a single day. The trace names the event exactly — it sells melon,
+in blocks of 6, 24, 12, 6, 6, 6 and 12 across turns 250–265, for roughly +16,000. Melon seed
+costs 80, yields 6, and sells near 250, so one tile returns about eighteen times its seed. It
+is the single best object in the game and it must be planted by about day 4 to harvest on
+day 10.
+
+Our planner is not choosing the wrong crop: it holds 13 melon tiles at t144 against v006's 12.
+It is **two days late**. At t96 we have zero crops standing while v006 has 7 wheat and 12
+melon, because we spend the opening building twelve pasture tiles and staging a herd —
+`BUILD_` outranks `PLANT` in the job loop — so the harvest that funds the mid-game lands late
+and small.
+
+Deferring the herd (`animal_bootstrap_cap` 2, `animal_ramp_day` 9) reproduces the mechanism
+exactly: 19 melon tiles standing at t96 instead of none, and terminal cash rises from 51,088
+to 62,710 across 40 games. **And the paired score stays 0.000**, because in the same worlds
+v006's own money rises from 130,332 to 150,443. We gained 11,600; the opponent gained 20,100.
+
+That is the structural fact this campaign was missing. The two farms share one town, and our
+choices move the opponent's income by tens of thousands. Every intervention tried so far
+optimises our own economy, and in a shared market a larger own economy can hand the opponent
+more than it keeps. It explains why eleven interventions improved margins slightly and won
+nothing, and why our mirror economy (87,104) exceeds v006's (74,619) while we lose 40-0.
+
+The fitness that matters is `ours - theirs`, which is what the paired score already measures.
+The intervention that matters must **raise ours while lowering theirs**.
+
+### Next
+
+Opponent-aware market pre-emption. v006's decisive income is a melon block harvested around
+day 10-11, and melon's price curve collapses hard above the neutral inventory (`sq`, target
+3.6, base 250, demand about 1 a day). Selling melon into the market immediately before that
+harvest should crash the price it realises on roughly 72 units. Falsify statically first:
+compute, from `agent.economy.price`, the realised value of 72 melons at the inventory v006
+faces at t250 against the inventory it would face after we add N melons, and check whether the
+loss to it exceeds the revenue we give up. Only then build the overlay.
