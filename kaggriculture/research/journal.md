@@ -61,3 +61,41 @@ The contention swing is the only mechanism measured at the right order of magnit
 (~52,000). Nothing in the current parameter surface expresses it. The next architectural
 level is a policy that reasons about the opponent's claim on daily demand rather than about
 its own forecast.
+
+### Second batch, same run — eleven interventions now rejected
+
+| intervention (all vs v006 unless noted) | score | median margin |
+|---|---:|---:|
+| base `{economic_planner, land_reservation}` | 0.000 | −81,266 |
+| `land_reserve_holds` False | 0.000 | −81,266 (identical) |
+| `animal_cap` 8 | 0.000 | −77,918 |
+| `animal_cap` 4 | 0.000 | −112,229 |
+| `sale_floor_fraction` 0.0 | 0.000 | −72,728 |
+| `reposition_idle` | 0.000 | −74,753 |
+
+Nothing recovers more than about 8,500 of 81,000.
+
+### Static arithmetic that matters, seed 1000 at t360
+
+Town demand per day against price, same town for both agents:
+
+    STRAWBERRY  19/day @ 206      EGG     19/day @  54
+    WHEAT       25/day @  44      CARROT  19/day @  46
+    TOMATO       7/day @  64      MELON    1/day @ 140
+    MILK         1/day @  26      WOOL     1/day @  37
+
+v006 stands 8 cows into a town that buys one milk a day at 26 coins, and still finishes at
+102,139 against our 35,199. **Allocation quality is therefore not what separates us.** Crop
+scores in our planner are strongly positive throughout (STRAWBERRY 35–47), so the crop
+economics are not gating either, yet we hold 6 crops on 25 free tiles at t360 while v006 holds
+57 on none.
+
+The binding constraint visible in the trace is cash: 628 coins at t240 cannot buy twelve
+strawberry seeds at 100 each. We are in a capital trap — too poor to buy the seed that would
+capture the 19-a-day, 206-coin demand — while v006 has 2,253 by turn 150 and 24,160 by t360.
+
+### Next
+
+Money-first reverse engineering of the trap: find the first turn our cash trajectory diverges
+from v006's in the same world and attribute the spend by category from executed state. Do not
+test another parameter until that first controllable cause is identified.

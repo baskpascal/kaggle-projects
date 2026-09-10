@@ -17,11 +17,13 @@
     "crop economics",
     "executor idleness",
     "sale floor",
-    "opponent forecast weight"
+    "opponent forecast weight",
+    "herd floor / land reserve holds"
   ],
-  "next_action": "build an opponent-aware demand-claim policy: estimate the opponent's daily draw on each product from its observable standing assets, and allocate our production and sales to the residual demand rather than to our own forecast. Falsify first with static arithmetic on daily_demand vs both farms' standing yield.",
+  "next_action": "money-first: locate the first turn where our cash trajectory diverges from v006's in the same world and attribute the spend by category from executed state (assets standing, not orders). The trap to explain is 628 coins at t240 against v006's 2,253 by t150, which is what prevents buying strawberry seed into 19/day demand at 206. No further parameter tests until that first controllable cause is named.",
   "instruments": {
     "primary": "paired win probability vs v006 on the cluster",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
-  }
+  },
+  "interventions_rejected": 11
 }
