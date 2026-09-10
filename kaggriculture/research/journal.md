@@ -511,3 +511,90 @@ painel contém e em que escala ele mede.
 Reconstruir o evaluator na escala real: adversários de 2600–2800 e um objetivo que resolva
 centenas de moedas. Só depois disso volta a fazer sentido gastar CPU em busca, GA, option
 selector ou RL.
+
+## 2026-09-10 — schedule compiler Stage 1: quotas agregadas ainda não são execução compilada
+
+### Reality e seleção
+
+MEASURED FACT. O campeão continua `versions/v006/main.py`, SHA-256
+`495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc`. No ladder ele
+completou 204/204 episódios, sem assimetria de assento, atingiu pico 2644,4 e estava em
+2513,3 na última leitura. Nos 20 replays da faixa 2600–2800, o motor reproduziu 20/20
+exatamente e a mediana de `|margem|` foi 102 moedas.
+
+Três perguntas foram comparadas antes de implementar: (1) schedule compiler por fases,
+(2) reconstrução do evaluator com adversários reativos 2600–2800, e (3) correção micro de
+near-ties. A primeira foi selecionada somente para Stage 1: seu teste é independente da
+calibração competitiva, ataca o gargalo corporal já medido e decide se esse executor é
+salvável. A segunda permanece obrigatória antes de interpretar Stage 2; a terceira é
+dominada pelos oráculos negativos já registrados.
+
+### Stage 0
+
+MEASURED FACT. Sete perfis de equipes >=2950, 36 mundos no mesmo motor, constituem prova
+construtiva de 3 quadrantes, 53–61 culturas em t288, 11–17 pastos e pico diário de 10–11
+mãos. O baseline reativo refeito pelo mesmo instrumento alcançou no mínimo 8 culturas em
+t288; isto resolve a contradição com `state.json`, que dizia zero, e não altera a ordem de
+magnitude do déficit.
+
+STATIC CEILING. Contra o trace reativo preservado de 9 culturas, chegar ao gate de 40 abre
+31 tiles. Mesmo usando o valor base conservador de WHEAT, 25 moedas por tile-dia, nos 18 dias
+restantes após t288, o teto bruto é `31 * 18 * 25 = 13.950` moedas, 137 vezes a margem viva
+mediana de 102. O teto não é lift esperado: custo e contenção podem inverter o sinal. A
+hipótese passou Stage 0 porque a magnitude possível é material e a elite demonstra
+viabilidade física.
+
+### Implementação mínima e Stage 1
+
+O modo opt-in `compiled_schedule` fixou deadlines de compra de terra, meta cumulativa de
+plantio, dois lotes de pasto e piso de equipe por fase, mantendo o comportamento histórico
+quando desligado. `experiments/compiled_schedule_gate.py` mede observações executadas em
+t96/t192/t288/t480 e picos de mãos, com baseline sheep-max congelado, 10 seeds dev e ambos
+os assentos. Um bug no reshape de replay descartava o verdadeiro frame step 0 quando ainda
+não havia ações; ele foi corrigido e ganhou regressão.
+
+Resultado, 10 mundos x 2 assentos, contra `v006`, zero callback failures:
+
+| gate | compiled | reactive control |
+|---|---:|---:|
+| 3 quadrantes em t480 | 20/20 | 18/20 |
+| >=40 culturas em t288 | 10/20 | 0/20 |
+| 12 pastos em t288 | 4/20 | 20/20 |
+| pico de equipe >=10 nas três fases | 20/20 | 16/20 |
+| todos os gates | 4/20 | 0/20 |
+
+Os pares de assentos foram idênticos, portanto o resultado total representa 2/10 mundos
+independentes passando, não quatro evidências independentes. Minima compiled: 3 quadrantes,
+13 culturas, 6 pastos e pico 10. Minima do controle: 2, 8, 12 e 9. Terra e pico de equipe
+foram materializados de forma robusta; a combinação culturas+pasto não foi.
+
+MEASURED FACT. Em 16/20 execuções compiled apenas seis pastos existiam em t288. Pedidos de
+BUILD_PASTURE continuaram aparecendo e o audit da temporada chegou a doze, mas o segundo lote
+foi atribuído tarde demais. Em seeds 1003/1004 havia só 13 culturas em t288 após o ciclo de
+colheita. A meta global foi compilada, mas a atribuição por unidade continuou reativa; ela
+reprecificou reposição de culturas contra construção e não garantiu nenhum dos dois
+compromissos executados.
+
+### Falsificação independente
+
+PASS para a conclusão estreita: não executar Stage 2. Uma reprodução nova da seed 1001 nos
+dois assentos mediu 37 culturas e 6 pastos em t288, 3 quadrantes em t480, picos 10/10/10,
+zero falhas de callback e 580/580 ordens de mercado executadas; o sumarizador concordou com
+os tiles contados diretamente. O candidato refeito tinha hash `309d728b…` e `v006`
+`495bfa48…`. Trinta e três testes focalizados passaram.
+
+Ressalvas que limitam, mas não revertem, o resultado: o JSON commitado não inclui hashes,
+fingerprint do motor, runtime nem telemetria diária; o gate de equipe mede apenas pico e não
+capacidade sustentada (na fase 192:288 da seed 1001, dez mãos existiram em somente 23/96
+snapshots); os assentos não são amostras independentes; e a comparação elite no relatório é
+uma faixa hardcoded, não as linhas brutas. Nenhuma dessas falhas pode transformar 37 culturas
+e 6 pastos executados nos gates de 40 e 12.
+
+### Decisão e próximo teste
+
+CONTINUE MECHANISM TEST. Não promover e não rodar paired. A nova medição corrige a formulação:
+um compiler de metas globais servido pelo mesmo assignment reativo não é ainda um executor
+compilado. O próximo teste é substituir somente a atribuição dos dois lanes conflitantes por
+compromissos persistentes por unidade até sua conclusão e exigir, nos mesmos 10 mundos,
+40 culturas e 12 pastos em t288 sem perder os gates robustos de terra e equipe. Se isso passar,
+reconstruir o evaluator reativo 2600–2800 antes de dar significado competitivo à Stage 2.
