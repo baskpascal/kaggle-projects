@@ -46,6 +46,18 @@ DEFAULTS = {
     'animal_bootstrap_cap': 5,
     'animal_ramp_day': 5,
     'land_reservation': False,
+    # Hires are bought before the herd and can spend the capital the animal chain needs.
+    # On keeps the herd's own cost reserved while hiring; off reproduces the historical
+    # opening exactly.
+    'hire_capital_guard': False,
+    # Ablation controls for the expansion. `land_purchase` off keeps the pending-expansion
+    # reserve while never emitting BUY_LAND; `land_reserve_holds` off buys the quadrant
+    # without making every other order clear its price first. Both default to the
+    # behaviour `land_reservation` has always had.
+    'feed_days_of_cover': 2,
+    'seed_priority': False,
+    'land_purchase': True,
+    'land_reserve_holds': True,
     # Reactive inventory arbitrage. Disabled for all historical artifacts; candidates
     # opt in only after the observed town demand makes the round trip profitable.
     'market_arbitrage': False,

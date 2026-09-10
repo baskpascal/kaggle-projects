@@ -271,7 +271,11 @@ def policy(observation, configuration=None, parameters=None):
         unit_actions.append(result)
 
     cash = s.me['money']
-    reserve_wheat = len(animals) * 2 if s.days_left > 1 else 0
+    # Two days of feed per animal is bought every turn the store dips below it, and the
+    # telemetry says most of those units are still sitting there seventy-two turns later.
+    # `feed_days_of_cover` makes the buffer a parameter so an ablation can ask whether the
+    # second day is paying for itself; 2 is the historical behaviour.
+    reserve_wheat = (len(animals) * p['feed_days_of_cover'] if s.days_left > 1 else 0)
     keep_fertilizer = fertilize_targets if p['fertilize'] and s.days_left > 1 else 0
     limit = s.config.get('maxMarketOrdersPerTurn', 10)
     sales = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat,
@@ -294,13 +298,17 @@ def policy(observation, configuration=None, parameters=None):
                 and s.day >= p['expand_day']
                 and s.days_left > 10 and occupied >= len(tiles) * .75)
     land_cost = (1000, 2000, 4000)[quadrants - 1] if land_due else 0
+    # `land_cost` does two separate jobs: it is the price of the quadrant, and it is the
+    # floor every other order has to clear while the expansion is pending. Splitting them
+    # is what lets an ablation ask which of the two is paying.
+    held_reserve = land_cost if p['land_reserve_holds'] else 0
 
     def buy(order, cost, essential=False, required_reserve=None):
         nonlocal cash
         accepted = len(essential_orders) + len(optional_orders)
         slots_available = (accepted < limit if reserve_slots else
                            len(sales) + accepted < limit)
-        reserve = (max(effective_reserve, land_cost) if required_reserve is None
+        reserve = (max(effective_reserve, held_reserve) if required_reserve is None
                    else required_reserve)
         if slots_available and cost <= max(0, cash - reserve):
             (essential_orders if essential else optional_orders).append(order)
@@ -318,27 +326,46 @@ def policy(observation, configuration=None, parameters=None):
     animal_order_slots = sum(count > 0 for count in purchase_need.values())
     hire_order_cap = max(0, limit - animal_order_slots)
     desired_hands = min(p['max_hands'], hire_order_cap, max(0, (busy + 2) // 3))
+    # Reserving the market slot is not the same as reserving the money. Hires are bought
+    # before the herd, so a full opening crew can spend exactly the capital the animal
+    # chain needs and postpone it by days. The guard is a condition on capital, not a
+    # turn number: hire only while the herd this turn would still be affordable after.
+    herd_cost = sum(ANIMALS[name][0] * min(2, count)
+                    for name, count in purchase_need.items() if count)
+    hire_reserve = herd_cost if p['hire_capital_guard'] else None
     if s.hour < 4 and s.turns_left > 12:
         a, b = 1, 1
         for n in range(desired_hands):
             cost = a * s.config.get('farmHandCostMult', 1)
             if n >= s.me['hires_today']:
-                buy(['HIRE'], cost, essential=True)
+                buy(['HIRE'], cost, essential=True, required_reserve=hire_reserve)
             a, b = b, a + b
     # Existing livestock survives before the herd expands. Buying feed ahead of animal
     # inventory also prevents a new placement from turning the next morning into a rescue.
     wheat_total = s.private['shed'].get('WHEAT', 0) + sum(
         i.get('WHEAT', 0) for i in inventories)
+    # Seed is ordered after feed, so a turn that tops the feed buffer up can leave a
+    # plantable tile without seed until the next one. `seed_priority` reserves the cost of
+    # the realisable seed deficit - capacity we could plant now, minus seed already held -
+    # against the feed order. It is a deficit, not a target: no deficit, no reserve.
+    seed_deficit_cost = 0.
+    if p['seed_priority'] and risk != 'ahead':
+        held_seed = sum(seeds.values())
+        deficit = max(0, min(len(plantable), 12) - held_seed)
+        if deficit and best_crop:
+            seed_deficit_cost = deficit * CROPS[best_crop][0]
     if wheat_total < reserve_wheat:
         count = reserve_wheat - wheat_total
         inv = observation['market']['inventory']['WHEAT']
         cost = sum(price('WHEAT', inv - k - 1, s.config.get('marketParams'))
                    for k in range(count))
-        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True)
+        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True,
+            required_reserve=max(held_reserve, seed_deficit_cost)
+            if seed_deficit_cost else None)
 
     # Land is the binding production asset once the starting quadrant fills. Preserve
     # its price across turns and schedule it ahead of herd expansion and seed orders.
-    if land_due:
+    if land_due and p['land_purchase']:
         buy(['BUY_LAND'], land_cost, essential=True, required_reserve=0)
 
     # One order per species, up to two animals. Fixed unit costs mean the local cash
