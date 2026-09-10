@@ -15,3 +15,4 @@ kaggriculture/.tmp/
 kaggriculture/versions/candidates/
 # Machine-specific Ray pairing lives in ~/.config/kaggriculture, never in this repository.
 kaggriculture/.ray-cluster.json
+/.tmp/
