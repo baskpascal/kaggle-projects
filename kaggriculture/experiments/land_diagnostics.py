@@ -72,8 +72,10 @@ def land_report(steps, seat, configuration, *, fill_horizon=200):
         'purchases': len(purchases),
         'turn_land1': first,
         'turn_land2': purchases[1] if len(purchases) > 1 else None,
-        'cash_before_land1': cash_at(first),
-        'cash_after_land1': cash_at(first + 1),
+        # Same frame rule as `before`: the pre-decision cash is the turn before the one
+        # carrying the order, because that frame already reflects the resolved purchase.
+        'cash_before_land1': cash_at(max(0, first - 1)),
+        'cash_after_land1': cash_at(first),
         'productive_tiles_before': _productive(before, seat),
         'productive_tiles_after_50': _productive(
             steps[min(first + 50, len(steps) - 1)][seat]['observation'], seat),
