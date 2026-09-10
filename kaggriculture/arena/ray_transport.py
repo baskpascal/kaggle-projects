@@ -125,12 +125,21 @@ def _remote_batch(batch, workers, timeout):
     with _worker_role():
         if any(spec.get('replay') or spec.get('replay_steps') for spec in batch['specs']):
             raise ValueError('Remote jobs cannot write replay results to worker filesystems')
-        import ray
-        context = ray.get_runtime_context()
+        # The core/test environment deliberately does not install the optional Ray
+        # dependency.  A real remote task always has it, but keeping telemetry optional
+        # lets this execution boundary be exercised without making every CI job install
+        # the distributed stack merely to call ``run_batch``.
+        try:
+            import ray
+        except ImportError:
+            context = None
+        else:
+            context = ray.get_runtime_context()
         assignment = {'stage': 'cpu-simulation', 'hostname': socket.gethostname(),
-                      'pid': os.getpid(), 'node_id': str(context.get_node_id()),
+                      'pid': os.getpid(),
+                      'node_id': str(context.get_node_id()) if context else None,
                       'num_cpus': workers, 'num_gpus': 0,
-                      'gpu_ids': context.get_accelerator_ids().get('GPU', [])}
+                      'gpu_ids': context.get_accelerator_ids().get('GPU', []) if context else []}
         print('[kaggriculture-resource] ' + json.dumps(assignment, sort_keys=True), flush=True)
         result = run_batch(batch, workers=workers, timeout=timeout)
         result['ray_resources'] = assignment
