@@ -168,3 +168,64 @@ orders positive on `ours - theirs` — the only quantity that has tracked the pa
 Falsify statically first: replay a lost world, compute the differential of every order we
 actually issued, and check whether a differential-aware ordering would have flipped it, before
 writing any policy code.
+
+## 2026-09-10 (cont.) — the threshold, and the first mechanism with the right size
+
+### The differential idea, tested in the wrong regime
+
+Placing 40 units ahead of **every one** of v006's 292 executed sales costs it 11,870 in total,
+against a deficit of 81,266 — and that ceiling assumes unlimited inventory of every product at
+every moment. Rejected at Stage 0. But the reason is informative: below the engine's neutral
+inventory the price curve is shallow, and every one of those sales happens below it.
+
+### What the mirror actually showed
+
+    nosso vs v006   STRAWBERRY t719  inventory  9,806  price 237
+    v006 vs v006    STRAWBERRY t719  inventory 10,046  price   1
+
+Two v006s flood strawberry past neutral and destroy the market, which is why the v006 mirror
+is only 74,619 each. Our weak farm never floods it, so v006 faces a rising price all game and
+finishes at 102,139. **We were not losing the market to it. We were preserving it for it.**
+That retracts the contention framing from the previous cycle: the curve is not inelastic, it is
+shallow below neutral and catastrophic above, and all the leverage sits at that boundary.
+
+### The mechanism, priced on the engine's own function
+
+v006 sells 203 strawberries after t360 at inventories between 9,801 and 9,878, realising
+45,479. Adding our units first:
+
+    N=100   price 201   it realises 36,649   loses  8,830   we take 22,046
+    N=200   price 108   it realises  7,370   loses 38,109   we take 39,161
+    N=300   price   1   it realises    203   loses 45,276   we take 42,324
+
+At N=200 the swing is **77,270 against an 81,266 deficit** — the first mechanism in this
+campaign at the right order of magnitude, and it raises ours while lowering theirs.
+
+### Implemented, and the binding constraint is timing
+
+`attack_tiles` reserves tiles for the crop the opponent depends on when that market sits just
+under neutral (`neutral_inventory`, `attack_headroom`); defaults off. Results against v006:
+
+    only_crop STRAWBERRY   score 0.000  margin -75,733  ours 35,850  **theirs 114,500**
+    attack_tiles 2         score 0.000  margin -73,604  ours 63,620  theirs 138,790
+    attack_tiles 5         score 0.000  margin -76,384  ours 57,528  theirs 138,325
+    opponent_weight -1.0   score 0.000  margin -76,180  ours 55,318  theirs 136,640
+    base                   score 0.000  margin -81,266  ours 51,088  theirs 130,332
+
+`only_crop STRAWBERRY` is the only variant that moved the opponent — **-15,832** — and it is
+the only one that produced real volume, at the cost of our own income. A negative
+`opponent_weight` does not fire the mechanism at all: it feeds our own supply forecast and
+suppresses planting rather than forcing it.
+
+The diagnostic names the constraint exactly. With `attack_tiles 2` we **deliver four
+strawberries** against the ~200 the attack needs. We hold 25 standing at t480, but strawberry
+needs ten days to first harvest, so anything planted after about day 8 never reaches the market
+in time. The attack fails on **timing**, not on tiles.
+
+### Next
+
+Make the attack allocation early and unconditional rather than opportunistic: reserve its tiles
+from day 0 through about day 8, ahead of pasture construction, which is what currently occupies
+the opening. Falsify cheaply first — with the reservation forced from turn 0, measure delivered
+units before v006's selling window opens at t360, and require at least 150 before running a
+single paired game.

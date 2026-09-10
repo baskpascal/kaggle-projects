@@ -135,7 +135,34 @@ def policy(observation, configuration=None, parameters=None):
     build_kinds = [kind for kind in ('PASTURE', 'COOP')
                    for _ in range(structure_need[kind])]
     planned = {}
+    # Market attack. The engine's price is shallow below the neutral inventory and collapses
+    # above it, so a market the opponent depends on and that sits just under neutral is worth
+    # pushing over: measured here, v006's strawberry line realises 45,479 at inventory 9,806
+    # and 7,370 once 200 more units are in. Our own crop score cannot see this, because it
+    # prices our revenue and not the damage, so `attack_tiles` reserves tiles for it outright.
+    attack_crop = None
+    if p['attack_tiles']:
+        opponent_tiles = {}
+        for row in s.opponent['tiles']:
+            for tile in row:
+                if isinstance(tile, dict) and tile.get('crop') in CROPS:
+                    opponent_tiles[tile['crop']] = opponent_tiles.get(tile['crop'], 0) + 1
+        market = observation['market']
+        leverage = {}
+        for crop, count in opponent_tiles.items():
+            headroom = p['neutral_inventory'] - market['inventory'].get(crop, 0)
+            if headroom <= 0 or headroom > p['attack_headroom']:
+                continue
+            leverage[crop] = count * market['prices'].get(crop, 0)
+        if leverage:
+            attack_crop = max(leverage, key=leverage.get)
+    attack_budget = p['attack_tiles'] if attack_crop else 0
     for pos in plantable:
+        if attack_budget and s.hour < p['plant_until_hour'] and not build_kinds:
+            jobs.append((pos, ['PLANT', attack_crop], 60., None))
+            planned[attack_crop] = planned.get(attack_crop, 0) + 1
+            attack_budget -= 1
+            continue
         if build_kinds and s.hour < 15:
             jobs.append((pos, ['BUILD_' + build_kinds.pop(0)], 65., None))
         elif s.hour < p['plant_until_hour']:

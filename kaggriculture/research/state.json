@@ -20,11 +20,12 @@
     "opponent forecast weight",
     "herd floor / land reserve holds"
   ],
-  "next_action": "differential market policy. For each candidate buy/sell estimate our realised value via agent.economy.sale_value at the current inventory AND the change it causes in the value of the opponent's observable standing production; prefer orders positive on ours-minus-theirs. Falsify statically first: replay a lost world, compute the differential of every order we actually issued, and check whether a differential-aware ordering would have flipped the game before writing any policy code.",
+  "next_action": "the attack fails on timing, not tiles: with attack_tiles=2 we deliver 4 strawberries against the ~200 required, because strawberry needs ten days to first harvest and our opening builds pasture. Force the attack reservation from turn 0 through about day 8, ahead of BUILD_. Gate: measure delivered units before t360 and require >=150 before running any paired game.",
   "instruments": {
     "primary": "paired win probability vs v006 on the cluster",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
   },
-  "interventions_rejected": 14,
-  "key_finding_2": "shared market: deferring our herd raised our money 51,088->62,710 and v006's 130,332->150,443 in the same worlds. Our choices move the opponent's income by tens of thousands, so optimising our own economy cannot win. Fitness is ours-minus-theirs."
+  "interventions_rejected": 18,
+  "key_finding_2": "shared market: deferring our herd raised our money 51,088->62,710 and v006's 130,332->150,443 in the same worlds. Our choices move the opponent's income by tens of thousands, so optimising our own economy cannot win. Fitness is ours-minus-theirs.",
+  "key_finding_3": "price curve is shallow below neutral inventory (10,000) and collapses above it. v006 realises 45,479 on strawberry at inventory ~9,806; adding 200 units of ours drops it to 7,370 while we take 39,161 - a 77,270 swing against an 81,266 deficit. First mechanism at the right size. `attack_tiles` implements it, default off."
 }

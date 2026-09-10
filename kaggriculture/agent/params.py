@@ -3,6 +3,11 @@ DEFAULTS = {
     'cash_reserve': 250,
     'travel_cost': 3.0,
     'diagnostics': False,
+    # Market attack: tiles per turn devoted to the crop the opponent depends on when its
+    # market sits just under the engine's neutral inventory. 0 disables.
+    'attack_tiles': 0,
+    'neutral_inventory': 10000,
+    'attack_headroom': 400,
     'reposition_idle': False,
     'demand_horizon': 0,  # 0 = historical `peak`-day window
     'opponent_weight': 0.8,
