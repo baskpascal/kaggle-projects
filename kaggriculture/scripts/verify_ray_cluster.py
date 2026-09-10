@@ -19,7 +19,8 @@ from arena.batch import make_batch, run_batch  # noqa: E402
 from arena.jobs import git_provenance, plan  # noqa: E402
 from arena.ray_transport import DEFAULT_CPUS_PER_WORKER, connect  # noqa: E402
 
-NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty'}
+NONDETERMINISTIC = {'runtime_ms', 'wall_seconds', 'hostname', 'git_commit', 'git_dirty',
+                    'execution_resources'}
 MINIMUM_SEED_PAIRS = 200
 
 

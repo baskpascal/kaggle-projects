@@ -9,11 +9,54 @@ CROPS = {
     'STRAWBERRY': (100, 10, 16, 4, 17),
     'MELON': (80, 10, 10, 6, 11),
 }
+# Engine max_yield_day; watering only adds yield from age (max_yield_day + 1) // 2.
+MAX_YIELD_DAY = {'WHEAT': 4, 'CARROT': 3, 'TOMATO': 8, 'STRAWBERRY': 10, 'MELON': 12}
+WATER_BONUS_FROM = {crop: (last + 1) // 2 for crop, last in MAX_YIELD_DAY.items()}
 ANIMALS = {
     'GOOSE': (300, 'COOP', 'EGG', 4, 1),
     'COW': (400, 'PASTURE', 'MILK', 8, 2),
     'SHEEP': (500, 'PASTURE', 'WOOL', 6, 3),
 }
+# Engine max_held: yield_units, plus any banked care bonus, is clipped to this at
+# production. Without it a CARE can be queued for a bonus the engine will discard.
+ANIMAL_MAX_HELD = {'GOOSE': 4, 'COW': 6, 'SHEEP': 6}
+
+
+def care_priority(tile, prices, day, days_left):
+    """What one CARE on this animal is worth, or None when it is worth nothing.
+
+    A CARE banks exactly one unit, cashed at the next production if the animal is fed
+    that day, and `yield_units + bonus` is clipped to `max_held`
+    (kaggriculture.py:822-830). So the turn pays only when there is headroom under the
+    cap and a production day still inside the season. Priced like FERTILIZE -- a base
+    that keeps it in the queue plus a share of the product it buys -- because a flat
+    constant valued a wool unit and an egg unit the same.
+    """
+    name = tile['animal']
+    banked = tile.get('pending_care_bonus', 0)
+    headroom = ANIMAL_MAX_HELD[name] - tile.get('yield_units', 0) - banked
+    if headroom < 1:
+        return None
+    if next_production_day(tile, day) - day > days_left:
+        return None
+    return 45 + prices[ANIMALS[name][2]] * .3
+
+
+def next_production_day(tile, day):
+    """The next day this animal produces, or None if it never produces again.
+
+    The engine yields when `(d - placed_day - first_yield_day)` is non-negative and
+    divisible by `interval` (kaggriculture.py:822), evaluated as the day rolls over. A
+    banked CARE bonus is only cashed on such a day, and only if the animal was fed, so
+    knowing when the next one falls is what separates a CARE that pays from one that
+    just spends a turn.
+    """
+    _, _, _, first, interval = ANIMALS[tile['animal']]
+    start = tile['placed_day'] + first
+    if day < start:
+        return start
+    elapsed = day - start
+    return day + (interval - elapsed % interval)
 # base, T, scarcity shape/target, glut shape/target
 CURVES = {
     'WHEAT': (25, 400, 'sqrt', .8, 'log', .2),

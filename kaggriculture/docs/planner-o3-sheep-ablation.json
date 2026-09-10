@@ -1,0 +1,25 @@
+{
+  "params": {
+    "animal_target": 3,
+    "animal_type": "SHEEP",
+    "last_day_water": false
+  },
+  "seeds": [
+    4100,
+    4129
+  ],
+  "variants": {
+    "flat45": {
+      "median": 85454.0,
+      "mean": 84375.4,
+      "n": 30
+    },
+    "priced": {
+      "median": 86548.5,
+      "mean": 85100.46666666666,
+      "n": 30
+    },
+    "lift_median": 1094.5,
+    "lift_mean": 725.0666666666657
+  }
+}

@@ -185,7 +185,8 @@ def main():
         envelopes = []
         runner = batched_runner(size=args.batch_size, map_batches=mapper,
                                 on_batch=envelopes.append,
-                                available_slots=mapper.available_slots)
+                                available_slots=mapper.available_slots,
+                                minimum_batch_size=args.cpus_per_worker)
         started = time.monotonic()
         distributed = list(runner(jobs, args.cpus_per_worker))
         distributed_seconds = time.monotonic() - started
