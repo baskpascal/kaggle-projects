@@ -1,5 +1,6 @@
-from .economy import (ANIMALS, CROPS, WATER_BONUS_FROM, care_priority, crop_context,
-                      fertilizer_value, price, score_crops)
+from .economy import (ANIMALS, CROPS, WATER_BONUS_FROM, arbitrage_opportunities,
+                      care_priority, crop_context, fertilizer_value, livestock_targets,
+                      price, sale_value, score_crops)
 from .params import DEFAULTS
 from .market import projected_shed, sale_orders, schedule_market_orders
 from .routing import distance, move_towards, nearest_shed, shed_tiles
@@ -22,9 +23,25 @@ def policy(observation, configuration=None, parameters=None):
     animals = [(x, y, t) for x, y, t in tiles if isinstance(t, dict) and 'animal' in t]
     structures = [(x, y, t) for x, y, t in tiles if isinstance(t, dict)
                   and t.get('kind') in ('COOP', 'PASTURE')]
-    animal_type = p['animal_type']
-    animal_cost, structure, _, _, _ = ANIMALS[animal_type]
-    want_animals = p['animal_target'] if s.days_left > 10 else len(animals)
+    animal_counts = {name: sum(t['animal'] == name for _, _, t in animals)
+                     for name in ANIMALS}
+    animal_plan = livestock_targets(s, p)
+    animal_supply = {
+        name: s.private['shed'].get(name, 0) + sum(i.get(name, 0) for i in inventories)
+        for name in ANIMALS
+    }
+    available_to_place = dict(animal_supply)
+    placement_need = {name: max(0, animal_plan[name] - animal_counts[name])
+                      for name in ANIMALS}
+    structure_counts = {
+        kind: sum(t.get('kind') == kind for _, _, t in structures)
+        for kind in ('COOP', 'PASTURE')
+    }
+    structure_need = {
+        'COOP': max(0, animal_plan['GOOSE'] - structure_counts['COOP']),
+        'PASTURE': max(0, animal_plan['COW'] + animal_plan['SHEEP']
+                       - structure_counts['PASTURE']),
+    }
     jobs = []
     plantable = []
     fertilize_targets = 0
@@ -96,17 +113,26 @@ def policy(observation, configuration=None, parameters=None):
                          if p['care_pricing'] else 45.)
                 if worth is not None:
                     jobs.append((pos, ['CARE'], worth, None))
-        elif t.get('kind') == structure and len(animals) < want_animals:
-            jobs.append((pos, ['PLACE', animal_type], 130., animal_type))
+        elif t.get('kind') in ('COOP', 'PASTURE') and 'animal' not in t:
+            compatible = (('GOOSE',) if t['kind'] == 'COOP' else ('COW', 'SHEEP'))
+            choices = [name for name in compatible if placement_need[name] > 0]
+            if choices:
+                animal_type = max(choices, key=lambda name: (
+                    available_to_place[name] > 0, prices[ANIMALS[name][2]],
+                    placement_need[name], name))
+                jobs.append((pos, ['PLACE', animal_type], 130., animal_type))
+                placement_need[animal_type] -= 1
+                available_to_place[animal_type] = max(
+                    0, available_to_place[animal_type] - 1)
 
     # Structure target allocation and crop tasks prefer land near the shed.
     plantable.sort(key=lambda pos: (distance(pos, nearest_shed(pos, s.size)), pos))
-    to_build = max(0, want_animals - len(structures))
+    build_kinds = [kind for kind in ('PASTURE', 'COOP')
+                   for _ in range(structure_need[kind])]
     planned = {}
     for pos in plantable:
-        if to_build and s.hour < 15:
-            jobs.append((pos, ['BUILD_' + structure], 65., None))
-            to_build -= 1
+        if build_kinds and s.hour < 15:
+            jobs.append((pos, ['BUILD_' + build_kinds.pop(0)], 65., None))
         elif s.hour < p['plant_until_hour']:
             # Re-score after every tile we commit: without this the planner rates
             # the second, third and fourth planting of a crop as if the earlier
@@ -188,23 +214,48 @@ def policy(observation, configuration=None, parameters=None):
     limit = s.config.get('maxMarketOrdersPerTurn', 10)
     sales = sale_orders(s, p, projected_shed(s, unit_actions), reserve_wheat,
                         keep_fertilizer, max_orders=limit)
+    # SELL settles before later list positions, so part of this turn's conservative sale
+    # estimate is spendable by the planner now. The historical baseline keeps the fraction
+    # at zero; planner-v1 candidates opt in.
+    financed = 0.
+    for _, item, count in sales:
+        financed += sale_value(item, count, observation['market']['inventory'][item],
+                               s.config.get('marketParams'))
+    cash += financed * p['sale_financing_fraction']
     essential_orders = []
     optional_orders = []
     reserve_slots = p['market_slot_reservation']
     effective_reserve = 0 if risk == 'behind' else p['cash_reserve']
-    def buy(order, cost, essential=False):
+    quadrants = len(s.me['unlocked_quadrants'])
+    occupied = sum(t is not None for _, _, t in tiles)
+    land_due = (p['land_reservation'] and quadrants < p['max_quadrants']
+                and s.day >= p['expand_day']
+                and s.days_left > 10 and occupied >= len(tiles) * .75)
+    land_cost = (1000, 2000, 4000)[quadrants - 1] if land_due else 0
+
+    def buy(order, cost, essential=False, required_reserve=None):
         nonlocal cash
         accepted = len(essential_orders) + len(optional_orders)
         slots_available = (accepted < limit if reserve_slots else
                            len(sales) + accepted < limit)
-        if slots_available and cost <= max(0, cash - effective_reserve):
+        reserve = (max(effective_reserve, land_cost) if required_reserve is None
+                   else required_reserve)
+        if slots_available and cost <= max(0, cash - reserve):
             (essential_orders if essential else optional_orders).append(order)
             cash -= cost
             return True
         return False
 
+    purchase_need = {
+        name: max(0, animal_plan[name] - animal_counts[name] - animal_supply[name])
+        for name in ANIMALS
+    }
     busy = len(jobs)
-    desired_hands = min(p['max_hands'], max(0, (busy + 2) // 3))
+    # HIRE is cheap but occupies one of only ten market positions. During herd setup,
+    # leave one position per animal chain so nine hires cannot postpone every asset buy.
+    animal_order_slots = sum(count > 0 for count in purchase_need.values())
+    hire_order_cap = max(0, limit - animal_order_slots)
+    desired_hands = min(p['max_hands'], hire_order_cap, max(0, (busy + 2) // 3))
     if s.hour < 4 and s.turns_left > 12:
         a, b = 1, 1
         for n in range(desired_hands):
@@ -212,6 +263,31 @@ def policy(observation, configuration=None, parameters=None):
             if n >= s.me['hires_today']:
                 buy(['HIRE'], cost, essential=True)
             a, b = b, a + b
+    # Existing livestock survives before the herd expands. Buying feed ahead of animal
+    # inventory also prevents a new placement from turning the next morning into a rescue.
+    wheat_total = s.private['shed'].get('WHEAT', 0) + sum(
+        i.get('WHEAT', 0) for i in inventories)
+    if wheat_total < reserve_wheat:
+        count = reserve_wheat - wheat_total
+        inv = observation['market']['inventory']['WHEAT']
+        cost = sum(price('WHEAT', inv - k - 1, s.config.get('marketParams'))
+                   for k in range(count))
+        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True)
+
+    # Land is the binding production asset once the starting quadrant fills. Preserve
+    # its price across turns and schedule it ahead of herd expansion and seed orders.
+    if land_due:
+        buy(['BUY_LAND'], land_cost, essential=True, required_reserve=0)
+
+    # One order per species, up to two animals. Fixed unit costs mean the local cash
+    # accounting is exact apart from the deliberately discounted sale proceeds above.
+    for animal_type in sorted(ANIMALS, key=lambda name: (
+            -prices[ANIMALS[name][2]], -purchase_need[name], name)):
+        count = min(2, purchase_need[animal_type])
+        if count:
+            cost = ANIMALS[animal_type][0] * count
+            buy(['BUY_ANIMAL', animal_type, count], cost,
+                essential=p['economic_planner'])
     if risk != 'ahead':
         # Buy seed for the mix we actually planned; otherwise the planner commits
         # to tiles it has no seed for and the PLANT jobs are filtered out again.
@@ -224,7 +300,10 @@ def policy(observation, configuration=None, parameters=None):
             if needed and buy(['BUY_SEED', crop, needed], needed * CROPS[crop][0],
                               essential=True):
                 budget -= count
-    if fertilize_targets:
+    # Once livestock exists it generates one fertilizer per animal per day for free.
+    # Buying more while that renewable pipeline is active created large shed overflows
+    # and, in the terminal liquidation, sold purchased units back near the price floor.
+    if fertilize_targets and not animals:
         stock = s.private['shed'].get('FERTILIZER', 0) + sum(
             i.get('FERTILIZER', 0) for i in inventories)
         count = min(fertilize_targets - stock, 4)
@@ -233,20 +312,20 @@ def policy(observation, configuration=None, parameters=None):
             cost = sum(price('FERTILIZER', inv - k - 1, s.config.get('marketParams'))
                        for k in range(count))
             buy(['BUY_PRODUCT', 'FERTILIZER', count], cost, essential=True)
-    supply_animals = sum(i.get(animal_type, 0) for i in inventories) + s.private['shed'].get(animal_type, 0)
-    if len(animals) + supply_animals < want_animals:
-        buy(['BUY_ANIMAL', animal_type, 1], animal_cost)
-    wheat_total = s.private['shed'].get('WHEAT', 0) + sum(i.get('WHEAT', 0) for i in inventories)
-    if wheat_total < reserve_wheat:
-        count = reserve_wheat - wheat_total
-        inv = observation['market']['inventory']['WHEAT']
-        cost = sum(price('WHEAT', inv - k - 1, s.config.get('marketParams')) for k in range(count))
-        buy(['BUY_PRODUCT', 'WHEAT', count], cost, essential=True)
-    quadrants = len(s.me['unlocked_quadrants'])
-    occupied = sum(t is not None for _, _, t in tiles)
-    if (quadrants < p['max_quadrants'] and s.day >= p['expand_day'] and s.days_left > 10
-            and occupied >= len(tiles) * .75):
-        buy(['BUY_LAND'], (1000, 2000, 4000)[quadrants - 1])
+    projected = projected_shed(s, unit_actions)
+    sold_units = sum(order[2] for order in sales)
+    stored_after_sales = max(0, sum(projected.values()) - sold_units)
+    trade_room = max(0, min(
+        int(p['arbitrage_storage_limit']) - stored_after_sales,
+        s.config.get('shedCapacity', 100) - stored_after_sales))
+    trade_budget = max(0, cash - effective_reserve)
+    for opportunity in arbitrage_opportunities(s, trade_room, trade_budget, p):
+        if buy(['BUY_PRODUCT', opportunity['item'], opportunity['count']],
+               opportunity['cost']):
+            trade_room -= opportunity['count']
+            trade_budget -= opportunity['cost']
+        if trade_room <= 0 or trade_budget <= 0:
+            break
     orders = schedule_market_orders(sales, essential_orders, optional_orders,
                                     limit, reserve=reserve_slots)
     return {'farmer': unit_actions[0], 'hands': unit_actions[1:], 'market': orders}
