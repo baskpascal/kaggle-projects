@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import argparse
 from collections import defaultdict
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 import hashlib
 import json
 import math
@@ -22,8 +22,10 @@ from pathlib import Path
 import statistics
 
 from arena.agents import agent_hash
+from arena.batch import batched_runner
 from arena.engine import fingerprint
-from arena.parallel import matches
+from arena.jobs import JobStore, execute, identity_of, job_id, shared_cache_path
+from arena.parallel import stream
 from experiments.episode_tapes import episode_paths, read_episode, tape_digest
 from experiments.tape_agent import build
 
@@ -42,37 +44,79 @@ def file_digest(path):
     return digest.hexdigest()
 
 
+def source_identity(path):
+    """Hash a file or an extracted tree by a stable, ordered content manifest."""
+    path = Path(path)
+    if path.is_file():
+        return {'kind': 'file', 'sha256': file_digest(path), 'bytes': path.stat().st_size}
+    if not path.is_dir():
+        raise ValueError(f'Expected a source file or directory: {path}')
+    manifest = []
+    for child in sorted(entry for entry in path.rglob('*') if entry.is_file()):
+        manifest.append({'path': child.relative_to(path).as_posix(),
+                         'bytes': child.stat().st_size, 'sha256': file_digest(child)})
+    return {'kind': 'directory', 'sha256': hashlib.sha256(json.dumps(
+        manifest, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
+        'files': len(manifest), 'bytes': sum(row['bytes'] for row in manifest),
+        'manifest': manifest}
+
+
 def behaviour_digest(actions, turns=24):
     """Stable opening lineage compatible with a fresh daily dump."""
     return tape_digest(actions[:turns])[:16]
 
 
-def source_rows(source, workers=8, assignment_limit=0):
-    """Expand every valid episode into the two candidate/opponent seat assignments."""
+def iter_source_rows(source, workers=8, assignment_limit=0):
+    """Yield assignments while holding at most the process pool's input window."""
     paths = episode_paths(source)
     if assignment_limit:
         paths = paths[:math.ceil(assignment_limit / 2)]
-    rows, errors = [], []
     with ProcessPoolExecutor(max_workers=workers) as pool:
-        for result in pool.map(read_episode, paths, chunksize=1):
-            if 'error' in result:
-                errors.append(result)
-                continue
-            seats = result['seats']
-            for candidate_seat in (0, 1):
-                opponent = seats[1 - candidate_seat]
-                rows.append({
-                    'episode': opponent['episode'], 'seed': opponent['seed'],
-                    'candidate_seat': candidate_seat,
-                    'opponent_seat': 1 - candidate_seat,
-                    'opponent_team': opponent['team'],
-                    'opponent_tape': opponent['sha256'],
-                    'opponent_behaviour': behaviour_digest(opponent['actions']),
-                    'opponent_actions': opponent['actions'],
-                    'recorded_candidate_money': seats[candidate_seat]['money'],
-                    'recorded_opponent_money': opponent['money'],
-                    'engine': opponent['engine'],
-                })
+        source = iter(enumerate(paths))
+        pending, ready, next_index = {}, {}, 0
+
+        def fill():
+            while len(pending) + len(ready) < max(1, workers * 2):
+                item = next(source, None)
+                if item is None:
+                    break
+                index, path = item
+                pending[pool.submit(read_episode, path)] = index
+
+        fill()
+        while pending:
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                ready[pending.pop(future)] = future.result()
+            fill()
+            while next_index in ready:
+                result = ready.pop(next_index)
+                next_index += 1
+                if 'error' in result:
+                    yield None, result
+                    continue
+                seats = result['seats']
+                for candidate_seat in (0, 1):
+                    opponent = seats[1 - candidate_seat]
+                    yield {
+                        'episode': opponent['episode'], 'seed': opponent['seed'],
+                        'candidate_seat': candidate_seat,
+                        'opponent_seat': 1 - candidate_seat,
+                        'opponent_team': opponent['team'],
+                        'opponent_tape': opponent['sha256'],
+                        'opponent_behaviour': behaviour_digest(opponent['actions']),
+                        'opponent_actions': opponent['actions'],
+                        'recorded_candidate_money': seats[candidate_seat]['money'],
+                        'recorded_opponent_money': opponent['money'],
+                        'engine': opponent['engine'],
+                    }, None
+
+
+def source_rows(source, workers=8, assignment_limit=0):
+    """Compatibility materialisation; benchmark itself consumes the streaming iterator."""
+    rows, errors = [], []
+    for row, error in iter_source_rows(source, workers, assignment_limit):
+        (errors if error else rows).append(error or row)
     return rows, errors
 
 
@@ -134,46 +178,96 @@ def summarize(rows):
     }
 
 
+def _runner(ray_address):
+    if ray_address is None:
+        return stream, {'kind': 'local'}
+    from arena.ray_transport import connect
+    mapper = connect(ray_address)
+    return batched_runner(size=None, map_batches=mapper,
+                          available_slots=mapper.available_slots), {
+        'kind': 'ray', 'address': ray_address, 'nodes': mapper.describe_nodes()}
+
+
 def benchmark(candidate, source, output, agent_dir, *, workers=8, limit=0,
-              required_engine=None):
-    assignments, errors = source_rows(source, workers=workers, assignment_limit=limit)
+              required_engine=None, resume=False, ray_address=None, cache=None):
+    candidate = str(candidate)
+    assignments, errors, paths = [], [], {}
+    directory = Path(agent_dir)
+    directory.mkdir(parents=True, exist_ok=True)
+    for row, error in iter_source_rows(source, workers=workers, assignment_limit=limit):
+        if error:
+            errors.append(error)
+            continue
+        if limit and len(assignments) >= limit:
+            break
+        digest_value = row['opponent_tape']
+        path = directory / f'{digest_value[:16]}.py'
+        if digest_value not in paths:
+            if not path.exists():
+                build(row.pop('opponent_actions'), path,
+                      f"daily episode {row['episode']} seat {row['opponent_seat']}")
+            else:
+                row.pop('opponent_actions')
+            paths[digest_value] = str(path)
+        else:
+            row.pop('opponent_actions')
+        assignments.append(row)
     if errors:
         raise ValueError(f'{len(errors)} episodes could not be read; first: {errors[0]}')
     required_engine = required_engine or fingerprint()['version']
     require_engine(assignments, required_engine)
-    if limit:
-        assignments = assignments[:limit]
-    directory = Path(agent_dir)
-    directory.mkdir(parents=True, exist_ok=True)
-    paths = {}
+    environment = fingerprint()
+    candidate_hash = agent_hash(candidate)
+    jobs = []
     for row in assignments:
-        digest = row['opponent_tape']
-        if digest not in paths:
-            path = directory / f'{digest[:16]}.py'
-            if not path.exists():
-                build(row['opponent_actions'], path,
-                      f"daily episode {row['episode']} seat {row['opponent_seat']}")
-            paths[digest] = str(path)
-    jobs = [dict(candidate=str(candidate), opponent=paths[row['opponent_tape']],
-                 seed=row['seed'], seat=row['candidate_seat'], telemetry_enabled=False)
-            for row in assignments]
+        spec = dict(candidate=str(candidate), opponent=paths[row['opponent_tape']],
+                    seed=row['seed'], seat=row['candidate_seat'], backend='fast',
+                    split='current-meta', evidence_profile='audit', configuration={},
+                    candidate_hash=candidate_hash,
+                    opponent_hash=agent_hash(paths[row['opponent_tape']]),
+                    engine_identity=environment)
+        identity = identity_of(spec)
+        spec.update({key: identity[key] for key in ('configuration_hash', 'engine_hash',
+                                                    'replay_steps', 'replay_schema')})
+        spec['job_id'] = job_id(spec)
+        jobs.append(spec)
+    runner, execution = _runner(ray_address)
+    cache_path = Path(cache) if cache else shared_cache_path()
+    target = Path(output)
+    if target.exists() and not resume:
+        raise FileExistsError(f'{target} exists; pass resume=True to rebuild from the cache')
+    progress = target.with_suffix(target.suffix + '.progress.jsonl')
+    progress.parent.mkdir(parents=True, exist_ok=True)
+    with JobStore(cache_path) as store:
+        identities = {job['job_id'] for job in jobs}
+        hits = len(identities & store.completed())
+
+    def record_progress(result):
+        with progress.open('a', encoding='utf-8') as output_file:
+            output_file.write(json.dumps({'job_id': result['job_id']}) + '\n')
+
+    with JobStore(cache_path) as store:
+        results = execute(jobs, store, 'current-meta', runner, workers=workers,
+                          on_row=record_progress)
+        cache_report = store.cache_summary(jobs, hits)
     measured = []
-    for source_row, result in zip(assignments, matches(jobs, workers=workers), strict=True):
-        measured.append({key: value for key, value in source_row.items()
-                         if key != 'opponent_actions'} | {
+    for source_row, result in zip(assignments, results, strict=True):
+        measured.append(source_row | {
             'score': result['score'], 'money': result['money'],
             'opponent_money': result['opponent_money'], 'margin': result['margin'],
             'failures': result['failures'],
             'opponent_failures': result['opponent_failures'],
         })
+    source_provenance = source_identity(source)
     payload = {
         'schema_version': 1, 'kind': 'current_meta_open_loop_benchmark',
-        'candidate': str(candidate), 'candidate_hash': agent_hash(candidate),
-        'source': str(source), 'source_sha256': file_digest(source),
+        'candidate': str(candidate), 'candidate_hash': candidate_hash,
+        'source': str(source), 'source_sha256': source_provenance['sha256'],
+        'source_identity': source_provenance, 'cache': cache_report,
+        'execution': execution,
         'required_engine': required_engine,
         'limitation': LIMITATION, 'summary': summarize(measured), 'rows': measured,
     }
-    target = Path(output)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(payload) + '\n', encoding='utf-8')
     return payload
@@ -188,9 +282,13 @@ def main():
     parser.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 2) - 2))
     parser.add_argument('--engine', help='required engine; defaults to the arena fingerprint')
     parser.add_argument('--limit', type=int, default=0, help='smoke only: first N seat assignments')
+    parser.add_argument('--resume', action='store_true')
+    parser.add_argument('--ray-address', help='Ray address (for example auto or ray://host:10001)')
+    parser.add_argument('--cache', help='shared SQLite cache; defaults outside the checkout')
     args = parser.parse_args()
     payload = benchmark(args.candidate, args.source, args.output, args.agent_dir,
-                        workers=args.workers, limit=args.limit, required_engine=args.engine)
+                        workers=args.workers, limit=args.limit, required_engine=args.engine,
+                        resume=args.resume, ray_address=args.ray_address, cache=args.cache)
     print(json.dumps(payload['summary'], indent=2, ensure_ascii=False))
 
 

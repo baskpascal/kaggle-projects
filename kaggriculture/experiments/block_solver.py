@@ -16,9 +16,12 @@ import statistics
 import time
 
 from arena.agents import agent_hash
+from arena.batch import batched_runner
+from arena.jobs import (IDENTITY_FIELDS, JobStore, execute, identity_of, job_id,
+                        shared_cache_path)
 from arena.paired import check_spec
 from arena.engine import fingerprint as engine_fingerprint
-from arena.parallel import matches
+from arena.parallel import matches, stream
 from arena.seeds import validate_seeds, parse_seeds
 from eval.comparison import digest
 from eval.ladder import delta_win
@@ -146,21 +149,43 @@ def fitness(rows):
 
 
 def evaluate(actions, directory, opponents, seeds, start, end, workers, provenance,
-             expected_frontiers=None, expected_hashes=None, expected_environment=None):
+             expected_frontiers=None, expected_hashes=None, expected_environment=None,
+             store=None, runner=None, resume=False, cache_metrics=None):
     directory = Path(directory)
-    directory.mkdir(parents=True, exist_ok=False)
+    directory.mkdir(parents=True, exist_ok=resume)
     artifact = build(actions, directory / 'main.py', provenance=provenance)
     snapshots = sorted({start, end})
     jobs = [dict(candidate=str(artifact), opponent=opponent, seed=seed, seat=seat,
-                 evidence_profile='full', replay_steps=snapshots,
-                 replay=str(directory / f'snapshot-{index}-{seed}-{seat}.json'))
+                 backend='fast', evidence_profile='full', replay_steps=snapshots,
+                 replay_inline=store is not None,
+                 replay=None if store is not None else
+                 str(directory / f'snapshot-{index}-{seed}-{seat}.json'))
             for index, opponent in enumerate(opponents) for seed in seeds for seat in (0, 1)]
     rows, arrivals, frontiers = [], [], {}
     artifact_hash = agent_hash(str(artifact))
     try:
-        rows, arrivals, frontiers = _collect(jobs, workers, artifact_hash, snapshots, start, end,
-                                             expected_frontiers, expected_hashes,
-                                             expected_environment)
+        if store is not None:
+            for spec in jobs:
+                spec.update(split='dev', candidate_hash=artifact_hash,
+                            opponent_hash=expected_hashes[spec['opponent']],
+                            configuration={}, engine_identity=expected_environment)
+                identity = identity_of(spec)
+                spec.update({key: identity[key] for key in
+                             ('configuration_hash', 'engine_hash', 'replay_steps', 'replay_schema')})
+                spec['job_id'] = job_id(spec)
+            hits = len(jobs) - len(store.pending(jobs))
+            if cache_metrics is not None:
+                cache_metrics['hits'] += hits
+                cache_metrics['misses'] += len(jobs) - hits
+                cache_metrics['identities'].update(
+                    {spec['job_id']: identity_of(spec) for spec in jobs})
+            results = execute(jobs, store, 'dev', runner or stream, workers=workers)
+            rows, arrivals, frontiers = _collect(jobs, workers, artifact_hash, snapshots,
+                start, end, expected_frontiers, expected_hashes, expected_environment,
+                results=results)
+        else:
+            rows, arrivals, frontiers = _collect(jobs, workers, artifact_hash, snapshots,
+                start, end, expected_frontiers, expected_hashes, expected_environment)
     finally:
         # Any raise above leaves this job's snapshot and every unconsumed one on disk.
         for leftover in directory.glob('snapshot-*.json'):
@@ -173,9 +198,9 @@ def evaluate(actions, directory, opponents, seeds, start, end, workers, provenan
 
 
 def _collect(jobs, workers, artifact_hash, snapshots, start, end,
-             expected_frontiers, expected_hashes, expected_environment):
+             expected_frontiers, expected_hashes, expected_environment, results=None):
     rows, arrivals, frontiers = [], [], {}
-    for job, row in zip(jobs, matches(jobs, workers), strict=True):
+    for job, row in zip(jobs, results if results is not None else matches(jobs, workers), strict=True):
         if row['failures'] or row['opponent_failures']:
             raise ValueError('Failed callbacks invalidate block evaluation')
         if row['candidate_hash'] != artifact_hash or (expected_hashes is not None
@@ -183,9 +208,11 @@ def _collect(jobs, workers, artifact_hash, snapshots, start, end,
             raise ValueError('Artifact changed during block evaluation')
         if expected_environment is not None and row['environment'] != expected_environment:
             raise ValueError('Environment changed during block evaluation')
-        replay_path = Path(job['replay'])
-        replay = json.loads(replay_path.read_text())
-        observations = {turn['step']: turn['observations'][row['seat']] for turn in replay['turns']}
+        replay_path = Path(job['replay']) if job.get('replay') else None
+        turns = row.get('replay_turns')
+        if turns is None:
+            turns = json.loads(replay_path.read_text())['turns']
+        observations = {turn['step']: turn['observations'][row['seat']] for turn in turns}
         if set(observations) != set(snapshots):
             raise ValueError('Block evaluation did not reach every requested boundary')
         key = (row['seed'], row['seat'], row['opponent'])
@@ -198,7 +225,8 @@ def _collect(jobs, workers, artifact_hash, snapshots, start, end,
                              continuation_score=row['score'], money_diagnostic=row['money'],
                              margin_diagnostic=row['margin']))
         rows.append(row)
-        replay_path.unlink()  # The compact, own-state record below replaces the transient replay.
+        if replay_path is not None:
+            replay_path.unlink()  # compact own-state record replaces the transient replay
     return rows, arrivals, frontiers
 
 
@@ -228,7 +256,8 @@ def probe(actions, directory, opponent, seed, seat, start, end, provenance):
 
 
 def search(source, output, *, tape_index=0, start=648, days=3, proposals=4, rounds=2,
-           opponents, seeds, check_seeds, workers=4, search_seed=771, mutation_space='market'):
+           opponents, seeds, check_seeds, workers=4, search_seed=771, mutation_space='market',
+           resume=False, ray_address=None, cache=None):
     started = time.perf_counter()
     if mutation_space not in ('market', 'production', 'opportunity', 'swap'):
         raise ValueError('Unknown mutation space')
@@ -264,7 +293,7 @@ def search(source, output, *, tape_index=0, start=648, days=3, proposals=4, roun
                           license=manifest.get('license') or nested.get('license'))
     credit = json.dumps(provenance, sort_keys=True)
     output = Path(output)
-    output.mkdir(parents=True, exist_ok=False)
+    output.mkdir(parents=True, exist_ok=resume)
     plan = dict(schema_version=1, kind=f'{mutation_space}_block_local_search', mutation_space=mutation_space, split='dev',
                 created_at=datetime.now(timezone.utc).isoformat(), source=provenance,
                 start=start, end=end, days=days, proposals=proposals, rounds=rounds,
@@ -279,12 +308,34 @@ def search(source, output, *, tape_index=0, start=648, days=3, proposals=4, roun
                 swap_mutations_sha256=hashlib.sha256(
                     Path(__file__).with_name('swap_mutations.py').read_bytes()).hexdigest(),
                 donors=len(library) - 1)
-    (output / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
+    plan_path = output / 'plan.json'
+    if resume and plan_path.exists():
+        previous = json.loads(plan_path.read_text())
+        stable = lambda value: {key: item for key, item in value.items() if key != 'created_at'}
+        if stable(previous) != stable(plan):
+            raise ValueError('Resume arguments do not match the existing search plan')
+        plan = previous
+    else:
+        plan_path.write_text(json.dumps(plan, indent=2) + '\n')
     rng = random.Random(search_seed)
     history, visited = [], {tape_digest(initial)}
+    cache_metrics = {'hits': 0, 'misses': 0, 'identities': {}}
+    cache_path = Path(cache) if cache else shared_cache_path()
+    if ray_address is None:
+        runner = stream
+        execution = {'kind': 'local'}
+    else:
+        from arena.ray_transport import connect
+        mapper = connect(ray_address)
+        runner = batched_runner(size=None, map_batches=mapper,
+                                available_slots=mapper.available_slots)
+        execution = {'kind': 'ray', 'address': ray_address, 'nodes': mapper.describe_nodes()}
     try:
+      with JobStore(cache_path) as job_store:
         common = dict(opponents=opponents, seeds=seeds, start=start, end=end, workers=workers,
-                      provenance=credit, expected_hashes=hashes, expected_environment=plan['environment'])
+                      provenance=credit, expected_hashes=hashes,
+                      expected_environment=plan['environment'], store=job_store,
+                      runner=runner, resume=resume, cache_metrics=cache_metrics)
         original = evaluate(initial, output / 'baseline-search', **common)
         incumbent, measured = copy.deepcopy(initial), original
         accepted = []
@@ -327,6 +378,8 @@ def search(source, output, *, tape_index=0, start=648, days=3, proposals=4, roun
                     tape_sha256=proposal['sha256'], artifact_hash=result['artifact_hash'],
                     fitness=result['fitness'], delta_from_initial=delta['all'],
                     ineffective_unit_actions=sum(row['audit'].get('no_effect_actions', 0) for row in result['rows'])))
+                (output / 'selection.partial.json').write_text(json.dumps(
+                    {'history': history, 'cache': cache_metrics}, indent=2) + '\n')
                 print(f"round={generation} proposal={index} fitness={result['fitness']}", flush=True)
                 if result['fitness'] > best_result['fitness']:
                     best_actions, best_result, best_mutation = proposal['actions'], result, proposal['mutation']
@@ -355,7 +408,13 @@ def search(source, output, *, tape_index=0, start=648, days=3, proposals=4, roun
         report = dict(plan=plan, evaluated_mutations=len(history), accepted_mutations=accepted,
                       initial_fitness=original['fitness'], selected_fitness=measured['fitness'],
                       selected_tape_sha256=selected_hash, check=check,
-                      wall_seconds=time.perf_counter() - started, release_status='not_validated')
+                      wall_seconds=time.perf_counter() - started, release_status='not_validated',
+                      cache={'hits': cache_metrics['hits'], 'misses': cache_metrics['misses'],
+                             'path': str(cache_path), 'origin': 'content-addressed-sqlite',
+                             'identity_schema': 2, 'identity_fields': list(IDENTITY_FIELDS),
+                             'identities': [{'job_id': identity, **value} for identity, value
+                                            in sorted(cache_metrics['identities'].items())]},
+                      execution=execution)
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
         return report
     except Exception as exc:
@@ -381,6 +440,9 @@ def main():
     parser.add_argument('--check-seeds', default='1004:1008')
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--resume', action='store_true')
+    parser.add_argument('--ray-address')
+    parser.add_argument('--cache')
     args = vars(parser.parse_args())
     args['opponents'] = args['opponents'].split(',')
     args['days'] = args['days'] if args['days'] == 'full' else int(args['days'])

@@ -59,6 +59,26 @@ def download(session, url, target):
     return True
 
 
+def local_identity(path):
+    stat = Path(path).stat()
+    return {'device': stat.st_dev, 'inode': stat.st_ino, 'mtime_ns': stat.st_mtime_ns,
+            'bytes': stat.st_size}
+
+
+def reusable_evidence(sidecar, path, release):
+    """Trust prior full verification only for the exact same local file and release."""
+    try:
+        archive = sidecar['archive']
+        digest = archive['sha256']
+        return (sidecar['release']['daily_dataset_slug'] == release['daily_dataset_slug']
+                and int(archive['episode_files']) == int(release['episode_count'])
+                and archive['local_identity'] == local_identity(path)
+                and isinstance(digest, str) and len(digest) == 64
+                and all(character in '0123456789abcdef' for character in digest))
+    except (KeyError, TypeError, ValueError, OSError):
+        return False
+
+
 def archive_evidence(path, expected_episodes):
     path = Path(path)
     digest = hashlib.sha256()
@@ -71,7 +91,8 @@ def archive_evidence(path, expected_episodes):
         raise ValueError(f'Archive has {len(episodes)} episodes; index declares '
                          f'{expected_episodes}')
     return {'path': str(path), 'bytes': path.stat().st_size,
-            'sha256': digest.hexdigest(), 'episode_files': len(episodes)}
+            'sha256': digest.hexdigest(), 'episode_files': len(episodes),
+            'local_identity': local_identity(path), 'verification': 'full'}
 
 
 def main():
@@ -80,6 +101,8 @@ def main():
     parser.add_argument('--destination', default='data/kaggle/official')
     parser.add_argument('--library', help='also extract a corrected, deduplicated tape library')
     parser.add_argument('--workers', type=int, default=8)
+    parser.add_argument('--verify-full', action='store_true',
+                        help='rehash and inspect the ZIP even when its sidecar is reusable')
     args = parser.parse_args()
 
     session = requests.Session()
@@ -89,7 +112,18 @@ def main():
     slug = release['daily_dataset_slug']
     target = Path(args.destination) / f'{slug}.zip'
     fetched = download(session, f'{API}/kaggle/{slug}', target)
-    evidence = archive_evidence(target, int(release['episode_count']))
+    sidecar = target.with_suffix('.source.json')
+    previous = None
+    if sidecar.is_file():
+        try:
+            previous = json.loads(sidecar.read_text(encoding='utf-8'))
+        except (OSError, json.JSONDecodeError):
+            previous = None
+    if not args.verify_full and not fetched and previous is not None \
+            and reusable_evidence(previous, target, release):
+        evidence = {**previous['archive'], 'verification': 'sidecar-reused'}
+    else:
+        evidence = archive_evidence(target, int(release['episode_count']))
     report = {'schema_version': 1, 'index_ref': INDEX_REF, 'release': release,
               'downloaded': fetched, 'archive': evidence,
               'action_stream_slice': 'steps[1:]'}
@@ -98,7 +132,6 @@ def main():
         report['library'] = {'path': args.library, 'episodes': library['episodes'],
                              'tapes': len(library['tapes']),
                              'errors': library['error_count']}
-    sidecar = target.with_suffix('.source.json')
     sidecar.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(report, indent=2))
 

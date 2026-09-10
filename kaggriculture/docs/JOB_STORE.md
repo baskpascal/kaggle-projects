@@ -10,8 +10,9 @@ e é pré-requisito do resto.
 
 ## A identidade de um job
 
-`job_id` é um SHA-256 sobre `candidate, opponent, seed, seat, backend, split` **mais os
-dois hashes de agente** — não sobre os caminhos deles. O hash é identidade melhor que
+`job_id` é um SHA-256 sobre `seed, seat, backend, split`, perfil de evidência,
+configuração, engine, contrato de replay e **os dois hashes de agente** — não sobre os
+caminhos deles. O hash é identidade melhor que
 caminho ou commit por duas razões:
 
 - ele percebe um arquivo **editado e não commitado**, que uma checagem de commit deixa
@@ -28,6 +29,12 @@ gravados, mas como diagnóstico, ao lado dos hashes que são a autoridade.
 SQLite e não JSONL: o resume precisa de leitura por chave, `INSERT OR IGNORE` dá
 idempotência de graça, e escrita concorrente é segura. JSONL escreve barato mas obriga a
 varrer o arquivo inteiro para saber o que falta.
+
+O cache compartilhado v2 fica fora do checkout (`$XDG_CACHE_HOME/kaggriculture` ou
+`~/.cache/kaggriculture`). Sua identidade inclui hashes dos dois artefatos, seed, assento,
+backend, split, perfil de evidência, configuração, fingerprint do engine e contrato de
+replay. Caminhos não entram na chave. Uma tabela de claims reserva misses atomicamente;
+worktrees concorrentes aguardam o produtor em vez de executar o mesmo jogo duas vezes.
 
 Duas coisas o ambiente impôs, e as duas estão no código com o motivo escrito:
 

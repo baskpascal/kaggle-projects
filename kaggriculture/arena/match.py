@@ -144,18 +144,20 @@ def observations(state):
 
 
 def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=None, replay=None,
-              telemetry_enabled=None, replay_steps=None, evidence_profile=None):
+              telemetry_enabled=None, replay_steps=None, evidence_profile=None,
+              replay_inline=False):
     requested_profile = evidence_profile
     evidence_profile = _profile(evidence_profile, telemetry_enabled)
     # Before profiles existed, replay callers routinely disabled daily telemetry. Preserve
     # those jobs as full replay capture; new callers must ask for ``full`` explicitly.
     if replay and requested_profile is None and telemetry_enabled is False:
         evidence_profile = 'full'
-    if replay and evidence_profile != 'full':
+    if (replay or replay_inline) and evidence_profile != 'full':
         raise ValueError('Replay capture requires the full evidence profile')
     if replay_steps is not None:
         replay_steps = list(replay_steps)
-        if (not replay or not replay_steps or len(set(replay_steps)) != len(replay_steps)
+        if (not (replay or replay_inline) or not replay_steps
+                or len(set(replay_steps)) != len(replay_steps)
                 or any(type(step) is not int or step < 0 for step in replay_steps)):
             raise ValueError('Snapshot steps require a replay path and unique nonnegative integers')
     start = time.perf_counter()
@@ -272,6 +274,8 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
         'unsold_items': leftover[seat] if audit else None,
         'wall_seconds': time.perf_counter() - start,
     }
+    if replay_inline:
+        result['replay_turns'] = transcript
     if replay:
         path = Path(replay)
         path.parent.mkdir(parents=True, exist_ok=True)

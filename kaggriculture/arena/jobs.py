@@ -27,6 +27,7 @@ import socket
 import sqlite3
 import subprocess
 import time
+import uuid
 from datetime import datetime, timezone
 
 from .agents import agent_hash
@@ -44,8 +45,19 @@ def _transient(exc):
     return any(text in str(exc).lower() for text in TRANSIENT)
 
 JOB_FIELDS = ('candidate', 'opponent', 'seed', 'seat', 'backend', 'split', 'evidence_profile')
-IDENTITY_FIELDS = (*JOB_FIELDS, 'candidate_hash', 'opponent_hash')
+ARTIFACT_FIELDS = ('candidate_hash', 'opponent_hash')
+RUNTIME_FIELDS = ('configuration_hash', 'engine_hash', 'replay_steps', 'replay_schema')
+# Paths are execution locations, not content. Excluding them is what lets two worktrees
+# share byte-identical artifacts while the two hashes still invalidate any edit.
+IDENTITY_FIELDS = ('seed', 'seat', 'backend', 'split', 'evidence_profile',
+                   *ARTIFACT_FIELDS, *RUNTIME_FIELDS)
 EVIDENCE_PROFILES = ('score', 'audit', 'full')
+
+
+def shared_cache_path():
+    """One machine-wide cache, intentionally outside every checkout/worktree."""
+    root = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache'))
+    return root / 'kaggriculture' / 'matches-v2.sqlite3'
 
 
 def evidence_profile(spec):
@@ -87,6 +99,10 @@ CREATE TABLE IF NOT EXISTS run (
     run_id TEXT NOT NULL,
     bound_at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS claims (
+    job_id TEXT PRIMARY KEY, owner TEXT NOT NULL, hostname TEXT NOT NULL,
+    pid INTEGER NOT NULL, claimed_at REAL NOT NULL
+);
 """
 
 
@@ -95,19 +111,50 @@ def digest(value):
                                      allow_nan=False).encode()).hexdigest()
 
 
+def identity_of(spec):
+    """Canonical content identity, including every input that can change a match."""
+    configuration = spec.get('configuration_identity', spec.get('configuration') or {})
+    if isinstance(configuration, dict):
+        configuration = {key: value for key, value in configuration.items() if key != 'seed'}
+    environment = spec.get('engine_identity', spec.get('environment'))
+    if environment is None:
+        from .engine import fingerprint
+        environment = fingerprint()
+    replay_steps = spec.get('replay_steps')
+    replay_steps = None if replay_steps is None else sorted(set(replay_steps))
+    replay_schema = spec.get('replay_schema')
+    if replay_schema is None and replay_steps is not None:
+        replay_schema = 'kaggriculture-lab-snapshots-v1'
+    normalized = {
+        **spec,
+        'evidence_profile': evidence_profile(spec),
+        'configuration_hash': digest(configuration),
+        'engine_hash': digest(environment),
+        'replay_steps': replay_steps,
+        'replay_schema': replay_schema,
+    }
+    return {field: normalized[field] for field in IDENTITY_FIELDS}
+
+
 def job_id(spec):
-    normalized = {**spec, 'evidence_profile': evidence_profile(spec)}
-    missing = [field for field in IDENTITY_FIELDS if normalized.get(field) is None]
+    normalized = identity_of(spec)
+    required = {**spec, 'evidence_profile': evidence_profile(spec)}
+    missing = [field for field in (*JOB_FIELDS, *ARTIFACT_FIELDS)
+               if required.get(field) is None]
     if missing:
         raise ValueError(f'Job identity needs {", ".join(missing)}')
-    return digest({field: normalized[field] for field in IDENTITY_FIELDS})
+    return digest(normalized)
 
 
-def plan(candidate, opponents, seeds, *, backend='fast', split='dev', evidence_profile='score'):
+def plan(candidate, opponents, seeds, *, backend='fast', split='dev', evidence_profile='score',
+         configuration=None, replay_steps=None, replay_schema=None, environment=None):
     """The exact job list for a run, hashed once rather than once per game."""
     if evidence_profile not in EVIDENCE_PROFILES:
         raise ValueError(f'Evidence profile must be one of {", ".join(EVIDENCE_PROFILES)}')
     hashes = {name: agent_hash(name) for name in (candidate, *opponents)}
+    if environment is None:
+        from .engine import fingerprint
+        environment = fingerprint()
     jobs = []
     for seed in seeds:
         for opponent in opponents:
@@ -116,8 +163,13 @@ def plan(candidate, opponents, seeds, *, backend='fast', split='dev', evidence_p
                         'seat': seat, 'backend': backend, 'split': split,
                         'evidence_profile': evidence_profile,
                         'candidate_hash': hashes[candidate],
-                        'opponent_hash': hashes[opponent]}
-                jobs.append({**spec, 'job_id': job_id(spec)})
+                        'opponent_hash': hashes[opponent],
+                        'configuration': configuration or {}, 'replay_steps': replay_steps,
+                        'replay_schema': replay_schema,
+                        'engine_identity': environment}
+                identity = identity_of(spec)
+                jobs.append({**spec, **{field: identity[field] for field in RUNTIME_FIELDS},
+                             'job_id': job_id(spec)})
     return jobs
 
 
@@ -127,7 +179,7 @@ def id_of_row(row, split):
     Deliberately not positional: results come back in whatever order the pool finishes
     them after a retry, and pairing by position would silently misfile a game.
     """
-    return job_id({**{field: row.get(field) for field in IDENTITY_FIELDS}, 'split': split})
+    return job_id({**row, 'split': split})
 
 
 def outcome_of(score):
@@ -266,7 +318,53 @@ class JobStore:
                  row.get('git_commit', self.provenance.get('git_commit')),
                  row.get('git_dirty', self.provenance.get('git_dirty')),
                  datetime.now(timezone.utc).isoformat(), json.dumps(row, default=str)))
+            connection.execute('DELETE FROM claims WHERE job_id = ?', (identity,))
         return identity
+
+    def claim(self, jobs, owner, lease_seconds=3600):
+        """Atomically reserve uncomputed jobs; concurrent stores receive no overlap."""
+        now = time.time()
+        with self._session() as connection:
+            connection.execute('DELETE FROM claims WHERE claimed_at < ?',
+                               (now - lease_seconds,))
+            # A killed local driver must be resumable immediately rather than after a lease.
+            local = list(connection.execute('SELECT job_id, pid FROM claims WHERE hostname = ?',
+                                            (socket.gethostname(),)))
+            for held in local:
+                try:
+                    os.kill(held['pid'], 0)
+                except ProcessLookupError:
+                    connection.execute('DELETE FROM claims WHERE job_id = ?',
+                                       (held['job_id'],))
+                except (PermissionError, OSError):
+                    pass
+            done = {row['job_id'] for row in connection.execute('SELECT job_id FROM jobs')}
+            owned = []
+            for job in jobs:
+                if job['job_id'] in done:
+                    continue
+                cursor = connection.execute(
+                    'INSERT OR IGNORE INTO claims '
+                    '(job_id, owner, hostname, pid, claimed_at) VALUES (?,?,?,?,?)',
+                    (job['job_id'], owner, socket.gethostname(), os.getpid(), now))
+                if cursor.rowcount:
+                    owned.append(job)
+            return owned
+
+    def release(self, owner):
+        with self._session() as connection:
+            connection.execute('DELETE FROM claims WHERE owner = ?', (owner,))
+
+    def cache_summary(self, jobs, hits_before=0):
+        unique = {job['job_id']: job for job in jobs}
+        total = len(unique)
+        return {'path': str(self.path), 'origin': 'content-addressed-sqlite',
+                'identity_schema': 2, 'hits': hits_before,
+                'misses': total - hits_before,
+                'entries': len(self.completed()),
+                'identity_fields': list(IDENTITY_FIELDS),
+                'identities': [{'job_id': identity, **identity_of(job)}
+                               for identity, job in unique.items()]}
 
     def completed(self):
         with self._session() as connection:
@@ -305,7 +403,13 @@ class JobStore:
         missing = [identity for identity in wanted if identity not in by_id]
         if missing:
             raise OSError(f'{len(missing)} planned game(s) are absent from the store')
-        return [by_id[identity] for identity in wanted]
+        rows = []
+        for job, identity in zip(jobs, wanted):
+            # A cache hit may have been produced from another worktree. Preserve the
+            # current plan's display paths; content identity is already proven by hashes.
+            rows.append({**by_id[identity], 'candidate': job['candidate'],
+                         'opponent': job['opponent']})
+        return rows
 
 
 def single_provenance(rows):
@@ -330,7 +434,8 @@ def single_provenance(rows):
     return True
 
 
-def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
+def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None,
+            prepare_row=None):
     """Play the pending jobs, persisting each as it lands, retrying only faults.
 
     `runner(jobs, workers)` yields match rows; injecting it keeps this independent of the
@@ -346,11 +451,18 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
     """
     if attempts < 1:
         raise ValueError('attempts must be positive')
-    last = None
-    for attempt in range(attempts):
+    owner = uuid.uuid4().hex
+    last, faults = None, 0
+    while faults < attempts:
         remaining = store.pending(jobs)
         if not remaining:
             return store.rows_in_order(jobs)
+        remaining = store.claim(remaining, owner)
+        if not remaining:
+            # Another worktree owns the outstanding games. Observe its incremental
+            # commits and only contend again if its process/lease disappears.
+            time.sleep(.1)
+            continue
         # The worker needs the expected hashes and IDs so a remote batch can prove which
         # artifacts and jobs it actually executed. ``arena.parallel`` strips this transport
         # metadata before calling ``run_match``.
@@ -358,8 +470,24 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
         expected = {job['job_id'] for job in remaining}
         seen = set()
         try:
+            legacy = {(job['candidate'], job['opponent'], job['seed'], job['seat'],
+                       job['backend'], evidence_profile(job), job['candidate_hash'],
+                       job['opponent_hash']): job for job in remaining}
             for row in runner(payload, workers):
-                identity = id_of_row(row, split)
+                key = (row.get('candidate'), row.get('opponent'), row.get('seed'),
+                       row.get('seat'), row.get('backend'), evidence_profile(row),
+                       row.get('candidate_hash'), row.get('opponent_hash'))
+                admitted = legacy.get(key)
+                if admitted is None:
+                    identity = id_of_row(row, split)
+                else:
+                    for field in (*RUNTIME_FIELDS, 'configuration_identity', 'engine_identity'):
+                        if field in admitted:
+                            row[field] = admitted[field]
+                    row['configuration_identity'] = admitted.get('configuration_identity',
+                                                                   admitted.get('configuration') or {})
+                    row['engine_identity'] = admitted.get('engine_identity') or row.get('environment')
+                    identity = job_id({**row, 'split': split})
                 if row.get('job_id', identity) != identity:
                     raise ValueError(f'Result job_id does not match its contents: {row.get("job_id")}')
                 if identity not in expected:
@@ -368,6 +496,8 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
                     raise ValueError(f'Runner returned duplicate job: {identity}')
                 seen.add(identity)
                 row['job_id'] = identity
+                if prepare_row:
+                    prepare_row(row)
                 store.record(row, split)
                 if on_row:
                     on_row(row)
@@ -375,7 +505,14 @@ def execute(jobs, store, split, runner, *, workers=4, attempts=3, on_row=None):
             if missing:
                 raise OSError(f'Runner omitted {len(missing)} admitted job(s)')
         except INFRASTRUCTURE as exc:
+            store.release(owner)
             last = exc
+            faults += 1
             continue
+        except BaseException:
+            store.release(owner)
+            raise
+        store.release(owner)
         return store.rows_in_order(jobs)
+    store.release(owner)
     raise RuntimeError(f'Infrastructure faults exhausted {attempts} attempts: {last}')

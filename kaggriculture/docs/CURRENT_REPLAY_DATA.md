@@ -14,6 +14,11 @@ downloads it atomically, checks the declared episode count, records the archive 
 and optionally builds a deduplicated tape library. Downloads live under ignored `data/`;
 credentials and multi-gigabyte archives never enter Git.
 
+The adjacent `.source.json` records the ZIP's device, inode, size and nanosecond mtime.
+A second sync of the same release reuses that full verification without rereading the
+archive. Use `--verify-full` to deliberately rehash and inspect it again; a malformed
+sidecar or any changed local identity also forces full verification.
+
 The benchmark hard-fails when any episode's engine differs from the arena fingerprint.
 Older corpus shards and the historical `matchups_top.parquet` cannot silently become
 evidence for engine 1.32.7; the complete corpus admission work remains tracked in #52.
@@ -70,6 +75,12 @@ Reproduce the daily measurement with:
   --agent-dir data/kaggle/official/current-meta-agents \
   --output data/kaggle/official/v005-current-meta-full.json
 ```
+
+The benchmark accepts a ZIP or extracted directory, hashes directories through an ordered
+`path,size,SHA-256` manifest, and streams episode decoding through a bounded window. Each
+match lands immediately in the machine-wide content cache. Pass `--resume` to rebuild an
+existing report and `--ray-address auto` to use the private Ray cluster. Reports include
+cache hits, misses, origin and the complete identity schema.
 
 Sources:
 

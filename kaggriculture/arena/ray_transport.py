@@ -123,7 +123,7 @@ def _environment(artifacts):
 
 def _remote_batch(batch, workers, timeout):
     with _worker_role():
-        if any(spec.get('replay') or spec.get('replay_steps') for spec in batch['specs']):
+        if any(spec.get('replay') for spec in batch['specs']):
             raise ValueError('Remote jobs cannot write replay results to worker filesystems')
         # The core/test environment deliberately does not install the optional Ray
         # dependency.  A real remote task always has it, but keeping telemetry optional
