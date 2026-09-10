@@ -99,3 +99,80 @@ Na ordem instrumentação → causa → evaluator → otimização, a instrument
 execução está limpa, a perda é estratégica e está concentrada na faixa 2600–2800, e o
 evaluator local não tem resolução para o que decide o ladder. O próximo passo é o tier 2 e
 a reprodução pareada, não mais busca, GA, option selector ou RL.
+
+---
+
+# Tier 2: o motor é o mesmo, e a faixa decisiva é decidida por 0,1%
+
+Instrumento: `experiments/ladder_reproduction.py`. Evidência:
+`docs/ladder-reproduction-v006.json`. Arquivo de replays em
+`data/kaggle/ladder/replays-56125200.zip`, no mesmo formato dos dumps oficiais, de modo que
+`top_panel.reproduce` e `tape_agent` o leem sem alteração.
+
+Autenticação pela rota **pública** `GET /api/v1/competitions/episodes/{id}/replay` com
+Bearer da credencial que o Kaggle CLI já mantém em `~/.kaggle` — é a rota que o próprio CLI
+chama. 20 replays da faixa 2600–2800 baixados, **3.580 das 3.600 views ainda disponíveis**.
+
+## Level A — fidelidade do motor: 20 de 20 exatos
+
+Replayando os dois streams gravados de cada episódio na seed gravada, sem ninguém decidir
+nada, o dinheiro terminal local bateu **exatamente** com o reward publicado pelo Kaggle, nos
+dois backends (`fast` e `official`), com zero falhas de callback.
+
+**Não existe discrepância de ambiente.** Nosso `kaggle-environments==1.32.7` é o deles. Esse
+ramo da H1 está fechado, e todos os números locais deste repositório continuam confiáveis
+como simulação — o problema não é o simulador.
+
+## Level B — e por que ele vale menos do que parece
+
+Agreement 20 de 20, margem local mediana idêntica à do ladder (+16,5).
+
+Isso **não** é validação preditiva. O `v006` é determinístico: contra o stream gravado do
+oponente, na mesma seed e no mesmo seat, ele refaz a própria partida do ladder. O resultado
+que o Level B realmente estabelece é mais estreito e ainda assim útil: **o `v006` rodando
+aqui é bit a bit o `v006` que rodou no Kaggle.** Não há divergência de artefato, de versão
+nem de seat.
+
+A validação preditiva de verdade exigiria o oponente reativo, que não temos — um tape fixo
+deixa de responder assim que divergimos dele. Registrado aqui para que o número 1,0 não seja
+lido como o que não é.
+
+## O achado: a escala das margens na faixa que decide a corrida
+
+As 20 partidas contra oponentes de 2600–2800, por margem:
+
+    -1.119  -1.099   -350    -93     -5     -2     -2     +3     +5    +15
+       +18    +25    +55   +111   +155   +225   +679   +745  +3.983 +5.115
+
+    |margem| mediana        102 moedas
+    dinheiro típico          91.813
+    |margem| como fração          0,111%
+    decididas por < 100 moedas   10 de 20
+    decididas por < 1.000        16 de 20
+
+**Metade das partidas na faixa decisiva é decidida por menos de 100 moedas em 92.000.** O
+painel local mede o mesmo agente contra margens de ±81.000 — uma régua 800 vezes mais grossa
+do que a diferença que o ladder está de fato medindo.
+
+Advertência sobre esta amostra: os 20 episódios são os **mais antigos** dos 67 da faixa, não
+uma amostra aleatória. Eles somam 13 vitórias em 20, contra 0,388 no conjunto dos 67. A
+distribuição de margens é o achado; a win rate desta amostra não é representativa e não deve
+ser citada como tal.
+
+## O que a H1 virou
+
+`H1: local_eval is conditionally biased relative to live ladder` sobrevive, mas com dois
+ramos eliminados por medição:
+
+- **não é ambiente** — Level A, 20/20 exatos;
+- **não é execução nem seat** — tier 1, 204/204 `COMPLETED`, 0,593 contra 0,594.
+
+O que resta é o **setup de avaliação**: quais adversários o painel contém, e em que escala
+ele mede. E a segunda parte agora tem um número. Uma função objetivo calibrada em 80.000 não
+tem resolução para escolher entre agentes separados por 102 moedas.
+
+## Próximo
+
+Reconstruir o evaluator em torno da escala real: adversários na faixa 2600–2800 e um
+objetivo que resolva centenas de moedas, não dezenas de milhares. Só depois disso volta a
+fazer sentido gastar CPU em busca, GA, option selector ou RL.

@@ -161,6 +161,98 @@ def trajectory(records):
             'since_peak': scores[-1] - scores[peak]}
 
 
+def access_token():
+    """The Kaggle credential, read from where the CLI already keeps it.
+
+    Machine credentials live in the user's home, never in this repository, so this reads
+    `~/.kaggle/access_token` and never writes it. `KAGGLE_ACCESS_TOKEN` overrides for CI.
+    """
+    from os import environ
+    token = environ.get('KAGGLE_ACCESS_TOKEN')
+    if token:
+        return token.strip()
+    path = Path.home() / '.kaggle' / 'access_token'
+    if not path.is_file():
+        raise RuntimeError('No Kaggle credential: set KAGGLE_ACCESS_TOKEN or run `kaggle auth login`.')
+    return path.read_text().strip()
+
+
+def fetch_replay(episode_id, http=None, token=None):
+    """Tier two. Authenticated, metered, and the only source of the world seed.
+
+    The public REST route is used rather than the internal one, because it is the route
+    the Kaggle CLI itself calls and it returns the replay exactly as the daily dumps store
+    it - `info.seed`, per-agent `statuses`, `module_version`, and all 720 steps.
+    """
+    http = http or session()
+    url = f'https://www.kaggle.com/api/v1/competitions/episodes/{int(episode_id)}/replay'
+    response = http.get(url, timeout=(30, 600),
+                        headers={'Authorization': f'Bearer {token or access_token()}'})
+    response.raise_for_status()
+    return response.content
+
+
+def archive_path(submission_id, root=None):
+    return Path(root or STORE) / f'replays-{int(submission_id)}.zip'
+
+
+def archived(archive):
+    """Episode ids already on disk, so a view is never spent twice on the same episode."""
+    import zipfile
+    archive = Path(archive)
+    if not archive.is_file():
+        return set()
+    with zipfile.ZipFile(archive) as source:
+        return {int(Path(name).stem) for name in source.namelist() if name.endswith('.json')}
+
+
+def ensure_replays(episode_ids, archive, ledger, http=None, token=None, progress=None):
+    """Fetch the replays not already archived, charging one view each, and stop on budget.
+
+    The archive is written in the same shape as Kaggle's own daily dumps - one
+    `<episode_id>.json` member per episode - so `top_panel.episode_streams` and
+    `top_panel.reproduce` read it without changes.
+    """
+    import zipfile
+    archive = Path(archive)
+    archive.parent.mkdir(parents=True, exist_ok=True)
+    have = archived(archive)
+    wanted = [identifier for identifier in episode_ids if int(identifier) not in have]
+    http = http or session()
+    token = token or access_token()
+    fetched, skipped = [], len(episode_ids) - len(wanted)
+    for identifier in wanted:
+        if ledger.remaining() < 1:
+            break
+        payload = fetch_replay(identifier, http, token)
+        ledger.charge(1)
+        with zipfile.ZipFile(archive, 'a', zipfile.ZIP_DEFLATED) as sink:
+            sink.writestr(f'{int(identifier)}.json', payload)
+        fetched.append(int(identifier))
+        if progress:
+            progress(len(fetched), len(wanted), int(identifier), len(payload))
+    return {'fetched': fetched, 'already_archived': skipped,
+            'not_fetched': [i for i in wanted if int(i) not in set(fetched)],
+            'views_remaining': ledger.remaining()}
+
+
+def replay_facts(replay, submission_id, records=None):
+    """The fields tier one cannot supply, pulled out of one replay."""
+    info = replay.get('info') or {}
+    statuses = replay.get('statuses') or []
+    seat = None
+    if records:
+        match = {record['episode_id']: record for record in records}
+        seat = match.get(info.get('EpisodeId'), {}).get('seat')
+    return {'episode_id': info.get('EpisodeId'), 'submission_id': int(submission_id),
+            'seed': info.get('seed'), 'team_names': info.get('TeamNames'),
+            'engine_version': replay.get('module_version'),
+            'schema_version': replay.get('schema_version'),
+            'statuses': statuses, 'rewards': replay.get('rewards'),
+            'turns': len(replay.get('steps') or []), 'seat': seat,
+            'clean': all(status == 'DONE' for status in statuses) and len(statuses) == 2}
+
+
 def store_path(submission_id, root=None):
     return Path(root or STORE) / f'episodes-{int(submission_id)}.json'
 
@@ -235,6 +327,10 @@ def main():
     parser.add_argument('--offline', action='store_true',
                         help='report from the cache without calling Kaggle')
     parser.add_argument('--report', help='write the cuts to this JSON file')
+    parser.add_argument('--fetch-replays', type=int, metavar='N',
+                        help='tier two: archive up to N replays, newest band first')
+    parser.add_argument('--band', nargs=2, type=float, metavar=('LOW', 'HIGH'),
+                        help='restrict --fetch-replays to this opponent rating band')
     arguments = parser.parse_args()
 
     cached = load(arguments.submission, arguments.root)
@@ -249,6 +345,24 @@ def main():
 
     report = {'submission_id': arguments.submission,
               'trajectory': trajectory(records), 'cuts': cuts(records)}
+
+    if arguments.fetch_replays:
+        chosen = records
+        if arguments.band:
+            low, high = arguments.band
+            chosen = [record for record in records
+                      if record['opponent_initial_score'] is not None
+                      and low <= record['opponent_initial_score'] < high]
+        wanted = [record['episode_id'] for record in chosen][:arguments.fetch_replays]
+        ledger = ViewLedger(Path(arguments.root) / 'view-ledger.json')
+
+        def progress(done, total, identifier, size):
+            print(f'  replay {done}/{total}  episode {identifier}  {size / 1e6:.1f} MB',
+                  file=sys.stderr, flush=True)
+
+        report['replays'] = ensure_replays(
+            wanted, archive_path(arguments.submission, arguments.root), ledger,
+            progress=progress)
     print(json.dumps(report, indent=1, default=str))
     if arguments.report:
         Path(arguments.report).write_text(json.dumps(report, indent=1, default=str))

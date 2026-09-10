@@ -469,3 +469,45 @@ reproduzir cada episódio real localmente com mesma seed, seat e adversário, co
 `predicted_local_outcome` contra `actual_ladder_outcome`. Até esse resultado existir, nenhuma
 CPU vai para busca, GA, option selector ou RL: não sabemos qual objetivo correlaciona com o
 ladder.
+
+## 2026-09-10 — tier 2: o motor é idêntico, e a faixa decisiva é decidida por 0,1%
+
+`experiments/ladder_reproduction.py`, sobre 20 replays da faixa 2600–2800 baixados pela rota
+pública `GET /api/v1/competitions/episodes/{id}/replay`. 3.580 das 3.600 views ainda
+disponíveis. Detalhes em `docs/LADDER_GROUND_TRUTH.md`.
+
+**Level A, fidelidade do motor: 20 de 20 exatos.** Replayando os dois streams gravados na seed
+gravada, o dinheiro terminal local bate exatamente com o reward publicado pelo Kaggle, nos dois
+backends e com zero falhas. Não há discrepância de ambiente; o ramo "execução/ambiente" da H1
+está fechado.
+
+**Level B: agreement 20/20, e vale menos do que parece.** O `v006` é determinístico, então
+contra o stream gravado do oponente na mesma seed ele refaz a própria partida. O que isso
+estabelece é que o `v006` daqui é bit a bit o que rodou no Kaggle — não que o setup local
+preveja o ladder. Validação preditiva de verdade exige oponente reativo, que um tape fixo não é.
+
+**O achado é a escala.** As 20 partidas, por margem:
+
+    -1.119  -1.099   -350    -93     -5     -2     -2     +3     +5    +15
+       +18    +25    +55   +111   +155   +225   +679   +745  +3.983 +5.115
+
+|margem| mediana de **102 moedas** sobre dinheiro típico de 91.813 — **0,111%**. Dez das vinte
+decididas por menos de 100 moedas. O painel local mede o mesmo agente contra ±81.000: uma régua
+800 vezes mais grossa do que a diferença que o ladder mede.
+
+Ressalva: esses 20 são os mais antigos dos 67 da faixa, não amostra aleatória. Somam 13/20,
+contra 0,388 nos 67. A distribuição de margens é o achado; a win rate desta amostra não é
+representativa.
+
+### O que a H1 virou
+
+`H1: local_eval is conditionally biased relative to live ladder` sobrevive com dois ramos
+eliminados por medição: não é ambiente (Level A 20/20) e não é execução nem seat (tier 1,
+204/204 `COMPLETED`, 0,593 contra 0,594). Resta o setup de avaliação — quais adversários o
+painel contém e em que escala ele mede.
+
+### Próximo
+
+Reconstruir o evaluator na escala real: adversários de 2600–2800 e um objetivo que resolva
+centenas de moedas. Só depois disso volta a fazer sentido gastar CPU em busca, GA, option
+selector ou RL.

@@ -1,0 +1,1063 @@
+{
+ "submission_id": 56125200,
+ "candidate": "versions/v006/main.py",
+ "summary": {
+  "level_a": {
+   "episodes": 20,
+   "exact": 20,
+   "mismatched": []
+  },
+  "level_b": {
+   "episodes": 20,
+   "agreement": 1.0,
+   "local_says_win_ladder_says_loss": 0,
+   "local_says_loss_ladder_says_win": 0,
+   "ladder_margin_median": 16.5,
+   "local_margin_median": 16.5
+  }
+ },
+ "fidelity": {
+  "107202174": {
+   "expected": [
+    94692.0,
+    93947.0
+   ],
+   "episode": 107202174,
+   "seed": 264834535,
+   "fast": [
+    94692.0,
+    93947.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    94692.0,
+    93947.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.712967+00:00"
+  },
+  "107206062": {
+   "expected": [
+    102884.0,
+    102791.0
+   ],
+   "episode": 107206062,
+   "seed": 1571107777,
+   "fast": [
+    102884.0,
+    102791.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    102884.0,
+    102791.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.712994+00:00"
+  },
+  "107209005": {
+   "expected": [
+    98326.0,
+    98329.0
+   ],
+   "episode": 107209005,
+   "seed": 686449549,
+   "fast": [
+    98326.0,
+    98329.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    98326.0,
+    98329.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.712999+00:00"
+  },
+  "107212797": {
+   "expected": [
+    159258.0,
+    159273.0
+   ],
+   "episode": 107212797,
+   "seed": 2057191267,
+   "fast": [
+    159258.0,
+    159273.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    159258.0,
+    159273.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713003+00:00"
+  },
+  "107215798": {
+   "expected": [
+    88164.0,
+    88319.0
+   ],
+   "episode": 107215798,
+   "seed": 1385626469,
+   "fast": [
+    88164.0,
+    88319.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    88164.0,
+    88319.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713006+00:00"
+  },
+  "107216665": {
+   "expected": [
+    90845.0,
+    90956.0
+   ],
+   "episode": 107216665,
+   "seed": 953007975,
+   "fast": [
+    90845.0,
+    90956.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    90845.0,
+    90956.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713009+00:00"
+  },
+  "107221914": {
+   "expected": [
+    63081.0,
+    68196.0
+   ],
+   "episode": 107221914,
+   "seed": 469846560,
+   "fast": [
+    63081.0,
+    68196.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    63081.0,
+    68196.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713012+00:00"
+  },
+  "107224372": {
+   "expected": [
+    83767.0,
+    83992.0
+   ],
+   "episode": 107224372,
+   "seed": 1405977927,
+   "fast": [
+    83767.0,
+    83992.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    83767.0,
+    83992.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713016+00:00"
+  },
+  "107227111": {
+   "expected": [
+    92339.0,
+    92337.0
+   ],
+   "episode": 107227111,
+   "seed": 2083362473,
+   "fast": [
+    92339.0,
+    92337.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    92339.0,
+    92337.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713020+00:00"
+  },
+  "107227290": {
+   "expected": [
+    90728.0,
+    91847.0
+   ],
+   "episode": 107227290,
+   "seed": 131438660,
+   "fast": [
+    90728.0,
+    91847.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    90728.0,
+    91847.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713024+00:00"
+  },
+  "107232882": {
+   "expected": [
+    125136.0,
+    125138.0
+   ],
+   "episode": 107232882,
+   "seed": 836894050,
+   "fast": [
+    125136.0,
+    125138.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    125136.0,
+    125138.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713028+00:00"
+  },
+  "107236643": {
+   "expected": [
+    86857.0,
+    86862.0
+   ],
+   "episode": 107236643,
+   "seed": 1124737117,
+   "fast": [
+    86857.0,
+    86862.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    86857.0,
+    86862.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713031+00:00"
+  },
+  "107237149": {
+   "expected": [
+    84034.0,
+    82935.0
+   ],
+   "episode": 107237149,
+   "seed": 2107359370,
+   "fast": [
+    84034.0,
+    82935.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    84034.0,
+    82935.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713034+00:00"
+  },
+  "107241135": {
+   "expected": [
+    112946.0,
+    116929.0
+   ],
+   "episode": 107241135,
+   "seed": 232546011,
+   "fast": [
+    112946.0,
+    116929.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    112946.0,
+    116929.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713039+00:00"
+  },
+  "107245194": {
+   "expected": [
+    87292.0,
+    87267.0
+   ],
+   "episode": 107245194,
+   "seed": 980849566,
+   "fast": [
+    87292.0,
+    87267.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    87292.0,
+    87267.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713042+00:00"
+  },
+  "107247617": {
+   "expected": [
+    103369.0,
+    104048.0
+   ],
+   "episode": 107247617,
+   "seed": 508042871,
+   "fast": [
+    103369.0,
+    104048.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    103369.0,
+    104048.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713045+00:00"
+  },
+  "107251525": {
+   "expected": [
+    102624.0,
+    102274.0
+   ],
+   "episode": 107251525,
+   "seed": 284130496,
+   "fast": [
+    102624.0,
+    102274.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    102624.0,
+    102274.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713047+00:00"
+  },
+  "107256885": {
+   "expected": [
+    124829.0,
+    124774.0
+   ],
+   "episode": 107256885,
+   "seed": 1069944086,
+   "fast": [
+    124829.0,
+    124774.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    124829.0,
+    124774.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713049+00:00"
+  },
+  "107257685": {
+   "expected": [
+    85362.0,
+    85344.0
+   ],
+   "episode": 107257685,
+   "seed": 1014198744,
+   "fast": [
+    85362.0,
+    85344.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    85362.0,
+    85344.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713051+00:00"
+  },
+  "107261982": {
+   "expected": [
+    72698.0,
+    72703.0
+   ],
+   "episode": 107261982,
+   "seed": 270411052,
+   "fast": [
+    72698.0,
+    72703.0
+   ],
+   "fast_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "fast_failures": [
+    [],
+    []
+   ],
+   "official": [
+    72698.0,
+    72703.0
+   ],
+   "official_environment": {
+    "version": "1.32.7",
+    "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+   },
+   "official_failures": [
+    [],
+    []
+   ],
+   "exact": true,
+   "verified_at": "2026-09-10T18:59:02.713052+00:00"
+  }
+ },
+ "predictions": [
+  {
+   "episode_id": 107202174,
+   "seat": 0,
+   "seed": 264834535,
+   "ladder_our_money": 94692.0,
+   "ladder_opponent_money": 93947.0,
+   "local_our_money": 94692.0,
+   "local_opponent_money": 93947.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107206062,
+   "seat": 1,
+   "seed": 1571107777,
+   "ladder_our_money": 102791.0,
+   "ladder_opponent_money": 102884.0,
+   "local_our_money": 102791.0,
+   "local_opponent_money": 102884.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107209005,
+   "seat": 1,
+   "seed": 686449549,
+   "ladder_our_money": 98329.0,
+   "ladder_opponent_money": 98326.0,
+   "local_our_money": 98329.0,
+   "local_opponent_money": 98326.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107212797,
+   "seat": 1,
+   "seed": 2057191267,
+   "ladder_our_money": 159273.0,
+   "ladder_opponent_money": 159258.0,
+   "local_our_money": 159273.0,
+   "local_opponent_money": 159258.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107215798,
+   "seat": 1,
+   "seed": 1385626469,
+   "ladder_our_money": 88319.0,
+   "ladder_opponent_money": 88164.0,
+   "local_our_money": 88319.0,
+   "local_opponent_money": 88164.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107216665,
+   "seat": 1,
+   "seed": 953007975,
+   "ladder_our_money": 90956.0,
+   "ladder_opponent_money": 90845.0,
+   "local_our_money": 90956.0,
+   "local_opponent_money": 90845.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107221914,
+   "seat": 1,
+   "seed": 469846560,
+   "ladder_our_money": 68196.0,
+   "ladder_opponent_money": 63081.0,
+   "local_our_money": 68196.0,
+   "local_opponent_money": 63081.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107224372,
+   "seat": 1,
+   "seed": 1405977927,
+   "ladder_our_money": 83992.0,
+   "ladder_opponent_money": 83767.0,
+   "local_our_money": 83992.0,
+   "local_opponent_money": 83767.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107227111,
+   "seat": 1,
+   "seed": 2083362473,
+   "ladder_our_money": 92337.0,
+   "ladder_opponent_money": 92339.0,
+   "local_our_money": 92337.0,
+   "local_opponent_money": 92339.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107227290,
+   "seat": 0,
+   "seed": 131438660,
+   "ladder_our_money": 90728.0,
+   "ladder_opponent_money": 91847.0,
+   "local_our_money": 90728.0,
+   "local_opponent_money": 91847.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107232882,
+   "seat": 0,
+   "seed": 836894050,
+   "ladder_our_money": 125136.0,
+   "ladder_opponent_money": 125138.0,
+   "local_our_money": 125136.0,
+   "local_opponent_money": 125138.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107236643,
+   "seat": 1,
+   "seed": 1124737117,
+   "ladder_our_money": 86862.0,
+   "ladder_opponent_money": 86857.0,
+   "local_our_money": 86862.0,
+   "local_opponent_money": 86857.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107237149,
+   "seat": 1,
+   "seed": 2107359370,
+   "ladder_our_money": 82935.0,
+   "ladder_opponent_money": 84034.0,
+   "local_our_money": 82935.0,
+   "local_opponent_money": 84034.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107241135,
+   "seat": 1,
+   "seed": 232546011,
+   "ladder_our_money": 116929.0,
+   "ladder_opponent_money": 112946.0,
+   "local_our_money": 116929.0,
+   "local_opponent_money": 112946.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107245194,
+   "seat": 0,
+   "seed": 980849566,
+   "ladder_our_money": 87292.0,
+   "ladder_opponent_money": 87267.0,
+   "local_our_money": 87292.0,
+   "local_opponent_money": 87267.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107247617,
+   "seat": 1,
+   "seed": 508042871,
+   "ladder_our_money": 104048.0,
+   "ladder_opponent_money": 103369.0,
+   "local_our_money": 104048.0,
+   "local_opponent_money": 103369.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107251525,
+   "seat": 1,
+   "seed": 284130496,
+   "ladder_our_money": 102274.0,
+   "ladder_opponent_money": 102624.0,
+   "local_our_money": 102274.0,
+   "local_opponent_money": 102624.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107256885,
+   "seat": 0,
+   "seed": 1069944086,
+   "ladder_our_money": 124829.0,
+   "ladder_opponent_money": 124774.0,
+   "local_our_money": 124829.0,
+   "local_opponent_money": 124774.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107257685,
+   "seat": 0,
+   "seed": 1014198744,
+   "ladder_our_money": 85362.0,
+   "ladder_opponent_money": 85344.0,
+   "local_our_money": 85362.0,
+   "local_opponent_money": 85344.0,
+   "actual_ladder_outcome": "win",
+   "predicted_local_outcome": "win",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  },
+  {
+   "episode_id": 107261982,
+   "seat": 0,
+   "seed": 270411052,
+   "ladder_our_money": 72698.0,
+   "ladder_opponent_money": 72703.0,
+   "local_our_money": 72698.0,
+   "local_opponent_money": 72703.0,
+   "actual_ladder_outcome": "loss",
+   "predicted_local_outcome": "loss",
+   "agrees": true,
+   "failures": [
+    [],
+    []
+   ]
+  }
+ ]
+}

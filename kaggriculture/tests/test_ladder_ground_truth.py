@@ -4,8 +4,10 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from experiments.ladder_ground_truth import (ViewLedger, cuts, load, merge, normalise,
-                                             outcome, save, store_path, trajectory)
+from experiments.ladder_ground_truth import (ViewLedger, archive_path, archived, cuts,
+                                             ensure_replays, load, merge, normalise,
+                                             outcome, replay_facts, save, store_path,
+                                             trajectory)
 
 OURS = 56125200
 
@@ -126,3 +128,74 @@ def test_the_view_ledger_forgets_charges_older_than_the_window(tmp_path):
     assert ledger.remaining() == 3
     ledger.charge(1)
     assert ledger.remaining() == 2
+
+
+def test_archived_reads_the_ids_already_on_disk(tmp_path):
+    import zipfile
+    path = archive_path(OURS, tmp_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(path, 'w') as sink:
+        sink.writestr('101.json', '{}')
+        sink.writestr('102.json', '{}')
+        sink.writestr('notes.txt', 'ignored')
+    assert archived(path) == {101, 102}
+    assert archived(tmp_path / 'absent.zip') == set()
+
+
+def test_ensure_replays_never_spends_a_view_on_an_archived_episode(tmp_path):
+    import zipfile
+    path = archive_path(OURS, tmp_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(path, 'w') as sink:
+        sink.writestr('101.json', '{"info": {}}')
+    ledger = ViewLedger(tmp_path / 'views.json', budget=10)
+    calls = []
+
+    def fake(identifier, http, token):
+        calls.append(identifier)
+        return b'{"info": {"EpisodeId": %d}}' % identifier
+
+    import experiments.ladder_ground_truth as module
+    original = module.fetch_replay
+    module.fetch_replay = fake
+    try:
+        result = ensure_replays([101, 102], path, ledger, http=object(), token='t')
+    finally:
+        module.fetch_replay = original
+    assert calls == [102] and result['fetched'] == [102]
+    assert result['already_archived'] == 1
+    assert ledger.remaining() == 9
+    assert archived(path) == {101, 102}
+
+
+def test_ensure_replays_stops_at_the_budget_instead_of_being_denied(tmp_path):
+    ledger = ViewLedger(tmp_path / 'views.json', budget=1)
+    import experiments.ladder_ground_truth as module
+    original = module.fetch_replay
+    module.fetch_replay = lambda identifier, http, token: b'{"info": {}}'
+    try:
+        result = ensure_replays([201, 202, 203], archive_path(OURS, tmp_path), ledger,
+                                http=object(), token='t')
+    finally:
+        module.fetch_replay = original
+    assert result['fetched'] == [201]
+    assert result['not_fetched'] == [202, 203]
+    assert result['views_remaining'] == 0
+
+
+def test_replay_facts_flags_an_episode_that_did_not_finish_clean():
+    clean = {'info': {'EpisodeId': 7, 'seed': 42, 'TeamNames': ['us', 'them']},
+             'statuses': ['DONE', 'DONE'], 'rewards': [10.0, 9.0],
+             'module_version': '1.32.7', 'schema_version': 1, 'steps': [0] * 720}
+    facts = replay_facts(clean, OURS)
+    assert facts['seed'] == 42 and facts['turns'] == 720 and facts['clean'] is True
+    assert facts['engine_version'] == '1.32.7'
+    broken = dict(clean, statuses=['DONE', 'ERROR'])
+    assert replay_facts(broken, OURS)['clean'] is False
+
+
+def test_replay_facts_carries_the_seat_across_from_the_free_tier():
+    records = normalise(payload(episode(7, 100.0, 90.0, seat=1)), OURS)
+    replay = {'info': {'EpisodeId': 7, 'seed': 1}, 'statuses': ['DONE', 'DONE'],
+              'rewards': [90.0, 100.0], 'module_version': '1.32.7', 'steps': []}
+    assert replay_facts(replay, OURS, records)['seat'] == 1
