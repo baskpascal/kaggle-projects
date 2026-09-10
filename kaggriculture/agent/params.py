@@ -41,6 +41,12 @@ DEFAULTS = {
     # On keeps the herd's own cost reserved while hiring; off reproduces the historical
     # opening exactly.
     'hire_capital_guard': False,
+    # Ablation controls for the expansion. `land_purchase` off keeps the pending-expansion
+    # reserve while never emitting BUY_LAND; `land_reserve_holds` off buys the quadrant
+    # without making every other order clear its price first. Both default to the
+    # behaviour `land_reservation` has always had.
+    'land_purchase': True,
+    'land_reserve_holds': True,
     # Reactive inventory arbitrage. Disabled for all historical artifacts; candidates
     # opt in only after the observed town demand makes the round trip profitable.
     'market_arbitrage': False,

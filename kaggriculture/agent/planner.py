@@ -232,13 +232,17 @@ def policy(observation, configuration=None, parameters=None):
                 and s.day >= p['expand_day']
                 and s.days_left > 10 and occupied >= len(tiles) * .75)
     land_cost = (1000, 2000, 4000)[quadrants - 1] if land_due else 0
+    # `land_cost` does two separate jobs: it is the price of the quadrant, and it is the
+    # floor every other order has to clear while the expansion is pending. Splitting them
+    # is what lets an ablation ask which of the two is paying.
+    held_reserve = land_cost if p['land_reserve_holds'] else 0
 
     def buy(order, cost, essential=False, required_reserve=None):
         nonlocal cash
         accepted = len(essential_orders) + len(optional_orders)
         slots_available = (accepted < limit if reserve_slots else
                            len(sales) + accepted < limit)
-        reserve = (max(effective_reserve, land_cost) if required_reserve is None
+        reserve = (max(effective_reserve, held_reserve) if required_reserve is None
                    else required_reserve)
         if slots_available and cost <= max(0, cash - reserve):
             (essential_orders if essential else optional_orders).append(order)
@@ -283,7 +287,7 @@ def policy(observation, configuration=None, parameters=None):
 
     # Land is the binding production asset once the starting quadrant fills. Preserve
     # its price across turns and schedule it ahead of herd expansion and seed orders.
-    if land_due:
+    if land_due and p['land_purchase']:
         buy(['BUY_LAND'], land_cost, essential=True, required_reserve=0)
 
     # One order per species, up to two animals. Fixed unit costs mean the local cash
