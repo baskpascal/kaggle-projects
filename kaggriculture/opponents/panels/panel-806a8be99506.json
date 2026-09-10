@@ -1,0 +1,533 @@
+{
+  "built_at": "2026-09-10T13:10:38.704464+00:00",
+  "coverage": {
+    "rank10_30": {
+      "decisive": true,
+      "largest_lineage_share": 1.0,
+      "lineage_count": 1,
+      "lineages": {
+        "native_solver_tape_router": [
+          "yhay_router_0909"
+        ]
+      },
+      "opponents": [
+        "yhay_router_0909"
+      ],
+      "threshold": 0.6
+    },
+    "rank30_100": {
+      "decisive": false,
+      "largest_lineage_share": 0.25,
+      "lineage_count": 4,
+      "lineages": {
+        "adaptive_public_state_multi_route": [
+          "yamakawanin_king_v4e"
+        ],
+        "farming_score_shop_selection": [
+          "lynnsakurai_v4"
+        ],
+        "tape_router_room_guard": [
+          "aurax_reactive_v2"
+        ],
+        "tape_router_terminal_planner": [
+          "gluzdov_e182"
+        ]
+      },
+      "opponents": [
+        "aurax_reactive_v2",
+        "gluzdov_e182",
+        "lynnsakurai_v4",
+        "yamakawanin_king_v4e"
+      ],
+      "threshold": 0.65
+    },
+    "top10": {
+      "decisive": true,
+      "largest_lineage_share": null,
+      "lineage_count": 0,
+      "lineages": {},
+      "opponents": [],
+      "threshold": 0.55
+    },
+    "unbanded": {
+      "opponents": [
+        "aberatozer_d5e3",
+        "aberatozer_v23",
+        "boatlee_v16",
+        "boatlee_v21",
+        "kaitofukami_v48",
+        "reyhanksatria_v1",
+        "seyamalam_v21",
+        "thomas_t93",
+        "thomas_t95",
+        "yhay_router_0908"
+      ],
+      "reasons": {
+        "aberatozer_d5e3": "rank 115 is outside every band",
+        "aberatozer_v23": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "boatlee_v16": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "boatlee_v21": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "kaitofukami_v48": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "reyhanksatria_v1": "rank 1256 is outside every band",
+        "seyamalam_v21": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "thomas_t93": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+        "thomas_t95": "no rank observed",
+        "yhay_router_0908": "author_upper_bound bounds the artifact from above and cannot place it in a band"
+      }
+    }
+  },
+  "gate": {
+    "reasons": [
+      "Band top10 is empty. A gate over a band with no opponent in it cannot orient a top-ten finish, whatever the arithmetic underneath says.",
+      "Band rank10_30 is carried by 1 lineage(s); 2 independent lineages are the least that separates beating a band from beating a family."
+    ],
+    "refusals": [
+      "Band top10 is empty. A gate over a band with no opponent in it cannot orient a top-ten finish, whatever the arithmetic underneath says.",
+      "Band rank10_30 is carried by 1 lineage(s); 2 independent lineages are the least that separates beating a band from beating a family."
+    ],
+    "verdict": "FAIL"
+  },
+  "newest_observation": "2026-09-09",
+  "observed_at": "2026-09-08",
+  "opponents": {
+    "aberatozer_d5e3": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "rank 115 is outside every band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "reactive_chassis_over_public_tapes",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 115,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 2721.2,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "d5e3ab887e3385db76d06a96b8b2a16648fc59354b679f2faed626847b6ec7d9",
+      "source": "author team 'track' (ahmedberatozer), rank 115 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/ahmedberatozer/notebookd5e3d21fa6",
+      "stream_full_hash": null
+    },
+    "aberatozer_v23": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "reactive_chassis_over_public_tapes",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 115,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 2721.2,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "6eb728a40cc55f7e497add6ea2946ce38b0389c24531a208219d48587435838e",
+      "source": "author team 'track' (ahmedberatozer), rank 115 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/ahmedberatozer/notebook865729c24e",
+      "stream_full_hash": null
+    },
+    "aurax_reactive_v2": {
+      "admission": "pinned_notebook",
+      "band": "rank30_100",
+      "bands_nothing_because": null,
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "tape_router_room_guard",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 80,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 2755.7,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "f2b220fc188ef8682debf729ea76f377b8a23a424c05eb375ef287dbc5533281",
+      "source": "author team 'Farmers Is All You Need' (aurax7 and four teammates), rank 80 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/aurax7/kaggriculture-shop-router-reactive-v2",
+      "stream_full_hash": null
+    },
+    "boatlee_v16": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "premium_market_lead",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 500,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 2457.1,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "f029fa0cb66a9eb509afbe44e3f59b800332d0419db91607183410e4089c4d19",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/boatlee/v16-rc5-high-score-8c-4s-premium-market-lead",
+      "stream_full_hash": null
+    },
+    "boatlee_v21": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "public_state_route_portfolio",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 500,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 2457.1,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "c6f96a8521dc9aa369b6f27e5b36b9d481e5c1688f50c8ca215c3bb53f1f9eb8",
+      "source": "author team 'boatlee' (boatlee), rank 500 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/boatlee/v21-r1-public-state-route-portfolio",
+      "stream_full_hash": null
+    },
+    "gluzdov_e182": {
+      "admission": "pinned_notebook",
+      "band": "rank30_100",
+      "bands_nothing_because": null,
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "tape_router_terminal_planner",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 54,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 2790.4,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+      "source": "author team 'Auto Fermers' (artemboltaev, dmitriigluzdov), rank 54 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/dmitriigluzdov/kaggriculture-seven-turn-rescue-best-lb-2800",
+      "stream_full_hash": null
+    },
+    "kaitofukami_v48": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "fast_route_early_floor",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 1359,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 1873.8,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "dadee25a9840313218384208c53b2c4752f82c3209cc654632e0b96c65e2664a",
+      "source": "author team 'Kaito Fukami' (kaitofukami), rank 1359 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/kaitofukami/40-40-early-floor-39-46-top-10-v48-fast-routes",
+      "stream_full_hash": null
+    },
+    "lynnsakurai_v4": {
+      "admission": "pinned_notebook",
+      "band": "rank30_100",
+      "bands_nothing_because": null,
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "farming_score_shop_selection",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 69,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 2780.1,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "1590394cf30c8989a3e1cfdb027d89b5ccd97c2fb4cdc14959a15555b2b2361a",
+      "source": "author team 'Lynxx' (lynnsakurai), rank 69 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/lynnsakurai/farming-score-v4-a-better-shop",
+      "stream_full_hash": null
+    },
+    "reyhanksatria_v1": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "rank 1256 is outside every band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "adaptive_shop_guard",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 1256,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 1957.5,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "6c0fe2d59557b2874b8df35245e36723f80662b624ac8fd5e3060596830f58f9",
+      "source": "author team 'Reyhan Ksatria' (reyhanksatria), rank 1256 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/reyhanksatria/strong-adaptive-agent-v1",
+      "stream_full_hash": null
+    },
+    "seyamalam_v21": {
+      "admission": "pinned_commit",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "route_market_recovery",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 3629,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 934.7,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "0cd14b653102d276c4f902fa3b8c6bd81d869b8ab64c422cb881b9d2346ec639",
+      "source": "author team 'Touhidul Alam Seyam' (seyamalam), rank 3629 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://github.com/Seyamalam/Kaggriculture",
+      "stream_full_hash": null
+    },
+    "thomas_t93": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "public_state_schedule_portfolio",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 599,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 2396.7,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": "b87a27ed614a33329be85f1b662e51cf4078a019fee937afcebbbbf2f51f8522",
+      "source": "author team 'Thomas Tschinkel' (thomastschinkel), rank 599 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/thomastschinkel/kaggriculture-93-8-win-rate-public-state-router",
+      "stream_full_hash": null
+    },
+    "thomas_t95": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "no rank observed",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "public_state_schedule_portfolio",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-08",
+      "rank": null,
+      "rank_kind": "direct",
+      "rank_of": null,
+      "rating": 2359.8,
+      "rating_kind": "direct",
+      "sample_weight": null,
+      "sha256": "8241246765098c50223d897739cb32076b71a303284d2e5e1c5f0fb495bb5a97",
+      "source": "this team's own submission 56089447 of the byte-identical artifact",
+      "source_url": "https://www.kaggle.com/code/thomastschinkel/kaggriculture-95-5-win-rate-via-replay-routing",
+      "stream_full_hash": null
+    },
+    "yamakawanin_king_v4e": {
+      "admission": "pinned_notebook",
+      "band": "rank30_100",
+      "bands_nothing_because": null,
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "adaptive_public_state_multi_route",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-08",
+      "rank": 97,
+      "rank_kind": "author_current",
+      "rank_of": 8177,
+      "rating": 2648.4,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "26ffba5273e4432dbc4ec822d5a65b09d3e9f1473c3ce813c528812eeb45779d",
+      "source": "author team '\u9752\u6625\u732a\u5934\u5c11\u5e74\u4e0d\u4f1a\u68a6\u5230kaggle\u91d1\u724c' (yamakawanin), rank 97 of 8177, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-08T13:56:14.csv",
+      "source_url": "https://www.kaggle.com/code/yamakawanin/king-v4e-rc4",
+      "stream_full_hash": null
+    },
+    "yhay_router_0908": {
+      "admission": "pinned_notebook",
+      "band": null,
+      "bands_nothing_because": "author_upper_bound bounds the artifact from above and cannot place it in a band",
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "native_solver_tape_router",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 27,
+      "rank_kind": "author_upper_bound",
+      "rank_of": 8362,
+      "rating": 2838.5,
+      "rating_kind": "author_upper_bound",
+      "sample_weight": null,
+      "sha256": {
+        "actions.json": "171c8550addac9fdb49acb44af36f64b4eb54e34c561eb6f3d4a83e2dcc803a6",
+        "main.py": "66585d1a5dbfe11c946a3c400278592f860342bc4a8f5e5f87f2a9293348984b",
+        "model.json": "e6a3a8eff5d499a1764001943c9989bfe5a8ed3da8a5ab457d53012c56f9a378",
+        "observation.py": "516aee86ca84550839ecc5217cff3464c896a6a69d338f91f7ccfa16fee73fa9"
+      },
+      "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/yhay81/shop-router-0908",
+      "stream_full_hash": null
+    },
+    "yhay_router_0909": {
+      "admission": "pinned_notebook",
+      "band": "rank10_30",
+      "bands_nothing_because": null,
+      "coverage": null,
+      "engine": {
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "kaggle_environments": "1.32.7"
+      },
+      "episode": null,
+      "lineage": "native_solver_tape_router",
+      "lineage_h136": null,
+      "lineage_h24": null,
+      "lineage_h48": null,
+      "observed_at": "2026-09-09",
+      "rank": 27,
+      "rank_kind": "author_current",
+      "rank_of": 8362,
+      "rating": 2838.5,
+      "rating_kind": "author_current",
+      "sample_weight": null,
+      "sha256": "d6d74997dc5b483db63d8e39cafa1afeec0f366824e75107e109123f111e866b",
+      "source": "author team 'Yusuke Hayashi' (yhay81), rank 27 of 8362, public leaderboard snapshot kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+      "source_url": "https://www.kaggle.com/code/yhay81/shop-router-0909",
+      "stream_full_hash": null
+    }
+  },
+  "policy": {
+    "banding_kinds": [
+      "direct",
+      "author_current",
+      "episode_reconstruction"
+    ],
+    "bands": [
+      [
+        "top10",
+        1,
+        10,
+        0.55
+      ],
+      [
+        "rank10_30",
+        11,
+        30,
+        0.6
+      ],
+      [
+        "rank30_100",
+        31,
+        100,
+        0.65
+      ]
+    ],
+    "max_lineage_share": 0.5,
+    "max_panel_age_days": 7,
+    "min_lineages_per_band": 2
+  },
+  "refused": {},
+  "revision": "806a8be9950637e6eb93e3ba7e59e03b8c656fb3a9aea4a9a1cba2e07d0c0021",
+  "sampling": {
+    "effective_sample_size": 0.0,
+    "weight_sum": 0,
+    "weighted_opponents": 0
+  },
+  "schema_version": 1,
+  "source": {
+    "leaderboard": "kaggriculture-publicleaderboard-2026-09-09T13:22:21.csv",
+    "note": "public leaderboard snapshot; ranks are team ranks, which bound the published artifact from above exactly as the ratings do",
+    "observed_at": "2026-09-09",
+    "teams": 8362
+  }
+}

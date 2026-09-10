@@ -43,5 +43,29 @@
       "yhay_router_0908",
       "yhay_router_0909"
     ]
+  },
+  {
+    "revision": "806a8be9950637e6eb93e3ba7e59e03b8c656fb3a9aea4a9a1cba2e07d0c0021",
+    "file": "panel-806a8be99506.json",
+    "observed_at": "2026-09-08",
+    "built_at": "2026-09-10T13:10:38.704464+00:00",
+    "verdict": "FAIL",
+    "opponents": [
+      "aberatozer_d5e3",
+      "aberatozer_v23",
+      "aurax_reactive_v2",
+      "boatlee_v16",
+      "boatlee_v21",
+      "gluzdov_e182",
+      "kaitofukami_v48",
+      "lynnsakurai_v4",
+      "reyhanksatria_v1",
+      "seyamalam_v21",
+      "thomas_t93",
+      "thomas_t95",
+      "yamakawanin_king_v4e",
+      "yhay_router_0908",
+      "yhay_router_0909"
+    ]
   }
 ]

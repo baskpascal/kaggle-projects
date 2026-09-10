@@ -1,0 +1,72 @@
+{
+  "id": "ep107014984s1",
+  "family": "recorded::Otter Vibe",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded2950/ep107014984s1/main.py",
+  "sha256": "ba7598f06e98d7e2fb605db30d174bdc1cdb77ca612d53a44070270d9b3ce54b",
+  "tape_sha256": "4ecc66a788399d76f3e3697beffdfc4467b906b963f22a8d844616db3d1fbb81",
+  "opening_sha256": "99777282110967695548f8ccfce5c9ff7248669cd4ad90c9d26cf9fc7a31d3dc",
+  "lineage_h24": "2fdc37e3daaf402eb358cfbb52444bd8a83915699a7a3d8f1587ff2281c59810",
+  "lineage_h48": "96acfd3a3927dcde000272e0701cf0a2481836f864a78b1b113eed96682187b1",
+  "lineage_h136": "b4148177726bcc44b42ac2b049ec71029dfca54ca93a3f4f88068044a0885327",
+  "stream_full_hash": "4ecc66a788399d76f3e3697beffdfc4467b906b963f22a8d844616db3d1fbb81",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 107014984,
+    "seed": 861893647,
+    "seat": 1,
+    "team": "Otter Vibe",
+    "opponent_team": "Mengfei Li",
+    "money": 88572.0,
+    "opponent_money": 74562.0
+  },
+  "reconstruction": {
+    "episode": "107014984",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-09.zip",
+    "reproduction": {
+      "dataset_revision": "e853036d0e5067ab1b8da32df81b1ba09a5dcb3c46ca9488151b8f493d96e4a8",
+      "episode_id": "107014984",
+      "seat": 1,
+      "engine_version": "1.32.7",
+      "engine_fingerprint": {
+        "version": "1.32.7",
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+      },
+      "agent_sha256": "ba7598f06e98d7e2fb605db30d174bdc1cdb77ca612d53a44070270d9b3ce54b",
+      "stream_sha256": "4ecc66a788399d76f3e3697beffdfc4467b906b963f22a8d844616db3d1fbb81",
+      "expected": {
+        "winner": 1,
+        "our_money": 88572.0,
+        "opponent_money": 74562.0
+      },
+      "actual": {
+        "winner": 1,
+        "our_money": 88572.0,
+        "opponent_money": 74562.0
+      },
+      "fast_actual": {
+        "winner": 1,
+        "our_money": 88572.0,
+        "opponent_money": 74562.0
+      },
+      "verified_at": "2026-09-10T13:13:52.200665+00:00"
+    }
+  },
+  "observed_rating": {
+    "rating": 3026.3,
+    "rank": 1,
+    "of": 8436,
+    "kind": "episode_reconstruction",
+    "observed_at": "2026-09-10T00:03:08Z",
+    "source": "kaggriculture-publicleaderboard-2026-09-10T00:03:08.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2950.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 2953.0,
+    "rank": 5
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

@@ -1,0 +1,72 @@
+{
+  "id": "ep107198576s1",
+  "family": "recorded::Himanshu Kumar",
+  "kind": "recorded_episode",
+  "path": "opponents/recorded2950/ep107198576s1/main.py",
+  "sha256": "924fe33db990876e3d0ed4a2de302efdd8622ddb4fd244f809b7f0a8f08e7a2c",
+  "tape_sha256": "91182847cd5f4fe39b6517a9b921b987bcb1b66ca49f986c3f358452844149b8",
+  "opening_sha256": "a2225caffcf3afd33af00bd8baa1a895a55c273e3b0d28fabd777f3f5301aea6",
+  "lineage_h24": "64ea246bd655ace1b86bef74711a25b4ba51ac2770238cf56fd4768169057d5c",
+  "lineage_h48": "6e5517b283e642650011922af2e6d0e68ac21ca19468209c290b5fb58946356b",
+  "lineage_h136": "dc3f4e1c92063300e0c9ab4b30a36477f8274ae0349b9eec45a9e1a6e4800246",
+  "stream_full_hash": "91182847cd5f4fe39b6517a9b921b987bcb1b66ca49f986c3f358452844149b8",
+  "engine": {
+    "kaggle_environments": "1.32.7"
+  },
+  "recorded": {
+    "episode": 107198576,
+    "seed": 1355630134,
+    "seat": 1,
+    "team": "Himanshu Kumar",
+    "opponent_team": "SpaTaro",
+    "money": 74463.0,
+    "opponent_money": 63410.0
+  },
+  "reconstruction": {
+    "episode": "107198576",
+    "source_dataset": "data/kaggle/official/kaggriculture-episodes-2026-09-09.zip",
+    "reproduction": {
+      "dataset_revision": "e853036d0e5067ab1b8da32df81b1ba09a5dcb3c46ca9488151b8f493d96e4a8",
+      "episode_id": "107198576",
+      "seat": 1,
+      "engine_version": "1.32.7",
+      "engine_fingerprint": {
+        "version": "1.32.7",
+        "interpreter_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+        "specification_sha256": "a82c89c1a2315b93f39775d8e025471a01b738647c9772658368ee6b1b6f4867"
+      },
+      "agent_sha256": "924fe33db990876e3d0ed4a2de302efdd8622ddb4fd244f809b7f0a8f08e7a2c",
+      "stream_sha256": "91182847cd5f4fe39b6517a9b921b987bcb1b66ca49f986c3f358452844149b8",
+      "expected": {
+        "winner": 1,
+        "our_money": 74463.0,
+        "opponent_money": 63410.0
+      },
+      "actual": {
+        "winner": 1,
+        "our_money": 74463.0,
+        "opponent_money": 63410.0
+      },
+      "fast_actual": {
+        "winner": 1,
+        "our_money": 74463.0,
+        "opponent_money": 63410.0
+      },
+      "verified_at": "2026-09-10T13:13:52.200685+00:00"
+    }
+  },
+  "observed_rating": {
+    "rating": 2990.0,
+    "rank": 3,
+    "of": 8436,
+    "kind": "episode_reconstruction",
+    "observed_at": "2026-09-10T00:03:08Z",
+    "source": "kaggriculture-publicleaderboard-2026-09-10T00:03:08.csv",
+    "note": "the team rating on this snapshot bounds the recorded submission from above; admission also required the opposing team at or above 2950.0, which is a statement about the pairing that was actually played"
+  },
+  "opponent_observed_rating": {
+    "rating": 3010.1,
+    "rank": 2
+  },
+  "usage": "benchmark opponent only; open-loop replay, not the live agent"
+}

@@ -36,6 +36,7 @@ import json
 from pathlib import Path
 
 from arena.parallel import matches
+from experiments.corpus_ingest import file_digest
 from experiments.episode_tapes import read_episode
 from experiments.tape_agent import build as build_tape_agent
 
@@ -60,6 +61,11 @@ def opening_digest(actions):
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
+def horizon_digest(actions, turns):
+    payload = json.dumps(actions[:turns], sort_keys=True, separators=(',', ':'))
+    return hashlib.sha256(payload.encode()).hexdigest()
+
+
 def admissible(tapes, leaderboard, min_rating):
     """Winning streams from pairings where both teams cleared the bar."""
     rows, refused = [], defaultdict(int)
@@ -77,7 +83,11 @@ def admissible(tapes, leaderboard, min_rating):
                          'rating': mine['rating'], 'rank': mine['rank'], 'of': mine['of'],
                          'opponent_rating': theirs['rating'], 'opponent_rank': theirs['rank'],
                          'margin': tape['money'] - tape['opponent_money'],
-                         'opening_sha256': opening_digest(tape['actions'])})
+                         'opening_sha256': opening_digest(tape['actions']),
+                         'lineage_h24': horizon_digest(tape['actions'], 24),
+                         'lineage_h48': horizon_digest(tape['actions'], 48),
+                         'lineage_h136': horizon_digest(tape['actions'], 136),
+                         'stream_full_hash': horizon_digest(tape['actions'], 719)})
             continue
     return rows, dict(refused)
 
@@ -129,6 +139,7 @@ def reproduce(archive, episodes, directory, *, workers=8):
         played = [row['money'], row['opponent_money']]
         proofs[episode].update(expected=expected, episode=episode, seed=row['seed'])
         proofs[episode][backend] = played
+        proofs[episode][f'{backend}_environment'] = row.get('environment')
         proofs[episode][f'{backend}_failures'] = [row['failures'], row['opponent_failures']]
     for episode, proof in proofs.items():
         proof['exact'] = (proof['fast'] == proof['expected'] == proof['official']
@@ -137,7 +148,29 @@ def reproduce(archive, episodes, directory, *, workers=8):
     return dict(proofs)
 
 
-def emit(rows, tapes, proofs, directory, *, source, snapshot, min_rating):
+def _winner(money):
+    return 0 if money[0] > money[1] else 1 if money[1] > money[0] else None
+
+
+def reproduction_record(row, proof, artifact_sha256, dataset_revision):
+    seat = row['seat']
+    expected_pair, actual_pair = proof['expected'], proof['official']
+    expected = {'winner': _winner(expected_pair), 'our_money': expected_pair[seat],
+                'opponent_money': expected_pair[1 - seat]}
+    actual = {'winner': _winner(actual_pair), 'our_money': actual_pair[seat],
+              'opponent_money': actual_pair[1 - seat]}
+    return {'dataset_revision': dataset_revision, 'episode_id': str(row['episode']),
+            'seat': seat, 'engine_version': row['engine'],
+            'engine_fingerprint': proof['official_environment'],
+            'agent_sha256': artifact_sha256, 'stream_sha256': row['sha256'],
+            'expected': expected, 'actual': actual,
+            'fast_actual': {'winner': _winner(proof['fast']),
+                            'our_money': proof['fast'][seat],
+                            'opponent_money': proof['fast'][1 - seat]},
+            'verified_at': proof['verified_at']}
+
+
+def emit(rows, tapes, proofs, directory, *, source, dataset_revision, snapshot, min_rating):
     """One replayer per admitted tape, with the provenance that admits it beside it."""
     directory = Path(directory)
     by_digest = {tape['sha256']: tape for tape in tapes}
@@ -153,25 +186,26 @@ def emit(rows, tapes, proofs, directory, *, source, snapshot, min_rating):
                       f"money {row['money']} to {row['opponent_money']}")
         build_tape_agent(by_digest[row['sha256']], folder / 'main.py', provenance)
         source_bytes = (folder / 'main.py').read_bytes()
+        artifact_sha256 = hashlib.sha256(source_bytes).hexdigest()
+        reproduction = reproduction_record(row, proof, artifact_sha256, dataset_revision)
         manifest = {
             'id': pin, 'family': f"recorded::{row['team']}", 'kind': 'recorded_episode',
             'path': str((folder / 'main.py').relative_to(Path.cwd())) if folder.is_absolute()
                     else str(folder / 'main.py'),
-            'sha256': hashlib.sha256(source_bytes).hexdigest(),
+            'sha256': artifact_sha256,
             'tape_sha256': row['sha256'], 'opening_sha256': row['opening_sha256'],
+            'lineage_h24': row['lineage_h24'], 'lineage_h48': row['lineage_h48'],
+            'lineage_h136': row['lineage_h136'],
+            'stream_full_hash': row['stream_full_hash'],
             'engine': {'kaggle_environments': row['engine']},
             'recorded': {'episode': row['episode'], 'seed': row['seed'], 'seat': row['seat'],
                          'team': row['team'], 'opponent_team': row['opponent_team'],
                          'money': row['money'], 'opponent_money': row['opponent_money']},
             'reconstruction': {'episode': str(row['episode']), 'source_dataset': source,
-                               'reproduction': {'episode': str(row['episode']),
-                                                'digest': row['sha256'],
-                                                'verified_at': proof['verified_at'],
-                                                'expected': proof['expected'],
-                                                'fast': proof['fast'],
-                                                'official': proof['official']}},
+                               'reproduction': reproduction},
             'observed_rating': {'rating': row['rating'], 'rank': row['rank'], 'of': row['of'],
-                                'kind': 'episode_team_bound', 'observed_at': snapshot['observed_at'],
+                                'kind': 'episode_reconstruction',
+                                'observed_at': snapshot['observed_at'],
                                 'source': snapshot['leaderboard'],
                                 'note': ('the team rating on this snapshot bounds the recorded '
                                          'submission from above; admission also required the '
@@ -186,10 +220,32 @@ def emit(rows, tapes, proofs, directory, *, source, snapshot, min_rating):
     return admitted
 
 
+def panel_observations(admitted, snapshot, source, dataset_revision):
+    return {'schema_version': SCHEMA,
+            'source': {'dataset': source, 'dataset_revision': dataset_revision,
+                       'leaderboard': snapshot['leaderboard']},
+            'opponents': {entry['id']: {
+                'kind': 'episode_reconstruction',
+                'observed_at': entry['observed_rating']['observed_at'],
+                'source': entry['observed_rating']['source'],
+                'rank': entry['observed_rating']['rank'],
+                'of': entry['observed_rating']['of'],
+                'rating': entry['observed_rating']['rating'],
+                'episode': str(entry['recorded']['episode']),
+                'seat': entry['recorded']['seat'],
+                'lineage_h24': entry['lineage_h24'],
+                'lineage_h48': entry['lineage_h48'],
+                'lineage_h136': entry['lineage_h136'],
+                'stream_full_hash': entry['stream_full_hash']}
+                for entry in admitted}}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--library', required=True, help='tape library from episode_tapes')
     parser.add_argument('--archive', required=True, help='the daily dump the library came from')
+    parser.add_argument('--dataset-revision',
+                        help='pinned source revision; defaults to the archive SHA-256')
     parser.add_argument('--leaderboard', required=True, help='public leaderboard snapshot CSV')
     parser.add_argument('--observed-at', required=True, help='date of that snapshot')
     parser.add_argument('--min-rating', type=float, default=2800.)
@@ -197,6 +253,8 @@ def main():
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--agents', default='opponents/recorded')
     parser.add_argument('--output', required=True)
+    parser.add_argument('--observations-output',
+                        help='derived panel observations for the emitted opponents')
     args = parser.parse_args()
 
     library = json.loads(Path(args.library).read_text())
@@ -206,10 +264,17 @@ def main():
     proofs = reproduce(args.archive, sorted({row['episode'] for row in chosen}),
                        Path(args.agents) / '.proof', workers=args.workers)
     snapshot = {'leaderboard': Path(args.leaderboard).name, 'observed_at': args.observed_at}
+    dataset_revision = args.dataset_revision or file_digest(args.archive)
     admitted = emit(chosen, library['tapes'], proofs, args.agents,
-                    source=library['source'], snapshot=snapshot, min_rating=args.min_rating)
+                    source=library['source'], dataset_revision=dataset_revision,
+                    snapshot=snapshot, min_rating=args.min_rating)
+    observations = panel_observations(admitted, snapshot, library['source'], dataset_revision)
+    if args.observations_output:
+        Path(args.observations_output).write_text(
+            json.dumps(observations, indent=2, sort_keys=True) + '\n')
     report = {'schema_version': SCHEMA, 'created_at': datetime.now(timezone.utc).isoformat(),
               'library': args.library, 'archive': args.archive, 'snapshot': snapshot,
+              'dataset_revision': dataset_revision,
               'min_rating': args.min_rating, 'per_team': args.per_team,
               'tapes_considered': len(library['tapes']), 'admissible': len(rows),
               'refused': refused, 'selected': len(chosen),
