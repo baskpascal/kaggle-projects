@@ -138,3 +138,33 @@ harvest should crash the price it realises on roughly 72 units. Falsify statical
 compute, from `agent.economy.price`, the realised value of 72 melons at the inventory v006
 faces at t250 against the inventory it would face after we add N melons, and check whether the
 loss to it exceeds the revenue we give up. Only then build the overlay.
+
+### Melon pre-emption: arithmetic clears, the game does not
+
+Static falsification on `agent.economy.price`, melon inventory 9,995 at t250 (price 266).
+v006's 72-melon block is worth 17,081 there. Selling N melons first:
+
+    N=40   we take  9,922   it loses  2,966   swing +12,888
+    N=60   we take 14,521   it loses  5,286   swing +19,807
+    N=100  we take 22,249   it loses 11,528   swing +33,777
+
+Right order of magnitude, so the candidate was built: early melon block plus no sale floor.
+Over 40 games against v006: score 0.000, our money 51,088 → 61,640, **v006's money
+130,332 → 144,944**. We gained 10,552 and handed it 14,612. `feed_days_of_cover` 1 against
+v006 is byte-identical to base.
+
+Fourteen interventions rejected across six layers. Every one that grows our economy grows the
+opponent's faster. The candidate explanation for that direction — our input purchases drain
+market inventory and lift the price the opponent realises — is **hypothesis only**; the one
+knob touching it moved nothing.
+
+### Next
+
+Stop optimising absolute economy; every parameter this planner exposes is an absolute-economy
+parameter. Build a market policy that scores each candidate buy and sell by its **differential**
+effect: our realised value from `agent.economy.sale_value` at the current inventory, against
+the change it causes in the value of the opponent's observable standing production. Prefer
+orders positive on `ours - theirs` — the only quantity that has tracked the paired score.
+Falsify statically first: replay a lost world, compute the differential of every order we
+actually issued, and check whether a differential-aware ordering would have flipped it, before
+writing any policy code.
