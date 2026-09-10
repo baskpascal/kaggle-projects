@@ -76,6 +76,21 @@ python3 scripts/ray_cluster.py stop
 
 ## Capacidade efetiva por máquina
 
+CPU e GPU são recursos separados. Simulações sempre pedem `num_gpus=0`; trainers pedem
+`num_gpus=1`, portanto uma partida nunca ocupa a GPU por acidente e um trainer nunca roda
+no head sem CUDA. Para fixar explicitamente a GPU dedicada do worker:
+
+```bash
+# PC A
+python3 scripts/ray_cluster.py configure-head --num-cpus=15 --num-gpus=0
+
+# PC B
+python3 scripts/ray_cluster.py configure-worker \
+  --head IP_OU_MAGIC_DNS_DO_PC_A:6379 --num-cpus=11 --num-gpus=1
+```
+
+O pipeline e o probe CUDA estão documentados em `docs/HYBRID_RAY_PIPELINE.md`.
+
 Por padrão, cada nó anuncia `CPUs disponíveis - --leave-cpus-free`. Isso é um ponto de
 partida seguro, mas dois cores lógicos de máquinas diferentes podem entregar vazões muito
 diferentes. Do head, meça os dois PCs automaticamente nos mesmos jobs com uma carga
@@ -176,7 +191,7 @@ A prova de que isso funciona nos dois PCs está em `ray-package-smoke.json`: pac
 6231,99 MiB (falha no `ray.init`) para 27,6 MiB, e lotes reais de partidas executados em
 `DESKTOP-V3A6VJ6` e `DESKTOP-DM63QP1`, oito linhas em cada.
 
-## Medição de 2026-09-09: o cluster ainda não paga o próprio custo
+## Histórico de 2026-09-09: medições antes dos slots de resto
 
 `benchmark_ray.py --jobs=2000 --cpus-per-worker=4` (`docs/ray-cluster-efficiency.json`),
 com os mesmos 2000 jobs medidos isolados em cada host e depois no cluster:
@@ -211,11 +226,14 @@ perna distribuída, reaproveitando as linhas-base solo:
 | **5** | **3+2** | **25 de 26** | **7,984/s** | **88,1%** | **1,170x** |
 | 8 | 1+1 | 16 de 26 | 6,470/s | 71,4% | 0,948x |
 
-`cpw=5` é o topo, e `cpw=8` confirma que é topo e não apenas "melhor que 4": estreitar para
-um slot por máquina derruba a vazão de novo. `DEFAULT_CPUS_PER_WORKER` passou a ser 5.
+Na implementação medida, `cpw=5` teve a maior vazão entre 4, 5 e 8. Esses resultados
+usavam apenas slots inteiros. A implementação atual mantém
+`DEFAULT_CPUS_PER_WORKER=4` e adiciona slots de resto por nó (PR #67), ocupando os
+26 CPUs. A comparação histórica não mede esse novo escalonamento e não justifica
+substituir seu padrão sem outro benchmark.
 
-Com isso o cluster entrega **88,1% da soma das duas máquinas** e supera o PC A sozinho em
-1,17x. O objetivo da infraestrutura está cumprido; não há mais afinação de Ray pendente.
+Nessa medição histórica, o cluster entregou **88,1% da soma das duas máquinas** e
+superou o PC A sozinho em 1,17x. Isso não substitui os gates da implementação atual.
 
 A contribuição por host no run de `cpw=5`, agora visível no relatório:
 
@@ -282,8 +300,9 @@ na primeira tentativa e exige que o mapper reenvie aquele lote uma única vez. A
 recuperação são fixadas por afinidade e repetidas em cada NodeID vivo; retries implícitos
 do Ray continuam desligados.
 
-A prova usa a mesma granularidade padrão de quatro CPUs por tarefa, portanto os 400 jogos
-de cada host exercitam também o pool local usado no transporte real.
+A prova reserva toda a capacidade de cada nó em paralelo, portanto os 400 jogos de cada
+host exercitam os 15 + 11 CPUs. No transporte dinâmico, slots heterogêneos de quatro CPUs
+e um slot de resto por nó evitam a fragmentação que antes deixava seis CPUs sem uso.
 
 Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 é smoke,
 256 mede o scheduler local, 1024 mede throughput e 8000 representa a busca real.
@@ -295,11 +314,11 @@ Somente depois rode o benchmark. Os quatro tamanhos têm papéis diferentes: 32 
   --output=docs/ray-benchmark.json
 ```
 
-Antes da medição distribuída, o script roda as cargas até 1 024 pela pool local em
-**cada** nó, usando todos os CPUs que esse nó anunciou ao Ray. O menor wall-clock identifica
-o host de base. A carga de 8 000 repete o baseline somente nesse host já provado mais
-rápido; executar novamente 8 000 no host comprovadamente mais lento não acrescenta
-evidência de throughput. Assim não existe a suposição de que o head seja o PC mais rápido. O relatório grava essas
+Antes da medição distribuída, a primeira carga roda pela pool local em **cada** nó, usando
+todos os CPUs anunciados, e identifica o host de base. As cargas seguintes repetem o
+baseline somente nesse host já provado mais rápido; deixar o host rápido ocioso enquanto
+o mais lento repete a mesma calibração não acrescenta evidência. Assim não existe a
+suposição de que o head seja o PC mais rápido. O relatório grava essas
 linhas por hostname, jobs/s, speedup, eficiência paralela, p50 e p95 de partida, cauda de
 lote e utilização de CPU. No workload representativo de 8 000 jobs, o comando falha se o
 cluster não atingir ao menos 1,10× sobre o melhor `forkserver` local; esse limite pode ser
@@ -310,15 +329,17 @@ gates incompatíveis. Checkout sujo também é recusado, e Python, fingerprint d
 hashes dos agentes são comparados novamente por hostname; sem `--verification`, uma série curta é apenas smoke e registra
 `benchmark_valid: false`, enquanto a série representativa nem começa.
 
-Cada tarefa Ray reserva quatro CPUs por padrão e usa quatro filhos isolados de partida.
-Isso evita iniciar um worker Ray pesado por CPU. Os slots são calculados por nó e depois
-somados: hosts com 15 e 11 CPUs expõem corretamente `floor(15/4) + floor(11/4) = 5`
-tarefas, sem inventar um sexto slot que atravessaria máquinas. A fila mantém apenas uma
+Cada tarefa Ray reserva quatro CPUs por padrão e executa batches de partidas no mesmo
+worker. Um slot de resto por nó completa a capacidade: `4+4+4+3` no head e `4+4+3` no
+worker, totalizando os 26 CPUs sem fragmentação. A fila mantém apenas uma
 onda em voo e a repõe conforme as tarefas terminam. O benchmark grava o JSON atomicamente
 após cada carga, preservando as medições concluídas se um nó falhar mais tarde.
 
-Ao trocar hardware ou limites anunciados, recalibre essa granularidade com o cluster já
-quente. O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
+O artefato histórico `ray-granularity.json` comparou grupos homogêneos de 2 e 4 CPUs e
+encontrou maior throughput com 4. A política atual preserva esses grupos eficientes e usa
+slots menores apenas para os restos. Ao
+trocar hardware ou limites anunciados, recalibre a granularidade com o cluster já quente.
+O comando executa os mesmos 512 resultados em cada configuração, exige igualdade
 exata e escolhe pela vazão distribuída medida:
 
 ```bash

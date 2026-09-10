@@ -52,20 +52,21 @@ def crash_once(batch, workers, timeout, gate):
 
 def verify_worker_recovery(mapper, batch, workers):
     """Kill and recover one worker pinned to every live Ray node."""
-    strategy = mapper.ray.util.scheduling_strategies.NodeAffinitySchedulingStrategy
     recovered_nodes = []
     for node in [item for item in mapper.ray.nodes() if item.get('Alive')]:
         gate = mapper.ray.remote(num_cpus=0)(CrashGate).remote()
         recovery_task = mapper.ray.remote(num_cpus=workers, max_retries=0,
                                           retry_exceptions=False)(
             lambda work, count, timeout: crash_once(work, count, timeout, gate))
-        pinned_task = recovery_task.options(scheduling_strategy=strategy(
-            node['NodeID'], soft=False))
-        original_task, mapper._task = mapper._task, pinned_task
+        original_task, original_slots = mapper._task, mapper.worker_slots
+        mapper._task = recovery_task
+        mapper.worker_slots = [{'node_id': node['NodeID'],
+                                'cpus': min(workers, mapper._node_capacity(node))}]
         try:
             recovered = list(mapper([batch], workers))
         finally:
             mapper._task = original_task
+            mapper.worker_slots = original_slots
         calls = mapper.ray.get(gate.count.remote())
         if len(recovered) != 1 or calls != 2:
             raise SystemExit(f'Killed worker on node {node["NodeID"]} did not recover once')

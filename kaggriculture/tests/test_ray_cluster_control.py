@@ -184,6 +184,30 @@ def test_explicit_cpu_capacity_is_persisted_and_advertised(tmp_path, monkeypatch
     assert '--num-cpus=8' in ray_cluster.ray_command(saved)
 
 
+def test_explicit_gpu_capacity_is_persisted_and_advertised(tmp_path, monkeypatch):
+    config = tmp_path / 'ray-cluster.json'
+    monkeypatch.setattr(ray_cluster, 'CONFIG', config)
+    monkeypatch.setattr(ray_cluster, 'node_ip', lambda requested: '100.64.0.10')
+    monkeypatch.setattr(ray_cluster, 'available_gpus', lambda requested=None: 1 if requested is None else requested)
+    monkeypatch.setattr(ray_cluster, 'install_service', lambda **_options: None)
+    monkeypatch.setattr(ray_cluster, 'status_data', lambda value: value)
+    args = SimpleNamespace(node_address='auto', port=6379, leave_cpus_free=1,
+                           num_cpus=None, num_gpus=1)
+
+    ray_cluster.configure('head', args)
+
+    saved = ray_cluster.read_config()
+    assert saved['num_gpus'] == 1
+    assert '--num-gpus=1' in ray_cluster.ray_command(saved)
+
+
+def test_gpu_capacity_cannot_exceed_detected_hardware(monkeypatch):
+    monkeypatch.setattr(ray_cluster, 'detected_gpus', lambda: 1)
+    assert ray_cluster.available_gpus(1) == 1
+    with pytest.raises(SystemExit, match='exceeds'):
+        ray_cluster.available_gpus(2)
+
+
 @pytest.mark.parametrize(('value', 'expected'), [
     ('pc-a', ('pc-a', 6379)),
     ('pc-a:6380', ('pc-a', 6380)),

@@ -89,9 +89,9 @@ de exceções da aplicação, verifica todos os nós por afinidade e refaz somen
 por falha de infraestrutura. Workers não recebem o registro de seeds, não podem chamar
 `admit_run`, não podem abrir o SQLite autoritativo e recusam jobs com destino de replay;
 somente o `BatchResult` completo cruza a fronteira de transporte. `arena.league` expõe
-`--ray-address`, `--cpus-per-worker` e batch adaptativo. Cada tarefa Ray reserva quatro
-CPUs por padrão e as usa em quatro filhos isolados de partida; o scheduler soma apenas os
-grupos completos que cabem em cada máquina. Ray está no extra `distributed` e
+`--ray-address`, `--cpus-per-worker` e batch adaptativo. Por padrão, cada tarefa Ray usa até
+quatro filhos isolados de partida; um slot menor absorve o resto de CPUs de cada nó. Os
+batches amortizam o scheduling e todos os CPUs anunciados ficam ocupáveis. Ray está no extra `distributed` e
 não entra no artefato submetido.
 
 Um cluster local de um nó já executou o caminho completo, com dois jobs distintos no store,
@@ -99,7 +99,8 @@ hashes e resultados idênticos, e pacote de runtime de 6,7 MiB. Isso prova integ
 distribuição. A #43 continua aberta até existirem os dois artefatos de evidência descritos
 em `RAY_CLUSTER.md`: determinismo do resultado completo e dos bytes binary64 de dinheiro,
 deadline em dois hostnames e então o benchmark de
-32, 256, 1 024 e 8 000 jobs. O benchmark mede o `forkserver` em cada nó e usa o menor
+32, 256, 1 024 e 8 000 jobs. O benchmark calibra o `forkserver` em cada nó na primeira
+carga, usa o menor
 wall-clock como baseline; 8 000 jobs precisam superar esse baseline em pelo menos 1,10×.
 O relatório só é válido quando carrega o SHA-256 da prova A↔B do mesmo commit, dos mesmos
 hostnames e dos mesmos agentes.

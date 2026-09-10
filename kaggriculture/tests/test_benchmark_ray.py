@@ -102,7 +102,9 @@ def test_results_agree_exactly_without_requiring_completion_order():
     second = {'seed': 2, 'winner': 1, 'our_money': 0.0, 'wall_seconds': 2.0}
 
     assert results_agree([first, second], [
-        {**second, 'wall_seconds': 9.0, 'hostname': 'pc-b'},
-        {**first, 'wall_seconds': 8.0, 'hostname': 'pc-a'},
+        {**second, 'wall_seconds': 9.0, 'hostname': 'pc-b',
+         'execution_resources': {'granted_workers': 4}},
+        {**first, 'wall_seconds': 8.0, 'hostname': 'pc-a',
+         'execution_resources': {'granted_workers': 15}},
     ])
     assert not results_agree([first], [{**first, 'our_money': 1.0000001}])

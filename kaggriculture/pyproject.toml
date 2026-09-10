@@ -11,6 +11,9 @@ dependencies = ["jsonschema==4.26.0", "requests==2.34.2", "numpy==2.5.3", "PyYAM
 [project.optional-dependencies]
 test = ["pytest==9.1.1"]
 distributed = ["ray==2.58.0"]
+# The CUDA wheel is intentionally installed in a separate per-machine Linux venv from
+# requirements-ml.lock.  Its index/version are part of the Pascal GPU contract;
+# the main Ray/match environment stays minimal.
 
 [tool.setuptools.packages.find]
 include = ["agent*", "arena*", "eval*", "experiments*", "submission*"]
