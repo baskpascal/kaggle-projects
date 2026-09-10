@@ -20,11 +20,11 @@
     "opponent forecast weight",
     "herd floor / land reserve holds"
   ],
-  "next_action": "opponent-aware market pre-emption on MELON. v006's decisive income is a melon block sold around t250 for ~16,000; melon's price curve collapses above neutral inventory (sq, target 3.6, base 250, demand ~1/day). Static falsification first: using agent.economy.price, compare the value of 72 melons at the inventory v006 faces at t250 with the value after we add N melons, and check the loss to it exceeds the revenue we forgo. Build the overlay only if the arithmetic clears.",
+  "next_action": "differential market policy. For each candidate buy/sell estimate our realised value via agent.economy.sale_value at the current inventory AND the change it causes in the value of the opponent's observable standing production; prefer orders positive on ours-minus-theirs. Falsify statically first: replay a lost world, compute the differential of every order we actually issued, and check whether a differential-aware ordering would have flipped the game before writing any policy code.",
   "instruments": {
     "primary": "paired win probability vs v006 on the cluster",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
   },
-  "interventions_rejected": 11,
+  "interventions_rejected": 14,
   "key_finding_2": "shared market: deferring our herd raised our money 51,088->62,710 and v006's 130,332->150,443 in the same worlds. Our choices move the opponent's income by tens of thousands, so optimising our own economy cannot win. Fitness is ours-minus-theirs."
 }
