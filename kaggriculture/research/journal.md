@@ -307,3 +307,48 @@ Adaptive Option Selector is not the next thing to build; finding the right regim
 
 `crop_heavy` is a late-game switch, beats our base decisively in self-play, and still scores
 0.000 against v006 — the same pattern as every other own-planner improvement.
+
+## Elite macro genomes, and the first gradient that moves the opponent
+
+`experiments/economic_fingerprint.py` compresses an elite economy into the dimensions a macro
+plan would have to carry, all read from engine state. Seven teams at or above 2950, 36 worlds,
+zero failures:
+
+| team | rank | quad | land1 | cows | sheep | geese | pasture | crops t288 | cash t192 | final |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| SpaTaro | 1 | 3 | 151 | 5 | 9 | 0 | 14 | 53 (WHEAT) | 52 | 94,336 |
+| Otter Vibe | 2 | 3 | 121 | 4 | 6 | 9 | 11 | 56 | 772 | 88,260 |
+| Himanshu | 4 | 3 | 151 | 8 | 6 | 3 | 14 | 53 | 573 | 97,929 |
+| binghua | 5 | 3 | 88 | 6 | 5 | 0 | 14 | 61 | 788 | 102,889 |
+| Mengfei Li | 6 | 3 | 151 | 12 | 5 | 0 | 11 | 53 | 270 | 112,069 |
+| kanno | 8 | 3 | 151 | 8 | 6 | 3 | 14 | 53 | 567 | 110,365 |
+| Yusuke Hayashi | 9 | 3 | 151 | 6 | 10 | 0 | 17 | 53 | 118,218 | |
+
+The shared base is uniform: **three quadrants, 11–17 pasture, 53–61 crops, and a daily crew
+peaking at 10–11 hands** (measured as the daily maximum; the snapshot at an exact turn reads
+zero and is not usable). Cash at t192 is 52–788 for every one of them — the elite are as poor as
+we are on day eight, so **liquidity is not what separates us**. The regimes differ on herd
+composition, land timing and crop mix, not on scale.
+
+Our planner against that: two quadrants, 6–13 crops, 12 pasture, 8 hands. Roughly five times
+fewer crops and one quadrant short.
+
+Seed cost is not the constraint either: `only_crop WHEAT`, seed 10 against strawberry's 100 and
+910 coins at t192, still holds only 13 crops at t192 and 8 at t288.
+
+### Five warm starts, and a direction
+
+Each elite regime expressed in our own parameters over the shared base (3 quadrants, 11 hands,
+planting to hour 22), against v006, 20 worlds:
+
+    hayashi  (sheep-max, cap 16)   margin -64,098   ours 43,686
+    mengfei  (cow-heavy, cap 17)   margin -65,934   ours 46,203
+    otter    (poultry, cap 19)     margin -77,883   ours 42,902
+    spataro  (sheep+wheat)         margin -88,464   ours 46,280
+    binghua  (early land, cap 11)  margin -106,562  ours 44,318
+    base                           margin -81,266   ours 51,088
+
+Every one still scores 0.000, and the two best **lower our own money while lowering v006's much
+further**: under `hayashi` the opponent falls from 130,332 to about 107,800, a suppression of
+22,500 — the largest yet achieved. That is the differential direction the campaign has been
+looking for, and it is the first gradient in it.
