@@ -52,10 +52,62 @@ MAX_LINEAGE_SHARE = .5
 # artifact from above exactly as its rating does: `author_upper_bound` can prove an
 # artifact is *not* top ten and can never prove that it is, so it bands nothing. See
 # docs/RATINGS_REFRESH.md for the same asymmetry on the rating side.
-BANDING_KINDS = ('direct', 'author_current')
+BANDING_KINDS = ('direct', 'author_current', 'episode_reconstruction')
 
 
-def load_bundles(root=None):
+def _valid_digest(value):
+    return isinstance(value, str) and len(value) == 64 and all(
+        character in '0123456789abcdef' for character in value)
+
+
+def reproduction_error(bundle, rebuilt):
+    """Return why a reconstructed bundle's claimed reproduction is not evidence."""
+    proof = rebuilt.get('reproduction') or {}
+    required = ('dataset_revision', 'episode_id', 'seat', 'engine_version',
+                'engine_fingerprint', 'agent_sha256', 'stream_sha256',
+                'expected', 'actual', 'verified_at')
+    missing = [field for field in required if proof.get(field) is None]
+    if missing:
+        return f'incomplete reproduction ({", ".join(missing)} missing)'
+    if not _valid_digest(proof['dataset_revision']):
+        return 'reproduction dataset_revision is not a SHA-256 digest'
+    if str(proof['episode_id']) != str(rebuilt.get('episode')):
+        return 'reproduction episode does not match the reconstructed episode'
+    recorded = bundle.get('recorded') or {}
+    if proof['seat'] not in (0, 1) or proof['seat'] != recorded.get('seat'):
+        return 'reproduction seat does not match the reconstructed seat'
+    engine = (bundle.get('engine') or {}).get('kaggle_environments')
+    fingerprint = proof['engine_fingerprint']
+    if (proof['engine_version'] != engine or not isinstance(fingerprint, dict)
+            or fingerprint.get('version') != engine):
+        return 'reproduction engine does not match the pinned bundle engine'
+    if proof['agent_sha256'] != bundle.get('sha256'):
+        return 'reproduction agent digest does not match the pinned artifact'
+    if proof['stream_sha256'] != bundle.get('tape_sha256'):
+        return 'reproduction stream digest does not match the pinned tape'
+    expected, actual = proof['expected'], proof['actual']
+    result_fields = ('winner', 'our_money', 'opponent_money')
+    if (not isinstance(expected, dict) or not isinstance(actual, dict)
+            or any(expected.get(field) is None or actual.get(field) is None
+                   for field in result_fields)):
+        return 'reproduction result lacks winner or final money'
+    recorded_expected = {'winner': (proof['seat'] if recorded.get('money', 0) >
+                                     recorded.get('opponent_money', 0)
+                                     else 1 - proof['seat']
+                                     if recorded.get('money', 0) <
+                                     recorded.get('opponent_money', 0) else None),
+                         'our_money': recorded.get('money'),
+                         'opponent_money': recorded.get('opponent_money')}
+    if expected != recorded_expected:
+        return 'reproduction expected result does not match the recorded bundle result'
+    if expected != actual:
+        return 'reproduction result does not match the published result'
+    if _observed(proof['verified_at']) is None:
+        return 'reproduction verified_at is not parseable'
+    return None
+
+
+def load_bundles(root=None, *, include_recorded=False):
     """Every pinned opponent, bundle manifest first because it travels with the artifact."""
     root = Path(root or ROOT)
     entries = {}
@@ -66,6 +118,10 @@ def load_bundles(root=None):
     for path in sorted((root / 'opponents' / 'public').glob('*/main.manifest.json')):
         row = json.loads(path.read_text(encoding='utf-8'))
         entries[row.get('id', path.parent.name)] = dict(row)
+    if include_recorded:
+        for path in sorted((root / 'opponents').glob('recorded*/ep*/main.manifest.json')):
+            row = json.loads(path.read_text(encoding='utf-8'))
+            entries[row.get('id', path.parent.name)] = dict(row)
     return entries
 
 
@@ -81,12 +137,10 @@ def admission(bundle):
     """
     rebuilt = bundle.get('reconstruction')
     if rebuilt:
-        proof = rebuilt.get('reproduction') or {}
-        missing = [field for field in ('episode', 'digest', 'verified_at')
-                   if not proof.get(field)]
-        if missing:
+        error = reproduction_error(bundle, rebuilt)
+        if error:
             return None, (f'reconstructed from episode {rebuilt.get("episode", "unnamed")} '
-                          f'without a verified reproduction ({", ".join(missing)} missing); '
+                          f'without a verified reproduction ({error}); '
                           'a reconstruction enters the panel only after replaying exactly '
                           'the episode it declares it represents')
         return 'episode_reconstruction', None
@@ -119,7 +173,10 @@ def _observed(value):
 
 def entries(observations, *, bundles=None, ratings=None):
     """One record per opponent, and one refusal for every opponent that cannot be one."""
-    bundles = load_bundles() if bundles is None else dict(bundles)
+    include_recorded = any(row.get('kind') == 'episode_reconstruction'
+                           for row in (observations.get('opponents') or {}).values())
+    bundles = (load_bundles(include_recorded=include_recorded)
+               if bundles is None else dict(bundles))
     ratings = load_ratings() if ratings is None else dict(ratings)
     admitted, refused = {}, {}
     for name, seen in sorted((observations.get('opponents') or {}).items()):
@@ -131,7 +188,12 @@ def entries(observations, *, bundles=None, ratings=None):
         if how is None:
             refused[name] = why
             continue
-        rating = ratings.get(name) or {}
+        # Corpus ingestion carries the dated rating beside the rank. Requiring a second,
+        # hand-maintained ratings file would reintroduce the drift this join removes.
+        rating = ratings.get(name) or ({'rating': seen.get('rating'),
+                                        'kind': seen.get('kind'),
+                                        'observed_at': seen.get('observed_at')}
+                                       if seen.get('kind') == 'episode_reconstruction' else {})
         kind = seen.get('kind')
         if kind not in KINDS:
             refused[name] = (f'rank observation kind {kind!r} is not one of '
@@ -158,13 +220,21 @@ def entries(observations, *, bundles=None, ratings=None):
         admitted[name] = {
             'sha256': bundle.get('sha256') or bundle.get('bundle_sha256'),
             'source_url': bundle.get('source_url'), 'admission': how,
-            'lineage': bundle.get('family') or name,
+            'lineage': (bundle.get('lineage_h136') or seen.get('lineage_h136')
+                        or bundle.get('family') or name),
+            'lineage_h24': bundle.get('lineage_h24') or seen.get('lineage_h24'),
+            'lineage_h48': bundle.get('lineage_h48') or seen.get('lineage_h48'),
+            'lineage_h136': bundle.get('lineage_h136') or seen.get('lineage_h136'),
+            'stream_full_hash': (bundle.get('stream_full_hash')
+                                 or seen.get('stream_full_hash')),
             'engine': bundle.get('engine'),
             'rank': rank if isinstance(rank, int) and not isinstance(rank, bool) else None,
             'rank_kind': kind, 'rank_of': seen.get('of'),
             'rating': rating.get('rating'), 'rating_kind': rating.get('kind') or None,
             'observed_at': when.isoformat(), 'source': seen.get('source'),
             'episode': seen.get('episode'),
+            'coverage': seen.get('coverage'),
+            'sample_weight': seen.get('sample_weight'),
             'band': band_of(rank, kind),
             'bands_nothing_because': None if band_of(rank, kind) else (
                 f'{kind} bounds the artifact from above and cannot place it in a band'
@@ -254,6 +324,15 @@ def build(observations, *, bundles=None, ratings=None, now=None):
                    'banding_kinds': list(BANDING_KINDS),
                    'bands': [[name, low, high, threshold]
                              for name, low, high, threshold in BANDS]}}
+    sampling_weights = [row['sample_weight'] for row in admitted.values()
+                        if isinstance(row.get('sample_weight'), (int, float))]
+    total_weight = sum(sampling_weights)
+    squared_weight = sum(value * value for value in sampling_weights)
+    body['sampling'] = {'weighted_opponents': len(sampling_weights),
+                        'weight_sum': total_weight,
+                        'effective_sample_size': (total_weight * total_weight /
+                                                  squared_weight
+                                                  if squared_weight else 0.0)}
     snapshot = {**body, 'coverage': coverage(admitted)}
     snapshot['gate'] = gate(snapshot, now=now)
     # The revision is a function of the evidence and the policy, never of the clock: two

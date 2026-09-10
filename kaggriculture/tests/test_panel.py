@@ -93,10 +93,54 @@ def test_an_unverified_reconstruction_cannot_be_a_panel_opponent():
 
 
 def test_a_reconstruction_that_reproduced_its_episode_is_admitted():
-    how, why = admission(bundle(reconstruction={
-        'episode': '12345', 'reproduction': {'episode': '12345', 'digest': 'ff' * 32,
-                                             'verified_at': '2026-09-08'}}))
+    reconstructed = bundle(
+        sha256='aa' * 32, tape_sha256='bb' * 32,
+        recorded={'seat': 1, 'money': 10, 'opponent_money': 9}, reconstruction={
+            'episode': '12345', 'reproduction': {
+                'dataset_revision': 'cc' * 32, 'episode_id': '12345', 'seat': 1,
+                'engine_version': '1.32.7',
+                'engine_fingerprint': {'version': '1.32.7'},
+                'agent_sha256': 'aa' * 32, 'stream_sha256': 'bb' * 32,
+                'expected': {'winner': 1, 'our_money': 10, 'opponent_money': 9},
+                'actual': {'winner': 1, 'our_money': 10, 'opponent_money': 9},
+                'verified_at': '2026-09-08'}})
+    how, why = admission(reconstructed)
     assert (how, why) == ('episode_reconstruction', None)
+
+
+@pytest.mark.parametrize('change,reason', [
+    ({'dataset_revision': 'not-a-hash'}, 'dataset_revision'),
+    ({'seat': 0}, 'seat does not match'),
+    ({'agent_sha256': 'dd' * 32}, 'agent digest'),
+    ({'actual': {'winner': 0, 'our_money': 9, 'opponent_money': 10}},
+     'does not match'),
+])
+def test_a_false_or_incomplete_reproduction_is_refused(change, reason):
+    proof = {'dataset_revision': 'cc' * 32, 'episode_id': '12345', 'seat': 1,
+             'engine_version': '1.32.7', 'engine_fingerprint': {'version': '1.32.7'},
+             'agent_sha256': 'aa' * 32, 'stream_sha256': 'bb' * 32,
+             'expected': {'winner': 1, 'our_money': 10, 'opponent_money': 9},
+             'actual': {'winner': 1, 'our_money': 10, 'opponent_money': 9},
+             'verified_at': '2026-09-08'}
+    proof.update(change)
+    _, why = admission(bundle(sha256='aa' * 32, tape_sha256='bb' * 32,
+                              recorded={'seat': 1, 'money': 10, 'opponent_money': 9},
+                              reconstruction={
+                                  'episode': '12345', 'reproduction': proof}))
+    assert reason in why
+
+
+def test_matching_but_forged_expected_and_actual_result_is_refused():
+    forged = {'winner': 1, 'our_money': 999, 'opponent_money': 1}
+    proof = {'dataset_revision': 'cc' * 32, 'episode_id': '12345', 'seat': 1,
+             'engine_version': '1.32.7', 'engine_fingerprint': {'version': '1.32.7'},
+             'agent_sha256': 'aa' * 32, 'stream_sha256': 'bb' * 32,
+             'expected': forged, 'actual': forged, 'verified_at': '2026-09-08'}
+    _, why = admission(bundle(sha256='aa' * 32, tape_sha256='bb' * 32,
+                              recorded={'seat': 1, 'money': 10, 'opponent_money': 9},
+                              reconstruction={'episode': '12345',
+                                              'reproduction': proof}))
+    assert 'recorded bundle result' in why
 
 
 # --- the join, and the drift it refuses ------------------------------------------------

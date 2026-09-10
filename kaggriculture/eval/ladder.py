@@ -63,7 +63,7 @@ def load_ratings(path=RATINGS):
     return table
 
 
-KINDS = ('direct', 'author_current', 'author_upper_bound')
+KINDS = ('direct', 'author_current', 'author_upper_bound', 'episode_reconstruction')
 
 
 def cohort(name, ratings, cut=STRONG_CUT, max_age_days=MAX_RATING_AGE_DAYS, today=None):
