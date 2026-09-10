@@ -511,3 +511,38 @@ painel contém e em que escala ele mede.
 Reconstruir o evaluator na escala real: adversários de 2600–2800 e um objetivo que resolva
 centenas de moedas. Só depois disso volta a fazer sentido gastar CPU em busca, GA, option
 selector ou RL.
+
+## 2026-09-10 — o evaluator na escala certa, e a perda se parte em duas populações
+
+`experiments/ladder_cohort.py` substitui a população do painel. O painel antigo organiza
+adversários por rank de leaderboard; o ladder pareia por proximidade de rating, e nunca
+enfrentamos ninguém acima de 2800. O cohort novo são os 67 mundos reais da faixa 2600–2800:
+seed do episódio, nosso assento, o stream gravado do adversário como replayer, e o resultado
+que o ladder registrou. Detalhes e limitações em `docs/LADDER_COHORT.md`.
+
+Calibração exata: `v006` marca 0,3880597 no cohort contra 0,3880597 no ladder, 0 ganhos,
+0 regredidos, margem mediana −95,0 contra −95, zero falhas. Isso era esperado por construção —
+o agente é determinístico contra tape fixo — e serve como verificação de encanamento, não como
+validação. Bootstrap por bloco de seed: **[0,269, 0,507]**, então o déficit é real.
+
+O número de manchete deixou de ser margem e passou a ser mundos ganhos menos mundos
+regredidos, com os episódios nomeados. Um teste fixa o motivo: duas vitórias de blowout e três
+derrotas por dez moedas dão mediana de margem positiva e net de −3.
+
+**E a régua nova já mostrou uma coisa que a antiga não podia:**
+
+    decididos por < 1.000    n=40   win 0,550   |margem| mediana    124
+    decididos por >= 1.000   n=27   win 0,148   |margem| mediana  2.510
+
+Não estamos perdendo os cara-e-coroa — nos apertados ficamos acima de 0,5. O déficit inteiro
+está nos 27 mundos realmente decididos, onde perdemos 23. As derrotas largas têm mediana de
+−1.932, só uma passa de −10.000, e se espalham por times distintos, nenhum com mais de duas.
+Não é um modo catastrófico nem um adversário específico.
+
+Virar 12 dos 23 leva o cohort a 38/67 = 0,567.
+
+### Próximo
+
+A pergunta é o que acontece nos 23 mundos de derrota larga e não acontece nos 40 apertados.
+Os episódios estão nomeados no relatório, e `elite_events.py` e `planner_milestones.py` já leem
+esse formato de replay.
