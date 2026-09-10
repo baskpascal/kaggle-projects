@@ -352,3 +352,52 @@ Every one still scores 0.000, and the two best **lower our own money while lower
 further**: under `hayashi` the opponent falls from 130,332 to about 107,800, a suppression of
 22,500 — the largest yet achieved. That is the differential direction the campaign has been
 looking for, and it is the first gradient in it.
+
+### Local search around the gradient, and why the warm starts fail
+
+Coordinate search on the sheep-max regime against v006, 20 worlds each:
+
+    animal_cap 14   margin -71,222   ours 60,200   v006 118,654
+    animal_cap 16   margin -64,098   ours 43,686   v006 117,914   <- local optimum
+    animal_cap 18   margin -71,600   ours 43,177   v006 114,449
+    animal_cap 22   margin -76,732   ours 42,836   v006 112,909
+    max_hands 13    identical to 11 - hands are not binding
+
+Synthesis with the deferred opening, which had previously fixed the crop start:
+
+    ramp day 6      margin -101,755  ours 47,913   v006 140,013
+    ramp day 9      margin  -76,646  ours 57,938   v006 133,335
+    ramp day 12     margin  -83,943  ours 52,102   v006 145,142
+
+Deferring the herd raises our money to 57,938 and raises v006's to 133,335. The rule that has
+now held across roughly twenty-five experiments: **anything that grows our economy grows the
+opponent's faster, and the configurations that improve the margin are the ones that suppress
+the opponent while our own money falls.**
+
+### Why the warm starts cannot reach the elite base
+
+Tracing the best regime shows it never builds the economy it was warm-started from:
+
+    turn   quadrants  free  crops  pasture  sheep    cash
+      96       1        20     0       4      2       519
+     192       1         9     0      12      6       604
+     288       2        24     9      12      6       269
+     480       3        35    20      14      8     4,402
+     576       3        17    38      14      8    12,326
+
+**Zero crops before t288**, where the elite stand 53. The whole opening goes into twelve pasture
+tiles and the herd, the second quadrant arrives at t288 against the elite's t88–151, and the
+third at t480. Free tiles sit unplanted for the rest of the game. The macro genome is expressed
+in the parameters, and the executor does not deliver the economy those parameters describe.
+
+That is the wall: a reactive per-turn planner that prices each job independently cannot run
+construction and planting in parallel the way a compiled schedule does.
+
+### Next
+
+Build the schedule compiler the mission specifies: take a macro genome and emit a phase plan -
+land at fixed turns, pasture built in parallel with a planting quota per day, crew sized per
+phase - and let the executor serve that plan rather than re-deriving priorities each turn. The
+falsification gate is the elite base itself, measured from state and before any paired game:
+three quadrants by t480, 40 or more crops standing at t288, and pasture complete without
+starving the crop quota.

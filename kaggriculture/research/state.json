@@ -20,12 +20,25 @@
     "opponent forecast weight",
     "herd floor / land reserve holds"
   ],
-  "next_action": "opening liquidity blocks the attack: zero crops stand at t96 even with the reservation outranking BUILD_, because the first days hold 300-700 coins and six melon seeds cost 480. Trace what the opening spends its cash on, day 0-8, before any further paired game. Gate unchanged: >=150 units of the target crop delivered before t360. Note: attack_tiles had a seed bug (PLANT jobs refused for want of seed because the order was built from best_crop); fixed, and with it v006 falls from 102,139 to 93,338 on seed 1000 while our own money falls to 32,587.",
+  "next_action": "build the schedule compiler: a macro genome emits a phase plan - land at fixed turns, pasture built in parallel with a daily planting quota, crew sized per phase - and the executor serves that plan instead of re-pricing every job each turn. Gate before any paired game, measured from state: 3 quadrants by t480, >=40 crops standing at t288, pasture complete without starving the crop quota. The reactive planner reaches 0 crops at t288 against the elite's 53, which is why every warm start fails.",
   "instruments": {
     "primary": "paired win probability vs v006 on the cluster",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
   },
   "interventions_rejected": 18,
   "key_finding_2": "shared market: deferring our herd raised our money 51,088->62,710 and v006's 130,332->150,443 in the same worlds. Our choices move the opponent's income by tens of thousands, so optimising our own economy cannot win. Fitness is ours-minus-theirs.",
-  "key_finding_3": "price curve is shallow below neutral inventory (10,000) and collapses above it. v006 realises 45,479 on strawberry at inventory ~9,806; adding 200 units of ours drops it to 7,370 while we take 39,161 - a 77,270 swing against an 81,266 deficit. First mechanism at the right size. `attack_tiles` implements it, default off."
+  "key_finding_3": "price curve is shallow below neutral inventory (10,000) and collapses above it. v006 realises 45,479 on strawberry at inventory ~9,806; adding 200 units of ours drops it to 7,370 while we take 39,161 - a 77,270 swing against an 81,266 deficit. First mechanism at the right size. `attack_tiles` implements it, default off.",
+  "elite_base": {
+    "quadrants": 3,
+    "pasture": "11-17",
+    "crops_t288": "53-61",
+    "hands_daily_peak": "10-11",
+    "cash_t192": "52-788"
+  },
+  "best_owned": {
+    "regime": "sheep-max, animal_cap 16, 3 quadrants, 11 hands, plant to hour 22",
+    "margin_vs_v006": -64098,
+    "score": 0.0,
+    "note": "improves margin by suppressing v006 from 130,332 to 117,914 while our own money falls to 43,686"
+  }
 }
