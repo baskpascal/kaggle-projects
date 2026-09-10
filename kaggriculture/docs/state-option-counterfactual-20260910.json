@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-10",
+  "hypothesis": "A state-conditioned hierarchical Option selector adds value over current and the best fixed Option.",
+  "decision": "REJECT_PHASE_2",
+  "integrate": false,
+  "sample": {
+    "candidate_worlds": 60,
+    "selected_states": 50,
+    "baseline_losses": 50,
+    "sources": {
+      "v006_elite_loss": 46,
+      "v006_teacher": 4
+    },
+    "opponents": {
+      "binghua": 20,
+      "Otter Vibe": 11,
+      "Mengfei Li": 8,
+      "Matthew Huang": 7,
+      "v006": 4
+    },
+    "checkpoints": {
+      "168": 16,
+      "192": 16,
+      "216": 16,
+      "240": 2
+    }
+  },
+  "win_rate": {
+    "FOLLOW_CURRENT": 0.0,
+    "COW_CAPACITY": 0.0,
+    "SHEEP_CAPACITY": 0.0,
+    "oracle_per_state": 0.0,
+    "oracle_gap_over_best_overall_fixed": 0.0,
+    "states_where_an_option_strictly_beats_current": 0
+  },
+  "mean_margin": {
+    "FOLLOW_CURRENT": -56722.72,
+    "COW_CAPACITY": -68546.8,
+    "SHEEP_CAPACITY": -70244.3
+  },
+  "median_terminal_money": {
+    "FOLLOW_CURRENT": 58244.0,
+    "COW_CAPACITY": 35513.0,
+    "SHEEP_CAPACITY": 43308.5
+  },
+  "median_transition_cost": {
+    "FOLLOW_CURRENT": 13177.5,
+    "COW_CAPACITY": 17009.0,
+    "SHEEP_CAPACITY": 18933.5
+  },
+  "mechanism": {
+    "COW_CAPACITY": {
+      "states_with_real_buy_and_herd_growth": 50,
+      "animals_bought": 1145,
+      "herd_delta": 460,
+      "pasture_delta": 741
+    },
+    "SHEEP_CAPACITY": {
+      "states_with_real_buy_and_herd_growth": 50,
+      "animals_bought": 1167,
+      "herd_delta": 377,
+      "pasture_delta": 748
+    }
+  },
+  "ray": {
+    "hosts": {
+      "DESKTOP-DM63QP1": 52,
+      "DESKTOP-V3A6VJ6": 98
+    },
+    "matches": 150,
+    "scope": "counterfactual branches; screening also used the same required two-host mapper"
+  },
+  "inputs": {
+    "top2800_v006_sha256": "754c667a3eae553b11e34582f92549d47e1317fddba47645936ffbabfb905b1c",
+    "top2800_archive_sha256": "0dcc4868df9b747fffd344b0f43bf87963430590e755782741c4904babd736f4",
+    "raw_report_sha256": "0d0056a3de22c021662decc8b5adf7134baeb14938dec84b0b666ca71aea2215"
+  },
+  "limitations": [
+    "Recorded elite opponents are open-loop tapes and are screening counterfactuals, not live-agent win rates.",
+    "The reactive v006 worlds replayed the complete prefix because v006 has internal state.",
+    "No learned selector was fitted and no runtime selector was integrated because the preregistered Phase 2 oracle gate failed."
+  ]
+}

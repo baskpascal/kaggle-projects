@@ -401,3 +401,26 @@ phase - and let the executor serve that plan rather than re-deriving priorities 
 falsification gate is the elite base itself, measured from state and before any paired game:
 three quadrants by t480, 40 or more crops standing at t288, and pasture complete without
 starving the crop quota.
+
+## 2026-09-10 — state-conditioned Option counterfactual, corrected
+
+The v0 note above was too broad: `animal_type=COW` was inert under
+`economic_planner=True`, no sheep Option existed, internal callback failures were not
+checked, and no raw evidence survived. It did not reject the requested hypothesis.
+
+The corrected two-PC Ray experiment selected 50 baseline losses from a 60-world screen:
+46 actual v006 losses in strong recorded elite worlds (20 binghua, 11 Otter Vibe, 8
+Mengfei Li, 7 Matthew Huang) and 4 reactive v006 worlds. Checkpoints were the day boundary
+before sustained gap acceleration. Each branch replayed the identical prefix, then committed
+for eight days to `FOLLOW_CURRENT`, `COW_CAPACITY`, or `SHEEP_CAPACITY` using the existing
+planner/executor.
+
+All three fixed continuations and the per-state oracle scored **0/50**. Another Option beat
+current in **0/50** states. This was not an inert mechanism: cow branches bought 1,145 cows
+and grew the herd by 460; sheep branches bought 1,167 sheep and grew it by 377. Both built
+more than 740 pastures and both worsened mean margin versus current.
+
+Decision: **reject at Phase 2**. Do not fit a selector and do not integrate a checkpoint
+layer. State conditioning cannot recover a reward signal absent from every tested Option.
+Full summary and hashes: `docs/STATE_OPTION_COUNTERFACTUAL.md` and
+`docs/state-option-counterfactual-20260910.json`.

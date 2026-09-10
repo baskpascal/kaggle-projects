@@ -235,7 +235,7 @@ def run_match(candidate, opponent, seed, seat=0, backend='fast', configuration=N
             if telemetry:
                 telemetry.finish_turn(env.state, before_audit, audit)
             steps += 1
-            if replay and (replay_steps is None or steps in replay_steps):
+            if (replay or replay_inline) and (replay_steps is None or steps in replay_steps):
                 transcript.append({'step': steps, 'actions': actions,
                                    'observations': observations(env.state)})
         money = [float(f['money']) for f in env.state[0].observation.farms]
