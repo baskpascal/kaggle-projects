@@ -285,3 +285,25 @@ Caveat on the design: `continue`, `cow_heavy` and `crop_heavy` are parameter var
 genuinely distinct economic regimes. A zero oracle against v006 is conclusive regardless, since
 none of them wins. In the self-play control, a small oracle-minus-fixed gap would mean these
 options are weak rather than that options do not work.
+
+### Self-play control: the value is in the regime, not in conditioning on state
+
+Same decision at turn 336, opponent is our own base planner, 30 seeds × both seats = 60
+worlds, zero failures:
+
+    continue     0.500
+    cow_heavy    0.400
+    crop_heavy   0.883
+    ORACLE       0.917
+
+The oracle beats the best fixed option by **0.033**. Even where outcomes vary freely, choosing
+the option from state is worth about three points, while choosing the right *fixed* option is
+worth **0.383** — `crop_heavy` (`animal_cap` 10, `plant_until_hour` 22, from t336) against
+`continue`.
+
+That answers the caveat from the v006 run. The options are not merely weak against a strong
+opponent: state-conditioning itself has almost no headroom over a well-chosen constant. An
+Adaptive Option Selector is not the next thing to build; finding the right regime is.
+
+`crop_heavy` is a late-game switch, beats our base decisively in self-play, and still scores
+0.000 against v006 — the same pattern as every other own-planner improvement.
