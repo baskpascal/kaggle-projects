@@ -638,3 +638,57 @@ que o regime perfeito valeria.
 
 Uma decisão de mercado comutável tarde, medida no mesmo cohort. Holdout estrito já preparado: a
 faixa 2400–2600, 195 replays arquivados no total, 3.405 views restantes.
+
+## 2026-09-11 — reprecificando: duas hipóteses de alto ROI testadas e mortas
+
+O usuário interrompeu a linha de trabalho porque o placar não estava se movendo, e estava
+certo. Posição agora: **rank 646 de 8.578, score 2.445,2**, contra 2.548,7 (rank 442) no
+início da sessão. Caímos 103 pontos. O corte do top-10 subiu para 2.961,0, então o gap é de
+**515,8 pontos e aumentando**.
+
+### Hipótese 1: `advance_sales` sem o throttle — provável artefato, não testada até o fim
+
+Remover o `step % 4 == 0` do `advance_sales` deu, no cohort dos 67 mundos: win 0,3881 → 0,7164,
+CIs disjuntos, 23 ganhos contra 1 regressão, margem positiva em 58 de 67.
+
+**Não tratei como ganho.** O `docs/FRONT_RUN_HEADROOM.md` já mediu o teto perfeito de front-run
+em 0,0071 e registra que "a corrida de mercado é resolvida por índice de ordem entre os dois
+assentos". Contra um tape fixo, adiantar a venda ganha a corrida sempre e o oponente nunca
+responde — é exatamente onde o cohort superestima. O teste que decidiria (cara-a-cara com os
+dois vivos) foi morto por memória e continua pendente.
+
+**Consequência para o instrumento:** o cohort superestima sistematicamente qualquer mudança que
+ganhe corrida de ordem. Isso vale para toda medição futura nele.
+
+### Hipótese 2: o refit local destruiu a base — REFUTADA
+
+`yhay81` está em rank 15 com 2.928,0 e o `v006` é o router dele com 9 de 15 células refitadas.
+483 pontos partindo do mesmo artefato sugeria que o refit tinha estragado a base — ainda mais
+porque o refit foi feito em 20.800 partidas **espelhadas em seeds de dev**, a população errada,
+e colapsou 5 das 9 células para o plano 3.
+
+Rodando o `yhay_router_0909` original nos mesmos 67 mundos:
+
+    v006       win 0,3881   CI [0,269, 0,507]
+    yhay0909   win 0,1343   CI [0,060, 0,216]
+    pareado: 3 ganhos, 19 regredidos, net -16
+
+O original é **muito pior**. O refit melhorou sobre o pai. A tabela de roteamento não é a causa
+do gap, e a leitura que sobra é que **yhay81 não submete o que publica**: o notebook vale o que
+já temos, os 2.928 são do autor.
+
+Isso também derruba o atalho "adotar o melhor artefato público" na forma ingênua.
+
+### O que resta por eliminação
+
+O gap de 500 pontos contra times que rodam o **cronograma macro idêntico** ao nosso não é mais
+atribuível a execução (limpa, 204/204 COMPLETED), motor (idêntico, 20/20 exatos), regime (teto
++3 mundos, inalcançável) nem tabela de roteamento (nosso refit bate o pai). A superfície grande
+que nunca foi comparada é o **micro de mercado** — quantidade, timing e preço das ordens, turno
+a turno — contra os 1.264 assentos elite já extraídos em `artifacts/regime-library-rows.json`.
+
+### Próximo
+
+Screen dos artefatos públicos que já temos em disco contra o `v006` nos 67 mundos reais, um
+processo por candidato (a versão em processo único foi morta por memória; a máquina é
+compartilhada). Se nenhum bater o `v006`, não há atalho e o micro de mercado é o alvo.

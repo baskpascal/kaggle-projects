@@ -35,6 +35,12 @@ TABLE = re.compile(r'^SHOP_PLANS = \{.*?^\}$', re.MULTILINE | re.DOTALL)
 GUARD = re.compile(r'^def room_guard\(action, view, step\):\n(?:.*\n)*?(?=\ndef liquidate)',
                    re.MULTILINE)
 CALL_SITE = '        advance_sales(action, view, state, tape, step)\n'
+# The parent throttles its own sale-advance on every fourth turn. The town's demand race is
+# resolved by order index between the two seats, so a seat that waits loses it outright, and
+# seven of the seventeen pinned public artifacts carry this same clause.
+ADVANCE_GUARD = ('    if next_step > LAST_STEP or next_step % 72 == 0 '
+                 'or step % 4 == 0:')
+RELAXED_ADVANCE = '    if next_step > LAST_STEP or next_step % 72 == 0:'
 RESCUE_FILES = ('main.py', 'policy.py', 'terminal_planner.py', 'unit_model.py',
                 'settings.json', 'NOTICE.txt')
 NOTICE = """
@@ -56,7 +62,7 @@ def render_table(table):
     return 'SHOP_PLANS = {\n' + body + '}'
 
 
-def router_source(table=None, room_guard=False, note=None):
+def router_source(table=None, room_guard=False, note=None, relax_advance=False):
     """The 0909 router, with our table and the public room guard folded in as source."""
     source = (PARENT / 'main.py').read_text()
     if table is not None:
@@ -69,16 +75,21 @@ def router_source(table=None, room_guard=False, note=None):
             raise ValueError('room_guard or its call site is missing upstream')
         source = source.replace('\ndef liquidate(view):', f'\n{guard.group(0)}\ndef liquidate(view):', 1)
         source = source.replace(CALL_SITE, CALL_SITE + '        room_guard(action, view, step)\n', 1)
+    if relax_advance:
+        if source.count(ADVANCE_GUARD) != 1:
+            raise ValueError('The parent no longer carries the advance_sales throttle')
+        source = source.replace(ADVANCE_GUARD, RELAXED_ADVANCE, 1)
     if note:
         source = source.replace('SHOP_PLANS = {', f'# {note}\nSHOP_PLANS = {{', 1)
     compile(source, 'main.py', 'exec')
     return source
 
 
-def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=None):
+def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=None,
+          relax_advance=False):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    router = router_source(table, room_guard, note)
+    router = router_source(table, room_guard, note, relax_advance)
     files = {'actions.json': (PARENT / 'actions.json').read_bytes(),
              'LICENSE.txt': (PARENT / 'LICENSE.txt').read_bytes()}
     if terminal_rescue:
@@ -99,7 +110,8 @@ def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=N
     packed = gzip.compress(archive.getvalue(), mtime=0)
     (output / 'main.tar.gz').write_bytes(packed)
     return {'layers': {'table': table is not None, 'room_guard': room_guard,
-                       'terminal_rescue': terminal_rescue},
+                       'terminal_rescue': terminal_rescue,
+                       'relax_advance': relax_advance},
             'members': {name: hashlib.sha256(payload).hexdigest()
                         for name, payload in sorted(files.items())},
             'archive_sha256': hashlib.sha256(packed).hexdigest(),
@@ -111,6 +123,8 @@ def main():
     parser.add_argument('--table', help='JSON mapping "SHOP|SHOP" to a plan index')
     parser.add_argument('--room-guard', action='store_true')
     parser.add_argument('--terminal-rescue', action='store_true')
+    parser.add_argument('--relax-advance', action='store_true',
+                        help="drop the parent's every-fourth-turn sale-advance throttle")
     parser.add_argument('--note')
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
@@ -119,7 +133,8 @@ def main():
         table = {tuple(key.split('|')): int(plan)
                  for key, plan in json.loads(Path(args.table).read_text()).items()}
     print(json.dumps(build(args.output, table=table, room_guard=args.room_guard,
-                           terminal_rescue=args.terminal_rescue, note=args.note), indent=2))
+                           terminal_rescue=args.terminal_rescue, note=args.note,
+                           relax_advance=args.relax_advance), indent=2))
 
 
 if __name__ == '__main__':
