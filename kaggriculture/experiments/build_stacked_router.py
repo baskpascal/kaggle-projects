@@ -144,6 +144,110 @@ def clamp_sells(action, view):
 '''
 CLAMP_CALL = '        clamp_sells(action, view)\n'
 
+RESERVE_SOURCE = """
+SALE_HORIZON = 2
+ADVANCE_START = 288
+
+
+def reserve_sales(action, view, state, tape, step):
+    \"\"\"Advance the next `SALE_HORIZON` turns of planned sales, with a debt ledger.
+
+    The inherited `advance_sales` brings one turn forward and runs before the worker
+    repairs, so it projects the shed from commands that are still going to change. This
+    runs after them, reaches two turns instead of one, and records what it has already
+    sold against each future step so the same units are never sold twice.
+
+    Ported from flexonafft/kaggriculture-most-powerfull-route and the identical layer in
+    guruprasaathas111/kaggriculture-structured-economic-policy-v2, both forks of the same
+    yhay81 backbone we run, whose teams sit above ours on the ladder.
+    \"\"\"
+    horizon = SALE_HORIZON if step >= ROUTE_STEP else 1
+    end = min(LAST_STEP, step + horizon, (step // 72 + 1) * 72 - 1)
+    if end <= step:
+        return
+    market = action["market"]
+    stock = projected_shed(action, view)
+    blocked = {order[1] for order in market
+               if len(order) > 1 and order[0] in ("SELL", "BUY_PRODUCT")}
+    blocked.update(command[1] for queue in state.queues.values() for command in queue
+                   if len(command) > 1 and command[0] == "PICKUP")
+    commands = [action.get("farmer") or ["PASS"], *(action.get("hands") or [])]
+    blocked.update(command[1] for command in commands
+                   if len(command) > 1 and command[0] == "PICKUP")
+    # An animal PLACE can fall back into the shed and the projection does not model it,
+    # so the turn is left alone rather than advanced against a stock that may not exist.
+    if any(len(command) > 1 and command[0] == "PLACE" and command[1] in ANIMALS
+           and view.inventory(index).get(command[1], 0) > 0
+           for index, command in enumerate(commands)):
+        return
+    debts = getattr(state, "sale_window_debts", {})
+    for item in PRODUCTS:
+        if item in ("WHEAT", "FERTILIZER") or item in blocked:
+            continue
+        if int(view.prices.get(item, 0)) < 2:
+            continue
+        available = max(0, int(stock.get(item, 0)))
+        if not available or len(market) >= MAX_ORDERS:
+            continue
+        reservations = []
+        for due_step in range(step + 1, end + 1):
+            future = tape[due_step]
+            work = [future.get("farmer") or ["PASS"], *(future.get("hands") or [])]
+            if any(len(c) > 1 and c[0] == "PICKUP" and c[1] == item for c in work):
+                break
+            if any(len(o) > 1 and o[0] == "BUY_PRODUCT" and o[1] == item
+                   for o in (future.get("market") or [])):
+                break
+            planned = sum(max(0, int(o[2])) for o in (future.get("market") or [])
+                          if len(o) >= 3 and o[0] == "SELL" and o[1] == item)
+            remaining = max(0, planned - debts.get(due_step, {}).get(item, 0))
+            amount = min(available, remaining)
+            if amount:
+                reservations.append((due_step, amount))
+                available -= amount
+            if not available:
+                break
+        quantity = sum(amount for _, amount in reservations)
+        if quantity:
+            market.append(["SELL", item, quantity])
+            for due_step, amount in reservations:
+                debt = debts.setdefault(due_step, {})
+                debt[item] = debt.get(item, 0) + amount
+    state.sale_window_debts = debts
+
+
+def sales_first(action):
+    \"\"\"Move SELL orders ahead of non-SELL ones, and drop the empty orders.
+
+    The town resolves its demand race by order index between the two seats, so a sell
+    that sits behind a purchase in the same turn can lose stock it would have cleared.
+    An order is never moved ahead of a purchase of the same item, which would break the
+    wheat wash that funds it.
+    \"\"\"
+    original = (action.get("market") or [])[:MAX_ORDERS]
+    orders = [list(order) for order in original
+              if order and (order[0] in ("HIRE", "BUY_LAND")
+                            or (len(order) >= 3 and int(order[2]) > 0))]
+    for index in range(len(orders)):
+        if orders[index][0] != "SELL":
+            continue
+        cursor = index
+        while cursor > 0:
+            previous = orders[cursor - 1]
+            if previous[0] == "SELL":
+                break
+            if previous[0] in ("BUY_PRODUCT", "BUY_ANIMAL") and previous[1] == orders[cursor][1]:
+                break
+            orders[cursor - 1], orders[cursor] = orders[cursor], orders[cursor - 1]
+            cursor -= 1
+    action["market"] = orders
+"""
+RESERVE_CALL = (
+    '        if ADVANCE_START <= step < LAST_STEP:\n'
+    '            reserve_sales(action, view, state, tape, step)\n'
+    '        if step >= ROUTE_STEP:\n'
+    '            sales_first(action)\n')
+
 NOTICE = """
 Uncle Scooge composition (2026-09-09)
 ------------------------------------
@@ -164,7 +268,8 @@ def render_table(table):
 
 
 def router_source(table=None, room_guard=False, note=None, relax_advance=False,
-                  dead_stock=False, hand_align=False, clamp_sells=False):
+                  dead_stock=False, hand_align=False, clamp_sells=False,
+                  reserve_sales=False):
     """The 0909 router, with our table and the public room guard folded in as source."""
     source = (PARENT / 'main.py').read_text()
     if table is not None:
@@ -201,6 +306,13 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
         guard_call = '        room_guard(action, view, step)\n'
         call_after = guard_call if guard_call in source else CALL_SITE
         source = source.replace(call_after, call_after + DEAD_STOCK_CALL, 1)
+    if reserve_sales:
+        anchor = '\ndef subtract_advanced_sales(action, state, step):'
+        truncate = '        action["market"] = action["market"][:MAX_ORDERS]\n'
+        if anchor not in source or truncate not in source:
+            raise ValueError('The parent no longer has the anchors reserve_sales needs')
+        source = source.replace(anchor, '\n' + RESERVE_SOURCE.strip() + '\n\n' + anchor, 1)
+        source = source.replace(truncate, truncate + RESERVE_CALL, 1)
     if relax_advance:
         if source.count(ADVANCE_GUARD) != 1:
             raise ValueError('The parent no longer carries the advance_sales throttle')
@@ -212,11 +324,12 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
 
 
 def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=None,
-          relax_advance=False, dead_stock=False, hand_align=False, clamp_sells=False):
+          relax_advance=False, dead_stock=False, hand_align=False, clamp_sells=False,
+                  reserve_sales=False):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     router = router_source(table, room_guard, note, relax_advance, dead_stock,
-                           hand_align, clamp_sells)
+                           hand_align, clamp_sells, reserve_sales)
     files = {'actions.json': (PARENT / 'actions.json').read_bytes(),
              'LICENSE.txt': (PARENT / 'LICENSE.txt').read_bytes()}
     if terminal_rescue:
@@ -239,7 +352,8 @@ def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=N
     return {'layers': {'table': table is not None, 'room_guard': room_guard,
                        'terminal_rescue': terminal_rescue,
                        'relax_advance': relax_advance, 'dead_stock': dead_stock,
-                       'hand_align': hand_align, 'clamp_sells': clamp_sells},
+                       'hand_align': hand_align, 'clamp_sells': clamp_sells,
+                       'reserve_sales': reserve_sales},
             'members': {name: hashlib.sha256(payload).hexdigest()
                         for name, payload in sorted(files.items())},
             'archive_sha256': hashlib.sha256(packed).hexdigest(),
@@ -251,6 +365,8 @@ def main():
     parser.add_argument('--table', help='JSON mapping "SHOP|SHOP" to a plan index')
     parser.add_argument('--room-guard', action='store_true')
     parser.add_argument('--terminal-rescue', action='store_true')
+    parser.add_argument('--reserve-sales', action='store_true',
+                        help='two-turn sale reservation plus sells-first ordering')
     parser.add_argument('--hand-align', action='store_true')
     parser.add_argument('--clamp-sells', action='store_true')
     parser.add_argument('--dead-stock', action='store_true',
@@ -268,7 +384,8 @@ def main():
                            terminal_rescue=args.terminal_rescue, note=args.note,
                            relax_advance=args.relax_advance,
                            dead_stock=args.dead_stock, hand_align=args.hand_align,
-                           clamp_sells=args.clamp_sells), indent=2))
+                           clamp_sells=args.clamp_sells,
+                           reserve_sales=args.reserve_sales), indent=2))
 
 
 if __name__ == '__main__':

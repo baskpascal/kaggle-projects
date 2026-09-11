@@ -1,0 +1,519 @@
+{
+ "plan": 1,
+ "summary": {
+  "worlds": 67,
+  "failures": 0,
+  "win_rate": 0.16417910447761194,
+  "ladder_win_rate": 0.3880597014925373,
+  "gained": 6,
+  "regressed": 21,
+  "net_worlds": -15,
+  "gained_episodes": [
+   107237149,
+   107300432,
+   107331618,
+   107362837,
+   107434948,
+   107487575
+  ],
+  "regressed_episodes": [
+   107202174,
+   107209005,
+   107212797,
+   107215798,
+   107224372,
+   107236643,
+   107241135,
+   107245194,
+   107247617,
+   107256885,
+   107257685,
+   107265677,
+   107269372,
+   107276709,
+   107286038,
+   107300005,
+   107300317,
+   107304644,
+   107321720,
+   107343976,
+   107461389
+  ],
+  "margin_median": -9624.0,
+  "ladder_margin_median": -95,
+  "abs_margin_median": 9903.0,
+  "worlds_decided_under_1000": 40,
+  "win_rate_in_close_worlds": 0.125
+ },
+ "rows": [
+  {
+   "episode_id": 107202174,
+   "score": 0.0,
+   "margin": -406.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107206062,
+   "score": 0.0,
+   "margin": -10544.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107209005,
+   "score": 0.0,
+   "margin": -9997.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107212797,
+   "score": 0.0,
+   "margin": -6985.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107215798,
+   "score": 0.0,
+   "margin": -439.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107216665,
+   "score": 1.0,
+   "margin": 1123.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107221914,
+   "score": 1.0,
+   "margin": 2284.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107224372,
+   "score": 0.0,
+   "margin": -11251.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107227111,
+   "score": 0.0,
+   "margin": -17659.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107227290,
+   "score": 0.0,
+   "margin": -5240.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107232882,
+   "score": 0.0,
+   "margin": -7668.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107236643,
+   "score": 0.0,
+   "margin": -7126.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107237149,
+   "score": 1.0,
+   "margin": 4474.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107241135,
+   "score": 0.0,
+   "margin": -1259.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107245194,
+   "score": 0.0,
+   "margin": -9414.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107247617,
+   "score": 0.0,
+   "margin": -4533.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107251525,
+   "score": 0.0,
+   "margin": -21884.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107256885,
+   "score": 0.0,
+   "margin": -4098.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107257685,
+   "score": 0.0,
+   "margin": -3349.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107261982,
+   "score": 0.0,
+   "margin": -942.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107265374,
+   "score": 1.0,
+   "margin": 1020.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107265677,
+   "score": 0.0,
+   "margin": -9276.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107268633,
+   "score": 0.0,
+   "margin": -20094.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107269372,
+   "score": 0.0,
+   "margin": -6464.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107276709,
+   "score": 0.0,
+   "margin": -12691.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107276773,
+   "score": 0.0,
+   "margin": -12243.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107286038,
+   "score": 0.0,
+   "margin": -13238.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107286690,
+   "score": 0.0,
+   "margin": -9966.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107288778,
+   "score": 0.0,
+   "margin": -10560.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107292952,
+   "score": 0.0,
+   "margin": -9624.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107293200,
+   "score": 1.0,
+   "margin": 935.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107296145,
+   "score": 0.0,
+   "margin": -23521.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107300005,
+   "score": 0.0,
+   "margin": -16229.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107300317,
+   "score": 0.0,
+   "margin": -16352.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107300432,
+   "score": 1.0,
+   "margin": 65.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107304644,
+   "score": 0.0,
+   "margin": -630.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107311070,
+   "score": 0.0,
+   "margin": -23364.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107312954,
+   "score": 0.0,
+   "margin": -20542.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107317275,
+   "score": 0.0,
+   "margin": -3354.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107321720,
+   "score": 0.0,
+   "margin": -10763.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107331618,
+   "score": 1.0,
+   "margin": 11320.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107336595,
+   "score": 0.0,
+   "margin": -8666.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107337347,
+   "score": 0.0,
+   "margin": -21398.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107343976,
+   "score": 0.0,
+   "margin": -4519.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107344051,
+   "score": 0.0,
+   "margin": -57682.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107353675,
+   "score": 0.0,
+   "margin": -11752.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107354819,
+   "score": 0.0,
+   "margin": -11208.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107357808,
+   "score": 0.0,
+   "margin": -8217.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107360543,
+   "score": 0.0,
+   "margin": -7854.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107360713,
+   "score": 0.0,
+   "margin": -22438.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107362837,
+   "score": 1.0,
+   "margin": 2522.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107364303,
+   "score": 0.0,
+   "margin": -9002.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107368380,
+   "score": 0.0,
+   "margin": -12237.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107384148,
+   "score": 0.0,
+   "margin": -9416.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107387179,
+   "score": 0.0,
+   "margin": -11290.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107395918,
+   "score": 0.0,
+   "margin": -22887.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107399653,
+   "score": 0.0,
+   "margin": -9903.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107410474,
+   "score": 0.0,
+   "margin": -20191.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107415047,
+   "score": 0.0,
+   "margin": -9829.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107420868,
+   "score": 0.0,
+   "margin": -20427.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107434948,
+   "score": 1.0,
+   "margin": 2066.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107450447,
+   "score": 0.0,
+   "margin": -14330.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107461389,
+   "score": 0.0,
+   "margin": -9825.0,
+   "ladder_outcome": 1.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107467056,
+   "score": 0.0,
+   "margin": -21109.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107487575,
+   "score": 1.0,
+   "margin": 12171.0,
+   "ladder_outcome": 0.0,
+   "seat": 0
+  },
+  {
+   "episode_id": 107492678,
+   "score": 0.0,
+   "margin": -11397.0,
+   "ladder_outcome": 0.0,
+   "seat": 1
+  },
+  {
+   "episode_id": 107501410,
+   "score": 1.0,
+   "margin": 11469.0,
+   "ladder_outcome": 1.0,
+   "seat": 0
+  }
+ ]
+}
