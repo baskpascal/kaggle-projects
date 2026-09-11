@@ -895,3 +895,64 @@ margem +0 que o `v006` tem em 135 episódios da mesma faixa. Dois episódios nã
 
 Melhor candidato local: `v014` (+833). Não submetido: `v007r` e `v011` são os dois experimentos
 vivos e um terceiro slot aposentaria justamente o que está dando o sinal.
+
+## 2026-09-11 — o fórum, que eu não tinha lido, e a correção que ele obriga
+
+Erro de processo registrado: passei a campanha sem abrir as discussões da competição, apesar
+de isso ser expectativa permanente do projeto. Li a lista de notebooks, não o fórum. O que
+estava lá muda a leitura de tudo que medi no ladder.
+
+### O que o tópico mais votado mede (736219, 83 votos, ex-primeiro colocado)
+
+- Submissão nova começa em 600 e fica **~90% convergida em ~60 jogos**, ~5 horas. Depois só
+  cresce logaritmicamente, **+50 a +70 por 100 jogos**, com ruído residual de **±25 a ±50**.
+- **"Trate diferenças abaixo de ~50 pontos como ruído, mesmo com 200 jogos."**
+- **"Nunca compare uma submissão nova com 50 jogos contra uma antiga com 300"** — a antiga
+  carrega 100 a 150 pontos só de idade.
+- O intercepto da curva depende da sorte dos ~40 primeiros oponentes, ±130 nos fits dele.
+
+E o 734000: dois agentes **byte-a-byte idênticos**, submetidos com duas horas de diferença,
+terminaram em ~1.700 e >3.000. **Mil e trezentos pontos entre cópias iguais.**
+
+### A correção que isso obriga
+
+Declarei que o experimento das camadas falhou de forma conclusiva. **Estava errado.** Comparei
+`v007r` e `v011` com 108 jogos contra `v006` com 243 — exatamente o que não se deve fazer — e
+li ruído como resultado. Refazendo a conta na faixa 2400–2600:
+
+    v006   0,496 (n=135)
+    v011   0,511 (n= 45)   diferenca +0,015, erro padrao 0,086  -> z = +0,17
+    v007r  0,390 (n= 41)   diferenca -0,106, erro padrao 0,089  -> z = -1,19
+
+**Nenhum dos três é distinguível.** Não está provado que as camadas falharam; está provado que
+o ladder não distingue nesse número de jogos. São afirmações diferentes.
+
+### Uma divergência de fontes que já estava resolvida no repositório
+
+O 736219 afirma que o ranking final sai de um Bradley-Terry sobre as duas semanas **posteriores**
+ao prazo e que o rating ao vivo não conta. O `docs/FINAL_SUBMISSION_POLICY.md` já verificou isso
+e registra a resposta direta do Addison Howard (staff): o ajuste usa episódios de **toda a
+competição**, desde que os dois agentes sigam ativos, e marca o 736219 como análise de
+participante que não prevalece sobre o host. A fonte do repositório é mais autoritativa e não
+foi substituída.
+
+As duas concordam no que decide a operação: **o que é pontuado é o par de submissões ativas,
+forte e sem erro, no dia 30/09** — não o número diário.
+
+### O corte por oponente não é aplicável aqui
+
+O fórum recomenda julgar por win rate contra **cada** oponente forte, não pela média. No nosso
+cohort de 195 mundos nenhum time aparece em quatro ou mais: enfrentamos cerca de 180 oponentes
+quase todos distintos. A recomendação pressupõe um painel pequeno e repetido; a nossa amostra é
+a distribuição real do ladder, então a média sobre ela é a estatística certa e não uma média de
+painel enviesada.
+
+### Decisão
+
+`v014` submetido, substituindo o `v007r` — o único dos três medido pior tanto localmente
+(+667 contra +833 de dinheiro próprio) quanto no ladder. As ativas passam a ser `{v014, v011}`,
+os dois melhores candidatos medidos, ambos sem falha de callback e sem estoque terminal.
+Restam 2 slots hoje.
+
+**Parar de perseguir o número diário.** Ele é ±50 de ruído sobre path dependence de até ±1.300;
+perseguir isso foi o motivo de oito horas não mudarem nada.
