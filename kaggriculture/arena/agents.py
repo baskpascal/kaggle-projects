@@ -37,6 +37,47 @@ INTERPRETER = 'kaggle_environments.envs.kaggriculture.kaggriculture'
 # and, in the limit, by the process kill in `arena.parallel`.
 WATCHED = ('builtins', 'json', 'random', 'time', 'math', 'copy', 'signal', INTERPRETER)
 _ARITIES = weakref.WeakKeyDictionary()
+_NON_RUNTIME_BUNDLE_PARTS = {'main.manifest.json', 'main.tar.gz'}
+
+
+def _bundle_files(entrypoint):
+    """Files that can affect a conventional ``main.py`` submission at runtime.
+
+    The arena also runs standalone replay/tape opponents from directories containing many
+    unrelated ``*.py`` files, so only the conventional bundle entrypoint expands to its
+    siblings. Packaging products and interpreter caches are deliberately excluded: they are
+    evidence *about* the extracted tree, not inputs read by it.
+    """
+    entrypoint = Path(entrypoint)
+    if entrypoint.name != 'main.py':
+        return [entrypoint]
+    files = []
+    for child in entrypoint.parent.rglob('*'):
+        if not child.is_file():
+            continue
+        relative = child.relative_to(entrypoint.parent)
+        if ('__pycache__' in relative.parts or child.suffix == '.pyc'
+                or relative.as_posix() in _NON_RUNTIME_BUNDLE_PARTS):
+            continue
+        files.append(child)
+    return sorted(files, key=lambda child: child.relative_to(entrypoint.parent).as_posix())
+
+
+def _file_or_bundle_hash(path):
+    """Content identity of a standalone agent or an extracted submission bundle."""
+    path = Path(path)
+    files = _bundle_files(path)
+    if files == [path]:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    digest = hashlib.sha256(b'kaggriculture-executable-bundle-v1\0')
+    for child in files:
+        relative = child.relative_to(path.parent).as_posix().encode()
+        payload = child.read_bytes()
+        digest.update(len(relative).to_bytes(8, 'big'))
+        digest.update(relative)
+        digest.update(len(payload).to_bytes(8, 'big'))
+        digest.update(payload)
+    return digest.hexdigest()
 
 
 def _watched_modules():
@@ -131,6 +172,10 @@ def load_agent(name, seed=0, strict=True):
     path = Path(name).resolve()
     if not path.is_file():
         raise ValueError(f'Unknown agent {name!r}')
+    # Bind the bytes before executing untrusted import-time code. The old single-file hash
+    # was likewise taken from ``source`` before ``exec``; a bundle must not be able to stamp
+    # evidence with an identity it created by rewriting itself during import.
+    bundle_sha256 = _file_or_bundle_hash(path)
     # Fresh namespace per seat/game prevents accidental state leakage.
     # Public bundles register names such as v23/v43 in sys.modules. Keep those
     # modules private to this load, including when two seats load the same file.
@@ -156,7 +201,9 @@ def load_agent(name, seed=0, strict=True):
     if found and strict:
         raise RuntimeError(f'{path} mutated arena-visible state at import: ' + '; '.join(found[:8]))
     load_agent.last_tampering = found
-    function.__arena_sha256__ = hashlib.sha256(source).hexdigest()
+    # ``main.py`` frequently imports the strategy from sibling modules/data. Stamping only
+    # its bytes made materially different bundles appear identical in match evidence.
+    function.__arena_sha256__ = bundle_sha256
     return function
 
 
@@ -206,7 +253,7 @@ def agent_hash(name):
         return agent_hash(str(ROOT / 'versions/v000/main.py'))
     path = Path(name)
     if path.is_file():
-        return hashlib.sha256(path.read_bytes()).hexdigest()
+        return _file_or_bundle_hash(path)
     if name in ('starter', 'pass'):
         from .engine import INTERPRETER_HASH
         return hashlib.sha256((INTERPRETER_HASH + name).encode()).hexdigest()

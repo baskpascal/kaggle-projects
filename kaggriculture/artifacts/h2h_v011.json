@@ -1,0 +1,14 @@
+{
+ "v011_vs_v008": {
+  "win": 1.0,
+  "margin": 3860.5,
+  "failures": 0,
+  "money": 97378.0
+ },
+ "v011_vs_v006": {
+  "win": 1.0,
+  "margin": 3391.0,
+  "failures": 0,
+  "money": 97637.0
+ }
+}

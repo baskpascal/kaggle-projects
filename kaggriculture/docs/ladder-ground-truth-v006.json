@@ -1,0 +1,130 @@
+{
+ "submission_id": 56125200,
+ "trajectory": {
+  "episodes": 204,
+  "first": [
+   "2026-09-09T14:36:36.773403100Z",
+   719.3342200460477
+  ],
+  "last": [
+   "2026-09-10T18:32:15.315251500Z",
+   2513.257725254884
+  ],
+  "peak": [
+   "2026-09-10T01:20:53.355972700Z",
+   2644.357133696074
+  ],
+  "peak_index": 117,
+  "since_peak": -131.09940844119
+ },
+ "cuts": {
+  "overall": {
+   "cut": "overall",
+   "episodes": 204,
+   "scored": 204,
+   "unscored": 0,
+   "win_rate": 0.5931372549019608,
+   "margin_median": 54.0,
+   "rating_delta_mean": 9.378714339484725,
+   "rating_delta_sum": 1913.257725254884
+  },
+  "by_seat": [
+   {
+    "cut": "seat 0",
+    "episodes": 108,
+    "scored": 108,
+    "unscored": 0,
+    "win_rate": 0.5925925925925926,
+    "margin_median": 55.5,
+    "rating_delta_mean": 9.27148908285923,
+    "rating_delta_sum": 1001.3208209487968
+   },
+   {
+    "cut": "seat 1",
+    "episodes": 96,
+    "scored": 96,
+    "unscored": 0,
+    "win_rate": 0.59375,
+    "margin_median": 40.0,
+    "rating_delta_mean": 9.499342753188408,
+    "rating_delta_sum": 911.9369043060872
+   }
+  ],
+  "by_state": [
+   {
+    "cut": "COMPLETED",
+    "episodes": 204,
+    "scored": 204,
+    "unscored": 0,
+    "win_rate": 0.5931372549019608,
+    "margin_median": 54.0,
+    "rating_delta_mean": 9.378714339484725,
+    "rating_delta_sum": 1913.257725254884
+   }
+  ],
+  "by_outcome": [
+   {
+    "cut": "wins",
+    "episodes": 120,
+    "scored": 120,
+    "unscored": 0,
+    "win_rate": 1.0,
+    "margin_median": 794.0,
+    "rating_delta_mean": 20.15939590052493,
+    "rating_delta_sum": 2419.1275080629916
+   },
+   {
+    "cut": "losses",
+    "episodes": 82,
+    "scored": 82,
+    "unscored": 0,
+    "win_rate": 0.0,
+    "margin_median": -1109.0,
+    "rating_delta_mean": -6.1399635164958655,
+    "rating_delta_sum": -503.47700835266096
+   },
+   {
+    "cut": "ties",
+    "episodes": 2,
+    "scored": 2,
+    "unscored": 0,
+    "win_rate": 0.5,
+    "margin_median": 0.0,
+    "rating_delta_mean": -1.196387227723335,
+    "rating_delta_sum": -2.39277445544667
+   }
+  ],
+  "by_opponent_band": [
+   {
+    "cut": "opponent 0-2400",
+    "episodes": 36,
+    "scored": 36,
+    "unscored": 0,
+    "win_rate": 0.9166666666666666,
+    "margin_median": 6842.0,
+    "rating_delta_mean": 50.05417832759239,
+    "rating_delta_sum": 1801.950419793326
+   },
+   {
+    "cut": "opponent 2400-2600",
+    "episodes": 101,
+    "scored": 101,
+    "unscored": 0,
+    "win_rate": 0.6138613861386139,
+    "margin_median": 69,
+    "rating_delta_mean": 1.3714764037116594,
+    "rating_delta_sum": 138.5191167748776
+   },
+   {
+    "cut": "opponent 2600-2800",
+    "episodes": 67,
+    "scored": 67,
+    "unscored": 0,
+    "win_rate": 0.3880597014925373,
+    "margin_median": -95,
+    "rating_delta_mean": -0.4061464375122341,
+    "rating_delta_sum": -27.211811313319686
+   }
+  ]
+ }
+}

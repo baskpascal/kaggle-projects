@@ -424,3 +424,289 @@ Decision: **reject at Phase 2**. Do not fit a selector and do not integrate a ch
 layer. State conditioning cannot recover a reward signal absent from every tested Option.
 Full summary and hashes: `docs/STATE_OPTION_COUNTERFACTUAL.md` and
 `docs/state-option-counterfactual-20260910.json`.
+
+## 2026-09-10 — o ladder real: a execução está limpa e a perda é estreita
+
+Primeira medição fora do painel local. `experiments/ladder_ground_truth.py` lê os episódios
+que a submissão `v006` (56125200) realmente jogou no Kaggle. 204 episódios atribuíveis,
+2026-09-09T14:36Z a 2026-09-10T18:32Z, sem gastar nenhuma view de episódio — o `ListEpisodes`
+é gratuito e já traz reward dos dois lados, seat, adversário e o par
+`initialScore`/`updatedScore` de cada partida. Detalhes em `docs/LADDER_GROUND_TRUTH.md`.
+
+A queda que os snapshots de leaderboard mostravam é do próprio `v006`, e é convergência, não
+falta dela: cold start em 600, pico de **2644,4** no episódio 117, e **2513,3** agora, 131,1
+abaixo do pico e ainda caindo.
+
+**Execução está limpa.** 204 de 204 episódios em `COMPLETED`, zero rewards ausentes, e o corte
+por seat dá 0,593 contra 0,594 em 108 e 96 episódios. Não há assimetria de seat, o que refuta
+para este agente a preocupação de que `obs["step"]` ausente no seat 1 faria repetir a lógica do
+turno 0.
+
+**A perda é estratégica e é estreita:**
+
+    oponente < 2400    n= 36   win 0,917   soma dos deltas +1.802,0
+    oponente 2400-2600 n=101   win 0,614   soma dos deltas   +138,5
+    oponente 2600-2800 n= 67   win 0,388   soma dos deltas    -27,2
+    oponente > 2800    n=  0
+
+Nunca enfrentamos ninguém acima de 2800; o corte do top-10 (2946,6) é uma faixa que não
+alcançamos, não um adversário que perdemos. Todo o rating acumulado veio da faixa abaixo de
+2400, atravessada uma vez na subida. Interpolando as duas faixas centrais, **estimativa** de
+equilíbrio em torno de 2600 — extrapolação, não medição.
+
+O número mais surpreendente é a escala. Vitória mediana **+794**, derrota mediana **−1.109**,
+sobre rewards de 90.000 a 120.000: menos de 1%. O painel local mede o mesmo agente contra
+margens de ±81.000. Isso não prova que o painel é espelho, e a hipótese fica na forma fraca —
+`H1: local_eval is conditionally biased relative to live ladder` — mas estabelece o suficiente
+para decidir prioridade: **uma função objetivo calibrada em 80.000 não resolve diferenças de
+800.**
+
+### Próximo
+
+Ligar o tier 2 (`GetEpisode`, com credencial, sob o `ViewLedger` de 3.600 views/24h já
+implementado) para obter seed, engine version, statuses por agente e o stream de ações; e então
+reproduzir cada episódio real localmente com mesma seed, seat e adversário, comparando
+`predicted_local_outcome` contra `actual_ladder_outcome`. Até esse resultado existir, nenhuma
+CPU vai para busca, GA, option selector ou RL: não sabemos qual objetivo correlaciona com o
+ladder.
+
+## 2026-09-10 — tier 2: o motor é idêntico, e a faixa decisiva é decidida por 0,1%
+
+`experiments/ladder_reproduction.py`, sobre 20 replays da faixa 2600–2800 baixados pela rota
+pública `GET /api/v1/competitions/episodes/{id}/replay`. 3.580 das 3.600 views ainda
+disponíveis. Detalhes em `docs/LADDER_GROUND_TRUTH.md`.
+
+**Level A, fidelidade do motor: 20 de 20 exatos.** Replayando os dois streams gravados na seed
+gravada, o dinheiro terminal local bate exatamente com o reward publicado pelo Kaggle, nos dois
+backends e com zero falhas. Não há discrepância de ambiente; o ramo "execução/ambiente" da H1
+está fechado.
+
+**Level B: agreement 20/20, e vale menos do que parece.** O `v006` é determinístico, então
+contra o stream gravado do oponente na mesma seed ele refaz a própria partida. O que isso
+estabelece é que o `v006` daqui é bit a bit o que rodou no Kaggle — não que o setup local
+preveja o ladder. Validação preditiva de verdade exige oponente reativo, que um tape fixo não é.
+
+**O achado é a escala.** As 20 partidas, por margem:
+
+    -1.119  -1.099   -350    -93     -5     -2     -2     +3     +5    +15
+       +18    +25    +55   +111   +155   +225   +679   +745  +3.983 +5.115
+
+|margem| mediana de **102 moedas** sobre dinheiro típico de 91.813 — **0,111%**. Dez das vinte
+decididas por menos de 100 moedas. O painel local mede o mesmo agente contra ±81.000: uma régua
+800 vezes mais grossa do que a diferença que o ladder mede.
+
+Ressalva: esses 20 são os mais antigos dos 67 da faixa, não amostra aleatória. Somam 13/20,
+contra 0,388 nos 67. A distribuição de margens é o achado; a win rate desta amostra não é
+representativa.
+
+### O que a H1 virou
+
+`H1: local_eval is conditionally biased relative to live ladder` sobrevive com dois ramos
+eliminados por medição: não é ambiente (Level A 20/20) e não é execução nem seat (tier 1,
+204/204 `COMPLETED`, 0,593 contra 0,594). Resta o setup de avaliação — quais adversários o
+painel contém e em que escala ele mede.
+
+### Próximo
+
+Reconstruir o evaluator na escala real: adversários de 2600–2800 e um objetivo que resolva
+centenas de moedas. Só depois disso volta a fazer sentido gastar CPU em busca, GA, option
+selector ou RL.
+
+## 2026-09-10 — o evaluator na escala certa, e a perda se parte em duas populações
+
+`experiments/ladder_cohort.py` substitui a população do painel. O painel antigo organiza
+adversários por rank de leaderboard; o ladder pareia por proximidade de rating, e nunca
+enfrentamos ninguém acima de 2800. O cohort novo são os 67 mundos reais da faixa 2600–2800:
+seed do episódio, nosso assento, o stream gravado do adversário como replayer, e o resultado
+que o ladder registrou. Detalhes e limitações em `docs/LADDER_COHORT.md`.
+
+Calibração exata: `v006` marca 0,3880597 no cohort contra 0,3880597 no ladder, 0 ganhos,
+0 regredidos, margem mediana −95,0 contra −95, zero falhas. Isso era esperado por construção —
+o agente é determinístico contra tape fixo — e serve como verificação de encanamento, não como
+validação. Bootstrap por bloco de seed: **[0,269, 0,507]**, então o déficit é real.
+
+O número de manchete deixou de ser margem e passou a ser mundos ganhos menos mundos
+regredidos, com os episódios nomeados. Um teste fixa o motivo: duas vitórias de blowout e três
+derrotas por dez moedas dão mediana de margem positiva e net de −3.
+
+**E a régua nova já mostrou uma coisa que a antiga não podia:**
+
+    decididos por < 1.000    n=40   win 0,550   |margem| mediana    124
+    decididos por >= 1.000   n=27   win 0,148   |margem| mediana  2.510
+
+Não estamos perdendo os cara-e-coroa — nos apertados ficamos acima de 0,5. O déficit inteiro
+está nos 27 mundos realmente decididos, onde perdemos 23. As derrotas largas têm mediana de
+−1.932, só uma passa de −10.000, e se espalham por times distintos, nenhum com mais de duas.
+Não é um modo catastrófico nem um adversário específico.
+
+Virar 12 dos 23 leva o cohort a 38/67 = 0,567.
+
+### Próximo
+
+A pergunta é o que acontece nos 23 mundos de derrota larga e não acontece nos 40 apertados.
+Os episódios estão nomeados no relatório, e `elite_events.py` e `planner_milestones.py` já leem
+esse formato de replay.
+
+## 2026-09-10 — o 2x2 causal: CASE 3, e a chave de roteamento está errada
+
+`experiments/regime_counterfactual.py` trocou exatamente uma linha do `router_parent.py` — a
+que atribui `state.plan` no turno 144 — e rodou as duas células que faltavam, nos mesmos
+mundos, seeds, assentos e streams gravados. Detalhes em `docs/REGIME_COUNTERFACTUAL.md`.
+
+| contexto \ regime | ovelha/pasto | coop |
+|---|---:|---:|
+| YARN cedo (n=13) | 0,769 observado | **0,077** forçado |
+| sem YARN (n=54) | **0,185** forçado | 0,296 observado |
+
+**CASE 3.** Célula A: 10/44, net −6 mundos, Δ margem −9.286. Célula B: 1/12, net −9,
+Δ margem −17.564. Ramo verificado por transição de estado: 53/54 ovelha e 13/13 coop, zero
+falhas. Ressalva: o adversário é tape fixo, então a direção é confiável e a magnitude não.
+
+**Mecanismo.** Preço da lã no d15: mediana 1 e colapso em 37/54 sem a loja; mediana 241 e zero
+colapsos com ela. A `YARN_STORE` é o escoadouro. Isso corrige o relatório anterior, que tratou
+o glut de lã como regime ubíquo de 55% dos mundos — os 37 de 67 são exatamente os mundos sem
+loja.
+
+**Biblioteca de regimes.** `regime_library.py` varreu 1.325 episódios públicos, 2.650 assentos,
+zero falhas, e ficou com os 1.264 de times ≥2900. Das oito lojas, **só a `YARN_STORE` muda o
+build da elite** (ovelha 11 contra 5, ganso 0 contra 3, regime dominante `sheep_led`); as
+outras sete deixam o rebanho idêntico. Não existem 2–3 regimes independentes para rotear, e
+portanto a condição declarada para reabrir roteamento aprendido ou RL não foi atingida.
+
+**O achado que move o alvo.** Entre os fortes sem YARN cedo, `sheep_led` ganha 0,671 (n=76)
+contra 0,556 do cow e 0,579 do mixed — enquanto o nosso forçado deu 0,185. A diferença é que
+naqueles 76 assentos a lã estava sã em **76 de 76**. A elite não é melhor com ovelhas; ela
+nunca compromete com ovelha sem comprador para a lã.
+
+Separando a célula A pelo mercado: lã sã (n=17) dá 0,471 contra 0,294 do `v006`, net **+3**;
+lã colapsada (n=37) dá 0,054 contra 0,297, net **−9**. A regra atual tem sensibilidade 1,000
+para o colapso e especificidade 0,433 — ela nunca erra para o lado perigoso, mas nega ovelha a
+17 mundos que a sustentariam. Trocar a chave por "lã vendável" daria **29/67 = 0,433** contra
+0,388, +3 mundos.
+
+**E o obstáculo.** O preço da lã é idêntico nos dois destinos até o dia 9 (206, 212, 215, 217,
+190, 187) e só separa no dia 11. `bal_acc` 0,500 em todos os dias até lá. O `v006` compromete o
+regime no dia 6, **cinco dias antes de a variável que decide o regime existir**.
+
+### Próximo
+
+Adiar o compromisso: manter a `YARN_STORE` como prior no dia 6 e reavaliar quando a demanda por
+lã se revelar, medindo no mesmo cohort. Teto medido: +3 mundos (0,388 → 0,433), com a ressalva
+de que os 17 mundos foram identificados dentro do próprio cohort.
+
+## 2026-09-10 — compromisso adiado rejeitado: o custo de transição excede a informação
+
+`experiments/delayed_commitment.py` construiu a ponte legal do dia 6 ao dia 11 — `state.plan`
+atribuído duas vezes, prefixo no turno 144 e sufixo no 264, overlays intactos — e mediu o teto
+com rótulo do futuro. Detalhes em `docs/DELAYED_COMMITMENT.md`.
+
+    A   v006, coop sempre, sem ponte                 0,2963  (16/54)
+    B1  prefixo coop,  oraculo -> ovelha no d11      0,2037
+    B2  prefixo ovelha, oraculo -> coop no d11       0,1852
+
+**Os dois tetos, com conhecimento perfeito do regime, ficam abaixo do `v006`.** Pela lógica de
+promoção declarada, isso rejeita a direção e a regra observável não foi construída.
+
+O custo de transição, medido com o mesmo regime final:
+
+    termina em ovelha:  0,185 sem ponte -> 0,019 com ponte   custo -0,167
+    termina em coop  :  0,296 sem ponte -> 0,167 com ponte   custo -0,130
+
+Nos 17 mundos de lã sã, a ovelha desde o dia 6 ganha 0,471 e a mesma ovelha alcançada por ponte
+no dia 11 ganha 0,000. A informação não é o gargalo; a execução é. Um tape que constrói 18
+tiles de pasto até o dia 11 não pode ser iniciado no dia 11.
+
+Duas referências delimitam a direção: um oráculo perfeito **no dia 6** (sem ponte) daria 0,3519,
+ou **+3 mundos em 67**; e o melhor-de-todas por mundo, que não é uma política, daria 0,4074.
+
+E esse teto de +3 também não é alcançável: prever "lã sã no d15" a partir de 52 observáveis do
+dia 5/6 dá LOO de **0,639** contra um nulo de seleção de mediana 0,594 e **p95 0,647**. A melhor
+regra fica abaixo do ruído do próprio procedimento.
+
+### O que isso implica
+
+O custo de transição é uma propriedade de **decisões de construção** — terra, pasto, coop,
+rebanho acumulam estado físico e não podem ser retrofitados. Qualquer adaptação tardia sobre os
+tapes do `v006` que mexa nelas paga 13 a 17 pontos. Isso fecha a adaptação de build, não a
+adaptação em geral: decisões de mercado não acumulam estado físico e são comutáveis a qualquer
+momento.
+
+A aritmética aponta para lá: +100 moedas uniformes viram 8 mundos (0,388 -> 0,508) contra os +3
+que o regime perfeito valeria.
+
+### Próximo
+
+Uma decisão de mercado comutável tarde, medida no mesmo cohort. Holdout estrito já preparado: a
+faixa 2400–2600, 195 replays arquivados no total, 3.405 views restantes.
+
+## 2026-09-11 — reprecificando: duas hipóteses de alto ROI testadas e mortas
+
+O usuário interrompeu a linha de trabalho porque o placar não estava se movendo, e estava
+certo. Posição agora: **rank 646 de 8.578, score 2.445,2**, contra 2.548,7 (rank 442) no
+início da sessão. Caímos 103 pontos. O corte do top-10 subiu para 2.961,0, então o gap é de
+**515,8 pontos e aumentando**.
+
+### Hipótese 1: `advance_sales` sem o throttle — provável artefato, não testada até o fim
+
+Remover o `step % 4 == 0` do `advance_sales` deu, no cohort dos 67 mundos: win 0,3881 → 0,7164,
+CIs disjuntos, 23 ganhos contra 1 regressão, margem positiva em 58 de 67.
+
+**Não tratei como ganho.** O `docs/FRONT_RUN_HEADROOM.md` já mediu o teto perfeito de front-run
+em 0,0071 e registra que "a corrida de mercado é resolvida por índice de ordem entre os dois
+assentos". Contra um tape fixo, adiantar a venda ganha a corrida sempre e o oponente nunca
+responde — é exatamente onde o cohort superestima. O teste que decidiria (cara-a-cara com os
+dois vivos) foi morto por memória e continua pendente.
+
+**Consequência para o instrumento:** o cohort superestima sistematicamente qualquer mudança que
+ganhe corrida de ordem. Isso vale para toda medição futura nele.
+
+### Hipótese 2: o refit local destruiu a base — REFUTADA
+
+`yhay81` está em rank 15 com 2.928,0 e o `v006` é o router dele com 9 de 15 células refitadas.
+483 pontos partindo do mesmo artefato sugeria que o refit tinha estragado a base — ainda mais
+porque o refit foi feito em 20.800 partidas **espelhadas em seeds de dev**, a população errada,
+e colapsou 5 das 9 células para o plano 3.
+
+Rodando o `yhay_router_0909` original nos mesmos 67 mundos:
+
+    v006       win 0,3881   CI [0,269, 0,507]
+    yhay0909   win 0,1343   CI [0,060, 0,216]
+    pareado: 3 ganhos, 19 regredidos, net -16
+
+O original é **muito pior**. O refit melhorou sobre o pai. A tabela de roteamento não é a causa
+do gap, e a leitura que sobra é que **yhay81 não submete o que publica**: o notebook vale o que
+já temos, os 2.928 são do autor.
+
+Isso também derruba o atalho "adotar o melhor artefato público" na forma ingênua.
+
+### O que resta por eliminação
+
+O gap de 500 pontos contra times que rodam o **cronograma macro idêntico** ao nosso não é mais
+atribuível a execução (limpa, 204/204 COMPLETED), motor (idêntico, 20/20 exatos), regime (teto
++3 mundos, inalcançável) nem tabela de roteamento (nosso refit bate o pai). A superfície grande
+que nunca foi comparada é o **micro de mercado** — quantidade, timing e preço das ordens, turno
+a turno — contra os 1.264 assentos elite já extraídos em `artifacts/regime-library-rows.json`.
+
+### Próximo
+
+Screen dos artefatos públicos que já temos em disco contra o `v006` nos 67 mundos reais, um
+processo por candidato (a versão em processo único foi morta por memória; a máquina é
+compartilhada). Se nenhum bater o `v006`, não há atalho e o micro de mercado é o alvo.
+
+## 2026-09-10 — schedule compilado rejeitado no Stage 1
+
+O experimento da issue #70 preserva uma conclusão negativa útil e reproduzível, sem alterar o
+comportamento padrão: `compiled_schedule` e a persistência por unidade são opt-in. O gate leu
+estado executado, não pedidos, em 10 mundos dev e ambos os assentos, com zero falhas.
+
+As quotas agregadas tornaram terra e pico de equipe robustos, mas só 2/10 mundos passaram todos
+os gates: mínimos de 13 culturas e 6 pastos em t288, contra metas de 40 e 12. A continuação
+persistente recuperou recursos e chegou a 38–42 culturas e 12 pastos, mas falhou o boundary
+pré-definido 1007: o candidato persistente caiu de 42 para 38 culturas porque compromissos ativos
+sumiam de `jobs`/`planned` e deixavam de alimentar a demanda de sementes (166 estados sem sementes
+contra 2 no controle; BUY_SEED 32 contra 46).
+
+**Decisão:** REJECT no Stage 1; nenhum paired competitivo foi executado. Mantêm-se somente o modo
+desligado por padrão, os testes, o instrumento de capacidade/arbitragem e a evidência em
+`docs/COMPILED_SCHEDULE_PERSISTENCE.md` e nos JSONs associados. A próxima pergunta continua sendo
+o micro de mercado com identidade de bundle corrigida e adversários reativos.

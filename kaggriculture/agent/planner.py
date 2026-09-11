@@ -11,6 +11,124 @@ from .state import State
 # state rather than by counting PASS. Written only when `diagnostics` is enabled.
 DIAGNOSTIC = {}
 
+# Episode-local, opt-in persistent ownership. A match runs in its own process, but the
+# seat key also makes the reset rule explicit when a loader invokes both seats here.
+_SCHEDULE_STATES = {}
+
+def phase_target(step, deadline, target, turns_per_day):
+    """Cumulative target due by the end of the current day.
+
+    Scheduling one day ahead makes the commitment actionable: at hour zero the
+    executor sees the work that must be completed before the next boundary.
+    """
+    if deadline <= 0:
+        return target
+    horizon = min(deadline, step - step % turns_per_day + turns_per_day)
+    return min(target, (target * horizon + deadline - 1) // deadline)
+
+
+def scheduled_phase_value(step, phases):
+    eligible = [count for turn, count in phases if step >= turn]
+    return eligible[-1] if eligible else 0
+
+
+def _scheduled_hire_reserve(compiled, parameters, ordinary_reserve):
+    """Return an explicit zero only for the named land-reserve ablation."""
+    if compiled and parameters['schedule_hires_ignore_land_reserve']:
+        return 0
+    return ordinary_reserve
+
+
+def _schedule_state(state, enabled):
+    if not enabled:
+        return None
+    seat = int(state.obs.get('player', 0))
+    live = _SCHEDULE_STATES.get(seat)
+    if live is None or state.step <= live['last_step']:
+        live = {
+            'last_step': -1,
+            'assignments': {},
+            'released_workers': 0,
+            'completed': {'PLANT': 0, 'BUILD_PASTURE': 0},
+            'invalidated': 0,
+            'duplicate_targets': 0,
+        }
+        _SCHEDULE_STATES[seat] = live
+    live['last_step'] = state.step
+    return live
+
+
+def _scheduled_task_status(tile, task):
+    operation = task['action'][0]
+    if operation == 'PLANT':
+        if (isinstance(tile, dict) and tile.get('kind') == 'PLANT'
+                and tile.get('crop') == task['action'][1]):
+            return 'complete'
+    elif operation == 'BUILD_PASTURE':
+        if isinstance(tile, dict) and tile.get('kind') == 'PASTURE':
+            return 'complete'
+    if tile is None or (isinstance(tile, dict) and tile.get('kind') == 'WEED'):
+        return 'active'
+    return 'invalid'
+
+
+def _reconcile_schedule(live, state):
+    """Release vanished workers and reconcile ownership to the observed tile state."""
+    seen_targets = set()
+    for actor, task in sorted(list(live['assignments'].items())):
+        if actor >= len(state.positions):
+            del live['assignments'][actor]
+            live['released_workers'] += 1
+            continue
+        target = tuple(task['target'])
+        if target in seen_targets:
+            del live['assignments'][actor]
+            live['duplicate_targets'] += 1
+            continue
+        seen_targets.add(target)
+        x, y = target
+        if not (0 <= y < len(state.me['tiles'])
+                and 0 <= x < len(state.me['tiles'][y])):
+            status = 'invalid'
+        else:
+            status = _scheduled_task_status(state.me['tiles'][y][x], task)
+        if status == 'complete':
+            del live['assignments'][actor]
+            live['completed'][task['action'][0]] += 1
+        elif status == 'invalid':
+            del live['assignments'][actor]
+            live['invalidated'] += 1
+
+
+def _trim_schedule(live, state, crop_need, pasture_need):
+    """Keep only observed-state deficits, preferring the closest established routes."""
+    for operation, limit in (('PLANT', crop_need),
+                             ('BUILD_PASTURE', pasture_need)):
+        actors = [actor for actor, task in live['assignments'].items()
+                  if task['action'][0] == operation]
+        actors.sort(key=lambda actor: (
+            distance(state.positions[actor], live['assignments'][actor]['target']),
+            live['assignments'][actor]['assigned_step'], actor))
+        for actor in actors[limit:]:
+            del live['assignments'][actor]
+
+
+def _committed_action(state, actor, task, seeds):
+    """Continue a legal route; a weed is dug without surrendering its target."""
+    target = tuple(task['target'])
+    x, y = target
+    tile = state.me['tiles'][y][x]
+    if _scheduled_task_status(tile, task) != 'active':
+        return None
+    position = state.positions[actor]
+    if distance(position, target):
+        return move_towards(position, target)
+    if isinstance(tile, dict) and tile.get('kind') == 'WEED':
+        return ['DIG']
+    if task['action'][0] == 'PLANT' and seeds.get(task['action'][1], 0) <= 0:
+        return ['PASS']
+    return list(task['action'])
+
 
 def policy(observation, configuration=None, parameters=None):
     p = {**DEFAULTS, **(parameters or {})}
@@ -47,6 +165,22 @@ def policy(observation, configuration=None, parameters=None):
         'PASTURE': max(0, animal_plan['COW'] + animal_plan['SHEEP']
                        - structure_counts['PASTURE']),
     }
+    compiled = bool(p['compiled_schedule'])
+    persistent = compiled and bool(p['schedule_persistent_assignments'])
+    live_schedule = _schedule_state(s, persistent)
+    if persistent:
+        _reconcile_schedule(live_schedule, s)
+    crop_count = sum(t.get('kind') == 'PLANT' for _, _, t in tiles
+                     if isinstance(t, dict))
+    if compiled:
+        structure_need['PASTURE'] = max(
+            structure_need['PASTURE'],
+            p['schedule_pasture_target'] - structure_counts['PASTURE'])
+        # The structural phase proves the body can establish land, pasture and crops
+        # concurrently. Animal inventory is a later phase: buying it now consumes both
+        # the cash and market slots needed by commitments due at t288.
+        if s.step < p['schedule_crop_deadline']:
+            structure_need['COOP'] = 0
     jobs = []
     plantable = []
     fertilize_targets = 0
@@ -134,6 +268,11 @@ def policy(observation, configuration=None, parameters=None):
     plantable.sort(key=lambda pos: (distance(pos, nearest_shed(pos, s.size)), pos))
     build_kinds = [kind for kind in ('PASTURE', 'COOP')
                    for _ in range(structure_need[kind])]
+    if compiled:
+        # The schedule below releases only the cumulative construction quota due
+        # in this phase; carrying the whole final deficit recreates the reactive
+        # opening that filled all land with pasture before planting once.
+        build_kinds = []
     planned = {}
     # Market attack. The engine's price is shallow below the neutral inventory and collapses
     # above it, so a market the opponent depends on and that sits just under neutral is worth
@@ -157,7 +296,51 @@ def policy(observation, configuration=None, parameters=None):
         if leverage:
             attack_crop = max(leverage, key=leverage.get)
     attack_budget = p['attack_tiles'] if attack_crop else 0
+    crop_commitment = 0
+    pasture_commitment = 0
+    if compiled:
+        crop_due = phase_target(s.step, p['schedule_crop_deadline'],
+                                p['schedule_crop_target'], s.turns_per_day)
+        pasture_due = scheduled_phase_value(s.step, p['schedule_pasture_phases'])
+        crop_commitment = max(0, crop_due - crop_count)
+        pasture_commitment = max(0, pasture_due - structure_counts['PASTURE'])
+        if persistent:
+            _trim_schedule(live_schedule, s, crop_commitment, pasture_commitment)
+            assignments = list(live_schedule['assignments'].values())
+            crop_commitment -= sum(task['action'][0] == 'PLANT'
+                                   for task in assignments)
+            pasture_commitment -= sum(task['action'][0] == 'BUILD_PASTURE'
+                                      for task in assignments)
+
+    active_targets = ({tuple(task['target'])
+                       for task in live_schedule['assignments'].values()}
+                      if persistent else set())
+    scheduled_jobs = set()
+    scheduled_targets = set(active_targets)
+    if persistent:
+        available = [pos for pos in plantable if pos not in active_targets]
+        # Reserve the construction lane globally before crop jobs are created. This
+        # prevents crop quota from consuming the tiles the pasture phase still needs.
+        pasture_targets = list(reversed(available))[:pasture_commitment]
+        scheduled_targets.update(pasture_targets)
+        crop_targets = [pos for pos in available if pos not in scheduled_targets][
+            :crop_commitment]
+        scheduled_targets.update(crop_targets)
+        if s.hour < 15:
+            for pos in pasture_targets:
+                action = ['BUILD_PASTURE']
+                jobs.append((pos, action, 135., None))
+                scheduled_jobs.add((pos, tuple(action)))
+        crop = scheduled_phase_value(s.step, p['schedule_crops'])
+        if crop and s.hour < p['plant_until_hour']:
+            for pos in crop_targets:
+                action = ['PLANT', crop]
+                jobs.append((pos, action, 125., None))
+                scheduled_jobs.add((pos, tuple(action)))
+                planned[crop] = planned.get(crop, 0) + 1
     for pos in plantable:
+        if persistent and pos in scheduled_targets:
+            continue
         # Before `attack_until_day` the reservation outranks construction: the target crop
         # needs ten days from planting to first harvest, so a tile committed after about day
         # eight never reaches the market, and the opening is otherwise spent on pasture.
@@ -167,9 +350,21 @@ def policy(observation, configuration=None, parameters=None):
             planned[attack_crop] = planned.get(attack_crop, 0) + 1
             attack_budget -= 1
             continue
-        if build_kinds and s.hour < 15:
+        if compiled and not persistent and crop_commitment and s.hour < p['plant_until_hour']:
+            crop = scheduled_phase_value(s.step, p['schedule_crops'])
+            if crop:
+                jobs.append((pos, ['PLANT', crop], 125., None))
+                planned[crop] = planned.get(crop, 0) + 1
+                crop_commitment -= 1
+                continue
+        if compiled and not persistent and pasture_commitment and s.hour < 15:
+            jobs.append((pos, ['BUILD_PASTURE'], 115., None))
+            pasture_commitment -= 1
+            if 'PASTURE' in build_kinds:
+                build_kinds.remove('PASTURE')
+        elif build_kinds and s.hour < 15:
             jobs.append((pos, ['BUILD_' + build_kinds.pop(0)], 65., None))
-        elif s.hour < p['plant_until_hour']:
+        elif not compiled and s.hour < p['plant_until_hour']:
             # Re-score after every tile we commit: without this the planner rates
             # the second, third and fourth planting of a crop as if the earlier
             # ones did not exist. This corrects the marginal forecast; it does not
@@ -201,13 +396,24 @@ def policy(observation, configuration=None, parameters=None):
         if must_drop:
             unit_actions.append(['DROP'] if home_distance == 0 else move_towards(position, target_shed))
             continue
+        commitment = live_schedule['assignments'].get(index) if persistent else None
+        if commitment:
+            result = _committed_action(s, index, commitment, seeds)
+            if result is not None:
+                if result[0] == 'PLANT':
+                    seeds[result[1]] -= 1
+                    planned_crops[result[1]] = planned_crops.get(result[1], 0) + 1
+                unit_actions.append(result)
+                continue
+            live_schedule['assignments'].pop(index, None)
         ranked = []
         for j, (target, action, value, required) in enumerate(jobs):
             if j in used:
                 continue
             travel = distance(position, target)
             if action[0] == 'PLANT':
-                if seeds.get(action[1], 0) <= 0:
+                is_scheduled = (target, tuple(action)) in scheduled_jobs
+                if seeds.get(action[1], 0) <= 0 and not is_scheduled:
                     continue
                 if s.hour + travel + 2 >= s.turns_per_day:
                     continue
@@ -253,6 +459,12 @@ def policy(observation, configuration=None, parameters=None):
         _, _, chosen = max(ranked)
         target, action, _, required = jobs[chosen]
         used.add(chosen)
+        if persistent and (target, tuple(action)) in scheduled_jobs:
+            live_schedule['assignments'][index] = {
+                'target': target,
+                'action': list(action),
+                'assigned_step': s.step,
+            }
         if required and not inv.get(required, 0):
             if home_distance:
                 result = move_towards(position, target_shed)
@@ -265,6 +477,10 @@ def policy(observation, configuration=None, parameters=None):
         else:
             result = list(action)
             if action[0] == 'PLANT':
+                if seeds.get(action[1], 0) <= 0:
+                    result = ['PASS']
+                    unit_actions.append(result)
+                    continue
                 # Reserve the shared seed pool before the official atomic check.
                 seeds[action[1]] -= 1
                 planned_crops[action[1]] = planned_crops.get(action[1], 0) + 1
@@ -294,9 +510,14 @@ def policy(observation, configuration=None, parameters=None):
     effective_reserve = 0 if risk == 'behind' else p['cash_reserve']
     quadrants = len(s.me['unlocked_quadrants'])
     occupied = sum(t is not None for _, _, t in tiles)
-    land_due = (p['land_reservation'] and quadrants < p['max_quadrants']
-                and s.day >= p['expand_day']
-                and s.days_left > 10 and occupied >= len(tiles) * .75)
+    schedule_land_turns = tuple(p['schedule_land_turns']) if compiled else ()
+    land_index = quadrants - 1
+    schedule_land_due = (compiled and land_index < len(schedule_land_turns)
+                         and s.step >= schedule_land_turns[land_index])
+    land_due = (schedule_land_due or
+                (not compiled and p['land_reservation'] and quadrants < p['max_quadrants']
+                 and s.day >= p['expand_day']
+                 and s.days_left > 10 and occupied >= len(tiles) * .75))
     land_cost = (1000, 2000, 4000)[quadrants - 1] if land_due else 0
     # `land_cost` does two separate jobs: it is the price of the quadrant, and it is the
     # floor every other order has to clear while the expansion is pending. Splitting them
@@ -320,12 +541,17 @@ def policy(observation, configuration=None, parameters=None):
         name: max(0, animal_plan[name] - animal_counts[name] - animal_supply[name])
         for name in ANIMALS
     }
+    if compiled and s.step < p['schedule_animal_deferral_horizon']:
+        purchase_need = dict.fromkeys(purchase_need, 0)
     busy = len(jobs)
     # HIRE is cheap but occupies one of only ten market positions. During herd setup,
     # leave one position per animal chain so nine hires cannot postpone every asset buy.
     animal_order_slots = sum(count > 0 for count in purchase_need.values())
     hire_order_cap = max(0, limit - animal_order_slots)
     desired_hands = min(p['max_hands'], hire_order_cap, max(0, (busy + 2) // 3))
+    if compiled:
+        desired_hands = min(hire_order_cap, max(
+            desired_hands, scheduled_phase_value(s.step, p['schedule_hands'])))
     # Reserving the market slot is not the same as reserving the money. Hires are bought
     # before the herd, so a full opening crew can spend exactly the capital the animal
     # chain needs and postpone it by days. The guard is a condition on capital, not a
@@ -338,7 +564,12 @@ def policy(observation, configuration=None, parameters=None):
         for n in range(desired_hands):
             cost = a * s.config.get('farmHandCostMult', 1)
             if n >= s.me['hires_today']:
-                buy(['HIRE'], cost, essential=True, required_reserve=hire_reserve)
+                # Scheduled labor is productive capacity, not an optional spend. The
+                # aggregate v0 held the next land price over rehires and consequently had
+                # zero hands for whole days. Per-unit commitments need real workers.
+                buy(['HIRE'], cost, essential=True,
+                    required_reserve=_scheduled_hire_reserve(
+                        compiled, p, hire_reserve))
             a, b = b, a + b
     # Existing livestock survives before the herd expands. Buying feed ahead of animal
     # inventory also prevents a new placement from turning the next morning into a rescue.
@@ -380,7 +611,7 @@ def policy(observation, configuration=None, parameters=None):
     if risk != 'ahead':
         # Buy seed for the mix we actually planned; otherwise the planner commits
         # to tiles it has no seed for and the PLANT jobs are filtered out again.
-        wanted = planned if p['planned_feedback'] else (
+        wanted = planned if (p['planned_feedback'] or compiled) else (
             {best_crop: min(12, len(plantable))} if best_crop else {})
         # The attack allocation commits tiles to a crop our own scorer did not choose, so
         # without this its PLANT jobs are generated and then refused for want of seed.
@@ -393,7 +624,7 @@ def policy(observation, configuration=None, parameters=None):
             count = min(count, budget)
             needed = max(0, count - seeds.get(crop, 0))
             if needed and buy(['BUY_SEED', crop, needed], needed * CROPS[crop][0],
-                              essential=True):
+                              essential=True, required_reserve=0 if compiled else None):
                 budget -= count
     # Once livestock exists it generates one fertilizer per animal per day for free.
     # Buying more while that renewable pipeline is active created large shed overflows
