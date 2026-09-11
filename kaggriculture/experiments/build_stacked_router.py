@@ -295,6 +295,54 @@ def front_run(action, view, state, tape, step):
 """
 FRONT_RUN_CALL = '        front_run(action, view, state, tape, step)\n'
 
+SHED_PRIORITY_SOURCE = """
+SHED_TARGET = 88
+
+
+def shed_priority(action, view, step):
+    \"\"\"When the shed is near its cap, clear the cheapest goods and keep the dear ones.
+
+    The shed holds a hundred units and this backbone reaches that cap in every one of the
+    67 archived ladder worlds, sitting at or above ninety-five from day twenty-five. What
+    is held at that point is therefore a choice of composition, not of quantity, and the
+    opponents in the band that decides our rating make it better: entering the final day
+    both sides carry about a hundred units, but theirs are worth 5,517 against our 4,569.
+    We hold three more fertilizer at twenty-five a unit and less wool at a hundred and
+    five, so the same room earns nine hundred less.
+
+    This sells from the cheapest held good upward until the projection is back under the
+    target, which both frees room for the expensive production and leaves the dear goods
+    in the shed for the last day. Wheat and fertilizer feed the farm as well as the
+    market, so a working reserve of each is never sold.
+    \"\"\"
+    if step >= LAST_STEP:
+        return
+    projected = projected_shed(action, view)
+    total = sum(max(0, int(units)) for units in projected.values())
+    if total <= SHED_TARGET:
+        return
+    planned = {}
+    for order in (action.get("market") or []):
+        if order and order[0] == "SELL" and len(order) >= 3 and order[1] in PRODUCTS:
+            planned[order[1]] = planned.get(order[1], 0) + max(0, int(order[2]))
+    reserve = {"WHEAT": 12, "FERTILIZER": 2}
+    holdings = []
+    for item in PRODUCTS:
+        spare = projected.get(item, 0) - planned.get(item, 0) - reserve.get(item, 0)
+        price = int(view.prices.get(item, 0))
+        if spare > 0 and price >= 1:
+            holdings.append((price, item, spare))
+    holdings.sort()
+    excess = total - SHED_TARGET
+    for price, item, spare in holdings:
+        if excess <= 0 or len(action["market"]) >= MAX_ORDERS:
+            break
+        quantity = min(spare, excess)
+        action["market"].append(["SELL", item, quantity])
+        excess -= quantity
+"""
+SHED_PRIORITY_CALL = '        shed_priority(action, view, step)\n'
+
 NOTICE = """
 Uncle Scooge composition (2026-09-09)
 ------------------------------------
@@ -316,7 +364,8 @@ def render_table(table):
 
 def router_source(table=None, room_guard=False, note=None, relax_advance=False,
                   dead_stock=False, hand_align=False, clamp_sells=False,
-                  reserve_sales=False, sale_horizon=2, front_run=False):
+                  reserve_sales=False, sale_horizon=2, front_run=False,
+                  shed_priority=False, liquidate_from=None):
     """The 0909 router, with our table and the public room guard folded in as source."""
     source = (PARENT / 'main.py').read_text()
     if table is not None:
@@ -353,6 +402,22 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
         guard_call = '        room_guard(action, view, step)\n'
         call_after = guard_call if guard_call in source else CALL_SITE
         source = source.replace(call_after, call_after + DEAD_STOCK_CALL, 1)
+    if liquidate_from:
+        old = '        return liquidate(view) if step == LAST_STEP else action'
+        if old not in source:
+            raise ValueError('The parent no longer ends act() the way liquidate_from needs')
+        # The final day's town demand is finite and this backbone takes less of it than the
+        # band does - 8,780 against 10,197 over the 67 archived worlds - so the sweep starts
+        # earlier instead of arriving once, on the very last turn, behind them.
+        source = source.replace(
+            old, '        return liquidate(view) if step >= %d else action' % int(liquidate_from), 1)
+    if shed_priority:
+        anchor = '\ndef subtract_advanced_sales(action, state, step):'
+        guard_call = '        room_guard(action, view, step)\n'
+        if anchor not in source or guard_call not in source:
+            raise ValueError('The parent no longer has the anchors shed_priority needs')
+        source = source.replace(anchor, '\n' + SHED_PRIORITY_SOURCE.strip() + '\n\n' + anchor, 1)
+        source = source.replace(guard_call, guard_call + SHED_PRIORITY_CALL, 1)
     if front_run:
         anchor = '\ndef subtract_advanced_sales(action, state, step):'
         guard_call = '        room_guard(action, view, step)\n'
@@ -382,12 +447,14 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
 
 def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=None,
           relax_advance=False, dead_stock=False, hand_align=False, clamp_sells=False,
-                  reserve_sales=False, sale_horizon=2, front_run=False):
+          reserve_sales=False, sale_horizon=2, front_run=False, shed_priority=False,
+          liquidate_from=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     router = router_source(table, room_guard, note, relax_advance, dead_stock,
                            hand_align, clamp_sells, reserve_sales,
-                           sale_horizon, front_run)
+                           sale_horizon, front_run, shed_priority,
+                           liquidate_from)
     files = {'actions.json': (PARENT / 'actions.json').read_bytes(),
              'LICENSE.txt': (PARENT / 'LICENSE.txt').read_bytes()}
     if terminal_rescue:
@@ -413,7 +480,9 @@ def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=N
                        'hand_align': hand_align, 'clamp_sells': clamp_sells,
                        'reserve_sales': reserve_sales,
                        'sale_horizon': sale_horizon if reserve_sales else None,
-                       'front_run': front_run},
+                       'front_run': front_run,
+                       'shed_priority': shed_priority,
+                       'liquidate_from': liquidate_from},
             'members': {name: hashlib.sha256(payload).hexdigest()
                         for name, payload in sorted(files.items())},
             'archive_sha256': hashlib.sha256(packed).hexdigest(),
@@ -425,6 +494,10 @@ def main():
     parser.add_argument('--table', help='JSON mapping "SHOP|SHOP" to a plan index')
     parser.add_argument('--room-guard', action='store_true')
     parser.add_argument('--terminal-rescue', action='store_true')
+    parser.add_argument('--liquidate-from', type=int,
+                        help='start the terminal sweep at this step instead of 718')
+    parser.add_argument('--shed-priority', action='store_true',
+                        help='clear the cheapest goods when the shed nears its cap')
     parser.add_argument('--front-run', action='store_true',
                         help="sell ahead of the mirror opponent's scheduled livestock sales")
     parser.add_argument('--sale-horizon', type=int, default=2)
@@ -450,7 +523,9 @@ def main():
                            clamp_sells=args.clamp_sells,
                            reserve_sales=args.reserve_sales,
                            sale_horizon=args.sale_horizon,
-                           front_run=args.front_run), indent=2))
+                           front_run=args.front_run,
+                           shed_priority=args.shed_priority,
+                           liquidate_from=args.liquidate_from), indent=2))
 
 
 if __name__ == '__main__':

@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "max_simulations": 128,
+  "passes": 1,
+  "proposals_per_actor": 8
+}

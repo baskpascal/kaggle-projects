@@ -769,3 +769,74 @@ de corrida; a referência precisa ser fixa.
 `v011` submetido, ativas {v011, v007r}, 3 slots hoje. `v007r` em 9 episódios, 1.594,2, subindo
 de 600 contra campo fraco. `v006` em 2.415 e ainda caindo, com 0,496 na faixa 2400-2600 que era
 0,614 há dois dias — o campo sobe e nós estávamos parados.
+
+## 2026-09-11 — o último dia custa 16 partidas, e não dá para vender para sair dele
+
+Primeira análise do **comércio executado dos dois assentos**, lida por transição de estado
+nos 67 mundos arquivados (`artifacts/trade-flows-v006.json`).
+
+Correção de método antes dos números: a amostragem é na hora 0 de cada dia, então tudo
+produzido e vendido dentro do mesmo dia não aparece na variação de estoque. A receita nocional
+que isso produz (13.223) é uma fração do caixa líquido (84.411) e **não deve ser lida como
+receita**. A comparação é simétrica, então a direção vale; a magnitude não.
+
+**O caixa é confiável, e ele mostra onde a partida é decidida.** Diferença de caixa (nós menos
+eles) por dia, separada pelo resultado final:
+
+    dia        vitorias(26)   derrotas(41)
+    1 a 15            +0             +0
+    17                +0            -14
+    21                +0           -211
+    25                +0           -597
+    29            +1.635            -60
+
+Até o dia 15 o caixa é **idêntico** nos dois grupos, e a concordância do sinal com o resultado
+final é 0,493 — cara-e-coroa. Ela só passa de 0,85 no dia 27.
+
+### O vazamento do último dia
+
+Com o dado terminal autoritativo, ganho entre o dia 29 hora 0 e o turno 719:
+
+    nos   mediana  8.780
+    eles  mediana 10.197
+    delta   -699, favoravel a nos em 13 de 67
+
+    estavamos na frente no d29 e perdemos: 16 de 67
+    estavamos atras no d29 e ganhamos:      0 de 67
+
+Dezesseis partidas jogadas fora nas últimas vinte e quatro horas, zero recuperadas, numa faixa
+cuja partida mediana é decidida por 102 moedas. O `v011` não toca nisso: 8.632 de último dia
+contra 8.780 do `v006`, e todo o seu ganho vem dos dias 1 a 28.
+
+### O mecanismo: composição, não quantidade
+
+Entrando no último dia carregamos a mesma quantidade e menos valor:
+
+    unidades             nos  98    eles 100
+    valor cotado      4.569       5.517     delta -948
+
+    FERTILIZER (~25)    5,9         2,6     +3,3
+    MILK       (~83)    6,8         7,9     -1,1
+    STRAWBERRY (~68)   13,3        14,3     -1,0
+    WOOL      (~105)    2,4         3,2     -0,8
+
+O galpão tem teto de 100 unidades e satura em 67 de 67 mundos, então o que ocupa esse espaço é
+uma escolha de composição. Enchemos de fertilizante a 25 enquanto eles guardam lã a 105. A
+entrada de fertilizante é igual (31,8 contra 32,3); eles escoam 29,6 e nós 25,9.
+
+Nota lateral: os dois lados acumulam ~31 cenouras por partida e nenhum vende durante o jogo,
+31% da capacidade num produto de ~62 a unidade. É ponto cego compartilhado do meta público.
+
+### Duas tentativas de conserto, ambas medidas
+
+`shed_priority`, que vende do mais barato para cima quando a projeção passa de 88: **+55**
+apenas, e o estoque no dia 29 não muda. `liquidate_from` mais cedo: **−2.920 no turno 714,
+−3.370 no 708, −4.038 no 700**, com o ganho do último dia caindo de 8.780 para 4.019.
+
+As duas falham pela mesma razão, e ela é o achado: **a demanda diária do town é finita, e o
+`liquidate` substitui a ação inteira**, parando colheita e recolhimento. Não se vende para sair
+de um galpão cheio, e as 8.780 do último dia vêm de produção continuada, não da varredura.
+
+Portanto o vazamento é de **aquisição**, não de escoamento: para carregar valor maior no último
+dia é preciso não adquirir o barato, o que é decisão de construção — com o custo de transição
+de 13 a 17 pontos já medido em `docs/DELAYED_COMMITMENT.md`.
