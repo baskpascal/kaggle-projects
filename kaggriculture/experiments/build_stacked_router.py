@@ -41,6 +41,12 @@ CALL_SITE = '        advance_sales(action, view, state, tape, step)\n'
 ADVANCE_GUARD = ('    if next_step > LAST_STEP or next_step % 72 == 0 '
                  'or step % 4 == 0:')
 RELAXED_ADVANCE = '    if next_step > LAST_STEP or next_step % 72 == 0:'
+# dmitriigluzdov (rank 144) keeps the parent's throttle through the setup days on purpose:
+# "two coins can cost a sheep", and a sale brought forward there can leave the fixed route
+# short of a herd purchase it never recovers from. Relaxing only after the setup phase is a
+# strictly smaller edit than relaxing from turn zero.
+GUARDED_ADVANCE = ('    if next_step > LAST_STEP or next_step %% 72 == 0 '
+                   'or (step < %d and step %% 4 == 0):')
 RESCUE_FILES = ('main.py', 'policy.py', 'terminal_planner.py', 'unit_model.py',
                 'settings.json', 'NOTICE.txt')
 
@@ -365,7 +371,7 @@ def render_table(table):
 def router_source(table=None, room_guard=False, note=None, relax_advance=False,
                   dead_stock=False, hand_align=False, clamp_sells=False,
                   reserve_sales=False, sale_horizon=2, front_run=False,
-                  shed_priority=False, liquidate_from=None):
+                  shed_priority=False, liquidate_from=None, relax_from=None):
     """The 0909 router, with our table and the public room guard folded in as source."""
     source = (PARENT / 'main.py').read_text()
     if table is not None:
@@ -438,7 +444,9 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
     if relax_advance:
         if source.count(ADVANCE_GUARD) != 1:
             raise ValueError('The parent no longer carries the advance_sales throttle')
-        source = source.replace(ADVANCE_GUARD, RELAXED_ADVANCE, 1)
+        replacement = (RELAXED_ADVANCE if not relax_from
+                       else GUARDED_ADVANCE % int(relax_from))
+        source = source.replace(ADVANCE_GUARD, replacement, 1)
     if note:
         source = source.replace('SHOP_PLANS = {', f'# {note}\nSHOP_PLANS = {{', 1)
     compile(source, 'main.py', 'exec')
@@ -448,13 +456,13 @@ def router_source(table=None, room_guard=False, note=None, relax_advance=False,
 def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=None,
           relax_advance=False, dead_stock=False, hand_align=False, clamp_sells=False,
           reserve_sales=False, sale_horizon=2, front_run=False, shed_priority=False,
-          liquidate_from=None):
+          liquidate_from=None, relax_from=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     router = router_source(table, room_guard, note, relax_advance, dead_stock,
                            hand_align, clamp_sells, reserve_sales,
                            sale_horizon, front_run, shed_priority,
-                           liquidate_from)
+                           liquidate_from, relax_from)
     files = {'actions.json': (PARENT / 'actions.json').read_bytes(),
              'LICENSE.txt': (PARENT / 'LICENSE.txt').read_bytes()}
     if terminal_rescue:
@@ -482,7 +490,8 @@ def build(output, *, table=None, room_guard=False, terminal_rescue=False, note=N
                        'sale_horizon': sale_horizon if reserve_sales else None,
                        'front_run': front_run,
                        'shed_priority': shed_priority,
-                       'liquidate_from': liquidate_from},
+                       'liquidate_from': liquidate_from,
+                       'relax_from': relax_from},
             'members': {name: hashlib.sha256(payload).hexdigest()
                         for name, payload in sorted(files.items())},
             'archive_sha256': hashlib.sha256(packed).hexdigest(),
@@ -494,6 +503,8 @@ def main():
     parser.add_argument('--table', help='JSON mapping "SHOP|SHOP" to a plan index')
     parser.add_argument('--room-guard', action='store_true')
     parser.add_argument('--terminal-rescue', action='store_true')
+    parser.add_argument('--relax-from', type=int,
+                        help='keep the parent throttle before this step, relax only after')
     parser.add_argument('--liquidate-from', type=int,
                         help='start the terminal sweep at this step instead of 718')
     parser.add_argument('--shed-priority', action='store_true',
@@ -525,7 +536,8 @@ def main():
                            sale_horizon=args.sale_horizon,
                            front_run=args.front_run,
                            shed_priority=args.shed_priority,
-                           liquidate_from=args.liquidate_from), indent=2))
+                           liquidate_from=args.liquidate_from,
+                           relax_from=args.relax_from), indent=2))
 
 
 if __name__ == '__main__':

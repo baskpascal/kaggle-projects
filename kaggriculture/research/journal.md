@@ -840,3 +840,58 @@ de um galpão cheio, e as 8.780 do último dia vêm de produção continuada, n�
 Portanto o vazamento é de **aquisição**, não de escoamento: para carregar valor maior no último
 dia é preciso não adquirir o barato, o que é decisão de construção — com o custo de transição
 de 13 a 17 pontos já medido em `docs/DELAYED_COMMITMENT.md`.
+
+## 2026-09-11 — a régua passou a cobrir onde o rating é decidido
+
+Três coisas nesta rodada: dados novos, cohort ampliado, e duas camadas medidas.
+
+### O cohort agora tem 195 mundos e continua calibrado
+
+Ampliado de 2600–2800 para 2400–2800, usando os 128 replays da faixa inferior que já estavam
+em disco. O `v006` reproduz o ladder **exatamente** nas duas faixas — 0,5312 em 128 mundos e
+0,3881 em 67 — e a largura do CI caiu de 0,24 para **0,14**, o que é a diferença entre
+distinguir e não distinguir uma melhora de 0,05.
+
+**O foco estava na faixa errada.** Dos 243 episódios do `v006`: 15,9% abaixo de 2400, **54,9%
+em 2400–2600** e 29,2% em 2600–2800. A sessão inteira mediu na faixa de 29%. A de 55% tem win
+0,496 e margem mediana **exatamente +0** em 135 episódios: empate literal, e converter empate
+custa menos que reverter derrota.
+
+### Dados atualizados
+
+Dump de 2026-09-10 sincronizado (657 episódios). Leaderboard de hoje: nós em rank 695 com
+2.417,3, corte do top-10 em 2.953,3, líder 3.137,6. O `yhay81` caiu de 2.928 para 2.880,5 em um
+dia — parte do gap que vinha crescendo é o topo inflado convergindo, não só nós.
+
+### Uma lição de filtro
+
+`pilkwang` publicou hoje um notebook com **103 votos** e está em **rank 1780**. `dmitriigluzdov`
+tem 6 votos e está em rank 144. Votos não medem força; o rank do autor mede. Foi o rank que
+levou ao `reserve_sales`.
+
+### A camada que não paga, e por quê
+
+O notebook "Herd-Safe Sale Window" do `dmitriigluzdov` (rank 144) documenta um modo de falha do
+próprio adiantamento de venda: *"duas moedas podem custar uma ovelha"* — 951 em vez de 953 antes
+de uma compra planejada custou uma ovelha e 22 lãs. Por isso ele preserva os primeiros doze dias
+exatamente como o pai.
+
+Nosso `relax_advance` remove o throttle desde o turno zero. Testado no cohort de 195:
+
+    v011   (relax desde o turno 0)      +804
+    rf288  (throttle ate o dia 12)      +808
+    rf144  (throttle ate o dia 6)       +804
+
+**Neutro.** O aviso é real para o pai deles e inerte para o nosso, e a razão é medível: nos
+primeiros doze dias o estoque é de 17 unidades no dia 5 e 39 no dia 10, então não há o que
+adiantar. Registrado para não ser reaberto.
+
+### Primeiro sinal do ladder
+
+`v007r` chegou a 2.417,3 em 42 episódios, **igualou o `v006` e continua subindo enquanto ele
+cai**, e os dois primeiros episódios na faixa 2400–2600 vieram com margem **+2.634** contra a
+margem +0 que o `v006` tem em 135 episódios da mesma faixa. Dois episódios não provam nada, mas
+é a primeira evidência de que o `relax_advance` transfere, e é na faixa que mais pesa.
+
+Melhor candidato local: `v014` (+833). Não submetido: `v007r` e `v011` são os dois experimentos
+vivos e um terceiro slot aposentaria justamente o que está dando o sinal.
