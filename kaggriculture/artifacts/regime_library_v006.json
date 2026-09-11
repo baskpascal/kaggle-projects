@@ -1,0 +1,2361 @@
+{
+ "seats": 2650,
+ "failures": 0,
+ "by_configuration": {
+  "strong_seats": 1264,
+  "min_rating": 2900.0,
+  "configurations": [
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 53,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 33,
+      "win_rate": 0.6363636363636364,
+      "reward_median": 112208.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 16,
+      "win_rate": 0.625,
+      "reward_median": 108737.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.5,
+      "cow_median": 9.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 59.5
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.5,
+      "reward_median": 120984.5,
+      "teams": [
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 9.5,
+      "cow_median": 6.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 57.0
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "BRUNCH_SPOT"
+    ],
+    "n": 50,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 21,
+      "win_rate": 0.47619047619047616,
+      "reward_median": 78641.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 4,
+      "cow_median": 8,
+      "goose_median": 0,
+      "crop_tiles_median": 62
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 19,
+      "win_rate": 0.631578947368421,
+      "reward_median": 78646.0,
+      "teams": [
+       "Himanshu Kumar",
+       "binghua",
+       "cooked",
+       "kanno",
+       "kay.liechtenstein",
+       "mtmr_s1"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "sheep_led",
+      "n": 7,
+      "win_rate": 0.7142857142857143,
+      "reward_median": 82631.0,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 10,
+      "cow_median": 4,
+      "goose_median": 1,
+      "crop_tiles_median": 56
+     },
+     {
+      "regime": "goose_led",
+      "n": 3,
+      "win_rate": 1.0,
+      "reward_median": 94048.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 3,
+      "cow_median": 3,
+      "goose_median": 10,
+      "crop_tiles_median": 60
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "PET_CAFE"
+    ],
+    "n": 48,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 25,
+      "win_rate": 0.64,
+      "reward_median": 69888.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "binghua",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 7,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 17,
+      "win_rate": 0.4117647058823529,
+      "reward_median": 73776.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 4,
+      "cow_median": 7,
+      "goose_median": 0,
+      "crop_tiles_median": 63
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.25,
+      "reward_median": 83855.5,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10.5,
+      "cow_median": 4.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 59.5
+     },
+     {
+      "regime": "goose_led",
+      "n": 2,
+      "win_rate": 0.5,
+      "reward_median": 77190.0,
+      "teams": [
+       "Otter Vibe",
+       "feel the agi"
+      ],
+      "sheep_median": 5.0,
+      "cow_median": 4.0,
+      "goose_median": 9.5,
+      "crop_tiles_median": 56.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "ICE_CREAM_SHOP",
+     "PIZZA_SHOP"
+    ],
+    "n": 47,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 27,
+      "win_rate": 0.5555555555555556,
+      "reward_median": 107668.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "feel the agi"
+      ],
+      "sheep_median": 2,
+      "cow_median": 12,
+      "goose_median": 0,
+      "crop_tiles_median": 58
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 19,
+      "win_rate": 0.42105263157894735,
+      "reward_median": 113329.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "Yusuke Hayashi",
+       "binghua"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 100967.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 12,
+      "cow_median": 10,
+      "goose_median": 0,
+      "crop_tiles_median": 51
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "PIZZA_SHOP"
+    ],
+    "n": 47,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 24,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 81870.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 9.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 58.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 22,
+      "win_rate": 0.6363636363636364,
+      "reward_median": 78345.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "cooked",
+       "feel the agi"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 85755.0,
+      "teams": [
+       "pensukesan"
+      ],
+      "sheep_median": 10,
+      "cow_median": 7,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PIZZA_SHOP",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 44,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 27,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 111775.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "feel the agi",
+       "\u30c7\u30ef\u30f3\u30b7\u30e5"
+      ],
+      "sheep_median": 3,
+      "cow_median": 12,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 15,
+      "win_rate": 0.4,
+      "reward_median": 107369.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "Yusuke Hayashi",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "sheep_led",
+      "n": 2,
+      "win_rate": 0.5,
+      "reward_median": 95065.5,
+      "teams": [
+       "SpaTaro",
+       "Tarang222"
+      ],
+      "sheep_median": 13.0,
+      "cow_median": 8.0,
+      "goose_median": 1.0,
+      "crop_tiles_median": 49.0
+     }
+    ]
+   },
+   {
+    "shops": [
+     "ICE_CREAM_SHOP",
+     "YARN_STORE"
+    ],
+    "n": 44,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 35,
+      "win_rate": 0.5428571428571428,
+      "reward_median": 119085.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Squirrel",
+       "Tarang222"
+      ],
+      "sheep_median": 11,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 6,
+      "win_rate": 0.5,
+      "reward_median": 143970.0,
+      "teams": [
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 10.0,
+      "cow_median": 11.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 51.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 3,
+      "win_rate": 1.0,
+      "reward_median": 156298.0,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222"
+      ],
+      "sheep_median": 9,
+      "cow_median": 9,
+      "goose_median": 2,
+      "crop_tiles_median": 55
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PET_CAFE",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 43,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 22,
+      "win_rate": 0.5454545454545454,
+      "reward_median": 87458.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "binghua",
+       "kanno",
+       "let cats farm"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 14,
+      "win_rate": 0.5714285714285714,
+      "reward_median": 100810.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 10.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 59.5
+     },
+     {
+      "regime": "sheep_led",
+      "n": 7,
+      "win_rate": 0.8571428571428571,
+      "reward_median": 99335.0,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "let cats farm"
+      ],
+      "sheep_median": 10,
+      "cow_median": 8,
+      "goose_median": 0,
+      "crop_tiles_median": 56
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "YARN_STORE"
+    ],
+    "n": 43,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 41,
+      "win_rate": 0.7317073170731707,
+      "reward_median": 88554.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 11,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 56
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 2,
+      "win_rate": 0.5,
+      "reward_median": 95009.0,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222"
+      ],
+      "sheep_median": 9.0,
+      "cow_median": 6.0,
+      "goose_median": 4.5,
+      "crop_tiles_median": 55.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "ICE_CREAM_SHOP",
+     "PET_CAFE"
+    ],
+    "n": 43,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 22,
+      "win_rate": 0.5454545454545454,
+      "reward_median": 84777.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 17,
+      "win_rate": 0.5294117647058824,
+      "reward_median": 88945.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3,
+      "cow_median": 10,
+      "goose_median": 0,
+      "crop_tiles_median": 59
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.75,
+      "reward_median": 103172.0,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "Tarang222",
+       "cooked"
+      ],
+      "sheep_median": 10.0,
+      "cow_median": 6.5,
+      "goose_median": 1.5,
+      "crop_tiles_median": 53.0
+     }
+    ]
+   },
+   {
+    "shops": [
+     "ICE_CREAM_SHOP",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 42,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 25,
+      "win_rate": 0.56,
+      "reward_median": 119314.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "feel the agi",
+       "let cats farm"
+      ],
+      "sheep_median": 4,
+      "cow_median": 11,
+      "goose_median": 0,
+      "crop_tiles_median": 58
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 17,
+      "win_rate": 0.5294117647058824,
+      "reward_median": 130447.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 42,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 18,
+      "win_rate": 0.6111111111111112,
+      "reward_median": 107156.5,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 9.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 60.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 16,
+      "win_rate": 0.6875,
+      "reward_median": 112644.5,
+      "teams": [
+       "Hello San Francisco",
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "cooked",
+       "kanno",
+       "mtmr_s1"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 8,
+      "win_rate": 0.75,
+      "reward_median": 102846.5,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 10.0,
+      "cow_median": 7.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 55.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "PET_CAFE"
+    ],
+    "n": 41,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 17,
+      "win_rate": 0.7058823529411765,
+      "reward_median": 78663.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Squirrel",
+       "Tarang222",
+       "binghua",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 16,
+      "win_rate": 0.375,
+      "reward_median": 90296.5,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 6.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 64.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 5,
+      "win_rate": 0.6,
+      "reward_median": 86736.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro"
+      ],
+      "sheep_median": 10,
+      "cow_median": 4,
+      "goose_median": 0,
+      "crop_tiles_median": 59
+     },
+     {
+      "regime": "goose_led",
+      "n": 3,
+      "win_rate": 0.3333333333333333,
+      "reward_median": 92134.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 3,
+      "cow_median": 4,
+      "goose_median": 10,
+      "crop_tiles_median": 58
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "PIZZA_SHOP"
+    ],
+    "n": 40,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 22,
+      "win_rate": 0.5454545454545454,
+      "reward_median": 96717.5,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 10.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 59.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 16,
+      "win_rate": 0.375,
+      "reward_median": 94284.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "binghua"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 2,
+      "win_rate": 1.0,
+      "reward_median": 83220.5,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10.5,
+      "cow_median": 6.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 52.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "PET_CAFE"
+    ],
+    "n": 40,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 22,
+      "win_rate": 0.45454545454545453,
+      "reward_median": 81278.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "binghua",
+       "kanno",
+       "let cats farm"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 5.5,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 12,
+      "win_rate": 0.5,
+      "reward_median": 84659.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 3.5,
+      "cow_median": 9.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 62.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.5,
+      "reward_median": 85279.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10.0,
+      "cow_median": 4.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 61.0
+     },
+     {
+      "regime": "goose_led",
+      "n": 2,
+      "win_rate": 1.0,
+      "reward_median": 89610.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 4.0,
+      "cow_median": 4.0,
+      "goose_median": 9.5,
+      "crop_tiles_median": 57.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "FARMERS_MARKET"
+    ],
+    "n": 40,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 19,
+      "win_rate": 0.5263157894736842,
+      "reward_median": 82711.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "binghua",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 16,
+      "win_rate": 0.6875,
+      "reward_median": 77905.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 3.5,
+      "cow_median": 7.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 64.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 5,
+      "win_rate": 0.8,
+      "reward_median": 83177.0,
+      "teams": [
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 9,
+      "cow_median": 5,
+      "goose_median": 0,
+      "crop_tiles_median": 59
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PET_CAFE",
+     "YARN_STORE"
+    ],
+    "n": 39,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 35,
+      "win_rate": 0.6571428571428571,
+      "reward_median": 95174.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Squirrel",
+       "binghua"
+      ],
+      "sheep_median": 11,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 4,
+      "win_rate": 0.5,
+      "reward_median": 97078.5,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222"
+      ],
+      "sheep_median": 8.5,
+      "cow_median": 5.5,
+      "goose_median": 4.0,
+      "crop_tiles_median": 57.0
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "PIZZA_SHOP"
+    ],
+    "n": 39,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 21,
+      "win_rate": 0.5238095238095238,
+      "reward_median": 93426.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3,
+      "cow_median": 9,
+      "goose_median": 0,
+      "crop_tiles_median": 61
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 17,
+      "win_rate": 0.47058823529411764,
+      "reward_median": 91404.0,
+      "teams": [
+       "Hello San Francisco",
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "Squirrel",
+       "binghua"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 107458.0,
+      "teams": [
+       "binghua"
+      ],
+      "sheep_median": 9,
+      "cow_median": 8,
+      "goose_median": 0,
+      "crop_tiles_median": 56
+     }
+    ]
+   },
+   {
+    "shops": [
+     "SMOOTHIE_SHOP",
+     "YARN_STORE"
+    ],
+    "n": 38,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 26,
+      "win_rate": 0.5384615384615384,
+      "reward_median": 119422.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Squirrel",
+       "binghua"
+      ],
+      "sheep_median": 11.0,
+      "cow_median": 6.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 6,
+      "win_rate": 0.5,
+      "reward_median": 139685.5,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro"
+      ],
+      "sheep_median": 9.5,
+      "cow_median": 13.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 51.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 6,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 130490.0,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222"
+      ],
+      "sheep_median": 10.5,
+      "cow_median": 8.5,
+      "goose_median": 2.0,
+      "crop_tiles_median": 53.0
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "ICE_CREAM_SHOP"
+    ],
+    "n": 36,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 18,
+      "win_rate": 0.3888888888888889,
+      "reward_median": 99058.5,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 9.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 61.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 17,
+      "win_rate": 0.6470588235294118,
+      "reward_median": 94158.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 104331.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 12,
+      "cow_median": 8,
+      "goose_median": 0,
+      "crop_tiles_median": 55
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PET_CAFE",
+     "PIZZA_SHOP"
+    ],
+    "n": 35,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 18,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 77291.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "Tarang222",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 16,
+      "win_rate": 0.625,
+      "reward_median": 85152.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "\u30c7\u30ef\u30f3\u30b7\u30e5"
+      ],
+      "sheep_median": 5.0,
+      "cow_median": 9.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 58.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 86949.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 8,
+      "cow_median": 7,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "YARN_STORE"
+    ],
+    "n": 35,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 29,
+      "win_rate": 0.4827586206896552,
+      "reward_median": 110258.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Squirrel",
+       "Yusuke Hayashi",
+       "binghua"
+      ],
+      "sheep_median": 10,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 6,
+      "win_rate": 0.5,
+      "reward_median": 112960.0,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222"
+      ],
+      "sheep_median": 9.0,
+      "cow_median": 5.5,
+      "goose_median": 5.0,
+      "crop_tiles_median": 54.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "FARMERS_MARKET"
+    ],
+    "n": 32,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 15,
+      "win_rate": 0.4666666666666667,
+      "reward_median": 106384.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 4,
+      "cow_median": 6,
+      "goose_median": 1,
+      "crop_tiles_median": 64
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 12,
+      "win_rate": 0.5833333333333334,
+      "reward_median": 98922.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "binghua",
+       "cooked",
+       "kay.liechtenstein"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.5,
+      "reward_median": 88214.0,
+      "teams": [
+       "SpaTaro",
+       "cooked"
+      ],
+      "sheep_median": 9.5,
+      "cow_median": 4.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 59.5
+     },
+     {
+      "regime": "goose_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 112991.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 3,
+      "cow_median": 5,
+      "goose_median": 8,
+      "crop_tiles_median": 59
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "YARN_STORE"
+    ],
+    "n": 32,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 31,
+      "win_rate": 0.5483870967741935,
+      "reward_median": 112940.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Tarang222",
+       "binghua"
+      ],
+      "sheep_median": 11,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 1,
+      "win_rate": 0.0,
+      "reward_median": 115059.0,
+      "teams": [
+       "Tarang222"
+      ],
+      "sheep_median": 8,
+      "cow_median": 5,
+      "goose_median": 4,
+      "crop_tiles_median": 58
+     }
+    ]
+   },
+   {
+    "shops": [
+     "ICE_CREAM_SHOP",
+     "ICE_CREAM_SHOP"
+    ],
+    "n": 31,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 20,
+      "win_rate": 0.65,
+      "reward_median": 122347.5,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua",
+       "\u30c7\u30ef\u30f3\u30b7\u30e5"
+      ],
+      "sheep_median": 4.0,
+      "cow_median": 12.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 58.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 10,
+      "win_rate": 0.3,
+      "reward_median": 133267.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "cooked",
+       "mtmr_s1"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 131016.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10,
+      "cow_median": 9,
+      "goose_median": 0,
+      "crop_tiles_median": 56
+     }
+    ]
+   },
+   {
+    "shops": [
+     "FARMERS_MARKET",
+     "ICE_CREAM_SHOP"
+    ],
+    "n": 31,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 14,
+      "win_rate": 0.5,
+      "reward_median": 103895.0,
+      "teams": [
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 9.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 62.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 14,
+      "win_rate": 0.7857142857142857,
+      "reward_median": 108165.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Squirrel",
+       "cooked",
+       "kanno",
+       "let cats farm"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 3,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 102692.0,
+      "teams": [
+       "SpaTaro",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 8,
+      "cow_median": 6,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 29,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 15,
+      "win_rate": 0.6,
+      "reward_median": 86434.0,
+      "teams": [
+       "Hello San Francisco",
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 13,
+      "win_rate": 0.5384615384615384,
+      "reward_median": 88986.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua",
+       "feel the agi"
+      ],
+      "sheep_median": 3,
+      "cow_median": 9,
+      "goose_median": 0,
+      "crop_tiles_median": 58
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 0.0,
+      "reward_median": 75831.0,
+      "teams": [
+       "let cats farm"
+      ],
+      "sheep_median": 9,
+      "cow_median": 8,
+      "goose_median": 0,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "FARMERS_MARKET"
+    ],
+    "n": 29,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 13,
+      "win_rate": 0.6153846153846154,
+      "reward_median": 103658.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 3,
+      "cow_median": 7,
+      "goose_median": 0,
+      "crop_tiles_median": 64
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 12,
+      "win_rate": 0.75,
+      "reward_median": 105059.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "Tarang222",
+       "cooked",
+       "kanno",
+       "mtmr_s1"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 4,
+      "win_rate": 0.5,
+      "reward_median": 110065.0,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 9.5,
+      "cow_median": 4.5,
+      "goose_median": 0.5,
+      "crop_tiles_median": 57.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "ICE_CREAM_SHOP"
+    ],
+    "n": 28,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 14,
+      "win_rate": 0.7142857142857143,
+      "reward_median": 106459.5,
+      "teams": [
+       "Otter Vibe",
+       "Squirrel",
+       "Tarang222",
+       "Yusuke Hayashi",
+       "binghua",
+       "cooked"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 13,
+      "win_rate": 0.5384615384615384,
+      "reward_median": 114971.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 5,
+      "cow_median": 9,
+      "goose_median": 0,
+      "crop_tiles_median": 58
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 100316.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10,
+      "cow_median": 7,
+      "goose_median": 0,
+      "crop_tiles_median": 58
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PIZZA_SHOP",
+     "YARN_STORE"
+    ],
+    "n": 23,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 20,
+      "win_rate": 0.55,
+      "reward_median": 101117.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Mengfei Li",
+       "Otter Vibe",
+       "SpaTaro",
+       "Squirrel",
+       "Tarang222"
+      ],
+      "sheep_median": 11.0,
+      "cow_median": 6.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 2,
+      "win_rate": 1.0,
+      "reward_median": 127858.5,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10.5,
+      "cow_median": 15.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 48.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 1,
+      "win_rate": 0.0,
+      "reward_median": 123758.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 10,
+      "cow_median": 9,
+      "goose_median": 3,
+      "crop_tiles_median": 53
+     }
+    ]
+   },
+   {
+    "shops": [
+     "SMOOTHIE_SHOP",
+     "SMOOTHIE_SHOP"
+    ],
+    "n": 19,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 12,
+      "win_rate": 0.5833333333333334,
+      "reward_median": 126303.5,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "Tarang222",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 11.5,
+      "goose_median": 2.0,
+      "crop_tiles_median": 56.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 7,
+      "win_rate": 0.5714285714285714,
+      "reward_median": 130686.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Squirrel",
+       "Tarang222",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BAKERY",
+     "BAKERY"
+    ],
+    "n": 18,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 8,
+      "win_rate": 0.625,
+      "reward_median": 67178.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 4.0,
+      "cow_median": 8.0,
+      "goose_median": 0.0,
+      "crop_tiles_median": 63.0
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 8,
+      "win_rate": 0.375,
+      "reward_median": 69309.5,
+      "teams": [
+       "Tarang222",
+       "binghua",
+       "kanno",
+       "mtmr_s1"
+      ],
+      "sheep_median": 7.0,
+      "cow_median": 5.0,
+      "goose_median": 4.0,
+      "crop_tiles_median": 58.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 0.0,
+      "reward_median": 59122.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 5,
+      "cow_median": 4,
+      "goose_median": 0,
+      "crop_tiles_median": 66
+     },
+     {
+      "regime": "goose_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 86153.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 4,
+      "cow_median": 5,
+      "goose_median": 10,
+      "crop_tiles_median": 56
+     }
+    ]
+   },
+   {
+    "shops": [
+     "BRUNCH_SPOT",
+     "BRUNCH_SPOT"
+    ],
+    "n": 17,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 10,
+      "win_rate": 0.6,
+      "reward_median": 99069.5,
+      "teams": [
+       "Himanshu Kumar",
+       "Squirrel",
+       "Tarang222",
+       "binghua",
+       "cooked",
+       "kanno"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "cow_led",
+      "n": 6,
+      "win_rate": 0.3333333333333333,
+      "reward_median": 93320.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.5,
+      "cow_median": 7.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 63.5
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 97046.0,
+      "teams": [
+       "SpaTaro"
+      ],
+      "sheep_median": 10,
+      "cow_median": 4,
+      "goose_median": 0,
+      "crop_tiles_median": 61
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PIZZA_SHOP",
+     "PIZZA_SHOP"
+    ],
+    "n": 16,
+    "regimes": [
+     {
+      "regime": "cow_led",
+      "n": 8,
+      "win_rate": 0.625,
+      "reward_median": 98248.5,
+      "teams": [
+       "Otter Vibe",
+       "SpaTaro",
+       "binghua"
+      ],
+      "sheep_median": 3.0,
+      "cow_median": 11.5,
+      "goose_median": 2.0,
+      "crop_tiles_median": 56.5
+     },
+     {
+      "regime": "mixed_herd",
+      "n": 6,
+      "win_rate": 0.8333333333333334,
+      "reward_median": 98616.5,
+      "teams": [
+       "Himanshu Kumar",
+       "cooked",
+       "kanno",
+       "mtmr_s1"
+      ],
+      "sheep_median": 6.0,
+      "cow_median": 8.0,
+      "goose_median": 3.0,
+      "crop_tiles_median": 57.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 2,
+      "win_rate": 0.5,
+      "reward_median": 115222.0,
+      "teams": [
+       "Tarang222",
+       "binghua"
+      ],
+      "sheep_median": 12.0,
+      "cow_median": 8.5,
+      "goose_median": 1.5,
+      "crop_tiles_median": 49.5
+     }
+    ]
+   },
+   {
+    "shops": [
+     "PET_CAFE",
+     "PET_CAFE"
+    ],
+    "n": 15,
+    "regimes": [
+     {
+      "regime": "mixed_herd",
+      "n": 7,
+      "win_rate": 0.5714285714285714,
+      "reward_median": 78224.0,
+      "teams": [
+       "Otter Vibe",
+       "Tarang222",
+       "kanno",
+       "mtmr_s1",
+       "\u30c7\u30ef\u30f3\u30b7\u30e5"
+      ],
+      "sheep_median": 6,
+      "cow_median": 8,
+      "goose_median": 3,
+      "crop_tiles_median": 57
+     },
+     {
+      "regime": "cow_led",
+      "n": 6,
+      "win_rate": 0.6666666666666666,
+      "reward_median": 76164.0,
+      "teams": [
+       "Mengfei Li",
+       "SpaTaro"
+      ],
+      "sheep_median": 4.5,
+      "cow_median": 7.5,
+      "goose_median": 0.0,
+      "crop_tiles_median": 60.0
+     },
+     {
+      "regime": "sheep_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 76069.0,
+      "teams": [
+       "binghua"
+      ],
+      "sheep_median": 9,
+      "cow_median": 5,
+      "goose_median": 3,
+      "crop_tiles_median": 54
+     },
+     {
+      "regime": "goose_led",
+      "n": 1,
+      "win_rate": 1.0,
+      "reward_median": 115028.0,
+      "teams": [
+       "Otter Vibe"
+      ],
+      "sheep_median": 2,
+      "cow_median": 4,
+      "goose_median": 10,
+      "crop_tiles_median": 59
+     }
+    ]
+   },
+   {
+    "shops": [
+     "YARN_STORE",
+     "YARN_STORE"
+    ],
+    "n": 15,
+    "regimes": [
+     {
+      "regime": "sheep_led",
+      "n": 15,
+      "win_rate": 0.6,
+      "reward_median": 126784.0,
+      "teams": [
+       "Himanshu Kumar",
+       "Otter Vibe",
+       "SpaTaro",
+       "Tarang222",
+       "binghua",
+       "kanno"
+      ],
+      "sheep_median": 14,
+      "cow_median": 5,
+      "goose_median": 0,
+      "crop_tiles_median": 55
+     }
+    ]
+   }
+  ]
+ },
+ "by_shop_identity": [
+  {
+   "shop": "BAKERY",
+   "present": 311,
+   "absent": 953,
+   "regimes_present": [
+    [
+     "mixed_herd",
+     127
+    ],
+    [
+     "cow_led",
+     117
+    ],
+    [
+     "sheep_led",
+     61
+    ],
+    [
+     "goose_led",
+     6
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "cow_led",
+     352
+    ],
+    [
+     "mixed_herd",
+     347
+    ],
+    [
+     "sheep_led",
+     247
+    ],
+    [
+     "goose_led",
+     7
+    ]
+   ],
+   "cow_present_median": 8,
+   "cow_absent_median": 8,
+   "sheep_present_median": 6,
+   "sheep_absent_median": 6,
+   "goose_present_median": 3,
+   "goose_absent_median": 2
+  },
+  {
+   "shop": "BRUNCH_SPOT",
+   "present": 292,
+   "absent": 972,
+   "regimes_present": [
+    [
+     "mixed_herd",
+     132
+    ],
+    [
+     "cow_led",
+     103
+    ],
+    [
+     "sheep_led",
+     52
+    ],
+    [
+     "goose_led",
+     5
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "cow_led",
+     366
+    ],
+    [
+     "mixed_herd",
+     342
+    ],
+    [
+     "sheep_led",
+     256
+    ],
+    [
+     "goose_led",
+     8
+    ]
+   ],
+   "cow_present_median": 8.0,
+   "cow_absent_median": 8.0,
+   "sheep_present_median": 6.0,
+   "sheep_absent_median": 6.0,
+   "goose_present_median": 3.0,
+   "goose_absent_median": 2.0
+  },
+  {
+   "shop": "FARMERS_MARKET",
+   "present": 286,
+   "absent": 978,
+   "regimes_present": [
+    [
+     "cow_led",
+     113
+    ],
+    [
+     "mixed_herd",
+     108
+    ],
+    [
+     "sheep_led",
+     61
+    ],
+    [
+     "goose_led",
+     4
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "mixed_herd",
+     366
+    ],
+    [
+     "cow_led",
+     356
+    ],
+    [
+     "sheep_led",
+     247
+    ],
+    [
+     "goose_led",
+     9
+    ]
+   ],
+   "cow_present_median": 8.0,
+   "cow_absent_median": 8.0,
+   "sheep_present_median": 6.0,
+   "sheep_absent_median": 6.0,
+   "goose_present_median": 3.0,
+   "goose_absent_median": 2.0
+  },
+  {
+   "shop": "ICE_CREAM_SHOP",
+   "present": 302,
+   "absent": 962,
+   "regimes_present": [
+    [
+     "cow_led",
+     140
+    ],
+    [
+     "mixed_herd",
+     116
+    ],
+    [
+     "sheep_led",
+     46
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "mixed_herd",
+     358
+    ],
+    [
+     "cow_led",
+     329
+    ],
+    [
+     "sheep_led",
+     262
+    ],
+    [
+     "goose_led",
+     13
+    ]
+   ],
+   "cow_present_median": 8.0,
+   "cow_absent_median": 8.0,
+   "sheep_present_median": 6.0,
+   "sheep_absent_median": 6.0,
+   "goose_present_median": 2.0,
+   "goose_absent_median": 2.0
+  },
+  {
+   "shop": "PET_CAFE",
+   "present": 304,
+   "absent": 960,
+   "regimes_present": [
+    [
+     "mixed_herd",
+     137
+    ],
+    [
+     "cow_led",
+     98
+    ],
+    [
+     "sheep_led",
+     61
+    ],
+    [
+     "goose_led",
+     8
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "cow_led",
+     371
+    ],
+    [
+     "mixed_herd",
+     337
+    ],
+    [
+     "sheep_led",
+     247
+    ],
+    [
+     "goose_led",
+     5
+    ]
+   ],
+   "cow_present_median": 8.0,
+   "cow_absent_median": 8.0,
+   "sheep_present_median": 6.0,
+   "sheep_absent_median": 6.0,
+   "goose_present_median": 3.0,
+   "goose_absent_median": 2.0
+  },
+  {
+   "shop": "PIZZA_SHOP",
+   "present": 291,
+   "absent": 973,
+   "regimes_present": [
+    [
+     "cow_led",
+     147
+    ],
+    [
+     "mixed_herd",
+     114
+    ],
+    [
+     "sheep_led",
+     30
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "mixed_herd",
+     360
+    ],
+    [
+     "cow_led",
+     322
+    ],
+    [
+     "sheep_led",
+     278
+    ],
+    [
+     "goose_led",
+     13
+    ]
+   ],
+   "cow_present_median": 8,
+   "cow_absent_median": 8,
+   "sheep_present_median": 6,
+   "sheep_absent_median": 6,
+   "goose_present_median": 2,
+   "goose_absent_median": 2
+  },
+  {
+   "shop": "SMOOTHIE_SHOP",
+   "present": 310,
+   "absent": 954,
+   "regimes_present": [
+    [
+     "cow_led",
+     131
+    ],
+    [
+     "mixed_herd",
+     131
+    ],
+    [
+     "sheep_led",
+     48
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "mixed_herd",
+     343
+    ],
+    [
+     "cow_led",
+     338
+    ],
+    [
+     "sheep_led",
+     260
+    ],
+    [
+     "goose_led",
+     13
+    ]
+   ],
+   "cow_present_median": 8.0,
+   "cow_absent_median": 8.0,
+   "sheep_present_median": 6.0,
+   "sheep_absent_median": 6.0,
+   "goose_present_median": 2.0,
+   "goose_absent_median": 2.0
+  },
+  {
+   "shop": "YARN_STORE",
+   "present": 269,
+   "absent": 995,
+   "regimes_present": [
+    [
+     "sheep_led",
+     232
+    ],
+    [
+     "mixed_herd",
+     23
+    ],
+    [
+     "cow_led",
+     14
+    ]
+   ],
+   "regimes_absent": [
+    [
+     "cow_led",
+     455
+    ],
+    [
+     "mixed_herd",
+     451
+    ],
+    [
+     "sheep_led",
+     76
+    ],
+    [
+     "goose_led",
+     13
+    ]
+   ],
+   "cow_present_median": 6,
+   "cow_absent_median": 8,
+   "sheep_present_median": 11,
+   "sheep_absent_median": 5,
+   "goose_present_median": 0,
+   "goose_absent_median": 3
+  }
+ ]
+}

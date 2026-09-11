@@ -1,0 +1,6107 @@
+{
+ "counts": {
+  "wide_loss": 23,
+  "tight": 40,
+  "wide_win": 4
+ },
+ "flip_curve": {
+  "worlds": 67,
+  "base_wins": 26,
+  "base_win_rate": 0.3880597014925373,
+  "curve": [
+   {
+    "shift": 0,
+    "wins": 26,
+    "flips": 0,
+    "win_rate": 0.3880597014925373
+   },
+   {
+    "shift": 50,
+    "wins": 32,
+    "flips": 6,
+    "win_rate": 0.47761194029850745
+   },
+   {
+    "shift": 100,
+    "wins": 34,
+    "flips": 8,
+    "win_rate": 0.5074626865671642
+   },
+   {
+    "shift": 200,
+    "wins": 35,
+    "flips": 9,
+    "win_rate": 0.5223880597014925
+   },
+   {
+    "shift": 350,
+    "wins": 36,
+    "flips": 10,
+    "win_rate": 0.5373134328358209
+   },
+   {
+    "shift": 500,
+    "wins": 37,
+    "flips": 11,
+    "win_rate": 0.5522388059701493
+   },
+   {
+    "shift": 630,
+    "wins": 38,
+    "flips": 12,
+    "win_rate": 0.5671641791044776
+   },
+   {
+    "shift": 750,
+    "wins": 40,
+    "flips": 14,
+    "win_rate": 0.5970149253731343
+   },
+   {
+    "shift": 1000,
+    "wins": 44,
+    "flips": 18,
+    "win_rate": 0.6567164179104478
+   },
+   {
+    "shift": 1500,
+    "wins": 51,
+    "flips": 25,
+    "win_rate": 0.7611940298507462
+   },
+   {
+    "shift": 2000,
+    "wins": 56,
+    "flips": 30,
+    "win_rate": 0.835820895522388
+   }
+  ],
+  "cost_per_flip": [
+   {
+    "flips": 1,
+    "coins_required": 2,
+    "win_rate": 0.40298507462686567
+   },
+   {
+    "flips": 2,
+    "coins_required": 2,
+    "win_rate": 0.417910447761194
+   },
+   {
+    "flips": 3,
+    "coins_required": 2,
+    "win_rate": 0.43283582089552236
+   },
+   {
+    "flips": 4,
+    "coins_required": 4,
+    "win_rate": 0.44776119402985076
+   },
+   {
+    "flips": 5,
+    "coins_required": 5,
+    "win_rate": 0.4626865671641791
+   },
+   {
+    "flips": 6,
+    "coins_required": 21,
+    "win_rate": 0.47761194029850745
+   },
+   {
+    "flips": 7,
+    "coins_required": 93,
+    "win_rate": 0.4925373134328358
+   },
+   {
+    "flips": 8,
+    "coins_required": 95,
+    "win_rate": 0.5074626865671642
+   },
+   {
+    "flips": 9,
+    "coins_required": 143,
+    "win_rate": 0.5223880597014925
+   },
+   {
+    "flips": 10,
+    "coins_required": 212,
+    "win_rate": 0.5373134328358209
+   },
+   {
+    "flips": 11,
+    "coins_required": 350,
+    "win_rate": 0.5522388059701493
+   },
+   {
+    "flips": 12,
+    "coins_required": 629,
+    "win_rate": 0.5671641791044776
+   },
+   {
+    "flips": 13,
+    "coins_required": 643,
+    "win_rate": 0.582089552238806
+   },
+   {
+    "flips": 14,
+    "coins_required": 739,
+    "win_rate": 0.5970149253731343
+   },
+   {
+    "flips": 15,
+    "coins_required": 758,
+    "win_rate": 0.6119402985074627
+   },
+   {
+    "flips": 16,
+    "coins_required": 823,
+    "win_rate": 0.6268656716417911
+   },
+   {
+    "flips": 17,
+    "coins_required": 868,
+    "win_rate": 0.6417910447761194
+   },
+   {
+    "flips": 18,
+    "coins_required": 986,
+    "win_rate": 0.6567164179104478
+   },
+   {
+    "flips": 19,
+    "coins_required": 1009,
+    "win_rate": 0.6716417910447762
+   },
+   {
+    "flips": 20,
+    "coins_required": 1079,
+    "win_rate": 0.6865671641791045
+   }
+  ]
+ },
+ "decision_variability": [
+  {
+   "day": 1,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 2,
+   "crops": 1,
+   "herd": 1,
+   "herd_COW": 1,
+   "herd_SHEEP": 1,
+   "herd_GOOSE": 1,
+   "hands": 1,
+   "pasture": 1,
+   "coop": 1,
+   "known_shops": 1,
+   "cash": 6,
+   "stock_units": 1,
+   "opponent_cash": 6
+  },
+  {
+   "day": 3,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 2,
+   "crops": 1,
+   "herd": 2,
+   "herd_COW": 2,
+   "herd_SHEEP": 1,
+   "herd_GOOSE": 1,
+   "hands": 1,
+   "pasture": 2,
+   "coop": 1,
+   "known_shops": 1,
+   "cash": 6,
+   "stock_units": 2,
+   "opponent_cash": 8
+  },
+  {
+   "day": 5,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 2,
+   "crops": 1,
+   "herd": 2,
+   "herd_COW": 2,
+   "herd_SHEEP": 1,
+   "herd_GOOSE": 1,
+   "hands": 1,
+   "pasture": 2,
+   "coop": 1,
+   "known_shops": 1,
+   "cash": 8,
+   "stock_units": 2,
+   "opponent_cash": 12
+  },
+  {
+   "day": 10,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 3,
+   "crops": 3,
+   "herd": 2,
+   "herd_COW": 4,
+   "herd_SHEEP": 4,
+   "herd_GOOSE": 1,
+   "hands": 1,
+   "pasture": 2,
+   "coop": 1,
+   "known_shops": 1,
+   "cash": 50,
+   "stock_units": 5,
+   "opponent_cash": 52
+  },
+  {
+   "day": 15,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 3,
+   "crops": 3,
+   "herd": 3,
+   "herd_COW": 4,
+   "herd_SHEEP": 5,
+   "herd_GOOSE": 3,
+   "hands": 1,
+   "pasture": 4,
+   "coop": 3,
+   "known_shops": 1,
+   "cash": 64,
+   "stock_units": 8,
+   "opponent_cash": 64
+  },
+  {
+   "day": 20,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 3,
+   "crops": 3,
+   "herd": 3,
+   "herd_COW": 4,
+   "herd_SHEEP": 5,
+   "herd_GOOSE": 3,
+   "hands": 1,
+   "pasture": 3,
+   "coop": 2,
+   "known_shops": 1,
+   "cash": 67,
+   "stock_units": 6,
+   "opponent_cash": 67
+  },
+  {
+   "day": 25,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 3,
+   "crops": 3,
+   "herd": 3,
+   "herd_COW": 4,
+   "herd_SHEEP": 5,
+   "herd_GOOSE": 3,
+   "hands": 1,
+   "pasture": 3,
+   "coop": 2,
+   "known_shops": 1,
+   "cash": 67,
+   "stock_units": 5,
+   "opponent_cash": 67
+  },
+  {
+   "day": 29,
+   "worlds": 67,
+   "land_owned": 1,
+   "land_used": 4,
+   "crops": 1,
+   "herd": 3,
+   "herd_COW": 4,
+   "herd_SHEEP": 5,
+   "herd_GOOSE": 3,
+   "hands": 1,
+   "pasture": 3,
+   "coop": 2,
+   "known_shops": 1,
+   "cash": 67,
+   "stock_units": 3,
+   "opponent_cash": 67
+  }
+ ],
+ "comparisons": [
+  {
+   "feature": "cash_lead",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": -294.0,
+   "tight_median": 0.0,
+   "wide_win_median": 848.0,
+   "wide_loss_mean": -1214.391304347826,
+   "tight_mean": -0.6,
+   "cliffs_delta": -0.4358695652173913,
+   "overlap": 0.05845700691061516,
+   "median_difference_ci": [
+    -610.0,
+    -61.0
+   ],
+   "permutation_p": 0.2433783108445777,
+   "tight_envelope": [
+    -340.09999999999997,
+    1.8000000000000256
+   ],
+   "losses_outside_envelope": 16,
+   "losses_outside_fraction": 0.6956521739130435
+  },
+  {
+   "feature": "price_EGG",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 52.0,
+   "tight_median": 51.0,
+   "wide_win_median": 52.5,
+   "wide_loss_mean": 52.21739130434783,
+   "tight_mean": 51.625,
+   "cliffs_delta": 0.375,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    2.0
+   ],
+   "permutation_p": 0.05247376311844078,
+   "tight_envelope": [
+    51.0,
+    53.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_EGG",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 55.0,
+   "tight_median": 51.0,
+   "wide_win_median": 55.0,
+   "wide_loss_mean": 53.91304347826087,
+   "tight_mean": 52.9,
+   "cliffs_delta": 0.30434782608695654,
+   "overlap": 0.6363636363636364,
+   "median_difference_ci": [
+    0.5,
+    4.0
+   ],
+   "permutation_p": 0.12443778110944528,
+   "tight_envelope": [
+    51.0,
+    56.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "stock_units",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 76.0,
+   "tight_median": 76.0,
+   "wide_win_median": 71.0,
+   "wide_loss_mean": 76.82608695652173,
+   "tight_mean": 74.075,
+   "cliffs_delta": 0.26304347826086955,
+   "overlap": 0.10204081632653061,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.01649175412293853,
+   "tight_envelope": [
+    71.0,
+    76.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 70.0,
+   "tight_median": 65.0,
+   "wide_win_median": 62.0,
+   "wide_loss_mean": 68.56521739130434,
+   "tight_mean": 66.525,
+   "cliffs_delta": 0.2532608695652174,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    7.0
+   ],
+   "permutation_p": 0.10194902548725637,
+   "tight_envelope": [
+    62.0,
+    73.2
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "cash",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 44778.0,
+   "tight_median": 50205.0,
+   "wide_win_median": 52516.5,
+   "wide_loss_mean": 46553.30434782609,
+   "tight_mean": 51046.7,
+   "cliffs_delta": -0.25217391304347825,
+   "overlap": 0.7099387310333484,
+   "median_difference_ci": [
+    -10689.5,
+    1813.0
+   ],
+   "permutation_p": 0.10394802598700649,
+   "tight_envelope": [
+    39342.7,
+    67830.6
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 76.0,
+   "wide_win_median": 241.0,
+   "wide_loss_mean": 56.21739130434783,
+   "tight_mean": 106.6,
+   "cliffs_delta": -0.24782608695652175,
+   "overlap": 0.9876543209876543,
+   "median_difference_ci": [
+    -217.0,
+    0.0
+   ],
+   "permutation_p": 0.06896551724137931,
+   "tight_envelope": [
+    1.0,
+    238.3
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 76.0,
+   "tight_median": 70.0,
+   "wide_win_median": 63.0,
+   "wide_loss_mean": 75.3913043478261,
+   "tight_mean": 71.95,
+   "cliffs_delta": 0.24456521739130435,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -0.5,
+    11.0
+   ],
+   "permutation_p": 0.13043478260869565,
+   "tight_envelope": [
+    62.0,
+    84.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "delta_cash",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3651.0,
+   "tight_median": 4067.5,
+   "wide_win_median": 4072.5,
+   "wide_loss_mean": 3735.217391304348,
+   "tight_mean": 4287.875,
+   "cliffs_delta": -0.24130434782608695,
+   "overlap": 0.7788736420811893,
+   "median_difference_ci": [
+    -991.0,
+    95.0
+   ],
+   "permutation_p": 0.17491254372813594,
+   "tight_envelope": [
+    2934.6000000000004,
+    6655.7
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "delta_cash",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 405.0,
+   "tight_median": 405.0,
+   "wide_win_median": 405.0,
+   "wide_loss_mean": 391.95652173913044,
+   "tight_mean": 406.725,
+   "cliffs_delta": -0.24021739130434783,
+   "overlap": 0.015822784810126583,
+   "median_difference_ci": [
+    -2.0,
+    0.0
+   ],
+   "permutation_p": 0.015992003998001,
+   "tight_envelope": [
+    405.0,
+    410.0
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 64.0,
+   "tight_median": 61.5,
+   "wide_win_median": 61.0,
+   "wide_loss_mean": 63.78260869565217,
+   "tight_mean": 62.975,
+   "cliffs_delta": 0.22717391304347825,
+   "overlap": 0.75,
+   "median_difference_ci": [
+    0.0,
+    4.0
+   ],
+   "permutation_p": 0.20239880059970014,
+   "tight_envelope": [
+    61.0,
+    66.1
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2168.0,
+   "tight_median": 2386.5,
+   "wide_win_median": 2091.0,
+   "wide_loss_mean": 2145.913043478261,
+   "tight_mean": 2344.725,
+   "cliffs_delta": -0.2184782608695652,
+   "overlap": 0.3671824629271438,
+   "median_difference_ci": [
+    -498.5,
+    216.0
+   ],
+   "permutation_p": 0.11444277861069466,
+   "tight_envelope": [
+    1817.0,
+    2691.0
+   ],
+   "losses_outside_envelope": 7,
+   "losses_outside_fraction": 0.30434782608695654
+  },
+  {
+   "feature": "pasture",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 14.0,
+   "tight_median": 14.0,
+   "wide_win_median": 18.0,
+   "wide_loss_mean": 14.043478260869565,
+   "tight_mean": 14.75,
+   "cliffs_delta": -0.2184782608695652,
+   "overlap": 0.5,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.037481259370314844,
+   "tight_envelope": [
+    14.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 5.0,
+   "tight_median": 5.0,
+   "wide_win_median": 7.0,
+   "wide_loss_mean": 4.956521739130435,
+   "tight_mean": 5.5,
+   "cliffs_delta": -0.21630434782608696,
+   "overlap": 0.2857142857142857,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.029985007496251874,
+   "tight_envelope": [
+    5.0,
+    7.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "units_in",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 13.0,
+   "tight_median": 13.0,
+   "wide_win_median": 17.0,
+   "wide_loss_mean": 12.869565217391305,
+   "tight_mean": 13.925,
+   "cliffs_delta": -0.21630434782608696,
+   "overlap": 0.3333333333333333,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.03398300849575212,
+   "tight_envelope": [
+    13.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 11.0,
+   "wide_loss_mean": 6.086956521739131,
+   "tight_mean": 7.125,
+   "cliffs_delta": -0.21521739130434783,
+   "overlap": 0.5555555555555556,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.038980509745127435,
+   "tight_envelope": [
+    6.0,
+    11.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 11.0,
+   "wide_loss_mean": 6.086956521739131,
+   "tight_mean": 7.125,
+   "cliffs_delta": -0.21521739130434783,
+   "overlap": 0.5555555555555556,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.038980509745127435,
+   "tight_envelope": [
+    6.0,
+    11.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "pasture",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 14.0,
+   "tight_median": 14.0,
+   "wide_win_median": 17.0,
+   "wide_loss_mean": 14.043478260869565,
+   "tight_mean": 14.675,
+   "cliffs_delta": -0.21521739130434783,
+   "overlap": 0.6,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.04247876061969016,
+   "tight_envelope": [
+    14.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_EGG",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.5,
+   "wide_loss_mean": 50.43478260869565,
+   "tight_mean": 50.225,
+   "cliffs_delta": 0.20978260869565218,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    1.0
+   ],
+   "permutation_p": 0.08895552223888056,
+   "tight_envelope": [
+    50.0,
+    51.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 36.0,
+   "tight_median": 37.0,
+   "wide_win_median": 36.0,
+   "wide_loss_mean": 37.26086956521739,
+   "tight_mean": 38.15,
+   "cliffs_delta": -0.19782608695652174,
+   "overlap": 0.7,
+   "median_difference_ci": [
+    -3.0,
+    1.0
+   ],
+   "permutation_p": 0.18590704647676162,
+   "tight_envelope": [
+    36.0,
+    41.2
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 173.0,
+   "tight_median": 181.0,
+   "wide_win_median": 167.5,
+   "wide_loss_mean": 173.91304347826087,
+   "tight_mean": 178.0,
+   "cliffs_delta": -0.1967391304347826,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -20.0,
+    4.0
+   ],
+   "permutation_p": 0.34632683658170915,
+   "tight_envelope": [
+    147.0,
+    196.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "cash",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2162.0,
+   "tight_median": 2396.0,
+   "wide_win_median": 2093.0,
+   "wide_loss_mean": 2157.1304347826085,
+   "tight_mean": 2329.75,
+   "cliffs_delta": -0.1956521739130435,
+   "overlap": 0.2351641414141414,
+   "median_difference_ci": [
+    -361.0,
+    160.0
+   ],
+   "permutation_p": 0.11744127936031984,
+   "tight_envelope": [
+    1817.9,
+    2688.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 47265.0,
+   "tight_median": 49874.0,
+   "wide_win_median": 49410.5,
+   "wide_loss_mean": 47767.69565217391,
+   "tight_mean": 51047.3,
+   "cliffs_delta": -0.19130434782608696,
+   "overlap": 0.6158100505387623,
+   "median_difference_ci": [
+    -9556.5,
+    2844.0
+   ],
+   "permutation_p": 0.19740129935032483,
+   "tight_envelope": [
+    39342.7,
+    67512.9
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "delta_cash",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 739.0,
+   "tight_median": 752.0,
+   "wide_win_median": 1141.5,
+   "wide_loss_mean": 751.8260869565217,
+   "tight_mean": 908.2,
+   "cliffs_delta": -0.19021739130434784,
+   "overlap": 0.1797274275979557,
+   "median_difference_ci": [
+    -74.0,
+    14.5
+   ],
+   "permutation_p": 0.047976011994003,
+   "tight_envelope": [
+    727.0,
+    1212.4
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 31.0,
+   "tight_median": 31.0,
+   "wide_win_median": 31.0,
+   "wide_loss_mean": 30.869565217391305,
+   "tight_mean": 30.65,
+   "cliffs_delta": 0.1891304347826087,
+   "overlap": 0.5,
+   "median_difference_ci": [
+    0.0,
+    0.5
+   ],
+   "permutation_p": 0.13143428285857073,
+   "tight_envelope": [
+    30.0,
+    31.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "coop",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 4.0,
+   "tight_median": 4.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 3.869565217391304,
+   "tight_mean": 3.25,
+   "cliffs_delta": 0.18478260869565216,
+   "overlap": 0.75,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.05997001499250375,
+   "tight_envelope": [
+    1.0,
+    4.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "passes",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.9565217391304348,
+   "tight_mean": 0.775,
+   "cliffs_delta": 0.1815217391304348,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.07646176911544228,
+   "tight_envelope": [
+    0.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "coop",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 2.869565217391304,
+   "tight_mean": 2.325,
+   "cliffs_delta": 0.1815217391304348,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.07646176911544228,
+   "tight_envelope": [
+    0.0,
+    3.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "passes",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 0.043478260869565216,
+   "tight_mean": 0.225,
+   "cliffs_delta": -0.1815217391304348,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.07646176911544228,
+   "tight_envelope": [
+    0.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "cash",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 686.0,
+   "tight_median": 686.0,
+   "wide_win_median": 686.0,
+   "wide_loss_mean": 665.5652173913044,
+   "tight_mean": 686.85,
+   "cliffs_delta": -0.17717391304347826,
+   "overlap": 0.01107011070110701,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.24287856071964017,
+   "tight_envelope": [
+    686.0,
+    689.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 148.0,
+   "tight_median": 148.0,
+   "wide_win_median": 229.0,
+   "wide_loss_mean": 156.65217391304347,
+   "tight_mean": 171.575,
+   "cliffs_delta": -0.17065217391304346,
+   "overlap": 0.8804347826086957,
+   "median_difference_ci": [
+    -33.0,
+    0.0
+   ],
+   "permutation_p": 0.05997001499250375,
+   "tight_envelope": [
+    148.0,
+    229.5
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 139.0,
+   "tight_median": 155.0,
+   "wide_win_median": 147.0,
+   "wide_loss_mean": 145.95652173913044,
+   "tight_mean": 148.6,
+   "cliffs_delta": -0.16521739130434782,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -16.0,
+    8.0
+   ],
+   "permutation_p": 0.3008495752123938,
+   "tight_envelope": [
+    139.0,
+    155.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "cash_lead",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 52.78260869565217,
+   "tight_mean": 15.75,
+   "cliffs_delta": 0.16304347826086957,
+   "overlap": 0.48894557823129253,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.39730134932533734,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 41.0,
+   "tight_median": 41.0,
+   "wide_win_median": 40.0,
+   "wide_loss_mean": 41.391304347826086,
+   "tight_mean": 40.7,
+   "cliffs_delta": 0.15108695652173912,
+   "overlap": 0.5714285714285714,
+   "median_difference_ci": [
+    -1.0,
+    2.0
+   ],
+   "permutation_p": 0.1729135432283858,
+   "tight_envelope": [
+    37.0,
+    43.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "delta_cash",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3621.0,
+   "tight_median": 3707.5,
+   "wide_win_median": 2998.0,
+   "wide_loss_mean": 3355.304347826087,
+   "tight_mean": 3741.6,
+   "cliffs_delta": -0.14891304347826087,
+   "overlap": 0.9313590449954087,
+   "median_difference_ci": [
+    -1023.0,
+    640.5
+   ],
+   "permutation_p": 0.20589705147426288,
+   "tight_envelope": [
+    2151.0,
+    5555.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 2.782608695652174,
+   "tight_mean": 2.325,
+   "cliffs_delta": 0.14782608695652175,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.09945027486256872,
+   "tight_envelope": [
+    0.0,
+    3.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 2.782608695652174,
+   "tight_mean": 2.325,
+   "cliffs_delta": 0.14782608695652175,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.09945027486256872,
+   "tight_envelope": [
+    0.0,
+    3.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 61.0,
+   "tight_median": 87.5,
+   "wide_win_median": 240.5,
+   "wide_loss_mean": 73.95652173913044,
+   "tight_mean": 102.575,
+   "cliffs_delta": -0.14782608695652175,
+   "overlap": 0.9715447154471545,
+   "median_difference_ci": [
+    -150.0,
+    60.0
+   ],
+   "permutation_p": 0.2413793103448276,
+   "tight_envelope": [
+    1.0,
+    238.1
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 686.0,
+   "tight_median": 686.0,
+   "wide_win_median": 686.0,
+   "wide_loss_mean": 612.7826086956521,
+   "tight_mean": 671.1,
+   "cliffs_delta": -0.14673913043478262,
+   "overlap": 0.8550295857988166,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.13193403298350825,
+   "tight_envelope": [
+    686.0,
+    689.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 22125.0,
+   "tight_median": 23455.0,
+   "wide_win_median": 20353.0,
+   "wide_loss_mean": 22520.08695652174,
+   "tight_mean": 23309.75,
+   "cliffs_delta": -0.14565217391304347,
+   "overlap": 0.737125468164794,
+   "median_difference_ci": [
+    -3722.0,
+    2247.0
+   ],
+   "permutation_p": 0.3073463268365817,
+   "tight_envelope": [
+    19538.1,
+    26800.9
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "price_EGG",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 55.0,
+   "tight_median": 52.0,
+   "wide_win_median": 57.5,
+   "wide_loss_mean": 53.391304347826086,
+   "tight_mean": 52.325,
+   "cliffs_delta": 0.14130434782608695,
+   "overlap": 0.8260869565217391,
+   "median_difference_ci": [
+    -1.0,
+    5.0
+   ],
+   "permutation_p": 0.456271864067966,
+   "tight_envelope": [
+    45.0,
+    58.2
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "units_out",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 3.260869565217391,
+   "tight_mean": 3.825,
+   "cliffs_delta": -0.14021739130434782,
+   "overlap": 0.3333333333333333,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.21489255372313842,
+   "tight_envelope": [
+    3.0,
+    6.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 213.0,
+   "tight_median": 206.0,
+   "wide_win_median": 194.0,
+   "wide_loss_mean": 201.69565217391303,
+   "tight_mean": 205.5,
+   "cliffs_delta": -0.13804347826086957,
+   "overlap": 0.9404761904761905,
+   "median_difference_ci": [
+    -14.0,
+    7.0
+   ],
+   "permutation_p": 0.5442278860569715,
+   "tight_envelope": [
+    168.0,
+    232.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 35.0,
+   "tight_median": 35.0,
+   "wide_win_median": 35.0,
+   "wide_loss_mean": 35.130434782608695,
+   "tight_mean": 35.3,
+   "cliffs_delta": -0.13478260869565217,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3633183408295852,
+   "tight_envelope": [
+    35.0,
+    36.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_COW",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 8.0,
+   "tight_median": 8.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 7.6521739130434785,
+   "tight_mean": 7.5,
+   "cliffs_delta": 0.12934782608695652,
+   "overlap": 0.6666666666666666,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6571714142928535,
+   "tight_envelope": [
+    6.0,
+    8.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_COW",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 8.0,
+   "tight_median": 8.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 7.6521739130434785,
+   "tight_mean": 7.5,
+   "cliffs_delta": 0.12934782608695652,
+   "overlap": 0.6666666666666666,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6571714142928535,
+   "tight_envelope": [
+    6.0,
+    8.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_COW",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 8.0,
+   "tight_median": 8.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 7.6521739130434785,
+   "tight_mean": 7.5,
+   "cliffs_delta": 0.12934782608695652,
+   "overlap": 0.6666666666666666,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6571714142928535,
+   "tight_envelope": [
+    6.0,
+    8.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "stock_units",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 64.0,
+   "tight_median": 64.0,
+   "wide_win_median": 80.0,
+   "wide_loss_mean": 64.78260869565217,
+   "tight_mean": 63.6,
+   "cliffs_delta": 0.125,
+   "overlap": 0.5609756097560976,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.47726136931534235,
+   "tight_envelope": [
+    56.9,
+    64.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 37.0,
+   "tight_median": 37.0,
+   "wide_win_median": 37.0,
+   "wide_loss_mean": 37.17391304347826,
+   "tight_mean": 36.7,
+   "cliffs_delta": 0.12282608695652174,
+   "overlap": 0.2857142857142857,
+   "median_difference_ci": [
+    -1.0,
+    1.0
+   ],
+   "permutation_p": 0.20689655172413793,
+   "tight_envelope": [
+    35.0,
+    38.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "cash",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 22009.0,
+   "tight_median": 23429.5,
+   "wide_win_median": 19316.5,
+   "wide_loss_mean": 22448.304347826088,
+   "tight_mean": 23269.175,
+   "cliffs_delta": -0.12173913043478261,
+   "overlap": 0.5753625966391924,
+   "median_difference_ci": [
+    -3435.0,
+    2073.0
+   ],
+   "permutation_p": 0.3288355822088955,
+   "tight_envelope": [
+    19521.0,
+    26931.4
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "units_in",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 10.0,
+   "tight_median": 10.0,
+   "wide_win_median": 12.0,
+   "wide_loss_mean": 9.956521739130435,
+   "tight_mean": 10.1,
+   "cliffs_delta": -0.11956521739130435,
+   "overlap": 0.5,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7371314342828585,
+   "tight_envelope": [
+    10.0,
+    12.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 23.0,
+   "tight_median": 23.0,
+   "wide_win_median": 23.0,
+   "wide_loss_mean": 22.26086956521739,
+   "tight_mean": 23.025,
+   "cliffs_delta": -0.10978260869565218,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.08895552223888056,
+   "tight_envelope": [
+    23.0,
+    23.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "cash",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 26.0,
+   "tight_median": 26.0,
+   "wide_win_median": 26.0,
+   "wide_loss_mean": 26.304347826086957,
+   "tight_mean": 25.8,
+   "cliffs_delta": -0.10543478260869565,
+   "overlap": 0.04285714285714286,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7596201899050474,
+   "tight_envelope": [
+    26.0,
+    26.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 215.0,
+   "tight_median": 215.0,
+   "wide_win_median": 215.0,
+   "wide_loss_mean": 215.0,
+   "tight_mean": 216.4,
+   "cliffs_delta": -0.1,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.2773613193403298,
+   "tight_envelope": [
+    215.0,
+    216.40000000000003
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 179.0,
+   "tight_median": 183.0,
+   "wide_win_median": 125.0,
+   "wide_loss_mean": 148.0,
+   "tight_mean": 156.275,
+   "cliffs_delta": -0.09347826086956522,
+   "overlap": 0.897119341563786,
+   "median_difference_ci": [
+    -26.5,
+    20.0
+   ],
+   "permutation_p": 0.6686656671664168,
+   "tight_envelope": [
+    49.60000000000002,
+    216.10000000000002
+   ],
+   "losses_outside_envelope": 5,
+   "losses_outside_fraction": 0.21739130434782608
+  },
+  {
+   "feature": "cash_lead",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": -1036.5,
+   "wide_loss_mean": -71.78260869565217,
+   "tight_mean": -40.575,
+   "cliffs_delta": 0.09239130434782608,
+   "overlap": 0.09964752228903172,
+   "median_difference_ci": [
+    -48.0,
+    111.0
+   ],
+   "permutation_p": 0.967016491754123,
+   "tight_envelope": [
+    -201.2,
+    0.0
+   ],
+   "losses_outside_envelope": 11,
+   "losses_outside_fraction": 0.4782608695652174
+  },
+  {
+   "feature": "cash_lead",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": -3.217391304347826,
+   "tight_mean": 0.0,
+   "cliffs_delta": -0.08695652173913043,
+   "overlap": 0.013888888888888888,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.37681159420289856,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 24.608695652173914,
+   "tight_mean": 25.0,
+   "cliffs_delta": -0.08695652173913043,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.127936031984008,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "land_lead",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": -1.3043478260869565,
+   "tight_mean": 0.0,
+   "cliffs_delta": -0.08695652173913043,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.13093453273363317,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_MELON",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 84.0,
+   "tight_median": 84.0,
+   "wide_win_median": 84.0,
+   "wide_loss_mean": 89.65217391304348,
+   "tight_mean": 84.0,
+   "cliffs_delta": 0.08695652173913043,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.13093453273363317,
+   "tight_envelope": [
+    84.0,
+    84.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_MELON",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 96.0,
+   "tight_median": 96.0,
+   "wide_win_median": 96.0,
+   "wide_loss_mean": 98.08695652173913,
+   "tight_mean": 96.0,
+   "cliffs_delta": 0.08695652173913043,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.13093453273363317,
+   "tight_envelope": [
+    96.0,
+    96.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "land_lead",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.782608695652174,
+   "tight_mean": 0.05,
+   "cliffs_delta": 0.08478260869565217,
+   "overlap": 0.07142857142857142,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.09095452273863068,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 30.0,
+   "tight_median": 30.0,
+   "wide_win_median": 31.0,
+   "wide_loss_mean": 30.565217391304348,
+   "tight_mean": 30.125,
+   "cliffs_delta": -0.08152173913043478,
+   "overlap": 0.19230769230769232,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7886056971514243,
+   "tight_envelope": [
+    29.0,
+    31.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 52.0,
+   "tight_median": 52.0,
+   "wide_win_median": 54.5,
+   "wide_loss_mean": 52.78260869565217,
+   "tight_mean": 52.625,
+   "cliffs_delta": -0.07934782608695652,
+   "overlap": 0.15,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.8845577211394303,
+   "tight_envelope": [
+    52.0,
+    55.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 39.0,
+   "tight_median": 40.0,
+   "wide_win_median": 37.5,
+   "wide_loss_mean": 40.56521739130435,
+   "tight_mean": 41.575,
+   "cliffs_delta": -0.07717391304347826,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -4.0,
+    2.5
+   ],
+   "permutation_p": 0.4607696151924038,
+   "tight_envelope": [
+    36.0,
+    49.1
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.0,
+   "wide_loss_mean": 50.73913043478261,
+   "tight_mean": 49.975,
+   "cliffs_delta": 0.06739130434782609,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.2318840579710145,
+   "tight_envelope": [
+    50.0,
+    50.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "units_out",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 5.0,
+   "tight_median": 5.0,
+   "wide_win_median": 5.0,
+   "wide_loss_mean": 4.782608695652174,
+   "tight_mean": 4.65,
+   "cliffs_delta": 0.06304347826086956,
+   "overlap": 0.8,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6446776611694153,
+   "tight_envelope": [
+    4.0,
+    5.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 61.0,
+   "tight_median": 61.0,
+   "wide_win_median": 61.0,
+   "wide_loss_mean": 61.30434782608695,
+   "tight_mean": 61.25,
+   "cliffs_delta": 0.05434782608695652,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7466266866566716,
+   "tight_envelope": [
+    61.0,
+    62.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 42.0,
+   "tight_median": 41.5,
+   "wide_win_median": 39.5,
+   "wide_loss_mean": 41.91304347826087,
+   "tight_mean": 41.425,
+   "cliffs_delta": 0.04891304347826087,
+   "overlap": 0.5454545454545454,
+   "median_difference_ci": [
+    -2.0,
+    2.0
+   ],
+   "permutation_p": 0.49525237381309345,
+   "tight_envelope": [
+    37.9,
+    45.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "stock_units",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 39.0,
+   "tight_median": 39.0,
+   "wide_win_median": 39.0,
+   "wide_loss_mean": 38.869565217391305,
+   "tight_mean": 38.15,
+   "cliffs_delta": 0.04565217391304348,
+   "overlap": 0.16129032258064516,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7716141929035483,
+   "tight_envelope": [
+    38.8,
+    39.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "herd",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 5.0,
+   "tight_median": 5.0,
+   "wide_win_median": 5.0,
+   "wide_loss_mean": 4.869565217391305,
+   "tight_mean": 5.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    5.0,
+    5.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_COW",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 3.0,
+   "wide_loss_mean": 2.869565217391304,
+   "tight_mean": 3.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    3.0,
+    3.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_idle",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.08695652173913043,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_lead",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.30434782608695654,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.42978510744627685,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "land_used",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 24.91304347826087,
+   "tight_mean": 25.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "pasture",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 5.913043478260869,
+   "tight_mean": 6.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    6.0,
+    6.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "stock_units",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 7.0,
+   "tight_median": 7.0,
+   "wide_win_median": 7.0,
+   "wide_loss_mean": 7.043478260869565,
+   "tight_mean": 7.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    7.0,
+    7.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "units_in",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.13043478260869565,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "units_out",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 0.9565217391304348,
+   "tight_mean": 1.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    1.0,
+    1.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 5.826086956521739,
+   "tight_mean": 6.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    6.0,
+    6.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd_COW",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 4.0,
+   "tight_median": 4.0,
+   "wide_win_median": 4.0,
+   "wide_loss_mean": 3.8260869565217392,
+   "tight_mean": 4.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    4.0,
+    4.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_idle",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.08695652173913043,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_used",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 24.91304347826087,
+   "tight_mean": 25.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 24.91304347826087,
+   "tight_mean": 25.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.36081959020489757,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "pasture",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 5.913043478260869,
+   "tight_mean": 6.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    6.0,
+    6.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "stock_units",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 17.0,
+   "tight_median": 17.0,
+   "wide_win_median": 17.0,
+   "wide_loss_mean": 17.130434782608695,
+   "tight_mean": 17.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    17.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "units_in",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 5.0,
+   "tight_median": 5.0,
+   "wide_win_median": 5.0,
+   "wide_loss_mean": 5.043478260869565,
+   "tight_mean": 5.0,
+   "cliffs_delta": 0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    5.0,
+    5.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 13.0,
+   "tight_median": 13.0,
+   "wide_win_median": 13.0,
+   "wide_loss_mean": 12.608695652173912,
+   "tight_mean": 13.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    13.0,
+    13.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "pasture",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 13.0,
+   "tight_median": 13.0,
+   "wide_win_median": 13.0,
+   "wide_loss_mean": 12.91304347826087,
+   "tight_mean": 13.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    13.0,
+    13.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_lead",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": -0.8260869565217391,
+   "tight_mean": 0.0,
+   "cliffs_delta": -0.043478260869565216,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.13893053473263367,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "price_MILK",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 187.0,
+   "tight_median": 195.0,
+   "wide_win_median": 131.0,
+   "wide_loss_mean": 184.2608695652174,
+   "tight_mean": 182.425,
+   "cliffs_delta": 0.03260869565217391,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -44.0,
+    24.0
+   ],
+   "permutation_p": 0.8415792103948025,
+   "tight_envelope": [
+    131.0,
+    223.3
+   ],
+   "losses_outside_envelope": 3,
+   "losses_outside_fraction": 0.13043478260869565
+  },
+  {
+   "feature": "land_idle",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 1.9565217391304348,
+   "tight_mean": 1.925,
+   "cliffs_delta": 0.03152173913043478,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_used",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 23.0,
+   "tight_median": 23.0,
+   "wide_win_median": 23.0,
+   "wide_loss_mean": 23.043478260869566,
+   "tight_mean": 23.075,
+   "cliffs_delta": -0.03152173913043478,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    23.0,
+    23.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_MILK",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 179.0,
+   "tight_median": 179.0,
+   "wide_win_median": 179.0,
+   "wide_loss_mean": 187.1304347826087,
+   "tight_mean": 186.65,
+   "cliffs_delta": 0.02826086956521739,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -17.0,
+    17.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    179.0,
+    196.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "crops",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 37.0,
+   "tight_median": 37.0,
+   "wide_win_median": 37.0,
+   "wide_loss_mean": 36.391304347826086,
+   "tight_mean": 36.925,
+   "cliffs_delta": 0.02826086956521739,
+   "overlap": 0.07142857142857142,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    37.0,
+    37.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_MILK",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 116.0,
+   "tight_median": 116.0,
+   "wide_win_median": 5.0,
+   "wide_loss_mean": 122.30434782608695,
+   "tight_mean": 116.225,
+   "cliffs_delta": 0.02608695652173913,
+   "overlap": 1.0,
+   "median_difference_ci": [
+    -76.0,
+    81.0
+   ],
+   "permutation_p": 0.7756121939030485,
+   "tight_envelope": [
+    1.0,
+    211.90000000000003
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "cash",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 198.0,
+   "tight_median": 198.0,
+   "wide_win_median": 198.0,
+   "wide_loss_mean": 199.43478260869566,
+   "tight_mean": 197.775,
+   "cliffs_delta": -0.025,
+   "overlap": 0.057692307692307696,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3458270864567716,
+   "tight_envelope": [
+    198.0,
+    198.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "passes",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.075,
+   "cliffs_delta": -0.025,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "units_out",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 1.0,
+   "tight_mean": 1.4,
+   "cliffs_delta": 0.025,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    1.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 26.0,
+   "tight_median": 26.0,
+   "wide_win_median": 26.0,
+   "wide_loss_mean": 29.52173913043478,
+   "tight_mean": 25.8,
+   "cliffs_delta": 0.02391304347826087,
+   "overlap": 0.041237113402061855,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.12143928035982009,
+   "tight_envelope": [
+    26.0,
+    26.0
+   ],
+   "losses_outside_envelope": 5,
+   "losses_outside_fraction": 0.21739130434782608
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 75.34782608695652,
+   "tight_mean": 74.975,
+   "cliffs_delta": 0.02282608695652174,
+   "overlap": 0.08333333333333333,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.4112943528235882,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_MILK",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 15.0,
+   "tight_median": 26.0,
+   "wide_win_median": 11.0,
+   "wide_loss_mean": 65.95652173913044,
+   "tight_mean": 69.025,
+   "cliffs_delta": -0.02282608695652174,
+   "overlap": 0.9793388429752066,
+   "median_difference_ci": [
+    -61.0,
+    38.0
+   ],
+   "permutation_p": 0.8895552223888056,
+   "tight_envelope": [
+    4.800000000000001,
+    210.90000000000003
+   ],
+   "losses_outside_envelope": 4,
+   "losses_outside_fraction": 0.17391304347826086
+  },
+  {
+   "feature": "land_idle",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.5652173913043478,
+   "tight_mean": 0.025,
+   "cliffs_delta": 0.01956521739130435,
+   "overlap": 0.07692307692307693,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_used",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.0,
+   "wide_loss_mean": 49.43478260869565,
+   "tight_mean": 49.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.07692307692307693,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    50.0,
+    50.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "crops",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 57.0,
+   "tight_median": 57.0,
+   "wide_win_median": 57.0,
+   "wide_loss_mean": 56.34782608695652,
+   "tight_mean": 56.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.06666666666666667,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    57.0,
+    57.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_idle",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.5217391304347826,
+   "tight_mean": 0.025,
+   "cliffs_delta": 0.01956521739130435,
+   "overlap": 0.08333333333333333,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_used",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 74.47826086956522,
+   "tight_mean": 74.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.08333333333333333,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "opponent_land_used",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 74.82608695652173,
+   "tight_mean": 74.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.25,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.36081959020489757,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "crops",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 58.0,
+   "tight_median": 58.0,
+   "wide_win_median": 58.0,
+   "wide_loss_mean": 57.34782608695652,
+   "tight_mean": 57.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.06666666666666667,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    58.0,
+    58.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_idle",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.4782608695652174,
+   "tight_mean": 0.025,
+   "cliffs_delta": 0.01956521739130435,
+   "overlap": 0.09090909090909091,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "land_used",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 74.52173913043478,
+   "tight_mean": 74.975,
+   "cliffs_delta": -0.01956521739130435,
+   "overlap": 0.09090909090909091,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "cash_lead",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 11.217391304347826,
+   "tight_mean": -14.975,
+   "cliffs_delta": 0.013043478260869565,
+   "overlap": 0.7963414634146342,
+   "median_difference_ci": [
+    -3.0,
+    0.0
+   ],
+   "permutation_p": 0.84007996001999,
+   "tight_envelope": [
+    -6.299999999999999,
+    0.0
+   ],
+   "losses_outside_envelope": 10,
+   "losses_outside_fraction": 0.43478260869565216
+  },
+  {
+   "feature": "units_in",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 12.0,
+   "tight_median": 12.0,
+   "wide_win_median": 12.0,
+   "wide_loss_mean": 11.956521739130435,
+   "tight_mean": 11.65,
+   "cliffs_delta": 0.010869565217391304,
+   "overlap": 0.07142857142857142,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.7146426786606697,
+   "tight_envelope": [
+    12.0,
+    12.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 45.0,
+   "tight_median": 45.0,
+   "wide_win_median": 45.5,
+   "wide_loss_mean": 46.43478260869565,
+   "tight_mean": 47.35,
+   "cliffs_delta": -0.007608695652173913,
+   "overlap": 0.8095238095238095,
+   "median_difference_ci": [
+    -5.0,
+    5.0
+   ],
+   "permutation_p": 0.7016491754122939,
+   "tight_envelope": [
+    37.0,
+    61.1
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 76.0,
+   "tight_median": 76.0,
+   "wide_win_median": 76.5,
+   "wide_loss_mean": 76.34782608695652,
+   "tight_mean": 76.05,
+   "cliffs_delta": -0.004347826086956522,
+   "overlap": 0.125,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    76.0,
+    76.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 17.0,
+   "tight_median": 17.0,
+   "wide_win_median": 17.0,
+   "wide_loss_mean": 16.52173913043478,
+   "tight_mean": 16.95,
+   "cliffs_delta": 0.004347826086956522,
+   "overlap": 0.09090909090909091,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    17.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "herd",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 17.0,
+   "tight_median": 17.0,
+   "wide_win_median": 17.0,
+   "wide_loss_mean": 16.52173913043478,
+   "tight_mean": 16.95,
+   "cliffs_delta": 0.004347826086956522,
+   "overlap": 0.09090909090909091,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    17.0,
+    17.0
+   ],
+   "losses_outside_envelope": 1,
+   "losses_outside_fraction": 0.043478260869565216
+  },
+  {
+   "feature": "cash_lead",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": -9.173913043478262,
+   "tight_mean": 1.225,
+   "cliffs_delta": -0.002173913043478261,
+   "overlap": 0.10318949343339587,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6361819090454772,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 6,
+   "losses_outside_fraction": 0.2608695652173913
+  },
+  {
+   "feature": "opponent_cash",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 198.0,
+   "tight_median": 198.0,
+   "wide_win_median": 198.0,
+   "wide_loss_mean": 208.6086956521739,
+   "tight_mean": 196.55,
+   "cliffs_delta": -0.002173913043478261,
+   "overlap": 0.12058212058212059,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.5282358820589705,
+   "tight_envelope": [
+    198.0,
+    198.0
+   ],
+   "losses_outside_envelope": 5,
+   "losses_outside_fraction": 0.21739130434782608
+  },
+  {
+   "feature": "coop",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "crops",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 19.0,
+   "tight_median": 19.0,
+   "wide_win_median": 19.0,
+   "wide_loss_mean": 19.0,
+   "tight_mean": 19.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    19.0,
+    19.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "delta_cash",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "hands",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 4.0,
+   "tight_median": 4.0,
+   "wide_win_median": 4.0,
+   "wide_loss_mean": 4.0,
+   "tight_mean": 4.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    4.0,
+    4.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_COW",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 2.0,
+   "tight_mean": 2.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 2.0,
+   "tight_mean": 2.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_owned",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 25.0,
+   "tight_mean": 25.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "passes",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 8.0,
+   "tight_median": 8.0,
+   "wide_win_median": 8.0,
+   "wide_loss_mean": 8.0,
+   "tight_mean": 8.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    8.0,
+    8.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "pasture",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 4.0,
+   "tight_median": 4.0,
+   "wide_win_median": 4.0,
+   "wide_loss_mean": 4.0,
+   "tight_mean": 4.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    4.0,
+    4.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 35.0,
+   "tight_median": 35.0,
+   "wide_win_median": 35.0,
+   "wide_loss_mean": 35.0,
+   "tight_mean": 35.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    35.0,
+    35.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_EGG",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.0,
+   "wide_loss_mean": 50.0,
+   "tight_mean": 50.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    50.0,
+    50.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 100.0,
+   "tight_median": 100.0,
+   "wide_win_median": 100.0,
+   "wide_loss_mean": 100.0,
+   "tight_mean": 100.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    100.0,
+    100.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_MELON",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 256.0,
+   "tight_median": 256.0,
+   "wide_win_median": 256.0,
+   "wide_loss_mean": 256.0,
+   "tight_mean": 256.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    256.0,
+    256.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_MILK",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 169.0,
+   "tight_median": 169.0,
+   "wide_win_median": 169.0,
+   "wide_loss_mean": 169.0,
+   "tight_mean": 169.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    169.0,
+    169.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 128.0,
+   "tight_median": 128.0,
+   "wide_win_median": 128.0,
+   "wide_loss_mean": 128.0,
+   "tight_mean": 128.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    128.0,
+    128.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 60.0,
+   "tight_median": 60.0,
+   "wide_win_median": 60.0,
+   "wide_loss_mean": 60.0,
+   "tight_mean": 60.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    60.0,
+    60.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 28.0,
+   "tight_median": 28.0,
+   "wide_win_median": 28.0,
+   "wide_loss_mean": 28.0,
+   "tight_mean": 28.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    28.0,
+    28.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 206.0,
+   "tight_median": 206.0,
+   "wide_win_median": 206.0,
+   "wide_loss_mean": 206.0,
+   "tight_mean": 206.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    206.0,
+    206.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "stock_units",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 3.0,
+   "wide_loss_mean": 3.0,
+   "tight_mean": 3.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    3.0,
+    3.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "units_in",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "units_out",
+   "day": 1,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "coop",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "crops",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 19.0,
+   "tight_median": 19.0,
+   "wide_win_median": 19.0,
+   "wide_loss_mean": 19.0,
+   "tight_mean": 19.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    19.0,
+    19.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "delta_cash",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 113.0,
+   "tight_median": 113.0,
+   "wide_win_median": 113.0,
+   "wide_loss_mean": 116.34782608695652,
+   "tight_mean": 113.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.3758120939530235,
+   "tight_envelope": [
+    113.0,
+    113.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "hands",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 2.0,
+   "tight_mean": 2.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 1.0,
+   "tight_mean": 1.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    1.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_owned",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 25.0,
+   "tight_mean": 25.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "passes",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 1.0,
+   "tight_mean": 1.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    1.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_CARROT",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 35.0,
+   "tight_median": 35.0,
+   "wide_win_median": 35.0,
+   "wide_loss_mean": 35.0,
+   "tight_mean": 35.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    35.0,
+    35.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_EGG",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.0,
+   "wide_loss_mean": 50.0,
+   "tight_mean": 50.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    50.0,
+    50.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 97.0,
+   "tight_median": 97.0,
+   "wide_win_median": 97.0,
+   "wide_loss_mean": 97.0,
+   "tight_mean": 97.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    97.0,
+    97.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_MELON",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 262.0,
+   "tight_median": 262.0,
+   "wide_win_median": 262.0,
+   "wide_loss_mean": 262.0,
+   "tight_mean": 262.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    262.0,
+    262.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_MILK",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 175.0,
+   "tight_median": 175.0,
+   "wide_win_median": 175.0,
+   "wide_loss_mean": 175.0,
+   "tight_mean": 175.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    175.0,
+    175.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_STRAWBERRY",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 135.0,
+   "tight_median": 135.0,
+   "wide_win_median": 135.0,
+   "wide_loss_mean": 135.0,
+   "tight_mean": 135.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    135.0,
+    135.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_TOMATO",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 60.0,
+   "tight_median": 60.0,
+   "wide_win_median": 60.0,
+   "wide_loss_mean": 60.0,
+   "tight_mean": 60.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    60.0,
+    60.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WHEAT",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 30.0,
+   "tight_median": 30.0,
+   "wide_win_median": 30.0,
+   "wide_loss_mean": 30.0,
+   "tight_mean": 30.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    30.0,
+    30.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_WOOL",
+   "day": 3,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 212.0,
+   "tight_median": 212.0,
+   "wide_win_median": 212.0,
+   "wide_loss_mean": 212.0,
+   "tight_mean": 212.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    212.0,
+    212.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "coop",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "crops",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 19.0,
+   "tight_median": 19.0,
+   "wide_win_median": 19.0,
+   "wide_loss_mean": 19.0,
+   "tight_mean": 19.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    19.0,
+    19.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "hands",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_SHEEP",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 2.0,
+   "tight_mean": 2.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 1.0,
+   "tight_median": 1.0,
+   "wide_win_median": 1.0,
+   "wide_loss_mean": 1.0,
+   "tight_mean": 1.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    1.0,
+    1.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_lead",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "land_owned",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 25.0,
+   "tight_median": 25.0,
+   "wide_win_median": 25.0,
+   "wide_loss_mean": 25.0,
+   "tight_mean": 25.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    25.0,
+    25.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "passes",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 2.0,
+   "tight_median": 2.0,
+   "wide_win_median": 2.0,
+   "wide_loss_mean": 2.0,
+   "tight_mean": 2.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    2.0,
+    2.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_FERTILIZER",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 93.0,
+   "tight_median": 93.0,
+   "wide_win_median": 93.0,
+   "wide_loss_mean": 93.04347826086956,
+   "tight_mean": 93.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6056971514242878,
+   "tight_envelope": [
+    93.0,
+    93.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "price_MELON",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 266.0,
+   "tight_median": 266.0,
+   "wide_win_median": 266.0,
+   "wide_loss_mean": 266.0,
+   "tight_mean": 266.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    266.0,
+    266.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "units_out",
+   "day": 5,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "coop",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "hands",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "herd_GOOSE",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 3.0,
+   "tight_median": 3.0,
+   "wide_win_median": 3.0,
+   "wide_loss_mean": 3.0,
+   "tight_mean": 3.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    3.0,
+    3.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_owned",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 50.0,
+   "tight_median": 50.0,
+   "wide_win_median": 50.0,
+   "wide_loss_mean": 50.0,
+   "tight_mean": 50.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    50.0,
+    50.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "price_MELON",
+   "day": 10,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 271.0,
+   "tight_median": 271.0,
+   "wide_win_median": 271.0,
+   "wide_loss_mean": 271.0,
+   "tight_mean": 271.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    271.0,
+    271.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "hands",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 5.0,
+   "tight_median": 5.0,
+   "wide_win_median": 5.0,
+   "wide_loss_mean": 5.0,
+   "tight_mean": 5.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    5.0,
+    5.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_lead",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": -0.34782608695652173,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 0.6056971514242878,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 2,
+   "losses_outside_fraction": 0.08695652173913043
+  },
+  {
+   "feature": "land_owned",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 75.0,
+   "tight_mean": 75.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 15,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "hands",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "idle_hands",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "known_shops",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 6.0,
+   "tight_median": 6.0,
+   "wide_win_median": 6.0,
+   "wide_loss_mean": 6.0,
+   "tight_mean": 6.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    6.0,
+    6.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "land_owned",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 75.0,
+   "tight_median": 75.0,
+   "wide_win_median": 75.0,
+   "wide_loss_mean": 75.0,
+   "tight_mean": 75.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    75.0,
+    75.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  },
+  {
+   "feature": "opponent_hands",
+   "day": 20,
+   "wide_loss_n": 23,
+   "tight_n": 40,
+   "wide_win_n": 4,
+   "wide_loss_median": 0.0,
+   "tight_median": 0.0,
+   "wide_win_median": 0.0,
+   "wide_loss_mean": 0.0,
+   "tight_mean": 0.0,
+   "cliffs_delta": 0.0,
+   "overlap": 0.0,
+   "median_difference_ci": [
+    0.0,
+    0.0
+   ],
+   "permutation_p": 1.0,
+   "tight_envelope": [
+    0.0,
+    0.0
+   ],
+   "losses_outside_envelope": 0,
+   "losses_outside_fraction": 0.0
+  }
+ ],
+ "first_divergence": [
+  {
+   "episode_id": 107300432,
+   "opponent_team": "Laplacenvmv",
+   "opponent_rating": 2757.533477519397,
+   "ladder_margin": -1381,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 63.0,
+     "direction": "above",
+     "distance": 63.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "feature": "cash",
+     "value": 70.0,
+     "direction": "above",
+     "distance": 44.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 7.0,
+     "direction": "below",
+     "distance": 19.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "land_lead",
+     "value": 3,
+     "direction": "above",
+     "distance": 3.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107331618,
+   "opponent_team": "MartinZiserman",
+   "opponent_rating": 2663.5842764792983,
+   "ladder_margin": -2547,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash",
+     "value": 24.0,
+     "direction": "below",
+     "distance": 2.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 24.0,
+     "direction": "below",
+     "distance": 2.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107344051,
+   "opponent_team": "\ud83e\ude8fHarvest Moon",
+   "opponent_rating": 2625.901107493121,
+   "ladder_margin": -35313,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -52.0,
+     "direction": "below",
+     "distance": 52.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "feature": "cash",
+     "value": 0.0,
+     "direction": "below",
+     "distance": 26.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 52.0,
+     "direction": "above",
+     "distance": 26.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107364303,
+   "opponent_team": "D Chakraborty",
+   "opponent_rating": 2636.5370187218036,
+   "ladder_margin": -2443,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash",
+     "value": 22.0,
+     "direction": "below",
+     "distance": 4.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "cash_lead",
+     "value": -4.0,
+     "direction": "below",
+     "distance": 4.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107387179,
+   "opponent_team": "QQ Farming",
+   "opponent_rating": 2617.214734779655,
+   "ladder_margin": -1857,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -81.0,
+     "direction": "below",
+     "distance": 81.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 104.0,
+     "direction": "above",
+     "distance": 78.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "land_lead",
+     "value": 14,
+     "direction": "above",
+     "distance": 14.0,
+     "envelope": [
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "feature": "opponent_land_used",
+     "value": 9,
+     "direction": "below",
+     "distance": 14.0,
+     "envelope": [
+      23.0,
+      23.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107410474,
+   "opponent_team": "Matthew Huang",
+   "opponent_rating": 2624.1217951523395,
+   "ladder_margin": -4751,
+   "first_divergence_day": 1,
+   "signals": [
+    {
+     "feature": "cash",
+     "value": 24.0,
+     "direction": "below",
+     "distance": 2.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 24.0,
+     "direction": "below",
+     "distance": 2.0,
+     "envelope": [
+      26.0,
+      26.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107237149,
+   "opponent_team": "LuanHengYu",
+   "opponent_rating": 2684.909109692569,
+   "ladder_margin": -1099,
+   "first_divergence_day": 7,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -383.0,
+     "direction": "below",
+     "distance": 379.9,
+     "envelope": [
+      -3.0999999999999996,
+      0.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 1129.0,
+     "direction": "above",
+     "distance": 301.39999999999964,
+     "envelope": [
+      748.0,
+      827.6000000000004
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107360543,
+   "opponent_team": "Charles Backman on LinkedIn",
+   "opponent_rating": 2668.2813490864787,
+   "ladder_margin": -2510,
+   "first_divergence_day": 7,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -7.0,
+     "direction": "below",
+     "distance": 3.9000000000000004,
+     "envelope": [
+      -3.0999999999999996,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107368380,
+   "opponent_team": "Smiley Flour",
+   "opponent_rating": 2625.1092351431953,
+   "ladder_margin": -6640,
+   "first_divergence_day": 7,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -379.0,
+     "direction": "below",
+     "distance": 375.9,
+     "envelope": [
+      -3.0999999999999996,
+      0.0
+     ]
+    },
+    {
+     "feature": "opponent_cash",
+     "value": 1129.0,
+     "direction": "above",
+     "distance": 301.39999999999964,
+     "envelope": [
+      748.0,
+      827.6000000000004
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107276773,
+   "opponent_team": "marching_zzz",
+   "opponent_rating": 2736.2748483823434,
+   "ladder_margin": -2764,
+   "first_divergence_day": 8,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -6.0,
+     "direction": "below",
+     "distance": 2.700000000000001,
+     "envelope": [
+      -3.299999999999999,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107286690,
+   "opponent_team": "Max Manushin",
+   "opponent_rating": 2717.4774648166485,
+   "ladder_margin": -1009,
+   "first_divergence_day": 8,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -6.0,
+     "direction": "below",
+     "distance": 2.700000000000001,
+     "envelope": [
+      -3.299999999999999,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107415047,
+   "opponent_team": "JYShane",
+   "opponent_rating": 2624.3186332102446,
+   "ladder_margin": -1762,
+   "first_divergence_day": 8,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -7.0,
+     "direction": "below",
+     "distance": 3.700000000000001,
+     "envelope": [
+      -3.299999999999999,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107420868,
+   "opponent_team": "yuya",
+   "opponent_rating": 2625.7834876616807,
+   "ladder_margin": -1140,
+   "first_divergence_day": 8,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": -9.0,
+     "direction": "below",
+     "distance": 5.700000000000001,
+     "envelope": [
+      -3.299999999999999,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107227290,
+   "opponent_team": "\uc778\uacf5\uc800\ub2a5\uc5f0\uad6c\uc18c( Artificial Idiocy Lab )",
+   "opponent_rating": 2743.3972997380843,
+   "ladder_margin": -1119,
+   "first_divergence_day": 12,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 228.0,
+     "direction": "above",
+     "distance": 228.0,
+     "envelope": [
+      -33.599999999999994,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107296145,
+   "opponent_team": "mtmr_s1",
+   "opponent_rating": 2683.2414874973983,
+   "ladder_margin": -1754,
+   "first_divergence_day": 12,
+   "signals": [
+    {
+     "feature": "delta_cash",
+     "value": -163.0,
+     "direction": "above",
+     "distance": 64.7999999999999,
+     "envelope": [
+      -1865.3,
+      -227.7999999999999
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107354819,
+   "opponent_team": "Maman Salto",
+   "opponent_rating": 2685.664980663602,
+   "ladder_margin": -1798,
+   "first_divergence_day": 12,
+   "signals": [
+    {
+     "feature": "delta_cash",
+     "value": -171.0,
+     "direction": "above",
+     "distance": 56.7999999999999,
+     "envelope": [
+      -1865.3,
+      -227.7999999999999
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107434948,
+   "opponent_team": "peikopon",
+   "opponent_rating": 2648.4580575810464,
+   "ladder_margin": -5602,
+   "first_divergence_day": 13,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 1135.0,
+     "direction": "above",
+     "distance": 1135.0,
+     "envelope": [
+      -121.19999999999993,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107353675,
+   "opponent_team": "JianYuan Deng",
+   "opponent_rating": 2601.006165033952,
+   "ladder_margin": -1932,
+   "first_divergence_day": 14,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 2.0,
+     "direction": "above",
+     "distance": 2.0,
+     "envelope": [
+      -148.39999999999998,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107360713,
+   "opponent_team": "peikopon",
+   "opponent_rating": 2659.761221967563,
+   "ladder_margin": -4260,
+   "first_divergence_day": 14,
+   "signals": [
+    {
+     "feature": "price_STRAWBERRY",
+     "value": 151,
+     "direction": "below",
+     "distance": 12.0,
+     "envelope": [
+      163.0,
+      226.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107467056,
+   "opponent_team": "Taimo",
+   "opponent_rating": 2634.292675109775,
+   "ladder_margin": -5361,
+   "first_divergence_day": 14,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 39.0,
+     "direction": "above",
+     "distance": 39.0,
+     "envelope": [
+      -148.39999999999998,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107492678,
+   "opponent_team": "Vibe Farmer",
+   "opponent_rating": 2608.9747018289977,
+   "ladder_margin": -4327,
+   "first_divergence_day": 14,
+   "signals": [
+    {
+     "feature": "cash_lead",
+     "value": 11.0,
+     "direction": "above",
+     "distance": 11.0,
+     "envelope": [
+      -148.39999999999998,
+      0.0
+     ]
+    }
+   ]
+  },
+  {
+   "episode_id": 107292952,
+   "opponent_team": "Exposed",
+   "opponent_rating": 2654.231742373827,
+   "ladder_margin": -1079,
+   "first_divergence_day": null,
+   "signals": []
+  },
+  {
+   "episode_id": 107311070,
+   "opponent_team": "David Estevez",
+   "opponent_rating": 2671.0131997134786,
+   "ladder_margin": -1174,
+   "first_divergence_day": null,
+   "signals": []
+  }
+ ],
+ "opponent_check": {
+  "distinct_teams_in_losses": 22,
+  "distinct_teams_in_tight": 38,
+  "teams_in_both": [
+   "JianYuan Deng"
+  ],
+  "teams_in_both_count": 1,
+  "largest_team_share_of_losses": 0.08695652173913043,
+  "most_common_loss_teams": [
+   [
+    "peikopon",
+    2
+   ],
+   [
+    "\uc778\uacf5\uc800\ub2a5\uc5f0\uad6c\uc18c( Artificial Idiocy Lab )",
+    1
+   ],
+   [
+    "LuanHengYu",
+    1
+   ],
+   [
+    "marching_zzz",
+    1
+   ],
+   [
+    "Max Manushin",
+    1
+   ]
+  ],
+  "opponent_rating_loss_median": 2654.231742373827,
+  "opponent_rating_tight_median": 2625.805226139817,
+  "opponent_rating_cliffs_delta": 0.358695652173913,
+  "opponent_rating_ci": [
+   -5.793280994698307,
+   54.83167077515918
+  ]
+ },
+ "environment_check": {
+  "price_CARROT": {
+   "wide_loss_median": 35,
+   "tight_median": 35.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_EGG": {
+   "wide_loss_median": 50,
+   "tight_median": 50.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_FERTILIZER": {
+   "wide_loss_median": 100,
+   "tight_median": 100.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_MELON": {
+   "wide_loss_median": 256,
+   "tight_median": 256.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_MILK": {
+   "wide_loss_median": 169,
+   "tight_median": 169.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_STRAWBERRY": {
+   "wide_loss_median": 128,
+   "tight_median": 128.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_TOMATO": {
+   "wide_loss_median": 60,
+   "tight_median": 60.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  },
+  "price_WHEAT": {
+   "wide_loss_median": 30,
+   "tight_median": 30.0,
+   "cliffs_delta": -0.06195652173913044,
+   "permutation_p": 0.5542228885557221
+  },
+  "price_WOOL": {
+   "wide_loss_median": 206,
+   "tight_median": 206.0,
+   "cliffs_delta": 0.0,
+   "permutation_p": 1.0
+  }
+ },
+ "classifier": {
+  "base_rate_wide_loss": 0.34328358208955223,
+  "best_overall": [
+   {
+    "day": 10,
+    "feature": "price_EGG",
+    "loo_balanced_accuracy": 0.700098814229249,
+    "in_sample_balanced_accuracy": 0.700098814229249,
+    "threshold": 51.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "herd_SHEEP",
+    "loo_balanced_accuracy": 0.6146245059288538,
+    "in_sample_balanced_accuracy": 0.6146245059288538,
+    "threshold": 6.0,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "price_STRAWBERRY",
+    "loo_balanced_accuracy": 0.6052371541501976,
+    "in_sample_balanced_accuracy": 0.6052371541501976,
+    "threshold": 188.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "price_WHEAT",
+    "loo_balanced_accuracy": 0.6022727272727273,
+    "in_sample_balanced_accuracy": 0.6022727272727273,
+    "threshold": 35.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "herd_COW",
+    "loo_balanced_accuracy": 0.592885375494071,
+    "in_sample_balanced_accuracy": 0.592885375494071,
+    "threshold": 7.0,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "price_EGG",
+    "loo_balanced_accuracy": 0.592391304347826,
+    "in_sample_balanced_accuracy": 0.592391304347826,
+    "threshold": 50.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "delta_cash",
+    "loo_balanced_accuracy": 0.5869565217391304,
+    "in_sample_balanced_accuracy": 0.5869565217391304,
+    "threshold": 404.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "opponent_cash",
+    "loo_balanced_accuracy": 0.5859683794466404,
+    "in_sample_balanced_accuracy": 0.607707509881423,
+    "threshold": 1816.0,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "delta_cash",
+    "loo_balanced_accuracy": 0.5854743083003953,
+    "in_sample_balanced_accuracy": 0.650691699604743,
+    "threshold": 812.0,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "price_STRAWBERRY",
+    "loo_balanced_accuracy": 0.5780632411067194,
+    "in_sample_balanced_accuracy": 0.5780632411067194,
+    "threshold": 147.0,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "cash",
+    "loo_balanced_accuracy": 0.5755928853754941,
+    "in_sample_balanced_accuracy": 0.5973320158102767,
+    "threshold": 684.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "price_MILK",
+    "loo_balanced_accuracy": 0.5706521739130435,
+    "in_sample_balanced_accuracy": 0.5706521739130435,
+    "threshold": 208.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "price_CARROT",
+    "loo_balanced_accuracy": 0.5701581027667983,
+    "in_sample_balanced_accuracy": 0.5701581027667983,
+    "threshold": 35.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "price_TOMATO",
+    "loo_balanced_accuracy": 0.5657114624505929,
+    "in_sample_balanced_accuracy": 0.6309288537549407,
+    "threshold": 61.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "cash_lead",
+    "loo_balanced_accuracy": 0.5642292490118577,
+    "in_sample_balanced_accuracy": 0.5859683794466404,
+    "threshold": 13.5,
+    "direction": 1,
+    "n": 67
+   }
+  ],
+  "best_per_day": [
+   {
+    "day": 1,
+    "feature": "cash_lead",
+    "loo_balanced_accuracy": 0.5434782608695652,
+    "in_sample_balanced_accuracy": 0.5652173913043478,
+    "threshold": -2.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 3,
+    "feature": "cash_lead",
+    "loo_balanced_accuracy": 0.5321146245059288,
+    "in_sample_balanced_accuracy": 0.5652173913043478,
+    "threshold": -3.5,
+    "direction": -1,
+    "n": 67
+   },
+   {
+    "day": 5,
+    "feature": "price_EGG",
+    "loo_balanced_accuracy": 0.592391304347826,
+    "in_sample_balanced_accuracy": 0.592391304347826,
+    "threshold": 50.5,
+    "direction": 1,
+    "n": 67
+   },
+   {
+    "day": 10,
+    "feature": "price_EGG",
+    "loo_balanced_accuracy": 0.700098814229249,
+    "in_sample_balanced_accuracy": 0.700098814229249,
+    "threshold": 51.5,
+    "direction": 1,
+    "n": 67
+   }
+  ],
+  "candidates_screened": 132,
+  "selection_null": {
+   "rounds": 200,
+   "columns_screened": 132,
+   "null_median": 0.6304347826086957,
+   "null_p95": 0.6813241106719368,
+   "null_max": 0.7094861660079052
+  }
+ }
+}

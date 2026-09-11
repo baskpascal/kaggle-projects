@@ -1,0 +1,4357 @@
+{
+ "107202174": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE"
+   ],
+   "cash": 801.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 949.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 13392.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 18941.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ },
+ "107206062": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1670.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 15074.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 26723.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107209005": {
+  "3": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 453.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 653.0,
+   "sheep": 9,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 14463.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 22264.0,
+   "sheep": 12,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107212797": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 805.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 1563.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 16268.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 26080.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107215798": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 13775.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 21165.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107216665": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1428.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 14634.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 24941.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107221914": {
+  "3": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 687.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "PET_CAFE"
+   ],
+   "cash": 805.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 974.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 13634.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 17798.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107224372": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1417.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 14629.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 23462.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107227111": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1773.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 15227.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 25331.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107227290": {
+  "3": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 1127.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 13691.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 19546.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107232882": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1784.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15299.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 26980.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107236643": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PET_CAFE"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE"
+   ],
+   "cash": 1101.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE"
+   ],
+   "cash": 13640.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PET_CAFE"
+   ],
+   "cash": 17815.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107237149": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 746.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1093.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 14039.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 21352.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107241135": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE"
+   ],
+   "cash": 801.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 949.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 13427.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 19552.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ },
+ "107245194": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 13787.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 19521.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107247617": {
+  "3": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 1031.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 1046.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 14715.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 20130.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107251525": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1773.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 15227.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 25332.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107256885": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1696.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 15139.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 26787.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107257685": {
+  "3": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1032.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1561.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 14722.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 22994.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ },
+ "107261982": {
+  "3": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 805.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 994.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 16192.0,
+   "sheep": 9,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 20889.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107265374": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 13787.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 19521.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107265677": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1810.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15406.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 27582.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107268633": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1654.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 15002.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 24620.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107269372": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 805.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 1563.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 16268.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 25529.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107276709": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1417.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 14491.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 22039.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107276773": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1691.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15125.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 24702.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107286038": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 13775.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 20053.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107286690": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1423.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 14545.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 22009.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107288778": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1659.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 14931.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 23273.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107292952": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1417.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP"
+   ],
+   "cash": 14491.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 21506.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107293200": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 13651.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 20645.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107296145": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1784.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15342.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 26007.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107300005": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1417.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 14641.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 23448.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107300317": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1773.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 15227.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 25332.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107300432": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 243.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 729.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 853.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "YARN_STORE"
+   ],
+   "cash": 1192.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "YARN_STORE"
+   ],
+   "cash": 13801.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 20923.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107304644": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE"
+   ],
+   "cash": 801.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 949.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 13427.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 19081.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ },
+ "107311070": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1810.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15350.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 25565.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107312954": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 687.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 808.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1810.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15499.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 27829.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107317275": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 801.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1518.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 16299.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 26926.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107321720": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT"
+   ],
+   "cash": 13568.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET"
+   ],
+   "cash": 17786.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107331618": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 682.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET"
+   ],
+   "cash": 802.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 1142.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "YARN_STORE"
+   ],
+   "cash": 13701.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 20858.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107336595": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1090.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 13775.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 19529.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107337347": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 683.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 745.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1667.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 15063.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 24657.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107343976": {
+  "3": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "YARN_STORE"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1038.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1446.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 14756.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 25118.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ },
+ "107344051": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 203.0,
+   "sheep": 2,
+   "pasture": 4,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 187.0,
+   "sheep": 2,
+   "pasture": 4,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP"
+   ],
+   "cash": 91.0,
+   "sheep": 2,
+   "pasture": 11,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 174.0,
+   "sheep": 2,
+   "pasture": 11,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 10713.0,
+   "sheep": 3,
+   "pasture": 12,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 12178.0,
+   "sheep": 3,
+   "pasture": 12,
+   "coop": 4
+  }
+ },
+ "107353675": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1412.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP"
+   ],
+   "cash": 14486.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 21991.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107354819": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1768.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15290.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 25858.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107357808": {
+  "3": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE"
+   ],
+   "cash": 752.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1141.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 13969.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 19597.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107360543": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "YARN_STORE"
+   ],
+   "cash": 797.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 989.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 14494.0,
+   "sheep": 10,
+   "pasture": 17,
+   "coop": 1
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 20418.0,
+   "sheep": 11,
+   "pasture": 17,
+   "coop": 1
+  }
+ },
+ "107360713": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1659.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 15007.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 24651.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107362837": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 1670.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 15074.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 26723.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107364303": {
+  "3": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 194.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "FARMERS_MARKET"
+   ],
+   "cash": 682.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PET_CAFE"
+   ],
+   "cash": 745.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PET_CAFE"
+   ],
+   "cash": 1092.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PET_CAFE"
+   ],
+   "cash": 13615.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 17741.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107368380": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1654.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP"
+   ],
+   "cash": 14926.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 23235.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107384148": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 1409.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 14493.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 21370.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107387179": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 191.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 668.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 779.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 1521.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 16338.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PET_CAFE"
+   ],
+   "cash": 23870.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107395918": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1784.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15342.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 26023.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107399653": {
+  "3": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PET_CAFE"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 1449.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 14609.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP"
+   ],
+   "cash": 22058.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107410474": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 195.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 683.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP"
+   ],
+   "cash": 803.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 1706.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 15126.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 24769.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107415047": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 746.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1420.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 14539.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 21426.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107420868": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 751.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1802.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15409.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 26002.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107434948": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 753.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 1696.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "FARMERS_MARKET",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 15139.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 26791.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107450447": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 752.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1829.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15482.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 27626.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107461389": {
+  "3": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 689.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 752.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1715.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15130.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 23411.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107467056": {
+  "3": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE"
+   ],
+   "cash": 748.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 1665.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP"
+   ],
+   "cash": 15074.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 24891.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107487575": {
+  "3": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BRUNCH_SPOT"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE"
+   ],
+   "cash": 746.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 1093.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "YARN_STORE"
+   ],
+   "cash": 13700.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BRUNCH_SPOT",
+    "BRUNCH_SPOT",
+    "PET_CAFE",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 20717.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107492678": {
+  "3": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "BAKERY"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET"
+   ],
+   "cash": 750.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 1085.0,
+   "sheep": 4,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP"
+   ],
+   "cash": 13770.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  },
+  "15": {
+   "shops": [
+    "BAKERY",
+    "BAKERY",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+   ],
+   "cash": 20022.0,
+   "sheep": 6,
+   "pasture": 14,
+   "coop": 4
+  }
+ },
+ "107501410": {
+  "3": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 198.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "5": {
+   "shops": [
+    "PIZZA_SHOP"
+   ],
+   "cash": 686.0,
+   "sheep": 2,
+   "pasture": 6,
+   "coop": 0
+  },
+  "7": {
+   "shops": [
+    "PIZZA_SHOP",
+    "YARN_STORE"
+   ],
+   "cash": 801.0,
+   "sheep": 2,
+   "pasture": 13,
+   "coop": 0
+  },
+  "9": {
+   "shops": [
+    "PIZZA_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 1513.0,
+   "sheep": 6,
+   "pasture": 13,
+   "coop": 0
+  },
+  "11": {
+   "shops": [
+    "PIZZA_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 14767.0,
+   "sheep": 10,
+   "pasture": 18,
+   "coop": 0
+  },
+  "15": {
+   "shops": [
+    "PET_CAFE",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "YARN_STORE",
+    "YARN_STORE"
+   ],
+   "cash": 24196.0,
+   "sheep": 11,
+   "pasture": 18,
+   "coop": 0
+  }
+ }
+}
