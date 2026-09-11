@@ -107,7 +107,8 @@ def _capture(replay, seat):
     return out
 
 
-def run_cell(worlds, candidate, directory, *, workers=6, backend='official'):
+def run_cell(worlds, candidate, directory, *, workers=6, backend='official',
+             capture=CAPTURE):
     """One cell of the 2x2: this candidate, on these worlds, with state captured."""
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
@@ -118,7 +119,7 @@ def run_cell(worlds, candidate, directory, *, workers=6, backend='official'):
         jobs.append(dict(candidate=str(candidate), opponent=world['opponent_agent'],
                          seed=world['seed'], seat=world['seat'], backend=backend,
                          evidence_profile='full', replay=str(path),
-                         replay_steps=list(CAPTURE)))
+                         replay_steps=list(capture)))
     rows = []
     for world, path, row in zip(worlds, replays, matches(jobs, workers, ordered=True)):
         ours, theirs = row['money'], row['opponent_money']
@@ -134,7 +135,7 @@ def run_cell(worlds, candidate, directory, *, workers=6, backend='official'):
             'ladder_margin': world['ladder_our_money'] - world['ladder_opponent_money'],
             'ladder_outcome': world['ladder_outcome'],
             'branch_executed': observed_branch(midgame),
-            'state_360': midgame, 'state_718': captured.get(718),
+            **{f'state_{step}': captured.get(step) for step in capture},
             'failures': list(row['failures']) + list(row['opponent_failures'])})
     return rows
 

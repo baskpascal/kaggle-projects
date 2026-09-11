@@ -593,3 +593,48 @@ regime no dia 6, **cinco dias antes de a variável que decide o regime existir**
 Adiar o compromisso: manter a `YARN_STORE` como prior no dia 6 e reavaliar quando a demanda por
 lã se revelar, medindo no mesmo cohort. Teto medido: +3 mundos (0,388 → 0,433), com a ressalva
 de que os 17 mundos foram identificados dentro do próprio cohort.
+
+## 2026-09-10 — compromisso adiado rejeitado: o custo de transição excede a informação
+
+`experiments/delayed_commitment.py` construiu a ponte legal do dia 6 ao dia 11 — `state.plan`
+atribuído duas vezes, prefixo no turno 144 e sufixo no 264, overlays intactos — e mediu o teto
+com rótulo do futuro. Detalhes em `docs/DELAYED_COMMITMENT.md`.
+
+    A   v006, coop sempre, sem ponte                 0,2963  (16/54)
+    B1  prefixo coop,  oraculo -> ovelha no d11      0,2037
+    B2  prefixo ovelha, oraculo -> coop no d11       0,1852
+
+**Os dois tetos, com conhecimento perfeito do regime, ficam abaixo do `v006`.** Pela lógica de
+promoção declarada, isso rejeita a direção e a regra observável não foi construída.
+
+O custo de transição, medido com o mesmo regime final:
+
+    termina em ovelha:  0,185 sem ponte -> 0,019 com ponte   custo -0,167
+    termina em coop  :  0,296 sem ponte -> 0,167 com ponte   custo -0,130
+
+Nos 17 mundos de lã sã, a ovelha desde o dia 6 ganha 0,471 e a mesma ovelha alcançada por ponte
+no dia 11 ganha 0,000. A informação não é o gargalo; a execução é. Um tape que constrói 18
+tiles de pasto até o dia 11 não pode ser iniciado no dia 11.
+
+Duas referências delimitam a direção: um oráculo perfeito **no dia 6** (sem ponte) daria 0,3519,
+ou **+3 mundos em 67**; e o melhor-de-todas por mundo, que não é uma política, daria 0,4074.
+
+E esse teto de +3 também não é alcançável: prever "lã sã no d15" a partir de 52 observáveis do
+dia 5/6 dá LOO de **0,639** contra um nulo de seleção de mediana 0,594 e **p95 0,647**. A melhor
+regra fica abaixo do ruído do próprio procedimento.
+
+### O que isso implica
+
+O custo de transição é uma propriedade de **decisões de construção** — terra, pasto, coop,
+rebanho acumulam estado físico e não podem ser retrofitados. Qualquer adaptação tardia sobre os
+tapes do `v006` que mexa nelas paga 13 a 17 pontos. Isso fecha a adaptação de build, não a
+adaptação em geral: decisões de mercado não acumulam estado físico e são comutáveis a qualquer
+momento.
+
+A aritmética aponta para lá: +100 moedas uniformes viram 8 mundos (0,388 -> 0,508) contra os +3
+que o regime perfeito valeria.
+
+### Próximo
+
+Uma decisão de mercado comutável tarde, medida no mesmo cohort. Holdout estrito já preparado: a
+faixa 2400–2600, 195 replays arquivados no total, 3.405 views restantes.
