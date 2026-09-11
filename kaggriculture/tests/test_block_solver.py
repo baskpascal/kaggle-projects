@@ -139,11 +139,11 @@ def test_candidate_with_different_frontier_is_refused(tmp_path, monkeypatch):
     from experiments import block_solver as solver
     def matches(jobs, workers):
         for job in jobs:
+            assert Path(job['replay']).parent != Path(job['candidate']).parent
             # The frontier digest reads the same keys the arrival state does, so the
             # stand-in observation carries them like a real one.
             obs = dict(player=job['seat'], step=648, day=27, hour=0, market={}, town={},
                        farms=[{'money': 0}, {'money': 0}], private={})
-            from pathlib import Path
             Path(job['replay']).write_text(json.dumps({'turns': [
                 dict(step=step, observations=[obs, obs]) for step in (648, 719)]}))
             yield dict(candidate_hash=solver.agent_hash(job['candidate']), opponent_hash='x',
