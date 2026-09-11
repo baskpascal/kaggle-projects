@@ -598,3 +598,33 @@ compilado. O próximo teste é substituir somente a atribuição dos dois lanes 
 compromissos persistentes por unidade até sua conclusão e exigir, nos mesmos 10 mundos,
 40 culturas e 12 pastos em t288 sem perder os gates robustos de terra e equipe. Se isso passar,
 reconstruir o evaluator reativo 2600–2800 antes de dar significado competitivo à Stage 2.
+
+## 2026-09-10 — compromisso persistente por unidade rejeitado no Stage 1
+
+REALITY. Refresh às 21:44 BRT: `v006` estava em 2.441,2, rank 652; SpaTaro liderava com
+3.130,4 e o corte top-10 era 2.961,0. O déficit competitivo, portanto, continua aumentando.
+
+MEASURED FACT. O trace congelado mostrou que a formulação inicial estava incompleta: em
+seed 1003, a reserva de 2.000 moedas para terra bloqueou HIRE de t216 até t280. A capacidade
+foi só 72/762 worker-turns possíveis, e o mundo terminou t288 com 13 culturas e seis pastos.
+
+CAUSAL RESULT. Liberar apenas HIRE da reserva levou seeds 1003/1004 a 39/12 e 38/12, mas
+compras opcionais de animais ocuparam três dos dez slots de mercado e limitaram a equipe a
+7/8. Adiar esses pedidos até t288 restaurou 2.760/2.760 worker-turns e produziu 39/12 e
+40/12. Capacidade de equipe era a primeira causa, não ownership por unidade.
+
+CAUSAL RESULT. Sobre a base com recursos corrigidos, persistência passou seed 1003 exatamente
+em 40/12, mas falhou o boundary pré-definido 1007 em 38/12; o controle imediato atingiu
+42/12. O mecanismo regrediu porque compromissos ativos saíam de `jobs`/`planned`: houve 166
+estados sem sementes contra dois no controle e BUY_SEED caiu de 46 para 32. As 183 ações
+PLANT/BUILD auditadas eram transições distintas do estado real, e falhas medidas de PLANT,
+BUILD_PASTURE, HIRE e BUY_LAND foram zero.
+
+DECISION. REJECT no Stage 1; nenhum run de 10 mundos e nenhum Stage 2. Persistência permanece
+opt-in e desligada por padrão. Retêm-se instrumentos de capacidade diária, arbitragem de
+recursos, execução por transição e custo de oportunidade. Detalhes e hashes:
+`docs/COMPILED_SCHEDULE_PERSISTENCE.md`.
+
+NEXT QUESTION. A remoção do throttle de quatro turnos em `v006.advance_sales`, que ganhou 23
+mundos e regrediu um no cohort de desenvolvimento, preserva net positivo numa população
+independente e contra adversários reativos depois de corrigir a identidade/hash do bundle?

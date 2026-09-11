@@ -3,15 +3,15 @@
   "champion": {
     "artifact": "versions/v006/main.py",
     "sha256_prefix": "495bfa4825c9e586",
-    "ladder": 2513.3,
-    "rank": null,
+    "ladder": 2441.2,
+    "rank": 652,
     "episodes": 204,
     "peak_ladder": 2644.4
   },
   "leader": {
     "team": "SpaTaro",
-    "rating": 3101.2,
-    "top10_cut": 2946.6
+    "rating": 3130.4,
+    "top10_cut": 2961.0
   },
   "key_finding": "live ladder, not the saturated local panel, is decisive: v006 reproduced 20/20 exactly in engine 1.32.7 and median |margin| in the 2600-2800 sample was 102 coins (0.111% of typical cash).",
   "layers_exhausted": [
@@ -21,15 +21,16 @@
     "sale floor",
     "opponent forecast weight",
     "herd floor / land reserve holds",
-    "aggregate phase quotas served by reactive per-turn assignment"
+    "aggregate phase quotas served by reactive per-turn assignment",
+    "persistent per-unit crop/pasture assignment as implemented in issue #70"
   ],
-  "next_action": "Issue #70 Stage 1 continuation: replace only crop-replenishment and pasture assignment with persistent per-unit commitments until completion. Rerun the same 10 dev worlds in both seats and require from executed state: 3 total quadrants by t480, >=40 crops and 12 pasture at t288, daily crew availability measured rather than one phase peak, zero hidden failures. Do not run Stage 2 until every structural gate passes; before interpreting Stage 2, build a credible reactive evaluator for the live 2600-2800 band.",
+  "next_action": "Freeze and adversarially validate the one-line v006 advance_sales throttle removal. First fix evidence identity so the changed router_parent bundle cannot inherit v006's unchanged main.py hash; then test net gained-minus-regressed worlds on an independent archived 2400-2600 cohort and at least one genuinely reactive strong family. Development evidence is 23 gained, 1 regressed over 67 tape-fixed 2600-2800 worlds, but is not promotion evidence until those confounders are killed.",
   "instruments": {
     "primary": "experiments/compiled_schedule_gate.py executed-state structural gate",
     "competitive": "live ladder outcomes plus exact ladder reproduction; local v006 is directional diagnostic only",
     "diagnostic": "terminal cash in mirror vs head-to-head, same seed"
   },
-  "interventions_rejected": 19,
+  "interventions_rejected": 20,
   "key_finding_2": "shared market: deferring our herd raised our money 51,088->62,710 and v006's 130,332->150,443 in the same worlds. Our choices move the opponent's income by tens of thousands, so optimising our own economy cannot win. Fitness is ours-minus-theirs.",
   "key_finding_3": "price curve is shallow below neutral inventory (10,000) and collapses above it. v006 realises 45,479 on strawberry at inventory ~9,806; adding 200 units of ours drops it to 7,370 while we take 39,161 - a 77,270 swing against an 81,266 deficit. First mechanism at the right size. `attack_tiles` implements it, default off.",
   "elite_base": {
@@ -65,6 +66,26 @@
       "pasture_t288": 12,
       "crew_phase_peak": 9
     },
-    "interpretation": "global schedule targets robustly fix land and crew peak, but reactive unit assignment still misses crop replenishment and the second pasture tranche; no Stage 2"
+    "interpretation": "global schedule targets robustly fix land and crew peak, but reactive unit assignment still misses crop replenishment and the second pasture tranche; no Stage 2",
+    "persistent_continuation": {
+      "decision": "REJECT_STAGE_1",
+      "boundary_seed": 1007,
+      "persistent_crops_t288": 38,
+      "resource_control_crops_t288": 42,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns": "2755/2760",
+      "measured_structural_failures": 0,
+      "zero_seed_states": {
+        "persistent": 166,
+        "control": 2
+      },
+      "buy_seed_calls": {
+        "persistent": 32,
+        "control": 46
+      },
+      "cause": "active commitments disappeared from jobs/planned and therefore from upstream seed procurement demand",
+      "stage2_run": false
+    }
   }
 }

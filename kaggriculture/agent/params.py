@@ -14,6 +14,15 @@ DEFAULTS = {
     # Commitments are due one phase boundary before the t288 observation gate,
     # leaving one harvest/replant window for executed state to catch up.
     'schedule_crop_deadline': 240,
+    # Stage-1 causal ablation, opt-in so the committed aggregate schedule remains
+    # byte-for-byte equivalent in behaviour unless an experiment names it.
+    'schedule_hires_ignore_land_reserve': False,
+    # Optional animal orders share the ten-slot market with scheduled hands. The v0
+    # value equals the crop deadline; Stage 1 may explicitly extend it to the state gate.
+    'schedule_animal_deferral_horizon': 240,
+    # Persistent unit ownership is a separate Stage-1 arm. It remains off for the
+    # committed aggregate schedule and both resource-ablation controls.
+    'schedule_persistent_assignments': False,
     'schedule_pasture_target': 12,
     'schedule_pasture_phases': ((0, 6), (216, 12)),
     'schedule_land_turns': (120, 216),
