@@ -710,3 +710,249 @@ contra 2 no controle; BUY_SEED 32 contra 46).
 desligado por padrão, os testes, o instrumento de capacidade/arbitragem e a evidência em
 `docs/COMPILED_SCHEDULE_PERSISTENCE.md` e nos JSONs associados. A próxima pergunta continua sendo
 o micro de mercado com identidade de bundle corrigida e adversários reativos.
+## 2026-09-11 — a fazenda está resolvida; tudo que resta é micro de mercado
+
+Medição que reenquadra a campanha, sobre 2.597 assentos de times no leaderboard, extraídos
+dos dumps públicos. Economia no dia 15 por faixa de rating:
+
+    faixa         n    crops  ovelha  vaca  ganso  terra  caixa
+    >=2900     1264       57       6     8      2     75  21.834
+    2600-2900   902       57       6     8      3     75  22.894
+    <2600       431       57       6     8      3     75  21.628
+    nosso v006   67       57       6     8      3     75  23.235
+
+Um time de 3.100 e um de 2.400 constroem **a mesma fazenda**, e a nossa tem o maior caixa no
+dia 15. O dinheiro terminal também não separa: mediana 98.803 acima de 3000 contra 97.762
+abaixo de 2600, e a faixa 2700-2800 ganha mais que a 2900-3000. Nosso `v011` faz 97.637 — a
+0,4% do campo de 2900+.
+
+**Não existe economia melhor a descobrir.** Treinar planner, GA ou RL procuraria um ganho que
+o campo inteiro já esgotou.
+
+### O gueto de espelhos
+
+Nas partidas da elite (1.272 episódios com os dois times no LB) a |margem| mediana é **4.360**
+moedas, 4,47% do dinheiro, e só 6% são decididas por menos de 500. Nas nossas 67 do cohort a
+|margem| mediana é **679**. Nossas partidas são seis vezes mais apertadas, que é a assinatura
+de espelho: sete dos dezessete artefatos públicos são forks do mesmo router, e os marcos macro
+batem com o oponente em 16 de 31 mundos.
+
+Também medido: mesmo com 400 pontos de vantagem, o time melhor rankeado só vence 0,654 das
+partidas. Rating aqui não é dominância, é acúmulo de pequenas vantagens.
+
+### O chassis, agora esgotado
+
+Contra a referência fixa `v006`, ganho de dinheiro próprio:
+
+    relax_advance                    +667
+    + dead_stock                     +438   (sozinho rende menos, mas nega mais)
+    + reserve_sales e sells-first    +814   <- v011, melhor
+    hand_align                        0     neutro
+    clamp_sells                     <0      prejudicial
+    front_run                         0     inerte
+
+`front_run` é **inerte**: com o `advance_sales` destravado, os itens já estão na lista de venda
+quando ele roda. A camada do aberatozer existe porque o chassis dele não destrava o advance.
+
+Varredura do `SALE_HORIZON` contra a mesma referência: h2 **+814**, h3 +729, h4 +675, h6 +122,
+h8 −94, h12 −946. O horizonte 2 que copiamos já era o ótimo.
+
+### Uma lição de instrumento que vale para todo teste futuro
+
+Contra o `v011`, os horizontes 3, 4 e 6 venciam 134/134 — num duelo entre duas variantes que se
+front-runam, a mais agressiva ganha. Contra um **terceiro**, que é a situação do ladder, a mais
+agressiva **perde dinheiro**. Comparar candidatos entre si engana quando ambos carregam camada
+de corrida; a referência precisa ser fixa.
+
+### Estado
+
+`v011` submetido, ativas {v011, v007r}, 3 slots hoje. `v007r` em 9 episódios, 1.594,2, subindo
+de 600 contra campo fraco. `v006` em 2.415 e ainda caindo, com 0,496 na faixa 2400-2600 que era
+0,614 há dois dias — o campo sobe e nós estávamos parados.
+
+## 2026-09-11 — o último dia custa 16 partidas, e não dá para vender para sair dele
+
+Primeira análise do **comércio executado dos dois assentos**, lida por transição de estado
+nos 67 mundos arquivados (`artifacts/trade-flows-v006.json`).
+
+Correção de método antes dos números: a amostragem é na hora 0 de cada dia, então tudo
+produzido e vendido dentro do mesmo dia não aparece na variação de estoque. A receita nocional
+que isso produz (13.223) é uma fração do caixa líquido (84.411) e **não deve ser lida como
+receita**. A comparação é simétrica, então a direção vale; a magnitude não.
+
+**O caixa é confiável, e ele mostra onde a partida é decidida.** Diferença de caixa (nós menos
+eles) por dia, separada pelo resultado final:
+
+    dia        vitorias(26)   derrotas(41)
+    1 a 15            +0             +0
+    17                +0            -14
+    21                +0           -211
+    25                +0           -597
+    29            +1.635            -60
+
+Até o dia 15 o caixa é **idêntico** nos dois grupos, e a concordância do sinal com o resultado
+final é 0,493 — cara-e-coroa. Ela só passa de 0,85 no dia 27.
+
+### O vazamento do último dia
+
+Com o dado terminal autoritativo, ganho entre o dia 29 hora 0 e o turno 719:
+
+    nos   mediana  8.780
+    eles  mediana 10.197
+    delta   -699, favoravel a nos em 13 de 67
+
+    estavamos na frente no d29 e perdemos: 16 de 67
+    estavamos atras no d29 e ganhamos:      0 de 67
+
+Dezesseis partidas jogadas fora nas últimas vinte e quatro horas, zero recuperadas, numa faixa
+cuja partida mediana é decidida por 102 moedas. O `v011` não toca nisso: 8.632 de último dia
+contra 8.780 do `v006`, e todo o seu ganho vem dos dias 1 a 28.
+
+### O mecanismo: composição, não quantidade
+
+Entrando no último dia carregamos a mesma quantidade e menos valor:
+
+    unidades             nos  98    eles 100
+    valor cotado      4.569       5.517     delta -948
+
+    FERTILIZER (~25)    5,9         2,6     +3,3
+    MILK       (~83)    6,8         7,9     -1,1
+    STRAWBERRY (~68)   13,3        14,3     -1,0
+    WOOL      (~105)    2,4         3,2     -0,8
+
+O galpão tem teto de 100 unidades e satura em 67 de 67 mundos, então o que ocupa esse espaço é
+uma escolha de composição. Enchemos de fertilizante a 25 enquanto eles guardam lã a 105. A
+entrada de fertilizante é igual (31,8 contra 32,3); eles escoam 29,6 e nós 25,9.
+
+Nota lateral: os dois lados acumulam ~31 cenouras por partida e nenhum vende durante o jogo,
+31% da capacidade num produto de ~62 a unidade. É ponto cego compartilhado do meta público.
+
+### Duas tentativas de conserto, ambas medidas
+
+`shed_priority`, que vende do mais barato para cima quando a projeção passa de 88: **+55**
+apenas, e o estoque no dia 29 não muda. `liquidate_from` mais cedo: **−2.920 no turno 714,
+−3.370 no 708, −4.038 no 700**, com o ganho do último dia caindo de 8.780 para 4.019.
+
+As duas falham pela mesma razão, e ela é o achado: **a demanda diária do town é finita, e o
+`liquidate` substitui a ação inteira**, parando colheita e recolhimento. Não se vende para sair
+de um galpão cheio, e as 8.780 do último dia vêm de produção continuada, não da varredura.
+
+Portanto o vazamento é de **aquisição**, não de escoamento: para carregar valor maior no último
+dia é preciso não adquirir o barato, o que é decisão de construção — com o custo de transição
+de 13 a 17 pontos já medido em `docs/DELAYED_COMMITMENT.md`.
+
+## 2026-09-11 — a régua passou a cobrir onde o rating é decidido
+
+Três coisas nesta rodada: dados novos, cohort ampliado, e duas camadas medidas.
+
+### O cohort agora tem 195 mundos e continua calibrado
+
+Ampliado de 2600–2800 para 2400–2800, usando os 128 replays da faixa inferior que já estavam
+em disco. O `v006` reproduz o ladder **exatamente** nas duas faixas — 0,5312 em 128 mundos e
+0,3881 em 67 — e a largura do CI caiu de 0,24 para **0,14**, o que é a diferença entre
+distinguir e não distinguir uma melhora de 0,05.
+
+**O foco estava na faixa errada.** Dos 243 episódios do `v006`: 15,9% abaixo de 2400, **54,9%
+em 2400–2600** e 29,2% em 2600–2800. A sessão inteira mediu na faixa de 29%. A de 55% tem win
+0,496 e margem mediana **exatamente +0** em 135 episódios: empate literal, e converter empate
+custa menos que reverter derrota.
+
+### Dados atualizados
+
+Dump de 2026-09-10 sincronizado (657 episódios). Leaderboard de hoje: nós em rank 695 com
+2.417,3, corte do top-10 em 2.953,3, líder 3.137,6. O `yhay81` caiu de 2.928 para 2.880,5 em um
+dia — parte do gap que vinha crescendo é o topo inflado convergindo, não só nós.
+
+### Uma lição de filtro
+
+`pilkwang` publicou hoje um notebook com **103 votos** e está em **rank 1780**. `dmitriigluzdov`
+tem 6 votos e está em rank 144. Votos não medem força; o rank do autor mede. Foi o rank que
+levou ao `reserve_sales`.
+
+### A camada que não paga, e por quê
+
+O notebook "Herd-Safe Sale Window" do `dmitriigluzdov` (rank 144) documenta um modo de falha do
+próprio adiantamento de venda: *"duas moedas podem custar uma ovelha"* — 951 em vez de 953 antes
+de uma compra planejada custou uma ovelha e 22 lãs. Por isso ele preserva os primeiros doze dias
+exatamente como o pai.
+
+Nosso `relax_advance` remove o throttle desde o turno zero. Testado no cohort de 195:
+
+    v011   (relax desde o turno 0)      +804
+    rf288  (throttle ate o dia 12)      +808
+    rf144  (throttle ate o dia 6)       +804
+
+**Neutro.** O aviso é real para o pai deles e inerte para o nosso, e a razão é medível: nos
+primeiros doze dias o estoque é de 17 unidades no dia 5 e 39 no dia 10, então não há o que
+adiantar. Registrado para não ser reaberto.
+
+### Primeiro sinal do ladder
+
+`v007r` chegou a 2.417,3 em 42 episódios, **igualou o `v006` e continua subindo enquanto ele
+cai**, e os dois primeiros episódios na faixa 2400–2600 vieram com margem **+2.634** contra a
+margem +0 que o `v006` tem em 135 episódios da mesma faixa. Dois episódios não provam nada, mas
+é a primeira evidência de que o `relax_advance` transfere, e é na faixa que mais pesa.
+
+Melhor candidato local: `v014` (+833). Não submetido: `v007r` e `v011` são os dois experimentos
+vivos e um terceiro slot aposentaria justamente o que está dando o sinal.
+
+## 2026-09-11 — o fórum, que eu não tinha lido, e a correção que ele obriga
+
+Erro de processo registrado: passei a campanha sem abrir as discussões da competição, apesar
+de isso ser expectativa permanente do projeto. Li a lista de notebooks, não o fórum. O que
+estava lá muda a leitura de tudo que medi no ladder.
+
+### O que o tópico mais votado mede (736219, 83 votos, ex-primeiro colocado)
+
+- Submissão nova começa em 600 e fica **~90% convergida em ~60 jogos**, ~5 horas. Depois só
+  cresce logaritmicamente, **+50 a +70 por 100 jogos**, com ruído residual de **±25 a ±50**.
+- **"Trate diferenças abaixo de ~50 pontos como ruído, mesmo com 200 jogos."**
+- **"Nunca compare uma submissão nova com 50 jogos contra uma antiga com 300"** — a antiga
+  carrega 100 a 150 pontos só de idade.
+- O intercepto da curva depende da sorte dos ~40 primeiros oponentes, ±130 nos fits dele.
+
+E o 734000: dois agentes **byte-a-byte idênticos**, submetidos com duas horas de diferença,
+terminaram em ~1.700 e >3.000. **Mil e trezentos pontos entre cópias iguais.**
+
+### A correção que isso obriga
+
+Declarei que o experimento das camadas falhou de forma conclusiva. **Estava errado.** Comparei
+`v007r` e `v011` com 108 jogos contra `v006` com 243 — exatamente o que não se deve fazer — e
+li ruído como resultado. Refazendo a conta na faixa 2400–2600:
+
+    v006   0,496 (n=135)
+    v011   0,511 (n= 45)   diferenca +0,015, erro padrao 0,086  -> z = +0,17
+    v007r  0,390 (n= 41)   diferenca -0,106, erro padrao 0,089  -> z = -1,19
+
+**Nenhum dos três é distinguível.** Não está provado que as camadas falharam; está provado que
+o ladder não distingue nesse número de jogos. São afirmações diferentes.
+
+### Uma divergência de fontes que já estava resolvida no repositório
+
+O 736219 afirma que o ranking final sai de um Bradley-Terry sobre as duas semanas **posteriores**
+ao prazo e que o rating ao vivo não conta. O `docs/FINAL_SUBMISSION_POLICY.md` já verificou isso
+e registra a resposta direta do Addison Howard (staff): o ajuste usa episódios de **toda a
+competição**, desde que os dois agentes sigam ativos, e marca o 736219 como análise de
+participante que não prevalece sobre o host. A fonte do repositório é mais autoritativa e não
+foi substituída.
+
+As duas concordam no que decide a operação: **o que é pontuado é o par de submissões ativas,
+forte e sem erro, no dia 30/09** — não o número diário.
+
+### O corte por oponente não é aplicável aqui
+
+O fórum recomenda julgar por win rate contra **cada** oponente forte, não pela média. No nosso
+cohort de 195 mundos nenhum time aparece em quatro ou mais: enfrentamos cerca de 180 oponentes
+quase todos distintos. A recomendação pressupõe um painel pequeno e repetido; a nossa amostra é
+a distribuição real do ladder, então a média sobre ela é a estatística certa e não uma média de
+painel enviesada.
+
+### Decisão
+
+`v014` submetido, substituindo o `v007r` — o único dos três medido pior tanto localmente
+(+667 contra +833 de dinheiro próprio) quanto no ladder. As ativas passam a ser `{v014, v011}`,
+os dois melhores candidatos medidos, ambos sem falha de callback e sem estoque terminal.
+Restam 2 slots hoje.
+
+**Parar de perseguir o número diário.** Ele é ±50 de ruído sobre path dependence de até ±1.300;
+perseguir isso foi o motivo de oito horas não mudarem nada.
