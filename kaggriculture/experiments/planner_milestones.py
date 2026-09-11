@@ -26,9 +26,13 @@ def replay_frames(replay):
     """The lab replay, reshaped into the per-seat frames the extractor reads."""
     steps = []
     for turn in replay['turns']:
-        steps.append([{'observation': observation, 'action': action}
-                      for observation, action in zip(turn['observations'],
-                                                     turn['actions'])])
+        actions = turn.get('actions') or []
+        # Snapshot replays include the true step-zero engine state before either
+        # agent has requested an action. Do not let zip silently discard that frame:
+        # executed-state gates are indexed by engine step, not action count.
+        steps.append([{'observation': observation,
+                       'action': actions[seat] if seat < len(actions) else None}
+                      for seat, observation in enumerate(turn['observations'])])
     return steps
 
 

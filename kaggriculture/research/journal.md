@@ -692,3 +692,21 @@ a turno — contra os 1.264 assentos elite já extraídos em `artifacts/regime-l
 Screen dos artefatos públicos que já temos em disco contra o `v006` nos 67 mundos reais, um
 processo por candidato (a versão em processo único foi morta por memória; a máquina é
 compartilhada). Se nenhum bater o `v006`, não há atalho e o micro de mercado é o alvo.
+
+## 2026-09-10 — schedule compilado rejeitado no Stage 1
+
+O experimento da issue #70 preserva uma conclusão negativa útil e reproduzível, sem alterar o
+comportamento padrão: `compiled_schedule` e a persistência por unidade são opt-in. O gate leu
+estado executado, não pedidos, em 10 mundos dev e ambos os assentos, com zero falhas.
+
+As quotas agregadas tornaram terra e pico de equipe robustos, mas só 2/10 mundos passaram todos
+os gates: mínimos de 13 culturas e 6 pastos em t288, contra metas de 40 e 12. A continuação
+persistente recuperou recursos e chegou a 38–42 culturas e 12 pastos, mas falhou o boundary
+pré-definido 1007: o candidato persistente caiu de 42 para 38 culturas porque compromissos ativos
+sumiam de `jobs`/`planned` e deixavam de alimentar a demanda de sementes (166 estados sem sementes
+contra 2 no controle; BUY_SEED 32 contra 46).
+
+**Decisão:** REJECT no Stage 1; nenhum paired competitivo foi executado. Mantêm-se somente o modo
+desligado por padrão, os testes, o instrumento de capacidade/arbitragem e a evidência em
+`docs/COMPILED_SCHEDULE_PERSISTENCE.md` e nos JSONs associados. A próxima pergunta continua sendo
+o micro de mercado com identidade de bundle corrigida e adversários reativos.

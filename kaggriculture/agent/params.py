@@ -3,6 +3,30 @@ DEFAULTS = {
     'cash_reserve': 250,
     'travel_cost': 3.0,
     'diagnostics': False,
+    # Stage-1 compiled phase schedule. Disabled preserves every historical artifact.
+    # The opt-in body commits to cumulative state targets instead of re-pricing every
+    # empty tile independently each turn.
+    'compiled_schedule': False,
+    # Two tiles of execution slack: the state gate is 40 standing crops, while
+    # harvest/dig can consume a scheduled tile at the measurement boundary.
+    'schedule_crop_target': 42,
+    'schedule_crops': ((0, 'WHEAT'),),
+    # Commitments are due one phase boundary before the t288 observation gate,
+    # leaving one harvest/replant window for executed state to catch up.
+    'schedule_crop_deadline': 240,
+    # Stage-1 causal ablation, opt-in so the committed aggregate schedule remains
+    # byte-for-byte equivalent in behaviour unless an experiment names it.
+    'schedule_hires_ignore_land_reserve': False,
+    # Optional animal orders share the ten-slot market with scheduled hands. The v0
+    # value equals the crop deadline; Stage 1 may explicitly extend it to the state gate.
+    'schedule_animal_deferral_horizon': 240,
+    # Persistent unit ownership is a separate Stage-1 arm. It remains off for the
+    # committed aggregate schedule and both resource-ablation controls.
+    'schedule_persistent_assignments': False,
+    'schedule_pasture_target': 12,
+    'schedule_pasture_phases': ((0, 6), (216, 12)),
+    'schedule_land_turns': (120, 216),
+    'schedule_hands': ((0, 10), (288, 10)),
     # Market attack: tiles per turn devoted to the crop the opponent depends on when its
     # market sits just under the engine's neutral inventory. 0 disables.
     'attack_tiles': 0,
