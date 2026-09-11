@@ -710,3 +710,62 @@ contra 2 no controle; BUY_SEED 32 contra 46).
 desligado por padrão, os testes, o instrumento de capacidade/arbitragem e a evidência em
 `docs/COMPILED_SCHEDULE_PERSISTENCE.md` e nos JSONs associados. A próxima pergunta continua sendo
 o micro de mercado com identidade de bundle corrigida e adversários reativos.
+## 2026-09-11 — a fazenda está resolvida; tudo que resta é micro de mercado
+
+Medição que reenquadra a campanha, sobre 2.597 assentos de times no leaderboard, extraídos
+dos dumps públicos. Economia no dia 15 por faixa de rating:
+
+    faixa         n    crops  ovelha  vaca  ganso  terra  caixa
+    >=2900     1264       57       6     8      2     75  21.834
+    2600-2900   902       57       6     8      3     75  22.894
+    <2600       431       57       6     8      3     75  21.628
+    nosso v006   67       57       6     8      3     75  23.235
+
+Um time de 3.100 e um de 2.400 constroem **a mesma fazenda**, e a nossa tem o maior caixa no
+dia 15. O dinheiro terminal também não separa: mediana 98.803 acima de 3000 contra 97.762
+abaixo de 2600, e a faixa 2700-2800 ganha mais que a 2900-3000. Nosso `v011` faz 97.637 — a
+0,4% do campo de 2900+.
+
+**Não existe economia melhor a descobrir.** Treinar planner, GA ou RL procuraria um ganho que
+o campo inteiro já esgotou.
+
+### O gueto de espelhos
+
+Nas partidas da elite (1.272 episódios com os dois times no LB) a |margem| mediana é **4.360**
+moedas, 4,47% do dinheiro, e só 6% são decididas por menos de 500. Nas nossas 67 do cohort a
+|margem| mediana é **679**. Nossas partidas são seis vezes mais apertadas, que é a assinatura
+de espelho: sete dos dezessete artefatos públicos são forks do mesmo router, e os marcos macro
+batem com o oponente em 16 de 31 mundos.
+
+Também medido: mesmo com 400 pontos de vantagem, o time melhor rankeado só vence 0,654 das
+partidas. Rating aqui não é dominância, é acúmulo de pequenas vantagens.
+
+### O chassis, agora esgotado
+
+Contra a referência fixa `v006`, ganho de dinheiro próprio:
+
+    relax_advance                    +667
+    + dead_stock                     +438   (sozinho rende menos, mas nega mais)
+    + reserve_sales e sells-first    +814   <- v011, melhor
+    hand_align                        0     neutro
+    clamp_sells                     <0      prejudicial
+    front_run                         0     inerte
+
+`front_run` é **inerte**: com o `advance_sales` destravado, os itens já estão na lista de venda
+quando ele roda. A camada do aberatozer existe porque o chassis dele não destrava o advance.
+
+Varredura do `SALE_HORIZON` contra a mesma referência: h2 **+814**, h3 +729, h4 +675, h6 +122,
+h8 −94, h12 −946. O horizonte 2 que copiamos já era o ótimo.
+
+### Uma lição de instrumento que vale para todo teste futuro
+
+Contra o `v011`, os horizontes 3, 4 e 6 venciam 134/134 — num duelo entre duas variantes que se
+front-runam, a mais agressiva ganha. Contra um **terceiro**, que é a situação do ladder, a mais
+agressiva **perde dinheiro**. Comparar candidatos entre si engana quando ambos carregam camada
+de corrida; a referência precisa ser fixa.
+
+### Estado
+
+`v011` submetido, ativas {v011, v007r}, 3 slots hoje. `v007r` em 9 episódios, 1.594,2, subindo
+de 600 contra campo fraco. `v006` em 2.415 e ainda caindo, com 0,496 na faixa 2400-2600 que era
+0,614 há dois dias — o campo sobe e nós estávamos parados.
