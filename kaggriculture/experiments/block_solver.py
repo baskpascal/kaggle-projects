@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import random
 import statistics
+import tempfile
 import time
 
 from arena.agents import agent_hash
@@ -155,11 +156,17 @@ def evaluate(actions, directory, opponents, seeds, start, end, workers, provenan
     directory.mkdir(parents=True, exist_ok=resume)
     artifact = build(actions, directory / 'main.py', provenance=provenance)
     snapshots = sorted({start, end})
+    # Replay output is evaluation state, not part of the executable bundle. Keep it beside
+    # the artifact directory so concurrent games cannot change the bundle digest while
+    # another worker is loading the candidate.
+    snapshot_root = (Path(tempfile.mkdtemp(prefix=f'.{directory.name}-snapshots-',
+                                          dir=directory.parent))
+                     if store is None else None)
     jobs = [dict(candidate=str(artifact), opponent=opponent, seed=seed, seat=seat,
                  backend='fast', evidence_profile='full', replay_steps=snapshots,
                  replay_inline=store is not None,
                  replay=None if store is not None else
-                 str(directory / f'snapshot-{index}-{seed}-{seat}.json'))
+                 str(snapshot_root / f'snapshot-{index}-{seed}-{seat}.json'))
             for index, opponent in enumerate(opponents) for seed in seeds for seat in (0, 1)]
     rows, arrivals, frontiers = [], [], {}
     artifact_hash = agent_hash(str(artifact))
@@ -188,8 +195,10 @@ def evaluate(actions, directory, opponents, seeds, start, end, workers, provenan
                 start, end, expected_frontiers, expected_hashes, expected_environment)
     finally:
         # Any raise above leaves this job's snapshot and every unconsumed one on disk.
-        for leftover in directory.glob('snapshot-*.json'):
-            leftover.unlink()
+        if snapshot_root is not None:
+            for leftover in snapshot_root.glob('snapshot-*.json'):
+                leftover.unlink()
+            snapshot_root.rmdir()
     paired_rows(rows, rows)
     (directory / 'matches.jsonl').write_text(''.join(json.dumps(row) + '\n' for row in rows))
     (directory / 'arrivals.json').write_text(json.dumps(arrivals) + '\n')
