@@ -1,0 +1,5743 @@
+{
+  "schema_version": 1,
+  "question": "issue #70 compiled phase schedule Stage 1",
+  "seeds": "1000:1010",
+  "seats": [
+    0,
+    1
+  ],
+  "opponent": "versions/v006/main.py",
+  "parameters": {
+    "control": {
+      "economic_planner": true,
+      "land_reservation": true,
+      "max_quadrants": 3,
+      "max_hands": 11,
+      "plant_until_hour": 22,
+      "animal_cap": 16
+    },
+    "compiled": {
+      "economic_planner": true,
+      "land_reservation": true,
+      "max_quadrants": 3,
+      "max_hands": 11,
+      "plant_until_hour": 22,
+      "animal_cap": 16,
+      "compiled_schedule": true,
+      "schedule_crop_target": 42,
+      "schedule_crops": [
+        [
+          0,
+          "WHEAT"
+        ]
+      ],
+      "schedule_crop_deadline": 240,
+      "schedule_pasture_target": 12,
+      "schedule_pasture_phases": [
+        [
+          0,
+          6
+        ],
+        [
+          216,
+          12
+        ]
+      ],
+      "schedule_land_turns": [
+        120,
+        216
+      ],
+      "schedule_hands": [
+        [
+          0,
+          10
+        ],
+        [
+          288,
+          10
+        ]
+      ]
+    }
+  },
+  "elite_reference": {
+    "quadrants": 3,
+    "crops_t288": "53-61",
+    "pasture": "11-17",
+    "hands_daily_peak": "10-11"
+  },
+  "variants": {
+    "reactive_control": {
+      "worlds": 20,
+      "failures": 0,
+      "structural_passes": 0,
+      "minimums": {
+        "quadrants_t480": 2,
+        "crops_t288": 8,
+        "pasture_t288": 12,
+        "crew_phase_peak": 9,
+        "requested_build_pasture_before_t288": 12
+      }
+    },
+    "compiled_schedule": {
+      "worlds": 20,
+      "failures": 0,
+      "structural_passes": 4,
+      "minimums": {
+        "quadrants_t480": 3,
+        "crops_t288": 13,
+        "pasture_t288": 6,
+        "crew_phase_peak": 10,
+        "requested_build_pasture_before_t288": 6
+      }
+    }
+  },
+  "stage1_pass": false,
+  "rows": [
+    {
+      "variant": "reactive_control",
+      "seed": 1000,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6855,
+        "op_BUILD_PASTURE": 14,
+        "op_PICKUP": 199,
+        "op_WEST": 1018,
+        "op_NORTH": 966,
+        "op_PASS": 1841,
+        "op_PLACE": 24,
+        "op_EAST": 790,
+        "op_SOUTH": 435,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 312,
+        "op_CARE": 260,
+        "overflow_items": 14,
+        "op_COLLECT_FERTILIZER": 236,
+        "op_HARVEST": 190,
+        "op_DROP": 35,
+        "op_PLANT": 62,
+        "op_WATER": 451,
+        "op_DIG": 1,
+        "op_FERTILIZE": 17
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 604.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 269.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 9
+          },
+          "crops_total": 9,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 6,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 4402.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 35,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 5,
+            "STRAWBERRY": 10,
+            "MELON": 5
+          },
+          "crops_total": 20,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 8,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 14,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 9
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 9,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": false
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1000,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6855,
+        "op_BUILD_PASTURE": 14,
+        "op_PICKUP": 199,
+        "op_WEST": 1018,
+        "op_NORTH": 966,
+        "op_PASS": 1841,
+        "op_PLACE": 24,
+        "op_EAST": 790,
+        "op_SOUTH": 435,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 312,
+        "op_CARE": 260,
+        "overflow_items": 14,
+        "op_COLLECT_FERTILIZER": 236,
+        "op_HARVEST": 190,
+        "op_DROP": 35,
+        "op_PLANT": 62,
+        "op_WATER": 451,
+        "op_DIG": 1,
+        "op_FERTILIZE": 17
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 604.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 269.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 9
+          },
+          "crops_total": 9,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 6,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 4402.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 35,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 5,
+            "STRAWBERRY": 10,
+            "MELON": 5
+          },
+          "crops_total": 20,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 8,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 14,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 9
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 9,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": false
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1001,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7307,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 214,
+        "op_WEST": 1120,
+        "op_NORTH": 960,
+        "op_PASS": 1756,
+        "op_PLACE": 16,
+        "op_EAST": 772,
+        "op_SOUTH": 610,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 377,
+        "op_CARE": 305,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 257,
+        "op_HARVEST": 256,
+        "op_DROP": 32,
+        "op_PLANT": 52,
+        "op_WATER": 533,
+        "op_FERTILIZE": 30
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 274.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 566.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 6852.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 19,
+          "crops": {
+            "WHEAT": 1,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 24,
+            "MELON": 12
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1001,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7307,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 214,
+        "op_WEST": 1120,
+        "op_NORTH": 960,
+        "op_PASS": 1756,
+        "op_PLACE": 16,
+        "op_EAST": 772,
+        "op_SOUTH": 610,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 377,
+        "op_CARE": 305,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 257,
+        "op_HARVEST": 256,
+        "op_DROP": 32,
+        "op_PLANT": 52,
+        "op_WATER": 533,
+        "op_FERTILIZE": 30
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 274.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 566.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 6852.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 19,
+          "crops": {
+            "WHEAT": 1,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 24,
+            "MELON": 12
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1002,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7292,
+        "op_BUILD_PASTURE": 12,
+        "op_PICKUP": 196,
+        "op_WEST": 1149,
+        "op_NORTH": 1041,
+        "op_PASS": 1607,
+        "op_PLACE": 16,
+        "op_EAST": 690,
+        "op_SOUTH": 635,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 369,
+        "op_CARE": 295,
+        "overflow_items": 18,
+        "op_COLLECT_FERTILIZER": 261,
+        "op_HARVEST": 291,
+        "op_DROP": 32,
+        "op_PLANT": 77,
+        "op_WATER": 597,
+        "op_FERTILIZE": 20
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 252.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 937.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 22,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 12
+          },
+          "crops_total": 12,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 10585.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 28,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 10,
+            "TOMATO": 0,
+            "STRAWBERRY": 16,
+            "MELON": 5
+          },
+          "crops_total": 31,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 12,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1002,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7292,
+        "op_BUILD_PASTURE": 12,
+        "op_PICKUP": 196,
+        "op_WEST": 1149,
+        "op_NORTH": 1041,
+        "op_PASS": 1607,
+        "op_PLACE": 16,
+        "op_EAST": 690,
+        "op_SOUTH": 635,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 369,
+        "op_CARE": 295,
+        "overflow_items": 18,
+        "op_COLLECT_FERTILIZER": 261,
+        "op_HARVEST": 291,
+        "op_DROP": 32,
+        "op_PLANT": 77,
+        "op_WATER": 597,
+        "op_FERTILIZE": 20
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 252.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 937.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 22,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 12
+          },
+          "crops_total": 12,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 10585.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 28,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 10,
+            "TOMATO": 0,
+            "STRAWBERRY": 16,
+            "MELON": 5
+          },
+          "crops_total": 31,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 12,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1003,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7351,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 197,
+        "op_WEST": 1051,
+        "op_NORTH": 1012,
+        "op_PASS": 1604,
+        "op_PLACE": 16,
+        "op_EAST": 757,
+        "op_SOUTH": 692,
+        "op_BUILD_COOP": 2,
+        "op_FEED": 366,
+        "op_CARE": 300,
+        "overflow_items": 14,
+        "op_COLLECT_FERTILIZER": 229,
+        "op_HARVEST": 275,
+        "op_DROP": 36,
+        "op_PLANT": 71,
+        "op_WATER": 702,
+        "op_FERTILIZE": 26
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 646.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 8,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 542.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 10
+          },
+          "crops_total": 10,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 21313.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 10,
+          "crops": {
+            "WHEAT": 1,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 34,
+            "MELON": 13
+          },
+          "crops_total": 48,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 10,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1003,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7351,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 197,
+        "op_WEST": 1051,
+        "op_NORTH": 1012,
+        "op_PASS": 1604,
+        "op_PLACE": 16,
+        "op_EAST": 757,
+        "op_SOUTH": 692,
+        "op_BUILD_COOP": 2,
+        "op_FEED": 366,
+        "op_CARE": 300,
+        "overflow_items": 14,
+        "op_COLLECT_FERTILIZER": 229,
+        "op_HARVEST": 275,
+        "op_DROP": 36,
+        "op_PLANT": 71,
+        "op_WATER": 702,
+        "op_FERTILIZE": 26
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 646.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 8,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 542.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 10
+          },
+          "crops_total": 10,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 21313.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 10,
+          "crops": {
+            "WHEAT": 1,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 34,
+            "MELON": 13
+          },
+          "crops_total": 48,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 10,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1004,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7143,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 181,
+        "op_WEST": 1008,
+        "op_NORTH": 967,
+        "op_PASS": 1879,
+        "op_PLACE": 23,
+        "op_EAST": 742,
+        "op_SOUTH": 592,
+        "op_BUILD_COOP": 12,
+        "op_FEED": 242,
+        "op_CARE": 215,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 230,
+        "op_HARVEST": 213,
+        "op_DROP": 32,
+        "op_PLANT": 77,
+        "op_WATER": 688,
+        "op_DIG": 2,
+        "op_FERTILIZE": 27
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 283.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 931.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 631.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 0,
+          "crops": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 29,
+            "MELON": 18
+          },
+          "crops_total": 58,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1004,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7143,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 181,
+        "op_WEST": 1008,
+        "op_NORTH": 967,
+        "op_PASS": 1879,
+        "op_PLACE": 23,
+        "op_EAST": 742,
+        "op_SOUTH": 592,
+        "op_BUILD_COOP": 12,
+        "op_FEED": 242,
+        "op_CARE": 215,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 230,
+        "op_HARVEST": 213,
+        "op_DROP": 32,
+        "op_PLANT": 77,
+        "op_WATER": 688,
+        "op_DIG": 2,
+        "op_FERTILIZE": 27
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 283.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 931.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 631.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 0,
+          "crops": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 29,
+            "MELON": 18
+          },
+          "crops_total": 58,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1005,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7334,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 185,
+        "op_WEST": 1113,
+        "op_NORTH": 1019,
+        "op_PASS": 1686,
+        "op_PLACE": 14,
+        "op_EAST": 985,
+        "op_SOUTH": 507,
+        "op_BUILD_COOP": 1,
+        "op_FEED": 325,
+        "op_CARE": 294,
+        "overflow_items": 39,
+        "op_COLLECT_FERTILIZER": 249,
+        "op_HARVEST": 223,
+        "op_DROP": 37,
+        "op_DIG": 1,
+        "op_PLANT": 77,
+        "op_WATER": 570,
+        "op_FERTILIZE": 33
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 267.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 4,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 273.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 18,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 16
+          },
+          "crops_total": 16,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 23026.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 24,
+          "crops": {
+            "WHEAT": 3,
+            "CARROT": 0,
+            "TOMATO": 3,
+            "STRAWBERRY": 11,
+            "MELON": 16
+          },
+          "crops_total": 33,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 16,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1005,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7334,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 185,
+        "op_WEST": 1113,
+        "op_NORTH": 1019,
+        "op_PASS": 1686,
+        "op_PLACE": 14,
+        "op_EAST": 985,
+        "op_SOUTH": 507,
+        "op_BUILD_COOP": 1,
+        "op_FEED": 325,
+        "op_CARE": 294,
+        "overflow_items": 39,
+        "op_COLLECT_FERTILIZER": 249,
+        "op_HARVEST": 223,
+        "op_DROP": 37,
+        "op_DIG": 1,
+        "op_PLANT": 77,
+        "op_WATER": 570,
+        "op_FERTILIZE": 33
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 267.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 4,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 273.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 18,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 16
+          },
+          "crops_total": 16,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 23026.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 24,
+          "crops": {
+            "WHEAT": 3,
+            "CARROT": 0,
+            "TOMATO": 3,
+            "STRAWBERRY": 11,
+            "MELON": 16
+          },
+          "crops_total": 33,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 16,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1006,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7277,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 205,
+        "op_WEST": 1111,
+        "op_NORTH": 1020,
+        "op_PASS": 1732,
+        "op_PLACE": 16,
+        "op_EAST": 813,
+        "op_SOUTH": 542,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 381,
+        "op_CARE": 320,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 261,
+        "op_DIG": 3,
+        "op_HARVEST": 247,
+        "op_DROP": 28,
+        "op_PLANT": 73,
+        "op_WATER": 490,
+        "op_FERTILIZE": 18
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 274.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 566.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 7062.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 19,
+          "crops": {
+            "WHEAT": 16,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 6,
+            "MELON": 16
+          },
+          "crops_total": 38,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1006,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7277,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 205,
+        "op_WEST": 1111,
+        "op_NORTH": 1020,
+        "op_PASS": 1732,
+        "op_PLACE": 16,
+        "op_EAST": 813,
+        "op_SOUTH": 542,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 381,
+        "op_CARE": 320,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 261,
+        "op_DIG": 3,
+        "op_HARVEST": 247,
+        "op_DROP": 28,
+        "op_PLANT": 73,
+        "op_WATER": 490,
+        "op_FERTILIZE": 18
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 274.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 8,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 566.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 0,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 8
+          },
+          "crops_total": 8,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 7062.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 19,
+          "crops": {
+            "WHEAT": 16,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 6,
+            "MELON": 16
+          },
+          "crops_total": 38,
+          "animals": {
+            "COW": 7,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 8,
+        "BUILD_PASTURE": 13
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1007,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7349,
+        "op_BUILD_PASTURE": 12,
+        "op_PICKUP": 202,
+        "op_WEST": 1162,
+        "op_NORTH": 1039,
+        "op_PASS": 1602,
+        "op_PLACE": 16,
+        "op_EAST": 817,
+        "op_SOUTH": 526,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 383,
+        "op_CARE": 319,
+        "overflow_items": 6,
+        "op_COLLECT_FERTILIZER": 288,
+        "op_DIG": 2,
+        "op_HARVEST": 279,
+        "op_DROP": 30,
+        "op_PLANT": 103,
+        "op_WATER": 533,
+        "op_FERTILIZE": 32
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 19,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 265.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 371.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 18,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 16
+          },
+          "crops_total": 16,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 12087.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 37,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 10,
+            "TOMATO": 0,
+            "STRAWBERRY": 5,
+            "MELON": 7
+          },
+          "crops_total": 22,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 16,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1007,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7349,
+        "op_BUILD_PASTURE": 12,
+        "op_PICKUP": 202,
+        "op_WEST": 1161,
+        "op_NORTH": 1040,
+        "op_PASS": 1602,
+        "op_PLACE": 16,
+        "op_EAST": 817,
+        "op_SOUTH": 526,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 383,
+        "op_CARE": 319,
+        "overflow_items": 6,
+        "op_COLLECT_FERTILIZER": 288,
+        "op_DIG": 2,
+        "op_HARVEST": 279,
+        "op_DROP": 30,
+        "op_PLANT": 103,
+        "op_WATER": 533,
+        "op_FERTILIZE": 32
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 19,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 265.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 3
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 371.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 18,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 16
+          },
+          "crops_total": 16,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 12087.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 37,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 10,
+            "TOMATO": 0,
+            "STRAWBERRY": 5,
+            "MELON": 7
+          },
+          "crops_total": 22,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 16,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1008,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7349,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 213,
+        "op_WEST": 1168,
+        "op_NORTH": 1031,
+        "op_PASS": 1528,
+        "op_PLACE": 15,
+        "op_EAST": 940,
+        "op_SOUTH": 516,
+        "op_BUILD_COOP": 2,
+        "op_FEED": 361,
+        "op_CARE": 308,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 265,
+        "op_HARVEST": 254,
+        "op_DROP": 34,
+        "op_DIG": 2,
+        "op_PLANT": 77,
+        "op_WATER": 592,
+        "op_FERTILIZE": 28
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 263.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 8,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 4135.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 21,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 13
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 21133.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 33,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 5,
+            "STRAWBERRY": 15,
+            "MELON": 6
+          },
+          "crops_total": 26,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 13,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1008,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7349,
+        "op_BUILD_PASTURE": 15,
+        "op_PICKUP": 213,
+        "op_WEST": 1168,
+        "op_NORTH": 1031,
+        "op_PASS": 1528,
+        "op_PLACE": 15,
+        "op_EAST": 940,
+        "op_SOUTH": 516,
+        "op_BUILD_COOP": 2,
+        "op_FEED": 361,
+        "op_CARE": 308,
+        "overflow_items": 0,
+        "op_COLLECT_FERTILIZER": 265,
+        "op_HARVEST": 254,
+        "op_DROP": 34,
+        "op_DIG": 2,
+        "op_PLANT": 77,
+        "op_WATER": 592,
+        "op_FERTILIZE": 28
+      },
+      "phases": {
+        "96": {
+          "cash": 522.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 263.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 8,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "288": {
+          "cash": 4135.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 21,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 13
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        },
+        "480": {
+          "cash": 21133.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 33,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 5,
+            "STRAWBERRY": 15,
+            "MELON": 6
+          },
+          "crops_total": 26,
+          "animals": {
+            "COW": 5,
+            "SHEEP": 9,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 15,
+            "COOP": 1
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 13,
+        "BUILD_PASTURE": 15
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1009,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7108,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 211,
+        "op_WEST": 1077,
+        "op_NORTH": 1040,
+        "op_PASS": 1988,
+        "op_PLACE": 24,
+        "op_EAST": 698,
+        "op_SOUTH": 444,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 339,
+        "op_CARE": 298,
+        "overflow_items": 39,
+        "op_COLLECT_FERTILIZER": 316,
+        "op_HARVEST": 194,
+        "op_DROP": 30,
+        "op_PLANT": 54,
+        "op_WATER": 346,
+        "op_DIG": 1,
+        "op_FERTILIZE": 31
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 606.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 279.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 9
+          },
+          "crops_total": 9,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 6,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 8287.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 14,
+          "crops": {
+            "WHEAT": 15,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 4
+          },
+          "crops_total": 19,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 9
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 9,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": false,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": false
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "reactive_control",
+      "seed": 1009,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7108,
+        "op_BUILD_PASTURE": 13,
+        "op_PICKUP": 211,
+        "op_WEST": 1077,
+        "op_NORTH": 1040,
+        "op_PASS": 1988,
+        "op_PLACE": 24,
+        "op_EAST": 698,
+        "op_SOUTH": 444,
+        "op_BUILD_COOP": 4,
+        "op_FEED": 339,
+        "op_CARE": 298,
+        "overflow_items": 39,
+        "op_COLLECT_FERTILIZER": 316,
+        "op_HARVEST": 194,
+        "op_DROP": 30,
+        "op_PLANT": 54,
+        "op_WATER": 346,
+        "op_DIG": 1,
+        "op_FERTILIZE": 31
+      },
+      "phases": {
+        "96": {
+          "cash": 519.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 20,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 1
+          },
+          "structures": {
+            "PASTURE": 4,
+            "COOP": 1
+          }
+        },
+        "192": {
+          "cash": 606.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 9,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 0,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "288": {
+          "cash": 279.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 24,
+          "crops": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 9
+          },
+          "crops_total": 9,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 6,
+            "GOOSE": 2
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 4
+          }
+        },
+        "480": {
+          "cash": 8287.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 14,
+          "crops": {
+            "WHEAT": 15,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 4
+          },
+          "crops_total": 19,
+          "animals": {
+            "COW": 6,
+            "SHEEP": 6,
+            "GOOSE": 4
+          },
+          "structures": {
+            "PASTURE": 13,
+            "COOP": 4
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 9
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 9,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": false,
+        "forty_crops_t288": false,
+        "pasture_t288": true,
+        "crew_each_phase": false
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1000,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7152,
+        "op_NORTH": 998,
+        "op_WEST": 1002,
+        "op_PASS": 1473,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 287,
+        "op_SOUTH": 722,
+        "op_WATER": 1239,
+        "op_EAST": 831,
+        "overflow_items": 21,
+        "op_HARVEST": 268,
+        "op_PICKUP": 72,
+        "op_DROP": 20,
+        "op_PLACE": 6,
+        "op_FEED": 85,
+        "op_CARE": 67,
+        "op_COLLECT_FERTILIZER": 64,
+        "op_DIG": 1,
+        "op_FERTILIZE": 5
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1280.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 376.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 21,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 506.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 20,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": true
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1000,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 7152,
+        "op_NORTH": 998,
+        "op_WEST": 1002,
+        "op_PASS": 1473,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 287,
+        "op_SOUTH": 722,
+        "op_WATER": 1239,
+        "op_EAST": 831,
+        "overflow_items": 21,
+        "op_HARVEST": 268,
+        "op_PICKUP": 72,
+        "op_DROP": 20,
+        "op_PLACE": 6,
+        "op_FEED": 85,
+        "op_CARE": 67,
+        "op_COLLECT_FERTILIZER": 64,
+        "op_DIG": 1,
+        "op_FERTILIZE": 5
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1280.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 376.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 21,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 506.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 20,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": true
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1001,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6603,
+        "op_NORTH": 891,
+        "op_WEST": 1010,
+        "op_PASS": 1467,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 723,
+        "op_WATER": 1129,
+        "op_EAST": 684,
+        "overflow_items": 16,
+        "op_HARVEST": 225,
+        "op_DROP": 16,
+        "op_DIG": 24,
+        "op_PICKUP": 35,
+        "op_PLACE": 3,
+        "op_FEED": 36,
+        "op_CARE": 32,
+        "op_COLLECT_FERTILIZER": 31
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 290.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 9,
+          "crops": {
+            "WHEAT": 37,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 662.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 13,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 1,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1001,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6603,
+        "op_NORTH": 891,
+        "op_WEST": 1010,
+        "op_PASS": 1467,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 723,
+        "op_WATER": 1129,
+        "op_EAST": 684,
+        "overflow_items": 16,
+        "op_HARVEST": 225,
+        "op_DROP": 16,
+        "op_DIG": 24,
+        "op_PICKUP": 35,
+        "op_PLACE": 3,
+        "op_FEED": 36,
+        "op_CARE": 32,
+        "op_COLLECT_FERTILIZER": 31
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 290.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 9,
+          "crops": {
+            "WHEAT": 37,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 662.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 13,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 1,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1002,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6758,
+        "op_NORTH": 927,
+        "op_WEST": 1076,
+        "op_PASS": 1497,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 280,
+        "op_SOUTH": 674,
+        "op_WATER": 1119,
+        "op_EAST": 693,
+        "overflow_items": 19,
+        "op_HARVEST": 226,
+        "op_DROP": 16,
+        "op_PICKUP": 61,
+        "op_PLACE": 4,
+        "op_FEED": 57,
+        "op_CARE": 46,
+        "op_DIG": 21,
+        "op_COLLECT_FERTILIZER": 48,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 406.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 533.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 7,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 95,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1002,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6758,
+        "op_NORTH": 927,
+        "op_WEST": 1076,
+        "op_PASS": 1497,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 280,
+        "op_SOUTH": 674,
+        "op_WATER": 1119,
+        "op_EAST": 693,
+        "overflow_items": 19,
+        "op_HARVEST": 226,
+        "op_DROP": 16,
+        "op_PICKUP": 61,
+        "op_PLACE": 4,
+        "op_FEED": 57,
+        "op_CARE": 46,
+        "op_DIG": 21,
+        "op_COLLECT_FERTILIZER": 48,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 406.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 533.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 7,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 4,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 95,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1003,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 5801,
+        "op_NORTH": 822,
+        "op_WEST": 819,
+        "op_PASS": 1513,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 255,
+        "op_SOUTH": 439,
+        "op_WATER": 906,
+        "op_EAST": 703,
+        "overflow_items": 0,
+        "op_HARVEST": 161,
+        "op_DROP": 21,
+        "op_DIG": 39,
+        "op_PICKUP": 34,
+        "op_PLACE": 3,
+        "op_FEED": 26,
+        "op_CARE": 19,
+        "op_COLLECT_FERTILIZER": 22,
+        "op_FERTILIZE": 7
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 102.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 33,
+          "crops": {
+            "WHEAT": 13,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 214.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 4,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 1,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 68,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1003,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 5801,
+        "op_NORTH": 822,
+        "op_WEST": 819,
+        "op_PASS": 1513,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 255,
+        "op_SOUTH": 439,
+        "op_WATER": 906,
+        "op_EAST": 703,
+        "overflow_items": 0,
+        "op_HARVEST": 161,
+        "op_DROP": 21,
+        "op_DIG": 39,
+        "op_PICKUP": 34,
+        "op_PLACE": 3,
+        "op_FEED": 26,
+        "op_CARE": 19,
+        "op_COLLECT_FERTILIZER": 22,
+        "op_FERTILIZE": 7
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 102.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 33,
+          "crops": {
+            "WHEAT": 13,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 214.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 4,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 1,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 68,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1004,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 5717,
+        "op_NORTH": 771,
+        "op_WEST": 845,
+        "op_PASS": 1443,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 258,
+        "op_SOUTH": 549,
+        "op_WATER": 956,
+        "op_EAST": 573,
+        "overflow_items": 10,
+        "op_HARVEST": 197,
+        "op_DROP": 14,
+        "op_DIG": 22,
+        "op_PICKUP": 28,
+        "op_PLACE": 2,
+        "op_FEED": 16,
+        "op_CARE": 14,
+        "op_COLLECT_FERTILIZER": 17
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 614.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 1916.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 8,
+          "crops": {
+            "WHEAT": 13,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 970.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 11,
+          "crops": {
+            "WHEAT": 39,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 39,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 9,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 68,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1004,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 5717,
+        "op_NORTH": 771,
+        "op_WEST": 845,
+        "op_PASS": 1443,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 258,
+        "op_SOUTH": 549,
+        "op_WATER": 956,
+        "op_EAST": 573,
+        "overflow_items": 10,
+        "op_HARVEST": 197,
+        "op_DROP": 14,
+        "op_DIG": 22,
+        "op_PICKUP": 28,
+        "op_PLACE": 2,
+        "op_FEED": 16,
+        "op_CARE": 14,
+        "op_COLLECT_FERTILIZER": 17
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 614.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 1916.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 8,
+          "crops": {
+            "WHEAT": 13,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 13,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 970.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 11,
+          "crops": {
+            "WHEAT": 39,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 39,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 9,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 68,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1005,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6649,
+        "op_NORTH": 885,
+        "op_WEST": 1000,
+        "op_PASS": 1483,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 287,
+        "op_SOUTH": 685,
+        "op_WATER": 1148,
+        "op_EAST": 688,
+        "overflow_items": 34,
+        "op_HARVEST": 236,
+        "op_DROP": 14,
+        "op_DIG": 19,
+        "op_PICKUP": 44,
+        "op_PLACE": 5,
+        "op_FEED": 55,
+        "op_CARE": 45,
+        "op_COLLECT_FERTILIZER": 43
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 290.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 9,
+          "crops": {
+            "WHEAT": 37,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 895.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 15,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1005,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6649,
+        "op_NORTH": 885,
+        "op_WEST": 1000,
+        "op_PASS": 1483,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 287,
+        "op_SOUTH": 685,
+        "op_WATER": 1148,
+        "op_EAST": 688,
+        "overflow_items": 34,
+        "op_HARVEST": 236,
+        "op_DROP": 14,
+        "op_DIG": 19,
+        "op_PICKUP": 44,
+        "op_PLACE": 5,
+        "op_FEED": 55,
+        "op_CARE": 45,
+        "op_COLLECT_FERTILIZER": 43
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 290.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 9,
+          "crops": {
+            "WHEAT": 37,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 37,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 895.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 15,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 92,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1006,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6590,
+        "op_NORTH": 860,
+        "op_WEST": 1005,
+        "op_PASS": 1488,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 653,
+        "op_WATER": 1145,
+        "op_EAST": 719,
+        "overflow_items": 8,
+        "op_DIG": 33,
+        "op_HARVEST": 227,
+        "op_DROP": 14,
+        "op_PICKUP": 39,
+        "op_PLACE": 3,
+        "op_FEED": 40,
+        "op_CARE": 33,
+        "op_COLLECT_FERTILIZER": 34
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 614.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 827.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 598.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 1,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 95,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1006,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6590,
+        "op_NORTH": 860,
+        "op_WEST": 1005,
+        "op_PASS": 1488,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 653,
+        "op_WATER": 1145,
+        "op_EAST": 719,
+        "overflow_items": 8,
+        "op_DIG": 33,
+        "op_HARVEST": 227,
+        "op_DROP": 14,
+        "op_PICKUP": 39,
+        "op_PLACE": 3,
+        "op_FEED": 40,
+        "op_CARE": 33,
+        "op_COLLECT_FERTILIZER": 34
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 614.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 827.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 598.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 1,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 95,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1007,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6970,
+        "op_NORTH": 963,
+        "op_WEST": 1070,
+        "op_PASS": 1513,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 289,
+        "op_SOUTH": 631,
+        "op_WATER": 1188,
+        "op_EAST": 783,
+        "overflow_items": 5,
+        "op_HARVEST": 253,
+        "op_DIG": 9,
+        "op_DROP": 18,
+        "op_PICKUP": 72,
+        "op_PLACE": 5,
+        "op_FEED": 64,
+        "op_CARE": 48,
+        "op_COLLECT_FERTILIZER": 51,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1280.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 336.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 1054.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 90,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": true
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1007,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6970,
+        "op_NORTH": 963,
+        "op_WEST": 1070,
+        "op_PASS": 1513,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 289,
+        "op_SOUTH": 631,
+        "op_WATER": 1188,
+        "op_EAST": 783,
+        "overflow_items": 5,
+        "op_HARVEST": 253,
+        "op_DIG": 9,
+        "op_DROP": 18,
+        "op_PICKUP": 72,
+        "op_PLACE": 5,
+        "op_FEED": 64,
+        "op_CARE": 48,
+        "op_COLLECT_FERTILIZER": 51,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1280.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 336.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 1054.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 41,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 41,
+          "animals": {
+            "COW": 3,
+            "SHEEP": 2,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 90,
+        "BUILD_PASTURE": 12
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": true,
+        "crew_each_phase": true
+      },
+      "structural_pass": true
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1008,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6663,
+        "op_NORTH": 851,
+        "op_WEST": 1035,
+        "op_PASS": 1547,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 283,
+        "op_SOUTH": 652,
+        "op_WATER": 1131,
+        "op_EAST": 782,
+        "overflow_items": 1,
+        "op_HARVEST": 216,
+        "op_DROP": 14,
+        "op_DIG": 35,
+        "op_PICKUP": 31,
+        "op_PLACE": 2,
+        "op_FEED": 26,
+        "op_CARE": 20,
+        "op_COLLECT_FERTILIZER": 25,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 846.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 3,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 393.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 8,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 98,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1008,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6663,
+        "op_NORTH": 851,
+        "op_WEST": 1035,
+        "op_PASS": 1547,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 283,
+        "op_SOUTH": 652,
+        "op_WATER": 1131,
+        "op_EAST": 782,
+        "overflow_items": 1,
+        "op_HARVEST": 216,
+        "op_DROP": 14,
+        "op_DIG": 35,
+        "op_PICKUP": 31,
+        "op_PLACE": 2,
+        "op_FEED": 26,
+        "op_CARE": 20,
+        "op_COLLECT_FERTILIZER": 25,
+        "op_FERTILIZE": 1
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 1154.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 846.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 3,
+          "crops": {
+            "WHEAT": 42,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 42,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 393.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 8,
+          "crops": {
+            "WHEAT": 40,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 40,
+          "animals": {
+            "COW": 2,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 98,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": true,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1009,
+      "seat": 0,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6022,
+        "op_NORTH": 786,
+        "op_WEST": 922,
+        "op_PASS": 1565,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 491,
+        "op_WATER": 1016,
+        "op_EAST": 643,
+        "overflow_items": 2,
+        "op_HARVEST": 193,
+        "op_DROP": 13,
+        "op_DIG": 53,
+        "op_PICKUP": 15,
+        "op_PLACE": 1,
+        "op_FEED": 9,
+        "op_CARE": 8,
+        "op_COLLECT_FERTILIZER": 8,
+        "op_FERTILIZE": 2
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 337.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 39,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 39,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 464.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 36,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 36,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 94,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    },
+    {
+      "variant": "compiled_schedule",
+      "seed": 1009,
+      "seat": 1,
+      "failures": [],
+      "audit": {
+        "unit_actions": 6022,
+        "op_NORTH": 786,
+        "op_WEST": 922,
+        "op_PASS": 1565,
+        "op_BUILD_PASTURE": 12,
+        "op_PLANT": 285,
+        "op_SOUTH": 491,
+        "op_WATER": 1016,
+        "op_EAST": 643,
+        "overflow_items": 2,
+        "op_HARVEST": 193,
+        "op_DROP": 13,
+        "op_DIG": 53,
+        "op_PICKUP": 15,
+        "op_PLACE": 1,
+        "op_FEED": 9,
+        "op_CARE": 8,
+        "op_COLLECT_FERTILIZER": 8,
+        "op_FERTILIZE": 2
+      },
+      "phases": {
+        "96": {
+          "cash": 2228.0,
+          "quadrants": 1,
+          "hands": 0,
+          "owned": 25,
+          "free": 2,
+          "crops": {
+            "WHEAT": 17,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 17,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "192": {
+          "cash": 421.0,
+          "quadrants": 2,
+          "hands": 0,
+          "owned": 50,
+          "free": 10,
+          "crops": {
+            "WHEAT": 34,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 34,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "288": {
+          "cash": 337.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 6,
+          "crops": {
+            "WHEAT": 39,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 39,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 6,
+            "COOP": 0
+          }
+        },
+        "480": {
+          "cash": 464.0,
+          "quadrants": 3,
+          "hands": 0,
+          "owned": 75,
+          "free": 18,
+          "crops": {
+            "WHEAT": 36,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0
+          },
+          "crops_total": 36,
+          "animals": {
+            "COW": 0,
+            "SHEEP": 0,
+            "GOOSE": 0
+          },
+          "structures": {
+            "PASTURE": 12,
+            "COOP": 0
+          }
+        }
+      },
+      "hand_peaks": {
+        "0:96": 10,
+        "96:192": 10,
+        "192:288": 10
+      },
+      "requested_unit_actions_before_t288": {
+        "PLANT": 94,
+        "BUILD_PASTURE": 6
+      },
+      "gates": {
+        "three_quadrants_t480": true,
+        "forty_crops_t288": false,
+        "pasture_t288": false,
+        "crew_each_phase": true
+      },
+      "structural_pass": false
+    }
+  ]
+}

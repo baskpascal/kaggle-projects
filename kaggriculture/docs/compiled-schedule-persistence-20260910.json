@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "issue": 70,
+  "stage": "Stage 1 boundary mechanism test",
+  "decision": "REJECT",
+  "stage2_executed": false,
+  "engine_state_is_ground_truth": true,
+  "audited_operations": [
+    "PLANT",
+    "BUILD_PASTURE",
+    "HIRE",
+    "BUY_LAND"
+  ],
+  "implementation_hashes": {
+    "planner": "a7c0763398084709c76d9fd96b8b8bade1ac88e4fa2ed577734f16d60fb3fc8b",
+    "params": "72b4ec13b5ca328276bc4a4d0818c3c37db9a91afb2ee8ab648a3f1f4b385049",
+    "gate_before_evidence_field_rename": "93488daf4a282720294fe57056a1e276094ea9100c16870fa3347ce187197516",
+    "opponent_v006": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc"
+  },
+  "rows": [
+    {
+      "seed": 1003,
+      "seat": 0,
+      "variant": "compiled_v0",
+      "crops_t288": 13,
+      "pasture_t288": 6,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2070,
+      "structural_pass": false
+    },
+    {
+      "seed": 1003,
+      "seat": 0,
+      "variant": "hire_land_reserve_ablation",
+      "crops_t288": 39,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2622,
+      "structural_pass": false
+    },
+    {
+      "seed": 1003,
+      "seat": 0,
+      "variant": "structural_market_priority",
+      "crops_t288": 39,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2760,
+      "structural_pass": false
+    },
+    {
+      "seed": 1003,
+      "seat": 0,
+      "variant": "persistent_assignments",
+      "crops_t288": 40,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2760,
+      "measured_structural_failures": 0,
+      "structural_pass": true
+    },
+    {
+      "seed": 1004,
+      "seat": 0,
+      "variant": "structural_market_priority",
+      "crops_t288": 40,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2760,
+      "measured_structural_failures": 0,
+      "structural_pass": true
+    },
+    {
+      "seed": 1007,
+      "seat": 0,
+      "variant": "structural_market_priority",
+      "crops_t288": 42,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2734,
+      "structural_pass": false
+    },
+    {
+      "seed": 1007,
+      "seat": 0,
+      "variant": "persistent_assignments",
+      "crops_t288": 38,
+      "pasture_t288": 12,
+      "quadrants_t480": 3,
+      "worker_turns_before_t288": 2755,
+      "measured_structural_failures": 0,
+      "distinct_plant_or_pasture_transitions": 183,
+      "zero_seed_states": 166,
+      "buy_seed_calls": 32,
+      "structural_pass": false
+    }
+  ],
+  "seed_1007_control_dependency_counts": {
+    "zero_seed_states": 2,
+    "buy_seed_calls": 46
+  },
+  "falsifier": {
+    "verdict": "PASS_REJECTION",
+    "reason": "persistent assignment regressed the boundary crop gate by four versus its immediate single-switch control"
+  }
+}
